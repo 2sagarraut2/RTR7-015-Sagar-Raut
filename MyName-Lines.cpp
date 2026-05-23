@@ -135,7 +135,7 @@ void drawCoverBox(float startingPointX, float startingPointY, float width)
 
 void letterS(float startingPointX, float startingPointY, float width, float thickness)
 {
-    glBegin(GL_QUADS);
+    glBegin(GL_LINE_LOOP);
 
     glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(startingPointX, startingPointY);                     // Top-Left
@@ -172,7 +172,7 @@ void letterS(float startingPointX, float startingPointY, float width, float thic
 
 void letterA(float startingPointX, float startingPointY, float width, float thickness)
 {
-    glBegin(GL_QUADS);
+    glBegin(GL_LINE_LOOP);
 
     glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(startingPointX + width / 2, startingPointY);                        // Top-Left
@@ -207,7 +207,7 @@ void letterA(float startingPointX, float startingPointY, float width, float thic
 
 void letterG(float startingPointX, float startingPointY, float width, float thickness)
 {
-    glBegin(GL_QUADS);
+    glBegin(GL_LINE_LOOP);
 
     glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(startingPointX, startingPointY);                     // Top-Left
@@ -244,7 +244,7 @@ void letterG(float startingPointX, float startingPointY, float width, float thic
 
 void letterR(float startingPointX, float startingPointY, float width, float thickness)
 {
-    glBegin(GL_QUADS);
+    glBegin(GL_LINE_LOOP);
 
     glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(startingPointX, startingPointY);                                    // Top-Left
