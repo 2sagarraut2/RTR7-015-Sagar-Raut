@@ -30,6 +30,7 @@
 
 #include <stdio.h>
 #include <stdlib.h> // Required for exit()
+#include <math.h>
 
 bool bIsFullScreen = false;
 
@@ -37,6 +38,7 @@ bool bIsFullScreen = false;
 void drawTriangle(float startingX, float startingY, float height, float width);
 void drawSquare(float startingX, float startingY, float height, float width);
 void drawLine(float startingX, float startingY, float height, float width);
+void drawCircle(float xPoint, float yPoint, float radius);
 
 int main(int argc, char *argv[])
 {
@@ -109,6 +111,9 @@ void display(void)
     // line
     drawLine(-0.8f, 0.1f, 0.4f, 0.4f);
 
+    // circle
+    drawCircle(0.0f, 0.1f, 0.2f);
+
     glutSwapBuffers();
 }
 
@@ -152,6 +157,26 @@ void drawLine(float startingX, float startingY, float height, float width)
     glEnd();
 
     glLineWidth(1.0f);
+}
+
+void drawCircle(float xPoint, float yPoint, float radius)
+{
+    glBegin(GL_TRIANGLE_FAN);
+    // 1. Establish the center anchor point
+    glVertex2f(xPoint, yPoint);
+
+    // 2. Wrap around 360 degrees to plot the outer edge
+    for (int i = 0; i <= 360; i++)
+    {
+        // Convert degrees to radians for cos() and sin()
+        float angle = i * 3.14159f / 180.0f;
+
+        float x = xPoint + (cos(angle) * radius);
+        float y = yPoint + (sin(angle) * radius);
+
+        glVertex2f(x, y);
+    }
+    glEnd();
 }
 
 void keyboard(unsigned char key, int x, int y)
