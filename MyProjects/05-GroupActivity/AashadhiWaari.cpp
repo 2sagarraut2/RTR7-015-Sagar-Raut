@@ -35,7 +35,7 @@
 void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway);
 
 #define VALUE_FROM_PERCENT(complete_value, percent) (complete_value * percent / 100)
-#define SCALE_RADIUS(radius, percent) ((radius) * (percent) / 100.0f)
+#define SCALE_RADIUS(radius, percent) ((radius) * (percent) / 100)
 
 bool bIsFullScreen = false;
 float SR_XPosition = 0.0f;
@@ -46,7 +46,7 @@ float currentSwayOffset = 0.0f;
 bool bodyGoingUp = true;
 bool flagSwayingLeft = true;
 
-int percent = 80.0f;
+int percent = 60.0f;
 
 int main(int argc, char *argv[])
 {
@@ -162,18 +162,18 @@ void display(void)
 
 void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway)
 {
-    glColor3f(0.933f, 0.937f, 0.945f);
+    // glColor3f(0.933f, 0.937f, 0.945f);
 
-    glBegin(GL_QUADS);
+    // glBegin(GL_QUADS);
 
-    glVertex3f(VALUE_FROM_PERCENT(SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition, percent), 0.0f);
-    glVertex3f(VALUE_FROM_PERCENT(SR_Width + SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition, percent), 0.0f);
-    glVertex3f(VALUE_FROM_PERCENT(SR_Width + SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition - SR_Height, percent), 0.0f);
-    glVertex3f(VALUE_FROM_PERCENT(SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition - SR_Height, percent), 0.0f);
+    // glVertex3f(VALUE_FROM_PERCENT(SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition, percent), 0.0f);
+    // glVertex3f(VALUE_FROM_PERCENT(SR_Width + SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition, percent), 0.0f);
+    // glVertex3f(VALUE_FROM_PERCENT(SR_Width + SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition - SR_Height, percent), 0.0f);
+    // glVertex3f(VALUE_FROM_PERCENT(SR_XPosition, percent), VALUE_FROM_PERCENT(SR_YPosition - SR_Height, percent), 0.0f);
 
-    // glVertex3f(VALUE_FROM_PERSENT(-0.2f, persent) + xPosition, VALUE_FROM_PERSENT(-0.4f, persent) + YPosition, 0.0f);
+    // // glVertex3f(VALUE_FROM_PERSENT(-0.2f, persent) + xPosition, VALUE_FROM_PERSENT(-0.4f, persent) + YPosition, 0.0f);
 
-    glEnd();
+    // glEnd();
 
     // Warkari starts here
     // gandhitopi
@@ -623,7 +623,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), percent));
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.80f), percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.145f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), percent));
+    // RIGHT Hand cross line
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.165f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), percent));
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), percent));
 
     // shirt ending lines
@@ -797,15 +798,46 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     // glEnd();
 
+    // RIGHT HAND //
+    glBegin(GL_QUADS);
+
+    glColor3f(0.917f, 0.816f, 0.726f);
+
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.212f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.815f), percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.212f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.695f), percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.655f), percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.815f), percent));
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glColor3f(0.917f, 0.816f, 0.726f);
+
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.825f), percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.695f), percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.150f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.635f), percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.145f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.765f), percent));
+
+    glEnd();
+
     // right hand cross part
     glBegin(GL_QUADS);
 
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.202f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.715f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.222f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.715f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.145f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.165f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), percent));
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), percent));
@@ -813,23 +845,6 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), percent), VALUE_FROM_PERCENT((SR_YPosition - 0.80f), percent));
 
     glEnd();
-
-    // right hand cross part lines loop
-    // glBegin(GL_LINE_LOOP);
-
-    // glColor3f(0.001f, 0.001f, 0.001f);
-
-    // // glColor3f(1.0f, 0.0f, 0.0f); // red
-    // glVertex2f(SR_XPosition + 0.202f, SR_YPosition - 0.715f);
-    // // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    // glVertex2f(SR_XPosition + 0.145f, SR_YPosition - 0.82f);
-
-    // // glColor3f(0.0f, 1.0f, 0.0f); // green
-    // glVertex2f(SR_XPosition + 0.210f, SR_YPosition - 0.90f);
-    // // glColor3f(0.1f, 0.1f, 0.1f); // black
-    // glVertex2f(SR_XPosition + 0.275f, SR_YPosition - 0.80f);
-
-    // glEnd();
 
     // HANDS ENDS HERE //
 
