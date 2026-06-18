@@ -45,6 +45,8 @@ void attitudeSmiley(float centerX, float centerY);
 void confusedSmiley(float centerX, float centerY);
 void crySmiley(float centerX, float centerY);
 void sadSmiley(float centerX, float centerY);
+void coolEmoji(float centerX, float centerY);
+void lastEmoji(float centerX, float centerY);
 
 int main(int argc, char *argv[])
 {
@@ -135,9 +137,13 @@ void display(void)
 	drawOuterCircle(0.75f, -0.05f, 0.2f);
 	sadSmiley(0.75f, -0.05f);
 
+	glColor3f(1.0f, 0.0f, 0.5f);
 	drawOuterCircle(-0.50f, -0.65f, 0.2f);
+	coolEmoji(-0.50f, -0.65f);
 
+	glColor3f(0.05f, 0.7f, 0.2f);
 	drawOuterCircle(0.50f, -0.65f, 0.2f);
+	lastEmoji(0.50f, -0.65f);
 
 	glutSwapBuffers();
 }
@@ -1651,6 +1657,323 @@ void sadSmiley(float centerX, float centerY)
 
 	glBegin(GL_QUAD_STRIP);
 	for (int i = 40; i <= 140; i++)
+	{
+		float angle = i * 3.14159f / 180.0f;
+
+		// Inner edge points (Matches the green circle exactly)
+		float innerX = centerX + (cos(angle) * ringInnerRadius);
+		float innerY = centerY + (sin(angle) * ringInnerRadius * 1.7f);
+
+		// Outer edge points (Forms the sharp 1.0f width outline)
+		float outerX = centerX + (cos(angle) * ringOuterRadius);
+		float outerY = centerY + (sin(angle) * ringOuterRadius * 1.7f);
+
+		glVertex2f(innerX, innerY);
+		glVertex2f(outerX, outerY);
+	}
+	glEnd();
+}
+
+void coolEmoji(float centerX, float centerY)
+{
+	// specs
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	glBegin(GL_QUADS);
+
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f(centerX - 0.11f, centerY + 0.14f);
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f(centerX - 0.11f, centerY + 0.10f);
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f(centerX - 0.169f, centerY + 0.18f);
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f(centerX - 0.162f, centerY + 0.20f);
+
+	glEnd();
+
+	// left eye
+
+	centerX = centerX - 0.05f;
+	centerY = centerY + 0.05f;
+
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	centerX = centerX - 0.01f;
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * 0.05f);
+		float y = centerY + (sin(angle) * 0.09f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// specs
+	glBegin(GL_QUADS);
+
+	glVertex2f(centerX - 0.050f, centerY + 0.09f);
+	glVertex2f(centerX + 0.180f, centerY + 0.09f);
+	glVertex2f(centerX + 0.180f, centerY - 0.0000001f);
+	glVertex2f(centerX - 0.050f, centerY - 0.0000001f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f(centerX + 0.180f, centerY + 0.09f);
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f(centerX + 0.180f, centerY + 0.05f);
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f(centerX + 0.235f, centerY + 0.12f);
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f(centerX + 0.230f, centerY + 0.14f);
+
+	glEnd();
+
+	// right eye
+
+	centerX = centerX + 0.14f;
+	// centerY = centerY - 0.01f;
+
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	centerX = centerX - 0.01f;
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * 0.05f);
+		float y = centerY + (sin(angle) * 0.09f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// mouth
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	centerX = centerX - 0.065f;
+	centerY = centerY - 0.05f;
+
+	float radius = 0.1f;
+
+	float ringInnerRadius = radius;
+
+	float ringOuterRadius = radius + 0.01f;
+
+	glBegin(GL_QUAD_STRIP);
+	for (int i = 200; i <= 340; i++)
+	{
+		float angle = i * 3.14159f / 180.0f;
+
+		// Inner edge points (Matches the green circle exactly)
+		float innerX = centerX + (cos(angle) * ringInnerRadius);
+		float innerY = centerY + (sin(angle) * ringInnerRadius * 1.7f);
+
+		// Outer edge points (Forms the sharp 1.0f width outline)
+		float outerX = centerX + (cos(angle) * ringOuterRadius);
+		float outerY = centerY + (sin(angle) * ringOuterRadius * 1.7f);
+
+		glVertex2f(innerX, innerY);
+		glVertex2f(outerX, outerY);
+	}
+	glEnd();
+}
+
+void lastEmoji(float centerX, float centerY)
+{
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	// eyebrows
+	glLineWidth(4.0f);
+
+	glBegin(GL_LINES);
+
+	glVertex2f(centerX - 0.08f, centerY + 0.13f);
+	glVertex2f(centerX - 0.06f, centerY + 0.13f);
+
+	glVertex2f(centerX + 0.08f, centerY + 0.13f);
+	glVertex2f(centerX + 0.06f, centerY + 0.13f);
+
+	glEnd();
+
+	glLineWidth(1.0f);
+
+	// left eye
+	centerX = centerX - 0.05f;
+	centerY = centerY + 0.05f;
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	centerX = centerX - 0.01f;
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * 0.03f);
+		float y = centerY + (sin(angle) * 0.05f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// left eye inside
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	centerX = centerX + 0.005f;
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * 0.02f);
+		float y = centerY + (sin(angle) * 0.035f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// left eye inside inside
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	centerX = centerX - 0.01f;
+	centerY = centerY + 0.01f;
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * 0.005f);
+		float y = centerY + (sin(angle) * 0.01f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// right eye
+	centerX = centerX + 0.14f;
+	centerY = centerY - 0.01f;
+
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	centerX = centerX - 0.01f;
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * 0.03f);
+		float y = centerY + (sin(angle) * 0.01f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// // right eye inside
+	// glColor3f(0.1f, 0.1f, 0.1f);
+
+	// centerX = centerX - 0.005f;
+	// centerY = centerY;
+
+	// glBegin(GL_TRIANGLE_FAN);
+
+	// // 1. Establish the center anchor point
+	// glVertex2f(centerX, centerY);
+
+	// // 2. Wrap around 360 degrees to plot the outer edge
+	// for (int i = 0; i <= 361; i++)
+	// {
+	// 	// Convert degrees to radians for cos() and sin()
+	// 	float angle = i * 3.14159f / 180.0f;
+
+	// 	float x = centerX + (cos(angle) * 0.02f);
+	// 	float y = centerY + (sin(angle) * 0.035f);
+
+	// 	glVertex2f(x, y);
+	// }
+	// glEnd();
+
+	// // right eye inside inside
+	// glColor3f(1.0f, 1.0f, 1.0f);
+
+	// centerX = centerX - 0.01f;
+	// centerY = centerY + 0.01f;
+
+	// glBegin(GL_TRIANGLE_FAN);
+
+	// // 1. Establish the center anchor point
+	// glVertex2f(centerX, centerY);
+
+	// // 2. Wrap around 360 degrees to plot the outer edge
+	// for (int i = 0; i <= 361; i++)
+	// {
+	// 	// Convert degrees to radians for cos() and sin()
+	// 	float angle = i * 3.14159f / 180.0f;
+
+	// 	float x = centerX + (cos(angle) * 0.005f);
+	// 	float y = centerY + (sin(angle) * 0.01f);
+
+	// 	glVertex2f(x, y);
+	// }
+	// glEnd();
+
+	// mouth
+	glColor3f(0.1f, 0.1f, 0.1f);
+
+	centerX = centerX - 0.05f;
+	centerY = centerY - 0.05f;
+
+	float radius = 0.1f;
+
+	float ringInnerRadius = radius;
+
+	float ringOuterRadius = radius + 0.01f;
+
+	glBegin(GL_QUAD_STRIP);
+	for (int i = 200; i <= 340; i++)
 	{
 		float angle = i * 3.14159f / 180.0f;
 
