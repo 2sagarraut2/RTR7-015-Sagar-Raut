@@ -152,53 +152,46 @@ void display(void)
     dhwajGhetlelaWarkari(SR_XPosition, SR_YPosition, SR_Height, SR_Width, SR_currentSwayOffset);
 
     SR_yForFlower = SR_yForFlower - 0.0006f;
-    if (SR_yForFlower < -1.5f) // Allow deep clipping before reset
+    if (SR_yForFlower < -1.5f)
     {
-        SR_yForFlower = 1.0f; // Wrap back to the sky
+        SR_yForFlower = 1.0f;
     }
 
-    // 2. GENERATE A DENSE, FULL-SCREEN FLOWER SHOWER
     int flowerCount = 0;
 
-    // Loop from the left edge (-0.95f) to the right edge (+0.95f) with a tighter spacing step (0.08f)
     for (float xPos = -0.95f; xPos <= 0.95f; xPos += 0.08f)
     {
-        // A. Create a vertical stagger based on the column index so they don't fall in a flat row
-        // This creates an organic, staggered rain effect using basic math
+
         float staggerOffset = (float)(flowerCount % 4) * 0.35f;
         float currentY = SR_yForFlower + staggerOffset;
 
-        // If a staggered flower falls past the bottom, wrap its individual position back to the top
         if (currentY < -1.0f)
         {
-            currentY += 2.0f; // Shift it back into the sky viewing box range
+            currentY += 2.0f;
         }
 
-        // B. CYCLE DENSE PALETTE COLORS
         switch (flowerCount % 6)
         {
         case 0:
             glColor3f(0.928f, 0.438f, 0.266f);
-            break; // Saffron Orange
+            break;
         case 1:
             glColor3f(1.000f, 0.843f, 0.000f);
-            break; // Marigold Yellow
+            break;
         case 2:
             glColor3f(0.961f, 0.502f, 0.627f);
-            break; // Rose Pink
+            break;
         case 3:
             glColor3f(1.000f, 1.000f, 1.000f);
-            break; // Jasmine White
+            break;
         case 4:
             glColor3f(1.000f, 0.647f, 0.000f);
-            break; // Bright Orange
+            break;
         case 5:
             glColor3f(0.95f, 0.90f, 0.30f);
-            break; // Soft Yellow
+            break;
         }
 
-        // C. RENDER INDIVIDUAL FLOWER
-        // Alternates small size variations (0.012f and 0.016f) for added depth
         float sizeVar = (flowerCount % 2 == 0) ? 0.012f : 0.016f;
 
         drawFlower(sizeVar, xPos, currentY);
