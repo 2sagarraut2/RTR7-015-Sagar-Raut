@@ -35,11 +35,18 @@
 void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway);
 void drawFlower(float flowerRadius, float xPosition, float yPosition);
 
-#define VALUE_FROM_PERCENT(complete_value, SR_percent) (complete_value * SR_percent / 100)
+void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
+
+#define VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
 #define SCALE_RADIUS(radius, SR_percent) ((radius) * (SR_percent) / 100)
+// Pranalis macros
+#define PSH_X(xCordinate) (VALUE_FROM_PERCENT(xCordinate, psh_width_percentage) + psh_x_pos)
+#define PSH_Y(yCordinate) (VALUE_FROM_PERCENT(yCordinate, psh_height_percentage) + psh_y_pos)
 
 bool bIsFullScreen = false;
-float SR_XPosition = 0.0f;
+
+// Warkari variable declarations
+float SR_XPosition = -0.4f;
 float SR_YPosition = 0.9f;
 float SR_Height = 1.5f;
 float SR_Width = 0.2f;
@@ -47,10 +54,18 @@ float SR_currentSwayOffset = 0.0f;
 bool SR_bodyGoingUp = true;
 bool SR_flagSwayingLeft = true;
 
+// flower variable declarations
 float SR_yForFlower = 0.95f;
 float SR_xForFlower = 0.5f;
 
-int SR_percent = 60.0f;
+// percentage
+int SR_percent = 80.0f;
+
+// palakhi variable declarations
+// float SR_P_Xposition = -0.5f;
+// float SR_P_YPosition = 0.0f;
+// float SR_P_Height = 0.8f;
+// float SR_P_Width = 1.0f;
 
 int main(int argc, char *argv[])
 {
@@ -128,30 +143,15 @@ void display(void)
         }
     }
 
-    float bounceRange = 0.015f;
-    float upperYLimit = 0.9f + bounceRange;
-    float lowerYLimit = 0.9f - bounceRange;
-
-    if (SR_bodyGoingUp)
-    {
-        SR_YPosition = SR_YPosition + 0.0004f;
-        if (SR_YPosition >= upperYLimit)
-        {
-            SR_bodyGoingUp = false;
-        }
-    }
-    else
-    {
-        SR_YPosition = SR_YPosition - 0.0004f;
-        if (SR_YPosition <= lowerYLimit)
-        {
-            SR_bodyGoingUp = true;
-        }
-    }
-
     dhwajGhetlelaWarkari(SR_XPosition, SR_YPosition, SR_Height, SR_Width, SR_currentSwayOffset);
 
-    SR_yForFlower = SR_yForFlower - 0.0006f;
+    // Pranalis code
+
+    psh_drawVitthal(0.2f, 0.0f, 60, 95);
+
+    // Pranalis code
+
+    SR_yForFlower -= 0.003f;
     if (SR_yForFlower < -1.5f)
     {
         SR_yForFlower = 1.0f;
@@ -159,42 +159,49 @@ void display(void)
 
     int flowerCount = 0;
 
-    for (float xPos = -0.95f; xPos <= 0.95f; xPos += 0.08f)
+    for (float xPos = -0.6f; xPos <= 0.6f; xPos += 0.08f)
     {
+        float heightOffset = (float)(flowerCount * 7 % 13) * 0.15f;
+        float currentY = SR_yForFlower + heightOffset;
 
-        float staggerOffset = (float)(flowerCount % 4) * 0.35f;
-        float currentY = SR_yForFlower + staggerOffset;
-
-        if (currentY < -1.0f)
+        for (int row = 0; row < 12; row++)
         {
-            currentY += 2.0f;
+            float individualY = currentY + (row * 0.2f);
+
+            if (individualY < -1.0f)
+            {
+                individualY = 1.0f + (individualY + 1.0f);
+            }
+
+            float sway = cos(individualY * 4.0f + (float)flowerCount) * 0.02f;
+            float finalX = xPos + sway;
+
+            switch ((flowerCount + row) % 6)
+            {
+            case 0:
+                glColor3f(0.928f, 0.438f, 0.266f);
+                break;
+            case 1:
+                glColor3f(1.000f, 0.843f, 0.000f);
+                break;
+            case 2:
+                glColor3f(0.961f, 0.502f, 0.627f);
+                break;
+            case 3:
+                glColor3f(1.000f, 1.000f, 1.000f);
+                break;
+            case 4:
+                glColor3f(1.000f, 0.647f, 0.000f);
+                break;
+            case 5:
+                glColor3f(0.950f, 0.900f, 0.300f);
+                break;
+            }
+
+            float sizeVar = (row % 2 == 0) ? 0.012f : 0.016f;
+
+            drawFlower(sizeVar, finalX, individualY);
         }
-
-        switch (flowerCount % 6)
-        {
-        case 0:
-            glColor3f(0.928f, 0.438f, 0.266f);
-            break;
-        case 1:
-            glColor3f(1.000f, 0.843f, 0.000f);
-            break;
-        case 2:
-            glColor3f(0.961f, 0.502f, 0.627f);
-            break;
-        case 3:
-            glColor3f(1.000f, 1.000f, 1.000f);
-            break;
-        case 4:
-            glColor3f(1.000f, 0.647f, 0.000f);
-            break;
-        case 5:
-            glColor3f(0.95f, 0.90f, 0.30f);
-            break;
-        }
-
-        float sizeVar = (flowerCount % 2 == 0) ? 0.012f : 0.016f;
-
-        drawFlower(sizeVar, xPos, currentY);
 
         flowerCount++;
     }
@@ -280,16 +287,15 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_TRIANGLE_FAN);
 
     glColor3f(0.917f, 0.816f, 0.726f);
-    // 1. Establish the center anchor point
+
     float centerX = VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
     float centerY = VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent);
     float radius = SCALE_RADIUS(0.048f, SR_percent);
     glVertex2f(centerX, centerY);
 
-    // 2. Wrap around 360 degrees to plot the outer edge
     for (int i = 0; i <= 360; i++)
     {
-        // Convert degrees to radians for cos() and sin()
+
         float angle = i * 3.14159f / 180.0f;
 
         float x = centerX + (cos(angle) * radius);
@@ -345,29 +351,23 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glEnd();
 
-    // --- BUKKA ON EAR (FULLY FIXED & SCALABLE) ---
+    // --- BUKKA ON EAR
     glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.1f, 0.1f, 0.1f); // Charcoal black
+    glColor3f(0.1f, 0.1f, 0.1f);
 
-    // 1. Calculate positions safely from your global baseline variables
     float earBukkaX = VALUE_FROM_PERCENT((SR_XPosition + 0.045f), SR_percent);
     float earBukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.31f), SR_percent);
 
-    // 2. Scale horizontal radius
     radiusX = SCALE_RADIUS(0.006f, SR_percent);
 
-    // FIXED: Wrap the entire vertical height extension inside your macro
     radiusY = SCALE_RADIUS(0.006f + 0.011f, SR_percent);
 
-    // Submit the clean, anchored center point to the GPU
     glVertex2f(earBukkaX, earBukkaY);
 
-    // 3. Loop to plot the outer edge
     for (int i = 0; i <= 360; i++)
     {
         float angle = i * 3.14159f / 180.0f;
 
-        // Math uses the cleanly scaled horizontal and vertical dimensions
         float x = earBukkaX + (cos(angle) * radiusX);
         float y = earBukkaY + (sin(angle) * radiusY);
 
@@ -405,27 +405,21 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     // --- BUKKA ON EARS
     glBegin(GL_TRIANGLE_FAN);
-    glColor3f(0.1f, 0.1f, 0.1f); // Charcoal black
+    glColor3f(0.1f, 0.1f, 0.1f);
 
-    // 1. FIXED: Wrap the center coordinates in your position percentage macro
     earBukkaX = VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.046f)), SR_percent);
     earBukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.31f), SR_percent);
 
-    // 2. FIXED: Scale the horizontal radius
     radiusX = SCALE_RADIUS(0.006f, SR_percent);
 
-    // 3. FIXED: Combine and scale the vertical radius together to prevent stretching
     radiusY = SCALE_RADIUS(0.006f + 0.011f, SR_percent);
 
-    // Submit the clean, scaled center anchor to the GPU
     glVertex2f(earBukkaX, earBukkaY);
 
-    // 4. Loop to plot the outer edge
     for (int i = 0; i <= 360; i++)
     {
         float angle = i * 3.14159f / 180.0f;
 
-        // Math applies the cleanly scaled horizontal and vertical dimensions relative to the center
         float x = earBukkaX + (cos(angle) * radiusX);
         float y = earBukkaY + (sin(angle) * radiusY);
 
@@ -1019,9 +1013,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // LEFT LEG
     glBegin(GL_QUADS);
 
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
     glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
     glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
 
     glEnd();
@@ -1030,9 +1028,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glBegin(GL_QUADS);
 
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
     glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
     glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.02f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
     glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.05f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
 
     glEnd();
@@ -1080,7 +1082,6 @@ void drawFlower(float radiusSize, float customX, float customY)
 {
     glBegin(GL_TRIANGLE_FAN);
 
-    // Dynamic coordinates calculated using your SR_percent macro
     float centerX = VALUE_FROM_PERCENT(customX, SR_percent);
     float centerY = VALUE_FROM_PERCENT(customY, SR_percent);
     glVertex2f(centerX, centerY);
@@ -1097,6 +1098,631 @@ void drawFlower(float radiusSize, float customX, float customY)
     }
     glEnd();
 }
+
+// Pranalis code
+
+void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage)
+{
+
+    // Mukut
+    glColor3f(1.0f, 0.90f, 0.35f);
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.0f), PSH_Y(0.95f), 0.0f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(0.9f), 0.0f);
+    glVertex3f(PSH_X(0.02f), PSH_Y(0.88f), 0.0f);
+    glVertex3f(PSH_X(-0.02f), PSH_Y(0.88f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(0.9f), 0.0f);
+
+    glEnd();
+
+    glColor3f(0.95f, 0.80f, 0.20f);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.03f), PSH_Y(0.88f), 0.0f);
+    glVertex3f(PSH_X(0.04f), PSH_Y(0.87f), 0.0f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(0.86f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(0.86f), 0.0f);
+    glVertex3f(PSH_X(-0.04f), PSH_Y(0.87f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(0.88f), 0.0f);
+
+    glEnd();
+
+    glColor3f(0.85f, 0.65f, 0.13f);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.03f), PSH_Y(0.86f), 0.0f);
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.8f), 0.0f);
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.65f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.65f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.8f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(0.86f), 0.0f);
+
+    glEnd();
+
+    glColor3f(0.65f, 0.50f, 0.10f);
+
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.65f), 0.0f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(0.63f), 0.0f);
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.6f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.6f), 0.0f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(0.63f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.65f), 0.0f);
+
+    glEnd();
+
+    // Stomach
+    glColor3f(0.44f, 0.50f, 0.57f);
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.2f), PSH_Y(0.4f), 0.0f);
+    glVertex3f(PSH_X(0.2f), PSH_Y(0.22f), 0.0f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(0.22f), 0.0f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(0.4f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.2f), PSH_Y(0.22f), 0.0f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(0.18f), 0.0f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(0.18f), 0.0f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(0.22f), 0.0f);
+
+    glEnd();
+
+    glColor3f(0.27f, 0.30f, 0.34f);
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.33f));
+
+    for (int i = 0; i <= 180; i++)
+    {
+        float a = (180.0f + i) * 3.1415926f / 180.0f;
+
+        float x = VALUE_FROM_PERCENT(0.08f * cos(a), psh_width_percentage);
+        float y = VALUE_FROM_PERCENT(0.08f * sin(a), psh_height_percentage);
+
+        glVertex2f(PSH_X(0.0f) + x, PSH_Y(0.33f) + y);
+    }
+    glEnd();
+
+    // Neck
+
+    glColor3f(0.27f, 0.30f, 0.34f);
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.45f), 0.0f);
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.33f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.33f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.45f), 0.0f);
+
+    glEnd();
+
+    // Face
+    glColor3f(0.44f, 0.50f, 0.57f);
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.6f), 0.0f);
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.45f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.45f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.6f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.45f));
+
+    for (int i = 0; i <= 180; i++)
+    {
+        float a = (180.0f + i) * 3.1415926f / 180.0f;
+
+        float x = VALUE_FROM_PERCENT(0.08f * cos(a), psh_width_percentage);
+        float y = VALUE_FROM_PERCENT(0.08f * sin(a), psh_height_percentage);
+
+        glVertex2f(PSH_X(0.0f) + x, PSH_Y(0.45f) + y);
+    }
+
+    glEnd();
+    // Face End
+
+    // Ears
+    glColor3f(0.44f, 0.50f, 0.57f);
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.59f), 0.0f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(0.59f), 0.0f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(0.45f), 0.0f);
+    glVertex3f(PSH_X(0.08f), PSH_Y(0.45f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.59f), 0.0f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(0.59f), 0.0f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(0.45f), 0.0f);
+    glVertex3f(PSH_X(-0.08f), PSH_Y(0.45f), 0.0f);
+
+    glEnd();
+
+    glColor3f(0.92f, 0.79f, 0.20f);
+
+    glBegin(GL_TRIANGLES);
+
+    glVertex3f(PSH_X(0.1f), PSH_Y(0.5f), 0.0f);
+    glVertex3f(PSH_X(0.25f), PSH_Y(0.4f), 0.0f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(0.4f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+
+    glVertex3f(PSH_X(0.2f), PSH_Y(0.43f), 0.0f);
+    glVertex3f(PSH_X(0.25f), PSH_Y(0.46f), 0.0f);
+    glVertex3f(PSH_X(0.25f), PSH_Y(0.4f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+
+    glVertex3f(PSH_X(-0.1f), PSH_Y(0.5f), 0.0f);
+    glVertex3f(PSH_X(-0.25f), PSH_Y(0.4f), 0.0f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(0.4f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+
+    glVertex3f(PSH_X(-0.2f), PSH_Y(0.43f), 0.0f);
+    glVertex3f(PSH_X(-0.25f), PSH_Y(0.46f), 0.0f);
+    glVertex3f(PSH_X(-0.25f), PSH_Y(0.4f), 0.0f);
+
+    glEnd();
+    // End of Ear
+
+    // Dhotar
+    glColor3f(0.486f, 0.631f, 0.373f);
+
+    glBegin(GL_POLYGON);
+
+    glColor3f(0.65f, 0.80f, 0.50f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.03f), 0.0f);
+
+    glColor3f(0.60f, 0.75f, 0.45f);
+    glVertex3f(PSH_X(0.2f), PSH_Y(-0.07f), 0.0f);
+
+    glColor3f(0.30f, 0.45f, 0.22f);
+    glVertex3f(PSH_X(0.2f), PSH_Y(-0.2f), 0.0f);
+
+    glColor3f(0.25f, 0.38f, 0.18f);
+    glVertex3f(PSH_X(0.18f), PSH_Y(-0.22f), 0.0f);
+
+    glColor3f(0.30f, 0.45f, 0.22f);
+    glVertex3f(PSH_X(0.13f), PSH_Y(-0.22f), 0.0f);
+
+    glColor3f(0.50f, 0.68f, 0.38f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.15f), 0.0f);
+
+    glColor3f(0.60f, 0.75f, 0.45f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.1f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_POLYGON);
+
+    glColor3f(0.65f, 0.80f, 0.50f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.03f), 0.0f);
+
+    glColor3f(0.60f, 0.75f, 0.45f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(-0.07f), 0.0f);
+
+    glColor3f(0.30f, 0.45f, 0.22f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(-0.2f), 0.0f);
+
+    glColor3f(0.25f, 0.38f, 0.18f);
+    glVertex3f(PSH_X(-0.18f), PSH_Y(-0.22f), 0.0f);
+
+    glColor3f(0.30f, 0.45f, 0.22f);
+    glVertex3f(PSH_X(-0.13f), PSH_Y(-0.22f), 0.0f);
+
+    glColor3f(0.50f, 0.68f, 0.38f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.15f), 0.0f);
+
+    glColor3f(0.60f, 0.75f, 0.45f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.1f), 0.0f);
+
+    glEnd();
+
+    // Stomach last part
+    glColor3f(0.44f, 0.50f, 0.57f);
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.15f), PSH_Y(0.18f), 0.0f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.05f), 0.0f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.05f), 0.0f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(0.18f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.05f), 0.0f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(-0.1f), 0.0f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(-0.1f), 0.0f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.05f), 0.0f);
+
+    glEnd();
+    // End of Stomach
+
+    // broach
+    glColor3f(0.92f, 0.79f, 0.20f);
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.08f), 0.0f);
+    glVertex3f(PSH_X(0.05f), PSH_Y(-0.1f), 0.0f);
+    glVertex3f(PSH_X(0.05f), PSH_Y(-0.13f), 0.0f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.15f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.15f), 0.0f);
+    glVertex3f(PSH_X(-0.05f), PSH_Y(-0.13f), 0.0f);
+    glVertex3f(PSH_X(-0.05f), PSH_Y(-0.1f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.08f), 0.0f);
+
+    glEnd();
+    // End of Broach
+
+    // Vit
+    glColor3f(0.24f, 0.13f, 0.02f);
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.75f), 0.0f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.85f), 0.0f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.85f), 0.0f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.75f), 0.0f);
+
+    glEnd();
+    // End of Vit
+
+    // Dhotar
+
+    glBegin(GL_POLYGON);
+
+    glColor3f(0.98f, 0.90f, 0.40f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.15f), 0.0f);
+    glColor3f(0.95f, 0.85f, 0.30f);
+    glVertex3f(PSH_X(0.13f), PSH_Y(-0.22f), 0.0f);
+
+    glColor3f(0.85f, 0.70f, 0.15f);
+    glVertex3f(PSH_X(0.19f), PSH_Y(-0.21f), 0.0f);
+    glVertex3f(PSH_X(0.19f), PSH_Y(-0.5f), 0.0f);
+
+    glColor3f(0.55f, 0.45f, 0.08f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.55f), 0.0f);
+
+    glColor3f(0.98f, 0.90f, 0.40f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(-0.7f), 0.0f);
+    glColor3f(0.85f, 0.70f, 0.15f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(-0.75f), 0.0f);
+    glColor3f(0.45f, 0.35f, 0.06f);
+    glVertex3f(PSH_X(0.1f), PSH_Y(-0.8f), 0.0f);
+    glColor3f(0.95f, 0.85f, 0.30f);
+    glVertex3f(PSH_X(0.05f), PSH_Y(-0.8f), 0.0f);
+    glVertex3f(PSH_X(0.05f), PSH_Y(-0.75f), 0.0f);
+    glColor3f(0.95f, 0.85f, 0.30f);
+    glVertex3f(PSH_X(0.0f), PSH_Y(-0.7f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_POLYGON);
+
+    glColor3f(0.98f, 0.90f, 0.40f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.15f), 0.0f);
+    glColor3f(0.95f, 0.85f, 0.30f);
+    glVertex3f(PSH_X(-0.13f), PSH_Y(-0.22f), 0.0f);
+
+    glColor3f(0.85f, 0.70f, 0.15f);
+    glVertex3f(PSH_X(-0.19f), PSH_Y(-0.21f), 0.0f);
+    glVertex3f(PSH_X(-0.19f), PSH_Y(-0.5f), 0.0f);
+
+    glColor3f(0.55f, 0.45f, 0.08f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.55f), 0.0f);
+
+    glColor3f(0.98f, 0.90f, 0.40f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(-0.7f), 0.0f);
+    glColor3f(0.85f, 0.70f, 0.15f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(-0.75f), 0.0f);
+    glColor3f(0.45f, 0.35f, 0.06f);
+    glVertex3f(PSH_X(-0.1f), PSH_Y(-0.8f), 0.0f);
+    glColor3f(0.95f, 0.85f, 0.30f);
+    glVertex3f(PSH_X(-0.05f), PSH_Y(-0.8f), 0.0f);
+    glVertex3f(PSH_X(-0.05f), PSH_Y(-0.75f), 0.0f);
+    glColor3f(0.95f, 0.85f, 0.30f);
+    glVertex3f(PSH_X(-0.0f), PSH_Y(-0.7f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glColor3f(0.70f, 0.85f, 0.50f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.15f), 0.0f);
+
+    glColor3f(0.45f, 0.60f, 0.30f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(-0.6f), 0.0f);
+
+    glColor3f(0.25f, 0.35f, 0.15f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.6f), 0.0f);
+
+    glColor3f(0.55f, 0.70f, 0.35f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(-0.15f), 0.0f);
+
+    glEnd();
+
+    // End of Dhotar
+
+    // Shela
+    glBegin(GL_POLYGON);
+
+    glColor3f(0.85f, 0.25f, 0.20f);
+    glVertex3f(PSH_X(0.15f), PSH_Y(0.05f), 0.0f);
+
+    glColor3f(0.85f, 0.25f, 0.20f);
+    glVertex3f(PSH_X(0.25f), PSH_Y(0.05f), 0.0f);
+
+    glColor3f(0.75f, 0.20f, 0.16f);
+    glVertex3f(PSH_X(0.4f), PSH_Y(-0.1f), 0.0f);
+
+    glColor3f(0.45f, 0.10f, 0.08f);
+    glVertex3f(PSH_X(0.4f), PSH_Y(-0.35f), 0.0f);
+
+    glColor3f(0.35f, 0.08f, 0.06f);
+    glVertex3f(PSH_X(0.35f), PSH_Y(-0.4f), 0.0f);
+
+    glColor3f(0.30f, 0.06f, 0.05f);
+    glVertex3f(PSH_X(0.35f), PSH_Y(-0.55f), 0.0f);
+
+    glColor3f(0.45f, 0.10f, 0.08f);
+    glVertex3f(PSH_X(0.24f), PSH_Y(-0.42f), 0.0f);
+
+    glColor3f(0.55f, 0.14f, 0.10f);
+    glVertex3f(PSH_X(0.24f), PSH_Y(-0.35f), 0.0f);
+
+    glColor3f(0.65f, 0.18f, 0.12f);
+    glVertex3f(PSH_X(0.2f), PSH_Y(-0.4f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_POLYGON);
+
+    glColor3f(0.85f, 0.25f, 0.20f);
+    glVertex3f(PSH_X(-0.15f), PSH_Y(0.05f), 0.0f);
+
+    glColor3f(0.85f, 0.25f, 0.20f);
+    glVertex3f(PSH_X(-0.25f), PSH_Y(0.05f), 0.0f);
+
+    glColor3f(0.75f, 0.20f, 0.16f);
+    glVertex3f(PSH_X(-0.4f), PSH_Y(-0.1f), 0.0f);
+
+    glColor3f(0.45f, 0.10f, 0.08f);
+    glVertex3f(PSH_X(-0.4f), PSH_Y(-0.35f), 0.0f);
+
+    glColor3f(0.35f, 0.08f, 0.06f);
+    glVertex3f(PSH_X(-0.35f), PSH_Y(-0.4f), 0.0f);
+
+    glColor3f(0.30f, 0.06f, 0.05f);
+    glVertex3f(PSH_X(-0.35f), PSH_Y(-0.55f), 0.0f);
+
+    glColor3f(0.45f, 0.10f, 0.08f);
+    glVertex3f(PSH_X(-0.24f), PSH_Y(-0.42f), 0.0f);
+
+    glColor3f(0.55f, 0.14f, 0.10f);
+    glVertex3f(PSH_X(-0.24f), PSH_Y(-0.35f), 0.0f);
+
+    glColor3f(0.65f, 0.18f, 0.12f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(-0.4f), 0.0f);
+
+    glEnd();
+    // End of Shela
+
+    // Right Hand
+    glColor3f(0.44f, 0.50f, 0.57f);
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.2f), PSH_Y(0.4f), 0.0f);
+    glVertex3f(PSH_X(0.43f), PSH_Y(0.25f), 0.0f);
+    glVertex3f(PSH_X(0.32f), PSH_Y(0.21f), 0.0f);
+    glVertex3f(PSH_X(0.2f), PSH_Y(0.28f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(0.43f), PSH_Y(0.25f), 0.0f);
+    glVertex3f(PSH_X(0.32f), PSH_Y(-0.02f), 0.0f);
+    glVertex3f(PSH_X(0.25f), PSH_Y(0.05f), 0.0f);
+    glVertex3f(PSH_X(0.32f), PSH_Y(0.21f), 0.0f);
+
+    glEnd();
+    // End of Right Hand
+
+    // Left Hands
+    glColor3f(0.44f, 0.50f, 0.57f);
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(-0.2f), PSH_Y(0.4f), 0.0f);
+    glVertex3f(PSH_X(-0.43f), PSH_Y(0.25f), 0.0f);
+    glVertex3f(PSH_X(-0.32f), PSH_Y(0.21f), 0.0f);
+    glVertex3f(PSH_X(-0.2f), PSH_Y(0.28f), 0.0f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    glVertex3f(PSH_X(-0.43f), PSH_Y(0.25f), 0.0f);
+    glVertex3f(PSH_X(-0.32f), PSH_Y(-0.02f), 0.0f);
+    glVertex3f(PSH_X(-0.25f), PSH_Y(0.05f), 0.0f);
+    glVertex3f(PSH_X(-0.32f), PSH_Y(0.21f), 0.0f);
+
+    glEnd();
+    // End of Left Hand
+
+    // Hand Jwellery
+    glColor3f(0.95f, 0.80f, 0.20f);
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.29f), PSH_Y(0.34f), 0.0f);
+    glVertex3f(PSH_X(0.28f), PSH_Y(0.31f), 0.0f);
+    glVertex3f(PSH_X(0.29f), PSH_Y(0.28f), 0.0f);
+    glVertex3f(PSH_X(0.33f), PSH_Y(0.28f), 0.0f);
+    glVertex3f(PSH_X(0.35f), PSH_Y(0.3f), 0.0f);
+
+    glEnd();
+
+    glLineWidth(5.0f);
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(0.295f), PSH_Y(0.28f));
+    glVertex2f(PSH_X(0.27f), PSH_Y(0.24f));
+
+    glEnd();
+
+    glColor3f(0.95f, 0.80f, 0.20f);
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(-0.29f), PSH_Y(0.34f), 0.0f);
+    glVertex3f(PSH_X(-0.28f), PSH_Y(0.31f), 0.0f);
+    glVertex3f(PSH_X(-0.29f), PSH_Y(0.28f), 0.0f);
+    glVertex3f(PSH_X(-0.33f), PSH_Y(0.28f), 0.0f);
+    glVertex3f(PSH_X(-0.35f), PSH_Y(0.3f), 0.0f);
+
+    glEnd();
+
+    glLineWidth(5.0f);
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(-0.295f), PSH_Y(0.28f));
+    glVertex2f(PSH_X(-0.27f), PSH_Y(0.24f));
+
+    glEnd();
+
+    // Neckless
+    glColor3f(0.95f, 0.80f, 0.20f);
+    glBegin(GL_POLYGON);
+
+    glVertex3f(PSH_X(0.02f), PSH_Y(0.25f), 0.0f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(0.23f), 0.0f);
+    glVertex3f(PSH_X(0.03f), PSH_Y(0.22f), 0.0f);
+    glVertex3f(PSH_X(0.02f), PSH_Y(0.20f), 0.0f);
+    glVertex3f(PSH_X(-0.02f), PSH_Y(0.20f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(0.22f), 0.0f);
+    glVertex3f(PSH_X(-0.03f), PSH_Y(0.23f), 0.0f);
+    glVertex3f(PSH_X(-0.02f), PSH_Y(0.25f), 0.0f);
+
+    glEnd();
+
+    glLineWidth(6.0f);
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(0.1f), PSH_Y(0.4f));
+    glVertex2f(PSH_X(0.1f), PSH_Y(0.32f));
+
+    glEnd();
+
+    glLineWidth(6.0f);
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(0.1f), PSH_Y(0.32f));
+    glVertex2f(PSH_X(0.03f), PSH_Y(0.215f));
+
+    glEnd();
+
+    glLineWidth(6.0f);
+    glBegin(GL_LINES);
+    glVertex2f(PSH_X(-0.1f), PSH_Y(0.4f));
+    glVertex2f(PSH_X(-0.1f), PSH_Y(0.32f));
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(-0.1f), PSH_Y(0.32f));
+    glVertex2f(PSH_X(-0.03f), PSH_Y(0.215f));
+
+    glEnd();
+
+    glLineWidth(6.0f);
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(0.1f), PSH_Y(0.32f));
+    glVertex2f(PSH_X(0.1f), PSH_Y(0.18f));
+
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(0.1f), PSH_Y(0.18f));
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.11f));
+
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(-0.1f), PSH_Y(0.32f));
+    glVertex2f(PSH_X(-0.1f), PSH_Y(0.18f));
+
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex2f(PSH_X(-0.1f), PSH_Y(0.18f));
+    glVertex2f(PSH_X(-0.0f), PSH_Y(0.11f));
+
+    glEnd();
+
+    glEnable(GL_POINT_SMOOTH);
+    glPointSize(8.0f);
+    glColor3f(0.85f, 0.25f, 0.20f);
+    glBegin(GL_POINTS);
+
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.225f));
+    glEnd();
+
+    glDisable(GL_POINT_SMOOTH);
+
+    // Tila
+    glColor3f(0.95f, 0.80f, 0.20f);
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.50f));
+
+    for (int i = 0; i <= 360; i++)
+    {
+        float a = (360.0f + i) * 3.1415926f / 180.0f;
+
+        float x = VALUE_FROM_PERCENT(0.03f * cos(a), psh_width_percentage);
+        float y = VALUE_FROM_PERCENT(0.035f * sin(a), psh_height_percentage);
+
+        glVertex2f(PSH_X(0.0f) + x, PSH_Y(0.56f) + y);
+    }
+    glEnd();
+
+    glEnable(GL_POINT_SMOOTH);
+
+    glPointSize(6.0f);
+    glColor3f(0.0f, 0.0f, 0.0f);
+    glBegin(GL_POINTS);
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.56f));
+    glEnd();
+
+    glDisable(GL_POINT_SMOOTH);
+}
+
+// Pranalis code
 
 void keyboard(unsigned char key, int x, int y)
 {
