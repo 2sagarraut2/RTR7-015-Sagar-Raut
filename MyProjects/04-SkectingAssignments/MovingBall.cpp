@@ -93,13 +93,9 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    if (yPosition >= 0)
+    if (yPosition >= -0.5)
     {
-        yPosition = yPosition - 0.001;
-    }
-    else
-    {
-        yPosition = yPosition + 0.001;
+        yPosition = yPosition - 0.009;
     }
 
     drawBall(0.0f, yPosition);
@@ -113,7 +109,7 @@ void drawBall(float centerX, float centerY)
     centerX = centerX - 0.05f;
     centerY = centerY + 0.05f;
 
-    glColor3f(0.5f, 0.0f, 0.0f);
+    glColor3f(0.913f, 0.344f, 0.290f);
 
     glBegin(GL_TRIANGLE_FAN);
 
@@ -137,7 +133,7 @@ void drawBall(float centerX, float centerY)
     centerX = centerX - 0.05f;
     centerY = centerY + 0.05f;
 
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glColor3f(0.983f, 0.930f, 0.795f);
 
     glBegin(GL_TRIANGLE_FAN);
 
@@ -151,11 +147,57 @@ void drawBall(float centerX, float centerY)
         // Convert degrees to radians for cos() and sin()
         float angle = i * 3.14159f / 180.0f;
 
-        float x = centerX + (cos(angle) * 0.03f);
-        float y = centerY + (sin(angle) * 0.05f);
+        float x = centerX + (cos(angle) * 0.02f);
+        float y = centerY + (sin(angle) * 0.04f);
 
         glVertex2f(x, y);
     }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+
+    centerX = centerX - 0.01f;
+    centerY = centerY - 0.1f;
+    // 1. Establish the center anchor point
+    glVertex2f(centerX, centerY);
+
+    // 2. Wrap around 360 degrees to plot the outer edge
+    for (int i = 0; i <= 361; i++)
+    {
+        // Convert degrees to radians for cos() and sin()
+        float angle = i * 3.14159f / 180.0f;
+
+        float x = centerX + (cos(angle) * 0.02f);
+        float y = centerY + (sin(angle) * 0.04f);
+
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    glBegin(GL_TRIANGLE_FAN);
+
+    centerX = centerX + 0.1f;
+    // 1. Establish the center anchor point
+    glVertex2f(centerX, centerY);
+
+    // 2. Wrap around 360 degrees to plot the outer edge
+    for (int i = 0; i <= 361; i++)
+    {
+        // Convert degrees to radians for cos() and sin()
+        float angle = i * 3.14159f / 180.0f;
+
+        float x = centerX + (cos(angle) * 0.02f);
+        float y = centerY + (sin(angle) * 0.04f);
+
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    glBegin(GL_LINES);
+
+    glVertex2f(-1.0f, -0.62f);
+    glVertex2f(1.0f, -0.62f);
+
     glEnd();
 }
 
