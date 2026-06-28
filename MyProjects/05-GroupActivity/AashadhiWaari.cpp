@@ -32,40 +32,76 @@
 #include <stdlib.h> // Required for exit()
 #include <math.h>
 
+// function declarations
+// sagar functions
 void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway);
 void drawFlower(float flowerRadius, float xPosition, float yPosition);
 
+// pranali functions
 void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
 
+// Hemant functions
+void hbPalakhi(float hb_x, float hb_y, float hb_h, float hb_w);
+void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, float r, float g, float b, bool drawLines = false);
+
+// ground function
+void drawGroundQuad();
+
+// sagar's macros
 #define VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
 #define SCALE_RADIUS(radius, SR_percent) ((radius) * (SR_percent) / 100)
+
 // Pranalis macros
 #define PSH_X(xCordinate) (VALUE_FROM_PERCENT(xCordinate, psh_width_percentage) + psh_x_pos)
 #define PSH_Y(yCordinate) (VALUE_FROM_PERCENT(yCordinate, psh_height_percentage) + psh_y_pos)
 
+// Hemant macros
+#define percent_vaule(complete_value, hb_percent) (complete_value * hb_percent / 100)
+#define redius(redius, hb_percent) ((redius) * (hb_percent) / 100)
+
 bool bIsFullScreen = false;
 
-// Warkari variable declarations
-float SR_XPosition = -0.4f;
-float SR_YPosition = 0.9f;
+// Global variables
+// Warkari variable declarations - sagar
+float SR_XPosition = -1.4f;
+float SR_YPosition = 0.290f;
 float SR_Height = 1.5f;
 float SR_Width = 0.2f;
 float SR_currentSwayOffset = 0.0f;
 bool SR_bodyGoingUp = true;
 bool SR_flagSwayingLeft = true;
 
-// flower variable declarations
+// flower variable declarations - sagar
 float SR_yForFlower = 0.95f;
 float SR_xForFlower = 0.5f;
 
-// percentage
-int SR_percent = 80.0f;
+// sagar percentage
+int SR_percent = 60.0f;
 
-// palakhi variable declarations
-// float SR_P_Xposition = -0.5f;
-// float SR_P_YPosition = 0.0f;
-// float SR_P_Height = 0.8f;
-// float SR_P_Width = 1.0f;
+// Hemant variable declarations
+// Variables declaration
+float hb_x = 0.0f;
+float hb_y = -0.55f;
+float hb_h = 0.1f;
+float hb_w = 0.1f;
+float hb_percent = 50.0f;
+// Colours
+// Wood light colour
+float woodlR = 0.58f;
+float woodlG = 0.27f;
+float woodlB = 0.13f;
+// Wood dark colour
+float wooddR = 0.86f;
+float wooddG = 0.32f;
+float wooddB = 0.2f;
+// Golden colour
+float goldR = 0.95f;
+float goldG = 0.72f;
+float goldB = 0.25f;
+// lines colour
+float lineR = 0.001f;
+float lineG = 0.001f;
+float lineB = 0.001f;
 
 int main(int argc, char *argv[])
 {
@@ -122,6 +158,9 @@ void display(void)
 
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
+    // ground func call
+    drawGroundQuad();
 
     float waveSpeed = 0.0012f;
     float maxWaveHeight = 0.035f;
@@ -206,12 +245,16 @@ void display(void)
         flowerCount++;
     }
 
+    // Hemant code
+    hbPalakhi(hb_x, hb_y, hb_h, hb_w);
+
     glutSwapBuffers();
     glutPostRedisplay();
 }
 
 void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway)
 {
+
     // glColor3f(0.933f, 0.937f, 0.945f);
 
     // glBegin(GL_QUADS);
@@ -306,8 +349,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glEnd();
 
     // BUKKA ON CHIN
-    glColor3f(0.1f, 0.1f, 0.1f);
-    glBegin(GL_TRIANGLE_FAN);
+    // glColor3f(0.1f, 0.1f, 0.1f);
+    // glBegin(GL_TRIANGLE_FAN);
 
     float bukkaX = VALUE_FROM_PERCENT((SR_XPosition + (SR_Width / 2)), SR_percent);
     float bukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent);
@@ -316,18 +359,18 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     float radiusY = SCALE_RADIUS(0.015f + 0.011f, SR_percent);
 
-    glVertex2f(bukkaX, bukkaY);
+    // glVertex2f(bukkaX, bukkaY);
 
-    for (int i = 0; i <= 360; i++)
-    {
-        float angle = i * 3.14159f / 180.0f;
+    // for (int i = 0; i <= 360; i++)
+    // {
+    //     float angle = i * 3.14159f / 180.0f;
 
-        float x = bukkaX + (cos(angle) * radiusX);
-        float y = bukkaY + (sin(angle) * radiusY);
+    //     float x = bukkaX + (cos(angle) * radiusX);
+    //     float y = bukkaY + (sin(angle) * radiusY);
 
-        glVertex2f(x, y);
-    }
-    glEnd();
+    //     glVertex2f(x, y);
+    // }
+    // glEnd();
 
     // left hair
     glBegin(GL_QUADS);
@@ -1723,6 +1766,459 @@ void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage,
 }
 
 // Pranalis code
+
+// Hemants code
+
+void hbPalakhi(float hb_x, float hb_y, float hb_h, float hb_w)
+{
+
+    // Palakhi chauthara code
+
+    glColor3f(0.63f, 0.63f, 0.58f);
+
+    glBegin(GL_QUADS);
+    // glColor3f(wooddR, wooddG, wooddB);
+
+    glVertex2f(-0.2f, -0.5f);
+    glVertex2f(0.2f, -0.5f);
+
+    glColor3f(0.29f, 0.32f, 0.33f);
+    glVertex2f(0.2f, -1.0f);
+    glVertex2f(-0.2f, -1.0f);
+
+    glEnd();
+
+    // Palakhi chauthara code
+
+    // Zumbar main 1
+    // Zumbar main 1
+    hbZumbar(0.0f, 0.3f, 0.06f, 0.06f, goldR, goldG, goldB, true);
+
+    // Zumbar main 2
+    hbZumbar(-0.8f, -0.1f, 0.06f, 0.06f, goldR, goldG, goldB, true);
+
+    // Zumbar main 3
+    hbZumbar(0.8f, -0.1f, 0.06f, 0.06f, goldR, goldG, goldB, true);
+
+    // hbZumbar(0.3f, 0.695f, goldR, goldG, goldB, 50.0f);
+    // hbZumbar(0.52f, 0.43f, goldR, goldG, goldB, 50.0f);
+    // hbZumbar(0.7f, 0.21f, goldR, goldG, goldB, 50.0f);
+
+    // hbZumbar(-0.3f, 0.695f, goldR, goldG, goldB, 50.0f);
+    // hbZumbar(-0.52f, 0.43f, goldR, goldG, goldB, 50.0f);
+    // hbZumbar(-0.7f, 0.21f, goldR, goldG, goldB, 50.0f);
+
+    // danda 1
+    glBegin(GL_QUADS);
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x - 0.9f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x - 0.9f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glEnd();
+
+    // Lines
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(lineR, lineG, lineB);
+    // Danda 1 design lines
+    glVertex2f(percent_vaule((hb_x - 0.9f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.85f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.85f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.8f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.8f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.75f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.75f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.7f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.7f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.65f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.65f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.6f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.6f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.55f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.55f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.5f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.5f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.45f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.45f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    // Danda 1 Border lines
+    glVertex2f(percent_vaule((hb_x - 0.9f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.9f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glEnd();
+
+    // danda 2
+    glBegin(GL_QUADS);
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x - 0.5f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x - 0.15f), hb_percent), percent_vaule((hb_y + 0.4f), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glEnd();
+
+    // danda 3
+    glBegin(GL_QUADS);
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x + 0.15f), hb_percent), percent_vaule((hb_y + 0.4f), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x - 0.15f), hb_percent), percent_vaule((hb_y + 0.4f), hb_percent));
+    glEnd();
+
+    // danda 4
+    glBegin(GL_QUADS);
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x + 0.5f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x + 0.15f), hb_percent), percent_vaule((hb_y + 0.4f), hb_percent));
+    glEnd();
+
+    // danda 5
+    glBegin(GL_QUADS);
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(woodlR, woodlG, woodlB);
+    glVertex2f(percent_vaule((hb_x + 0.9f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glColor3f(wooddR, wooddG, wooddB);
+    glVertex2f(percent_vaule((hb_x + 0.9f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glEnd();
+
+    // Lines
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(lineR, lineG, lineB);
+    // danda 5 design lines
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.45f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.45f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.5f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.5f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.55f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.55f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.6f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.6f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.65f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.65f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.7f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.7f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.75f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.75f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.8f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.8f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.85f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.85f), hb_percent), percent_vaule((hb_y + 0.1f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.9f), hb_percent), percent_vaule((hb_y + 0.0f), hb_percent));
+
+    // Danda 5 Border lines
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.9f), hb_percent), percent_vaule((hb_y + hb_h), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.9f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glEnd();
+
+    // kalash 1 base
+    glColor3f(goldR, goldG, goldB);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.05f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.05f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.07f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.07f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glEnd();
+
+    // kalash 1 top
+    glColor3f(goldR, goldG, goldB);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(percent_vaule((hb_x - 0.03f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.00f), hb_percent), percent_vaule((hb_y + 0.62f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.03f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glEnd();
+
+    // Lines
+    glLineWidth(1.0f);
+    glBegin(GL_LINES);
+    glColor3f(lineR, lineG, lineB);
+    // kalash 1 border lines
+    glVertex2f(percent_vaule((hb_x - 0.05f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.05f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.07f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.07f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.07f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.05f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.05f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.07f), hb_percent), percent_vaule((hb_y + 0.5f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.03f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.00f), hb_percent), percent_vaule((hb_y + 0.62f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.00f), hb_percent), percent_vaule((hb_y + 0.62f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.03f), hb_percent), percent_vaule((hb_y + 0.55f), hb_percent));
+    glEnd();
+
+    // chowki mount left
+    glColor3f(0.37, 0.25, 0.22);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.45f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.4f), hb_percent), percent_vaule((hb_y - hb_h / 2), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.45f), hb_percent), percent_vaule((hb_y - hb_h / 2), hb_percent));
+    glEnd();
+
+    // chowki mount right
+    glColor3f(0.37, 0.25, 0.22);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.45f), hb_percent), percent_vaule((hb_y), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.45f), hb_percent), percent_vaule((hb_y - hb_h / 2), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.4f), hb_percent), percent_vaule((hb_y - hb_h / 2), hb_percent));
+    glEnd();
+
+    // chowki 1
+    glColor3f(0.30, 0.15, 0.05);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.45f), hb_percent), percent_vaule((hb_y - 0.05f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.25f), hb_percent), percent_vaule((hb_y - 0.05f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.1f), hb_percent), percent_vaule((hb_y - 0.2f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glEnd();
+
+    // chowki 2
+    glColor3f(0.30, 0.15, 0.05);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.1f), hb_percent), percent_vaule((hb_y - 0.2f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.1f), hb_percent), percent_vaule((hb_y - 0.2f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glEnd();
+
+    // chowki 3
+    glColor3f(0.30, 0.15, 0.05);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x + 0.25f), hb_percent), percent_vaule((hb_y - 0.05f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.45f), hb_percent), percent_vaule((hb_y - 0.05f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.1f), hb_percent), percent_vaule((hb_y - 0.2f), hb_percent));
+    glEnd();
+
+    // chowki bottom 1
+    glColor3f(woodlR, woodlG, woodlB);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.33f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.33f), hb_percent));
+    glEnd();
+
+    // chowki bottom 2
+    glColor3f(goldR, goldG, goldB);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.18f), hb_percent), percent_vaule((hb_y - 0.33f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.18f), hb_percent), percent_vaule((hb_y - 0.33f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.18f), hb_percent), percent_vaule((hb_y - 0.36f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.18f), hb_percent), percent_vaule((hb_y - 0.36f), hb_percent));
+    glEnd();
+
+    // chowki bottom 3
+    glColor3f(woodlR, woodlG, woodlB);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.36f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.36f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glEnd();
+
+    // chowki leg left
+    glColor3f(woodlR, woodlG, woodlB);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.15f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.15f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+    glEnd();
+
+    // chowki leg right
+    glColor3f(woodlR, woodlG, woodlB);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x + 0.15f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.15f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+    glEnd();
+
+    // paduka 1
+    glColor3f(0.94, 0.27, 0.22);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.1f), hb_percent), percent_vaule((hb_y - 0.17f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.1f), hb_percent), percent_vaule((hb_y - 0.17f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.1f), hb_percent), percent_vaule((hb_y - 0.2f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.1f), hb_percent), percent_vaule((hb_y - 0.2f), hb_percent));
+    glEnd();
+
+    // paduka 2
+    glColor3f(0.75f, 0.75f, 0.75f);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.07f), hb_percent), percent_vaule((hb_y - 0.14f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.07f), hb_percent), percent_vaule((hb_y - 0.14f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.07f), hb_percent), percent_vaule((hb_y - 0.17f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.07f), hb_percent), percent_vaule((hb_y - 0.17f), hb_percent));
+    glEnd();
+
+    // paduka 3
+    glColor3f(0.60f, 0.61f, 0.61f);
+    glBegin(GL_QUADS);
+    glVertex2f(percent_vaule((hb_x - 0.05f), hb_percent), percent_vaule((hb_y - 0.12f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.03f), hb_percent), percent_vaule((hb_y - 0.12f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.03f), hb_percent), percent_vaule((hb_y - 0.14f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.05f), hb_percent), percent_vaule((hb_y - 0.14f), hb_percent));
+    glEnd();
+
+    // Lines
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(lineR, lineG, lineB);
+
+    // chowki bottom lines
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.3f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.33f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.33f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.36f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.36f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.39f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x - 0.15f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+    glVertex2f(percent_vaule((hb_x - 0.2f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+
+    glVertex2f(percent_vaule((hb_x + 0.2f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+    glVertex2f(percent_vaule((hb_x + 0.15f), hb_percent), percent_vaule((hb_y - 0.45f), hb_percent));
+
+    glEnd();
+}
+
+void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, float r, float g, float b, bool drawLines)
+{
+    float x_center = percent_vaule((hb_x + offset_x), hb_percent);
+    float y_center = percent_vaule((hb_y + offset_y), hb_percent);
+
+    float rad_x = redius(radius_x, hb_percent);
+    float rad_y = redius(radius_y, hb_percent);
+
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3f(r, g, b);
+
+    glVertex2f(x_center, y_center);
+    for (int i = 0; i <= 180; i++)
+    {
+        float angle = i * 3.14159f / 180.0f;
+        float x = x_center + (cos(angle) * rad_x);
+        float y = y_center + (sin(angle) * rad_y);
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    glLineWidth(1.0f);
+    glBegin(GL_LINE_LOOP);
+    glColor3f(0.0f, 0.0f, 0.0f);
+    for (int i = 0; i <= 180; i++)
+    {
+        float angle = i * 3.14159f / 180.0f;
+        float x = x_center + (cos(angle) * rad_x);
+        float y = y_center + (sin(angle) * rad_y);
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    if (drawLines)
+    {
+        glLineWidth(2.0f);
+        glBegin(GL_LINES);
+        glColor3f(lineR, lineG, lineB);
+
+        // Center line
+        glVertex2f(percent_vaule((hb_x + offset_x), hb_percent), percent_vaule((hb_y + offset_y + 0.1f), hb_percent));
+        glVertex2f(percent_vaule((hb_x + offset_x), hb_percent), percent_vaule((hb_y + offset_y + 0.06f), hb_percent));
+
+        // lines
+        float line_offsets[] = {0.06f, 0.04f, 0.02f, 0.00f, -0.02f, -0.04f, -0.06f};
+        for (int i = 0; i < 7; i++)
+        {
+            float line_x = percent_vaule((hb_x + offset_x + line_offsets[i]), hb_percent);
+            float line_y_top = percent_vaule((hb_y + offset_y), hb_percent);
+            float line_y_bottom = percent_vaule((hb_y + offset_y - 0.05f), hb_percent);
+            glVertex2f(line_x, line_y_top);
+            glVertex2f(line_x, line_y_bottom);
+        }
+
+        glEnd();
+    }
+}
+
+// Hamants code
+
+// Ground quad
+
+void drawGroundQuad()
+{
+
+    glColor3f(0.991157f, 0.466667f, 0.329412f);
+
+    glBegin(GL_QUADS);
+
+    glVertex2f(1.0f, -0.95f);
+    glVertex2f(-1.0f, -0.95f);
+
+    glColor3f(0.498039, 0.333333, 0.278431);
+    glVertex2f(-1.0f, -1.0f);
+    glVertex2f(1.0f, -1.0f);
+
+    glEnd();
+}
+
+// ground quad
 
 void keyboard(unsigned char key, int x, int y)
 {
