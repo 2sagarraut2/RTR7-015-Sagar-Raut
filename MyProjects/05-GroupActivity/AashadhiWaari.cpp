@@ -32,21 +32,7 @@
 #include <stdlib.h> // Required for exit()
 #include <math.h>
 
-// function declarations
-// sagar functions
-void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway);
-void drawFlower(float flowerRadius, float xPosition, float yPosition);
-
-// pranali functions
-void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
-
-// Hemant functions
-void hbPalakhi(float hb_x, float hb_y, float hb_h, float hb_w);
-void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, float r, float g, float b, bool drawLines = false);
-
-// ground function
-void drawGroundQuad();
-
+// MACRO DECLARATIONS
 // sagar's macros
 #define VALUE_FROM_PERCENT(complete_value, percent) ((complete_value * percent) / 100)
 #define SR_VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
@@ -60,9 +46,34 @@ void drawGroundQuad();
 #define percent_vaule(complete_value, hb_percent) (complete_value * hb_percent / 100)
 #define redius(redius, hb_percent) ((redius) * (hb_percent) / 100)
 
-bool bIsFullScreen = false;
+// FUNCTION DECLARATIONS
+// sagar functions
+void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway);
+void callDhwajGhetlelWarkari();
+void drawFlower(float flowerRadius, float xPosition, float yPosition);
+void calldrawFlower();
 
-// Global variables
+// pranali functions
+void VitthalTimer(int value);
+void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
+
+// Hemant functions
+void hbPalakhi(float hb_x, float hb_y, float hb_h, float hb_w);
+void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, float r, float g, float b, bool drawLines = false);
+
+// ground function
+void drawGroundQuad();
+
+// harshal functions
+void Tila(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
+void renderGroupPresents(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
+
+// GLOBAL VARIABLES
+bool bIsFullScreen = false;
+float xPosition = 0.0f;
+
+bool FadeIn = true, FadeOut = false;
+
 // Warkari variable declarations - sagar
 float SR_XPosition = -1.4f;
 float SR_YPosition = 0.290f;
@@ -163,27 +174,7 @@ void display(void)
     // ground func call
     drawGroundQuad();
 
-    float waveSpeed = 0.0012f;
-    float maxWaveHeight = 0.035f;
-
-    if (SR_flagSwayingLeft)
-    {
-        SR_currentSwayOffset = SR_currentSwayOffset - waveSpeed;
-        if (SR_currentSwayOffset <= -maxWaveHeight)
-        {
-            SR_flagSwayingLeft = false;
-        }
-    }
-    else
-    {
-        SR_currentSwayOffset = SR_currentSwayOffset + waveSpeed;
-        if (SR_currentSwayOffset >= maxWaveHeight)
-        {
-            SR_flagSwayingLeft = true;
-        }
-    }
-
-    dhwajGhetlelaWarkari(SR_XPosition, SR_YPosition, SR_Height, SR_Width, SR_currentSwayOffset);
+    callDhwajGhetlelWarkari();
 
     // Pranalis code
 
@@ -191,6 +182,25 @@ void display(void)
 
     // Pranalis code
 
+    // Hemant code
+    hbPalakhi(hb_x, hb_y, hb_h, hb_w);
+
+    // drawflower call
+
+    calldrawFlower();
+
+    // drawFlower call
+
+    // Harshal's code
+    renderGroupPresents(0.0f, 0.0f, 100, 100);
+    Tila(0.0f, -1.0f, 400, 200);
+
+    glutSwapBuffers();
+    glutPostRedisplay();
+}
+
+void calldrawFlower()
+{
     SR_yForFlower -= 0.003f;
     if (SR_yForFlower < -1.5f)
     {
@@ -245,12 +255,6 @@ void display(void)
 
         flowerCount++;
     }
-
-    // Hemant code
-    hbPalakhi(hb_x, hb_y, hb_h, hb_w);
-
-    glutSwapBuffers();
-    glutPostRedisplay();
 }
 
 void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Height, float SR_Width, float flagSway)
@@ -1122,6 +1126,31 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // LEGS ENDS HERE //
 }
 
+void callDhwajGhetlelWarkari()
+{
+    float waveSpeed = 0.0012f;
+    float maxWaveHeight = 0.035f;
+
+    if (SR_flagSwayingLeft)
+    {
+        SR_currentSwayOffset = SR_currentSwayOffset - waveSpeed;
+        if (SR_currentSwayOffset <= -maxWaveHeight)
+        {
+            SR_flagSwayingLeft = false;
+        }
+    }
+    else
+    {
+        SR_currentSwayOffset = SR_currentSwayOffset + waveSpeed;
+        if (SR_currentSwayOffset >= maxWaveHeight)
+        {
+            SR_flagSwayingLeft = true;
+        }
+    }
+
+    dhwajGhetlelaWarkari(SR_XPosition, SR_YPosition, SR_Height, SR_Width, SR_currentSwayOffset);
+}
+
 void drawFlower(float radiusSize, float customX, float customY)
 {
     glBegin(GL_TRIANGLE_FAN);
@@ -1766,6 +1795,13 @@ void psh_drawVitthal(float psh_x_pos, float psh_y_pos, int psh_width_percentage,
     glDisable(GL_POINT_SMOOTH);
 }
 
+void VitthalTimer(int value)
+{
+    // Start fade out after 300 seconds
+    FadeIn = false;
+    FadeOut = true;
+}
+
 // Pranalis code
 
 // Hemants code
@@ -2220,6 +2256,447 @@ void drawGroundQuad()
 }
 
 // ground quad
+
+// Harshal's code
+
+void renderGroupPresents(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage)
+{
+
+    // R
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.50f, 0.0f);
+    glVertex2f(PSH_X(-0.42f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.39f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.39f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(0.50f));
+
+    glVertex2f(PSH_X(-0.42f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.33f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.33f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.39f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.36f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.33f), PSH_Y(0.50f));
+    glEnd();
+
+    // E
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.60f, 0.0f);
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.25f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.25f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(0.50f));
+    glEnd();
+
+    // N
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.40f, 0.0f);
+    glVertex2f(PSH_X(-0.14f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.11f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.11f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.05f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.05f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.11f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.08f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(-0.05f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(-0.08f), PSH_Y(0.50f));
+    glEnd();
+
+    // D
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.70f, 0.0f);
+    glVertex2f(PSH_X(0.00f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.03f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.03f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.09f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.09f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(0.09f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(0.09f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.09f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.12f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.12f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(0.09f), PSH_Y(0.55f));
+    glEnd();
+
+    // E
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.30f, 0.0f);
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.17f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.17f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.26f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.26f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(0.24f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(0.24f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(0.26f), PSH_Y(0.55f));
+    glVertex2f(PSH_X(0.26f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(0.50f));
+    glEnd();
+
+    // R
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.80f, 0.0f);
+    glVertex2f(PSH_X(0.28f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.31f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.31f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.28f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.28f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.28f), PSH_Y(0.80f));
+    glVertex2f(PSH_X(0.28f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.70f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.28f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.37f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.85f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.37f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.31f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.34f), PSH_Y(0.65f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(0.50f));
+    glVertex2f(PSH_X(0.37f), PSH_Y(0.50f));
+    glEnd();
+
+    // G
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.55f, 0.0f);
+    glVertex2f(PSH_X(-0.35f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(-0.35f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(-0.35f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.32f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.32f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.35f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.35f), PSH_Y(0.05f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.05f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.35f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.26f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.26f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.32f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(-0.23f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.32f), PSH_Y(0.15f));
+    glEnd();
+
+    // R
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.45f, 0.0f);
+    glVertex2f(PSH_X(-0.21f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.21f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.21f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(-0.21f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(-0.21f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.21f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.12f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.12f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.15f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(-0.09f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.12f), PSH_Y(0.00f));
+    glEnd();
+
+    // O
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.65f, 0.0f);
+    glVertex2f(PSH_X(-0.07f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.04f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(-0.04f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.07f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.02f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.05f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.05f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.02f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.07f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.05f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.05f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(-0.07f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(-0.07f), PSH_Y(0.05f));
+    glVertex2f(PSH_X(0.05f), PSH_Y(0.05f));
+    glVertex2f(PSH_X(0.05f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(-0.07f), PSH_Y(0.00f));
+    glEnd();
+
+    // U
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.35f, 0.0f);
+    glVertex2f(PSH_X(0.07f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.10f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.10f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.07f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.16f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.19f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.19f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.16f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.07f), PSH_Y(0.05f));
+    glVertex2f(PSH_X(0.19f), PSH_Y(0.05f));
+    glVertex2f(PSH_X(0.19f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.07f), PSH_Y(0.00f));
+    glEnd();
+
+    // P
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.75f, 0.0f);
+    glVertex2f(PSH_X(0.21f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.24f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.24f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.21f), PSH_Y(0.00f));
+    glVertex2f(PSH_X(0.21f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.33f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.33f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(0.21f), PSH_Y(0.30f));
+    glVertex2f(PSH_X(0.21f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(0.33f), PSH_Y(0.20f));
+    glVertex2f(PSH_X(0.33f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(0.21f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(0.30f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.33f), PSH_Y(0.35f));
+    glVertex2f(PSH_X(0.33f), PSH_Y(0.15f));
+    glVertex2f(PSH_X(0.30f), PSH_Y(0.15f));
+    glEnd();
+
+    // P
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.25f, 0.0f);
+    glVertex2f(PSH_X(-0.56f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.53f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.53f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.56f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.56f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.44f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.44f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.56f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.56f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.44f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.44f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.56f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.47f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.44f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.44f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.47f), PSH_Y(-0.35f));
+    glEnd();
+
+    // R
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.85f, 0.0f);
+    glVertex2f(PSH_X(-0.42f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.39f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.39f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.42f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.33f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.33f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.39f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.36f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.30f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.33f), PSH_Y(-0.50f));
+    glEnd();
+
+    // E
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.50f, 0.0f);
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.25f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.25f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.18f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(-0.16f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.28f), PSH_Y(-0.50f));
+    glEnd();
+
+    // S
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.62f, 0.0f);
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.11f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(-0.11f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.05f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.05f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(-0.02f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(-0.14f), PSH_Y(-0.50f));
+    glEnd();
+
+    // E
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.42f, 0.0f);
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.03f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.03f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.12f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.12f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(0.10f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(0.10f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(0.12f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(0.12f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.00f), PSH_Y(-0.50f));
+    glEnd();
+
+    // N
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.72f, 0.0f);
+    glVertex2f(PSH_X(0.14f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.17f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.17f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.14f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.23f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.26f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.26f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.23f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.17f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.20f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.23f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.20f), PSH_Y(-0.50f));
+    glEnd();
+
+    // T
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.32f, 0.0f);
+    glVertex2f(PSH_X(0.28f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.40f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(0.28f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(0.325f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.355f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.355f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.325f), PSH_Y(-0.50f));
+    glEnd();
+
+    // S
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.82f, 0.0f);
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.20f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.45f), PSH_Y(-0.15f));
+    glVertex2f(PSH_X(0.45f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.30f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.51f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.35f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.51f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.45f));
+    glVertex2f(PSH_X(0.54f), PSH_Y(-0.50f));
+    glVertex2f(PSH_X(0.42f), PSH_Y(-0.50f));
+    glEnd();
+}
+
+void Tila(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage)
+{
+    // Tila
+    glColor3f(0.95f, 0.80f, 0.20f);
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.50f));
+
+    for (int i = 0; i <= 360; i++)
+    {
+        float a = (360.0f + i) * 3.1415926f / 180.0f;
+
+        float x = VALUE_FROM_PERCENT(0.03f * cos(a), psh_width_percentage);
+        float y = VALUE_FROM_PERCENT(0.035f * sin(a), psh_height_percentage);
+
+        glVertex2f(PSH_X(0.0f) + x, PSH_Y(0.56f) + y);
+    }
+    glEnd();
+
+    glPointSize(5.0f);
+    glColor3f(0.0f, 0.0f, 0.0f);
+    glBegin(GL_POINTS);
+    glVertex2f(PSH_X(0.0f), PSH_Y(0.53f));
+    glEnd();
+}
+
+// Harshal's code
 
 void keyboard(unsigned char key, int x, int y)
 {
