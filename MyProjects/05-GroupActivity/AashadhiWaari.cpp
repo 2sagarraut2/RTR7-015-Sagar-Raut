@@ -48,7 +48,8 @@ void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, fl
 void drawGroundQuad();
 
 // sagar's macros
-#define VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
+#define VALUE_FROM_PERCENT(complete_value, percent) ((complete_value * percent) / 100)
+#define SR_VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
 #define SCALE_RADIUS(radius, SR_percent) ((radius) * (SR_percent) / 100)
 
 // Pranalis macros
@@ -259,10 +260,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     // glBegin(GL_QUADS);
 
-    // glVertex3f(VALUE_FROM_PERCENT(SR_XPosition, SR_percent), VALUE_FROM_PERCENT(SR_YPosition, SR_percent), 0.0f);
-    // glVertex3f(VALUE_FROM_PERCENT(SR_Width + SR_XPosition, SR_percent), VALUE_FROM_PERCENT(SR_YPosition, SR_percent), 0.0f);
-    // glVertex3f(VALUE_FROM_PERCENT(SR_Width + SR_XPosition, SR_percent), VALUE_FROM_PERCENT(SR_YPosition - SR_Height, SR_percent), 0.0f);
-    // glVertex3f(VALUE_FROM_PERCENT(SR_XPosition, SR_percent), VALUE_FROM_PERCENT(SR_YPosition - SR_Height, SR_percent), 0.0f);
+    // glVertex3f(SR_VALUE_FROM_PERCENT(SR_XPosition, SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition, SR_percent), 0.0f);
+    // glVertex3f(SR_VALUE_FROM_PERCENT(SR_Width + SR_XPosition, SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition, SR_percent), 0.0f);
+    // glVertex3f(SR_VALUE_FROM_PERCENT(SR_Width + SR_XPosition, SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition - SR_Height, SR_percent), 0.0f);
+    // glVertex3f(SR_VALUE_FROM_PERCENT(SR_XPosition, SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition - SR_Height, SR_percent), 0.0f);
 
     // // glVertex3f(VALUE_FROM_PERSENT(-0.2f, persent) + xPosition, VALUE_FROM_PERSENT(-0.4f, persent) + YPosition, 0.0f);
 
@@ -275,19 +276,19 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glBegin(GL_TRIANGLES);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT(SR_YPosition, SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition, SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
 
     glEnd();
 
     // topi main quad
     glBegin(GL_QUADS);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.051f)), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + (SR_Width / 5)), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.04f)), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.051f)), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + (SR_Width / 5)), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.04f)), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
 
     glEnd();
 
@@ -295,12 +296,12 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_QUADS);
 
     glColor3f(0.890f, 0.757f, 0.624f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
     // glColor3f(0.890f, 0.757f, 0.624f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
 
     glEnd();
 
@@ -309,10 +310,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.917f, 0.816f, 0.726f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent));
 
     glEnd();
 
@@ -320,9 +321,9 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_TRIANGLES);
 
     glColor3f(1.0f, 1.0f, 1.0f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 5), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 5), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
 
     glEnd();
 
@@ -331,8 +332,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.917f, 0.816f, 0.726f);
 
-    float centerX = VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
-    float centerY = VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent);
+    float centerX = SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
+    float centerY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent);
     float radius = SCALE_RADIUS(0.048f, SR_percent);
     glVertex2f(centerX, centerY);
 
@@ -352,8 +353,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // glColor3f(0.1f, 0.1f, 0.1f);
     // glBegin(GL_TRIANGLE_FAN);
 
-    float bukkaX = VALUE_FROM_PERCENT((SR_XPosition + (SR_Width / 2)), SR_percent);
-    float bukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent);
+    float bukkaX = SR_VALUE_FROM_PERCENT((SR_XPosition + (SR_Width / 2)), SR_percent);
+    float bukkaY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent);
 
     float radiusX = SCALE_RADIUS(0.015f, SR_percent);
 
@@ -376,10 +377,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_QUADS);
 
     glColor3f(0.1f, 0.1f, 0.1f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.135f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.135f), SR_percent));
 
     glEnd();
 
@@ -387,10 +388,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_QUADS);
     glColor3f(0.917f, 0.816f, 0.726f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
 
     glEnd();
 
@@ -398,8 +399,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_TRIANGLE_FAN);
     glColor3f(0.1f, 0.1f, 0.1f);
 
-    float earBukkaX = VALUE_FROM_PERCENT((SR_XPosition + 0.045f), SR_percent);
-    float earBukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.31f), SR_percent);
+    float earBukkaX = SR_VALUE_FROM_PERCENT((SR_XPosition + 0.045f), SR_percent);
+    float earBukkaY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.31f), SR_percent);
 
     radiusX = SCALE_RADIUS(0.006f, SR_percent);
 
@@ -424,10 +425,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_QUADS);
 
     glColor3f(0.1f, 0.1f, 0.1f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.135f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.135f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
 
     glEnd();
 
@@ -436,13 +437,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.917f, 0.816f, 0.726f);
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.32f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.040f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.18f), SR_percent));
 
     glEnd();
 
@@ -450,8 +451,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_TRIANGLE_FAN);
     glColor3f(0.1f, 0.1f, 0.1f);
 
-    earBukkaX = VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.046f)), SR_percent);
-    earBukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.31f), SR_percent);
+    earBukkaX = SR_VALUE_FROM_PERCENT((SR_XPosition + (SR_Width - 0.046f)), SR_percent);
+    earBukkaY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.31f), SR_percent);
 
     radiusX = SCALE_RADIUS(0.006f, SR_percent);
 
@@ -480,29 +481,29 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(0.001f, 0.001f, 0.001f);
 
     // TOPI LINES
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT(SR_YPosition, SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition, SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT(SR_YPosition, SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT(SR_YPosition, SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 5), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 5), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 5), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 5), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.051f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.045f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.13f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
 
     // RIGHT COLLAR TOP LINE
     // glColor3f(1.0f, 0.0f, 0.0f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.028f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.028f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
 
     glEnd();
 
@@ -518,13 +519,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(1.0f, 1.0f, 1.0f); // white
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.097f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.097f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.028f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.028f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
 
     glEnd();
 
@@ -534,13 +535,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(1.0f, 1.0f, 1.0f); // white
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.028f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.028f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
 
     glEnd();
 
@@ -550,13 +551,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
     // glColor3f(1.0f, 1.0f, 1.0f); // white
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
 
     glEnd();
 
@@ -566,10 +567,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.439f, 0.310f, 0.184f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
 
     glEnd();
 
@@ -579,10 +580,10 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.278f, 0.282f, 0.267f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.015f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.035f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.0f), SR_percent));
 
     glEnd();
 
@@ -591,9 +592,9 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // flag
     glBegin(GL_TRIANGLES);
     glColor3f(0.928f, 0.438f, 0.266f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.012f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.012f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.1f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.3f + flagSway), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.1f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.012f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.012f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.1f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.3f + flagSway), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.1f), SR_percent));
     glEnd();
 
     // flag border
@@ -604,9 +605,9 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glBegin(GL_LINE_LOOP);
     glColor3f(0.1f, 0.1f, 0.1f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.013f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.013f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.1f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.3f + flagSway), SR_percent), VALUE_FROM_PERCENT((SR_YPosition + 0.1f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.013f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.3f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.013f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.1f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.3f + flagSway), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition + 0.1f), SR_percent));
     glEnd();
 
     glLineWidth(1.0f);
@@ -619,14 +620,14 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
     // glColor3f(1.0f, 1.0f, 1.0f); // white
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
 
     glEnd();
 
@@ -636,14 +637,14 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // glColor3f(0.001f, 0.001f, 0.001f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
     // glColor3f(1.0f, 1.0f, 1.0f); // white
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
 
     glEnd();
 
@@ -655,37 +656,37 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.001f, 0.001f, 0.001f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.575f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.575f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
 
     glColor3f(0.001f, 0.001f, 0.001f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
 
     glColor3f(0.001f, 0.001f, 0.001f);
 
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
 
     // right hand lines
     glColor3f(0.001f, 0.001f, 0.001f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.575f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.575f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
 
     // right hand slant lines
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.200f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.712f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.145f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.200f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.712f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.145f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
 
     // glVertex2f(SR_XPosition + 0.145f, SR_YPosition - 0.82f);
     // glVertex2f(SR_XPosition + 0.210f, SR_YPosition - 0.90f);
@@ -694,78 +695,78 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // glVertex2f(SR_XPosition + 0.275f, SR_YPosition - 0.80f);
 
     glColor3f(0.001f, 0.001f, 0.001f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.202f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.715f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.145f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.202f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.715f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.145f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.202f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.715f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.80f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.202f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.715f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.80f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.80f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.80f), SR_percent));
 
     // RIGHT Hand cross line
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.165f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.165f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
 
     // shirt ending lines
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
 
     // Shirt left side lines
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
 
     // shirt right side lines
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
 
     // right collar border
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.028f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width + 0.028f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
 
     glColor3f(0.001f, 0.001f, 0.001f);
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width - 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
 
     // left collar border
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.028f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.028f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.097f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.057f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.097f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.028f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.49f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.028f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.37f), SR_percent));
 
     // Pant lines left leg
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.087f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.087f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.087f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.087f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
 
     // Pant lines right leg
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.117f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.117f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.117f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.117f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
     glEnd();
 
@@ -781,13 +782,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
 
     glEnd();
 
@@ -797,14 +798,14 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(0.001f, 0.001f, 0.001f);
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.008f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.075f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.07f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.93f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.13f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.81f), SR_percent));
 
     glEnd();
 
@@ -815,13 +816,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(0.917f, 0.816f, 0.726f);
 
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.141f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.141f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.161f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.161f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.181f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.75f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.181f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.75f), SR_percent));
     // glColor3f(1.0f, 1.0f, 1.0f); // White
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.161f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.75f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.161f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.75f), SR_percent));
 
     glEnd();
 
@@ -830,13 +831,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(0.917f, 0.816f, 0.726f);
 
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.141f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.141f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.23f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.23f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.79f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.18f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.18f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.085f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.085f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
 
     // glVertex2f();
 
@@ -850,14 +851,14 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.490f), SR_percent));
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
 
     glEnd();
 
@@ -884,13 +885,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(0.917f, 0.816f, 0.726f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.212f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.212f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.815f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.212f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.695f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.212f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.695f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.655f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.655f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.815f), SR_percent));
 
     glEnd();
 
@@ -899,13 +900,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(0.917f, 0.816f, 0.726f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.825f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.825f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.695f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.190f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.695f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.150f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.635f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.150f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.635f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.145f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.765f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.145f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.765f), SR_percent));
 
     glEnd();
 
@@ -915,14 +916,14 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glColor3f(1.0f, 1.0f, 1.0f);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.222f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.715f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.222f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.715f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.165f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.165f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.82f), SR_percent));
 
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.210f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.90f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.80f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.275f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.80f), SR_percent));
 
     glEnd();
 
@@ -935,13 +936,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     // LEFT PANT
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.087f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.087f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition - 0.065f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
     glEnd();
 
@@ -949,13 +950,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     // RIGHT PANT
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.1f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.15f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.265f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.117f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.117f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.8f), SR_percent));
 
     glEnd();
 
@@ -967,18 +968,18 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     // glColor3f(1.0f, 0.0f, 0.0f);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2.25), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 1.8f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 1.8f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2.25), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2.25), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 1.8f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.15f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 1.8f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2.25), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent));
 
     glEnd();
 
     // GANDHA BOTTOM CIRCLES
     glBegin(GL_TRIANGLE_FAN);
 
-    bukkaX = VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
-    bukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent);
+    bukkaX = SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
+    bukkaY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent);
 
     radiusX = SCALE_RADIUS(0.011f, SR_percent);
 
@@ -1002,8 +1003,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(1.0f, 0.0f, 0.0f);
 
-    bukkaX = VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
-    bukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent);
+    bukkaX = SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
+    bukkaY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.19f), SR_percent);
 
     radiusX = SCALE_RADIUS(0.006f, SR_percent);
 
@@ -1027,8 +1028,8 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 
     glColor3f(0.1f, 0.1f, 0.1f);
 
-    bukkaX = VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
-    bukkaY = VALUE_FROM_PERCENT((SR_YPosition - 0.167f), SR_percent);
+    bukkaX = SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
+    bukkaY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.167f), SR_percent);
 
     radiusX = SCALE_RADIUS(0.006f, SR_percent);
 
@@ -1057,13 +1058,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
 
     glEnd();
 
@@ -1072,13 +1073,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f); // red
-    glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT(SR_XPosition - 0.03f, SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
     // glColor3f(0.1f, 0.1f, 0.1f); // black
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
     // glColor3f(0.0f, 1.0f, 0.0f); // green
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.02f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.02f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
     // glColor3f(0.0f, 0.0f, 1.0f); // blue
-    glVertex2f(VALUE_FROM_PERCENT(SR_XPosition - 0.05f, SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT(SR_XPosition - 0.05f, SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
 
     glEnd();
 
@@ -1087,19 +1088,19 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // RIGHT LEG
     glBegin(GL_QUADS);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.227f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.16f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.16f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.227f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.227f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.16f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.803f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.16f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.227f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
 
     glEnd();
 
     glBegin(GL_QUADS);
 
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.227f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.16f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.18f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
-    glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.247f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.227f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.16f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.815f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.18f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.247f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
 
     glEnd();
 
@@ -1108,13 +1109,13 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
     // glColor3f(0.1f, 0.1f, 0.1f);
 
     // // glColor3f(1.0f, 1.0f, 1.0f);
-    // glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.17f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.860f), SR_percent));
+    // glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.17f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.860f), SR_percent));
     // // glColor3f(1.0f, 0.0f, 0.0f);
-    // glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.237f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.860f), SR_percent));
+    // glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.237f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.860f), SR_percent));
     // // glColor3f(0.0f, 1.0f, 0.0f);
-    // glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.247f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    // glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.247f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
     // // glColor3f(0.0f, 0.0f, 1.0f);
-    // glVertex2f(VALUE_FROM_PERCENT((SR_XPosition + 0.18f), SR_percent), VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
+    // glVertex2f(SR_VALUE_FROM_PERCENT((SR_XPosition + 0.18f), SR_percent), SR_VALUE_FROM_PERCENT((SR_YPosition - 1.900f), SR_percent));
 
     // glEnd();
 
@@ -1125,8 +1126,8 @@ void drawFlower(float radiusSize, float customX, float customY)
 {
     glBegin(GL_TRIANGLE_FAN);
 
-    float centerX = VALUE_FROM_PERCENT(customX, SR_percent);
-    float centerY = VALUE_FROM_PERCENT(customY, SR_percent);
+    float centerX = SR_VALUE_FROM_PERCENT(customX, SR_percent);
+    float centerY = SR_VALUE_FROM_PERCENT(customY, SR_percent);
     glVertex2f(centerX, centerY);
 
     float baseRadius = SCALE_RADIUS(radiusSize, SR_percent);
