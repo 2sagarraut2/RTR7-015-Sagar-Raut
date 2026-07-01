@@ -69,6 +69,12 @@ void callDhwajGhetlelWarkari();
 void drawFlower(float flowerRadius, float xPosition, float yPosition);
 void calldrawFlower();
 void drawTree(float SR_tree_xPosition, float SR_tree_yPosition, float SR_tree_width, float SR_tree_height, float SR_tree_thickness, float SR_tree_percent);
+// sagar name functions
+void drawSagarName(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterS(float startingPoint, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterA(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterG(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterR(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
 
 // project name functions
 void SR_mukut(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
@@ -92,6 +98,15 @@ void renderGroupPresents(float psh_x_pos, float psh_y_pos, int psh_width_percent
 
 // shriniwas's funcions
 void SJ_Chopdar();
+void suj_s(void);
+void suj_h(void);
+void suj_r(void);
+void suj_i(void);
+void suj_n(void);
+void suj_i2(void);
+void suj_v(void);
+void suj_a(void);
+void suj_s2(void);
 
 // Yogesh's functions
 void drawQuad(float xP, float yP, float width, float height);
@@ -122,6 +137,12 @@ float SR_Width = 0.2f;
 float SR_currentSwayOffset = 0.0f;
 bool SR_bodyGoingUp = true;
 bool SR_flagSwayingLeft = true;
+// sagar name variables
+float startingPointX = -0.9f; // -0.9
+float startingPointY = 0.5f;
+float width = 0.32f;
+float thickness = 0.10f;
+float SR_namePercent = 50.0;
 
 // variables for project name
 float SR_xPosition = -0.6f;
@@ -203,6 +224,9 @@ bool showMainSceneFOut = false;
 
 bool bVitthalFIn = false;
 bool bVitthalFout = false;
+
+bool endCreditSceneIn = false;
+bool endCreditSceneOut = true;
 
 int main(int argc, char *argv[])
 {
@@ -300,7 +324,7 @@ void display(void)
     // // drawFlower call
 
     // // Harshal's code
-    renderGroupPresents(0.0f, 0.0f, 100, 100);
+    // renderGroupPresents(0.0f, 0.0f, 100, 100);
     // Tila(0.0f, -1.0f, 400, 200);
 
     // projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
@@ -308,216 +332,269 @@ void display(void)
     // Pranalis code
     // psh_drawVitthal(0.0f, 0.0f, 60, 95);
 
+    // Shriniwas name code
+    // glColor3f(1.0f, 1.0f, 0.0f);
+    // suj_s();
+    // suj_h();
+    // suj_r();
+    // suj_i();
+    // suj_n();
+    // suj_i2();
+    // suj_v();
+    // suj_a();
+    // suj_s2();
+
+    // sagar name code
+    // drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
     // fade in out switch case
-    // switch (scence)
-    // {
-    //     // case for Astromedicomp
-    // case 0:
-    //     if (bRenderGroupPresentsFIn != true)
-    //     {
+    switch (scence)
+    {
+        // case for Astromedicomp
+    case 0:
+        if (bRenderGroupPresentsFIn != true)
+        {
 
-    //         if (FadeIn)
-    //         {
-    //             ScreenFadeIn(ScreenFadeFactor);
-    //             AstroMediComp(0.02f, -0.4f);
-    //             printf("renderGroupPresents\n");
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bRenderGroupPresentsFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         // printf("FadeOut %d", FadeOut);
-    //         if (FadeOut)
-    //         {
-    //             ScreenFadeOut(ScreenFadeFactor);
-    //             AstroMediComp(0.02f, -0.4f);
-    //             printf("renderGroupPresents from else\n");
-    //         }
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bRenderGroupPresentsFOut = true;
-    //             // Reset for next scene
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             ScreenFadeFactor = 1.0f;
-    //             scence++;
-    //         }
-    //     }
-    //     break;
+            if (FadeIn)
+            {
+                ScreenFadeIn(ScreenFadeFactor);
+                AstroMediComp(0.02f, -0.4f);
+                printf("renderGroupPresents\n");
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bRenderGroupPresentsFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+            }
+        }
+        else
+        {
+            // printf("FadeOut %d", FadeOut);
+            if (FadeOut)
+            {
+                ScreenFadeOut(ScreenFadeFactor);
+                AstroMediComp(0.02f, -0.4f);
+                printf("renderGroupPresents from else\n");
+            }
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bRenderGroupPresentsFOut = true;
+                // Reset for next scene
+                FadeIn = true;
+                FadeOut = false;
+                ScreenFadeFactor = 1.0f;
+                scence++;
+            }
+        }
+        break;
 
-    //     // case for astromedicomp and render group presents
-    // case 1:
-    //     if (bRenderGroupPresentsFIn != true)
-    //     {
+        // case for astromedicomp and render group presents
+    case 1:
+        if (bRenderGroupPresentsFIn != true)
+        {
 
-    //         if (FadeIn)
-    //         {
-    //             ScreenFadeIn(ScreenFadeFactor);
-    //             renderGroupPresents(0.0f, 0.0f, 100, 100);
-    //             printf("renderGroupPresents\n");
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bRenderGroupPresentsFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         // printf("FadeOut %d", FadeOut);
-    //         if (FadeOut)
-    //         {
-    //             ScreenFadeOut(ScreenFadeFactor);
-    //             renderGroupPresents(0.0f, 0.0f, 100, 100);
-    //             printf("renderGroupPresents from else\n");
-    //         }
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bRenderGroupPresentsFOut = true;
-    //             // Reset for next scene
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             ScreenFadeFactor = 1.0f;
-    //             scence++;
-    //         }
-    //     }
-    //     break;
+            if (FadeIn)
+            {
+                ScreenFadeIn(ScreenFadeFactor);
+                renderGroupPresents(0.0f, 0.0f, 100, 100);
+                printf("renderGroupPresents\n");
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bRenderGroupPresentsFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+            }
+        }
+        else
+        {
+            // printf("FadeOut %d", FadeOut);
+            if (FadeOut)
+            {
+                ScreenFadeOut(ScreenFadeFactor);
+                renderGroupPresents(0.0f, 0.0f, 100, 100);
+                printf("renderGroupPresents from else\n");
+            }
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bRenderGroupPresentsFOut = true;
+                // Reset for next scene
+                FadeIn = true;
+                FadeOut = false;
+                ScreenFadeFactor = 1.0f;
+                scence++;
+            }
+        }
+        break;
 
-    // // case for showing project name
-    // case 2:
-    //     if (bProjectNameFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             ScreenFadeIn(ScreenFadeFactor);
-    //             printf("Tila called\n");
-    //             projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bProjectNameFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             ScreenFadeOut(ScreenFadeFactor);
-    //             printf("Tila called from else\n");
-    //             projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
-    //         }
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bProjectNameFOut = true;
-    //             // Reset for next scene
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             ScreenFadeFactor = 1.0f;
-    //             scence++;
-    //         }
-    //     }
-    //     break;
+    // case for showing project name
+    case 2:
+        if (bProjectNameFIn != true)
+        {
+            if (FadeIn)
+            {
+                ScreenFadeIn(ScreenFadeFactor);
+                printf("Tila called\n");
+                projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bProjectNameFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+            }
+        }
+        else
+        {
+            if (FadeOut)
+            {
+                ScreenFadeOut(ScreenFadeFactor);
+                printf("Tila called from else\n");
+                projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
+            }
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bProjectNameFOut = true;
+                // Reset for next scene
+                FadeIn = true;
+                FadeOut = false;
+                ScreenFadeFactor = 1.0f;
+                scence++;
+            }
+        }
+        break;
 
-    // // case for showing main scene
-    // case 3:
-    //     if (showMainSceneFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             ScreenFadeIn(ScreenFadeFactor);
-    //             printf("ground called\n");
-    //             drawGroundQuad();
-    //             callDhwajGhetlelWarkari();
-    //             hbPalakhi(hb_x, hb_y, hb_h, hb_w);
-    //             SJ_Chopdar();
-    //             yg_Veena_Warkari();
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             showMainSceneFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //         }
-    //     }
+    // case for showing main scene
+    case 3:
+        if (showMainSceneFIn != true)
+        {
+            if (FadeIn)
+            {
+                ScreenFadeIn(ScreenFadeFactor);
+                printf("ground called\n");
+                drawGroundQuad();
+                callDhwajGhetlelWarkari();
+                hbPalakhi(hb_x, hb_y, hb_h, hb_w);
+                SJ_Chopdar();
+                yg_Veena_Warkari();
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                showMainSceneFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+            }
+        }
 
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             ScreenFadeOut(ScreenFadeFactor);
-    //             printf("ground called from else\n");
-    //             drawGroundQuad();
-    //             callDhwajGhetlelWarkari();
-    //             hbPalakhi(hb_x, hb_y, hb_h, hb_w);
-    //             SJ_Chopdar();
-    //             yg_Veena_Warkari();
-    //         }
+        else
+        {
+            if (FadeOut)
+            {
+                ScreenFadeOut(ScreenFadeFactor);
+                printf("ground called from else\n");
+                drawGroundQuad();
+                callDhwajGhetlelWarkari();
+                hbPalakhi(hb_x, hb_y, hb_h, hb_w);
+                SJ_Chopdar();
+                yg_Veena_Warkari();
+            }
 
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             showMainSceneFOut = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //         }
-    //     }
-    //     break;
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                showMainSceneFOut = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+            }
+        }
+        break;
 
-    //     // case for showing vitthal
-    // case 4:
-    //     if (bVitthalFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             ScreenFadeIn(ScreenFadeFactor);
-    //             printf("vitthal called\n");
-    //             psh_drawVitthal(0.0f, 0.0f, 60, 95);
-    //             calldrawFlower();
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bVitthalFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //         }
-    //     }
+        // case for showing vitthal
+    case 4:
+        if (bVitthalFIn != true)
+        {
+            if (FadeIn)
+            {
+                ScreenFadeIn(ScreenFadeFactor);
+                printf("vitthal called\n");
+                psh_drawVitthal(0.0f, 0.0f, 60, 95);
+                calldrawFlower();
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bVitthalFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+            }
+        }
 
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             ScreenFadeOut(ScreenFadeFactor);
-    //             printf("vitthal called from else\n");
-    //             psh_drawVitthal(0.0f, 0.0f, 60, 95);
-    //         }
+        else
+        {
+            if (FadeOut)
+            {
+                ScreenFadeOut(ScreenFadeFactor);
+                printf("vitthal called from else\n");
+                psh_drawVitthal(0.0f, 0.0f, 60, 95);
+            }
 
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bVitthalFout = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bVitthalFout = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+            }
+        }
+        break;
 
-    //             if (scence == 5)
-    //             {
-    //                 glutLeaveMainLoop();
-    //             }
-    //         }
-    //     }
-    //     break;
-    // }
+        // case for end credit scene
+    case 5:
+        if (endCreditSceneIn != true)
+        {
+            if (FadeIn)
+            {
+                ScreenFadeIn(ScreenFadeFactor);
+                printf("end credit scene called\n");
+                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                endCreditSceneIn = true;
+                FadeIn = false;
+                FadeOut = true;
+            }
+        }
 
-    // ScreenQuad();
+        else
+        {
+            if (FadeOut)
+            {
+                ScreenFadeOut(ScreenFadeFactor);
+                printf("end credit scene called from else\n");
+                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+            }
+
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                endCreditSceneOut = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+
+                if (scence == 6)
+                {
+                    glutLeaveMainLoop();
+                }
+            }
+        }
+        break;
+    }
+
+    ScreenQuad();
 
     glutSwapBuffers();
     glutPostRedisplay();
@@ -560,9 +637,8 @@ void ScreenFadeIn(int value)
     // printf("ScreenFadeIn\n");
     if (FadeIn == true)
     {
+        // THIS ALPHA FACTOR WILL CHANGE ON BASIS OF YOUR MACHINE
         ScreenFadeFactor = ScreenFadeFactor - 0.006f;
-        // ScreenFadeFactor = ScreenFadeFactor - 0.006f;
-        // printf("ScreenFadeFactor %f\n", ScreenFadeFactor);
         if (ScreenFadeFactor <= 0.0f)
         {
             // ScreenFade = false;
@@ -580,8 +656,6 @@ void ScreenFadeOut(int value)
     if (FadeOut == true)
     {
         ScreenFadeFactor = ScreenFadeFactor + 0.006f;
-        // ScreenFadeFactor = ScreenFadeFactor + 0.006f;
-        // printf("ScreenFadeFactor %f\n", ScreenFadeFactor);
         if (ScreenFadeFactor >= 1.0f)
         {
             // ScreenFade = true;
@@ -6257,6 +6331,426 @@ void AstroMediComp(float x_pos, float y_pos)
 }
 
 // Astromedicomp
+
+// Shriniwas name code
+
+void suj_s(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.895f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.895f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.80f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.80f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.75f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_h(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.735f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.2f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.685f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.2f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.685f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.2f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.735f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.2f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.595f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.2f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.545f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.2f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.545f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.2f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.595f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.2f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.685f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.03f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.595f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.03f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.595f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.03f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.685f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.03f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_r(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.52f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.52f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.38f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.38f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.41f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.33f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.39f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_i(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.305f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.115f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.115f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.305f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.235f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.185f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.185f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.235f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.305f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.115f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.115f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.305f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_n(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.09f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.09f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.05f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.10f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.10f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.05f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.09f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.05f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_i2(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.125f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.315f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.315f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.125f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.195f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.245f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.245f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.195f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.125f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.315f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.315f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.125f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_v(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.34f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.40f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.45f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.40f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.53f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.42f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.47f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_a(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.555f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.610f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.665f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.625f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.690f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.745f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.675f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.635f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.605f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.02f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.695f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.02f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.695f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.03f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.605f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.03f, suj_percent), 0.0f);
+    glEnd();
+}
+
+void suj_s2(void)
+{
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.82f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.82f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.04f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.91f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(0.00f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.91f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.12f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.96f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glVertex3f(suj_x + suj_VALUE_FROM_PERCENT(0.77f, suj_percent), suj_y + suj_VALUE_FROM_PERCENT(-0.20f, suj_percent), 0.0f);
+    glEnd();
+}
+
+// Shriniwas name code
+
+// sagar name code
+
+void drawSagarName(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent)
+{
+    float originalStartingPointX = startingPointX;
+
+    letterS(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+    startingPointX = startingPointX + width;
+
+    letterA(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+    startingPointX = startingPointX + width + thickness / 1.3f;
+
+    letterG(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+    startingPointX = startingPointX + width;
+
+    letterA(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+    startingPointX = startingPointX + width + thickness / 1.3f;
+
+    letterR(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+    startingPointX = originalStartingPointX;
+}
+
+void letterS(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 1.4f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 1.4f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4.0f), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+
+    glEnd();
+}
+
+void letterA(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2 + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - width / 2 + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - width / 2 + width + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + 0.16f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.09f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - 0.082f + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.09f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - 0.045f + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + 0.125f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.8f), SR_percent));
+
+    glEnd();
+}
+
+void letterG(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + (thickness + 0.05f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 2.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 2.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + (thickness + 0.05f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+
+    glEnd();
+}
+
+void letterR(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness + 0.02f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width + 0.006f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width + 0.006f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness + 0.02f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (width / 2)), SR_percent));
+
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (width)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width - 0.05f)), SR_percent));
+
+    glEnd();
+}
+
+// sagar name code
 
 void keyboard(unsigned char key, int x, int y)
 {
