@@ -39,6 +39,7 @@
 #define PSH_Y(yCordinate) (VALUE_FROM_PERCENT(yCordinate, psh_height_percentage) + psh_y_pos)
 
 // function declaration
+void showShadow(float firstXPoint, float firstYPoint, float secondXPoint, float secondYPoint, float thirdXPoint, float thirdYPoint);
 void SR_mukut(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
 void projectName(float SR_xPosition, float SR_yPosition, float SR_width, float SR_height, float SR_thickness, float SR_percent);
 void drawTree(float SR_tree_xPosition, float SR_tree_yPosition, float SR_tree_width, float SR_tree_height, float SR_tree_thickness, float SR_tree_percent);
@@ -116,7 +117,7 @@ int main(int argc, char *argv[])
 void initialize(void)
 {
     // code
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 void resize(int width, int height)
@@ -172,7 +173,22 @@ void display(void)
     letterN(0.4f, 0.0f);
     letterU(0.1f, -0.5f);
 
+    showShadow(0.0f, 0.0f, 0.1f, 0.0f, 0.2f, 0.1f);
+
     glutSwapBuffers();
+}
+
+void showShadow(float firstXPoint, float firstYPoint, float secondXPoint, float secondYPoint, float thirdXPoint, float thirdYPoint)
+{
+    glColor3f(0.1f, 0.1f, 0.1f);
+
+    glBegin(GL_TRIANGLES);
+
+    glVertex2f(firstXPoint, firstYPoint);
+    glVertex2f(secondXPoint, secondYPoint);
+    glVertex2f(thirdXPoint, thirdYPoint);
+
+    glEnd();
 }
 
 void SR_mukut(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage)
