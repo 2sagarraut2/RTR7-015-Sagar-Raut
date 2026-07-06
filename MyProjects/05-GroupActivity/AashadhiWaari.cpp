@@ -81,6 +81,7 @@ void drawFlower(float flowerRadius, float xPosition, float yPosition);
 void calldrawFlower();
 void drawTree(float SR_tree_xPosition, float SR_tree_yPosition, float SR_tree_width, float SR_tree_height, float SR_tree_thickness, float SR_tree_percent);
 void drawClouds(float xPoint, float yPoint, float radius, float cloudPercent);
+void cloudAnimation(float xCloudPosition);
 // sagar name functions
 void drawSagarName(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
 void letterS(float startingPoint, float startingPointY, float width, float thickness, float SR_namePercent);
@@ -90,6 +91,11 @@ void letterR(float startingPointX, float startingPointY, float width, float thic
 void letterU(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
 void letterI(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
 void letterT(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
+// anoushka tai name letters
+void letterN(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
+void letterO(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
+void letterH(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
+void letterK(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
 
 // project name functions
 void SR_mukut(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
@@ -165,6 +171,8 @@ float startingPointY = -0.5f;
 float width = 0.32f;
 float thickness = 0.10f;
 float SR_namePercent = 50.0;
+// cloud variable
+float xCloudPosition = -2.5f;
 
 // variables for project name - vaari
 float SR_xPosition = -0.6f;
@@ -350,7 +358,7 @@ int main(int argc, char *argv[])
 void initialize(void)
 {
     // code
-    glClearColor(0.400f, 0.761f, 0.949f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -383,24 +391,16 @@ void display(void)
 
     // projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
 
-    // // render clouds
-    // drawClouds(-1.1f, 0.9f, 0.1f, 80.0f);
-    // drawClouds(-1.0f, 1.0f, 0.1f, 80.0f);
-    // drawClouds(-0.9f, 0.9f, 0.1f, 80.0f);
-    // drawClouds(-1.0f, 0.8f, 0.1f, 80.0f);
-
-    // drawClouds(-0.4f, 0.7f, 0.099f, 100.0f);
-    // drawClouds(-0.3f, 0.8f, 0.099f, 100.0f);
-    // drawClouds(-0.2f, 0.7f, 0.099f, 100.0f);
-    // drawClouds(-0.3f, 0.6f, 0.099f, 100.0f);
-
-    // drawClouds(0.6f, 0.8f, 0.10f, 100.0f);
-    // drawClouds(0.5f, 0.9f, 0.10f, 100.0f);
-    // drawClouds(0.4f, 0.8f, 0.10f, 100.0f);
-    // drawClouds(0.5f, 0.7f, 0.10f, 100.0f);
-
     // // ground func call
     // drawGroundQuad();
+
+    // // // render clouds
+    // if (xCloudPosition <= 0.0f)
+    // {
+    //     xCloudPosition = xCloudPosition + 0.0005f;
+    // }
+
+    // cloudAnimation(xCloudPosition);
 
     // // Mandir
     // drawMandir();
@@ -513,7 +513,6 @@ void display(void)
             {
                 ScreenFadeOut(ScreenFadeFactor);
                 AstroMediComp(0.02f, -0.4f);
-                printf("renderGroupPresents from else\n");
             }
             if (ScreenFadeFactor >= 1.0f)
             {
@@ -536,7 +535,6 @@ void display(void)
             {
                 ScreenFadeIn(ScreenFadeFactor);
                 renderGroupPresents(0.0f, 0.0f, 100, 100);
-                printf("renderGroupPresents\n");
             }
             if (ScreenFadeFactor <= 0.0f)
             {
@@ -552,7 +550,6 @@ void display(void)
             {
                 ScreenFadeOut(ScreenFadeFactor);
                 renderGroupPresents(0.0f, 0.0f, 100, 100);
-                printf("renderGroupPresents from else\n");
             }
             if (ScreenFadeFactor >= 1.0f)
             {
@@ -573,7 +570,6 @@ void display(void)
             if (FadeIn)
             {
                 ScreenFadeIn(ScreenFadeFactor);
-                printf("Tila called\n");
                 projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
             }
             if (ScreenFadeFactor <= 0.0f)
@@ -588,7 +584,6 @@ void display(void)
             if (FadeOut)
             {
                 ScreenFadeOut(ScreenFadeFactor);
-                printf("Tila called from else\n");
                 projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
             }
             if (ScreenFadeFactor >= 1.0f)
@@ -610,26 +605,17 @@ void display(void)
             if (FadeIn)
             {
                 ScreenFadeIn(ScreenFadeFactor);
-                printf("ground called\n");
-
-                // render clouds
-                drawClouds(-1.1f, 0.9f, 0.1f, 80.0f);
-                drawClouds(-1.0f, 1.0f, 0.1f, 80.0f);
-                drawClouds(-0.9f, 0.9f, 0.1f, 80.0f);
-                drawClouds(-1.0f, 0.8f, 0.1f, 80.0f);
-
-                drawClouds(-0.4f, 0.7f, 0.099f, 100.0f);
-                drawClouds(-0.3f, 0.8f, 0.099f, 100.0f);
-                drawClouds(-0.2f, 0.7f, 0.099f, 100.0f);
-                drawClouds(-0.3f, 0.6f, 0.099f, 100.0f);
-
-                drawClouds(0.6f, 0.8f, 0.10f, 100.0f);
-                drawClouds(0.5f, 0.9f, 0.10f, 100.0f);
-                drawClouds(0.4f, 0.8f, 0.10f, 100.0f);
-                drawClouds(0.5f, 0.7f, 0.10f, 100.0f);
 
                 // ground func call
                 drawGroundQuad();
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
 
                 // Mandir
                 drawMandir();
@@ -668,26 +654,17 @@ void display(void)
             if (FadeOut)
             {
                 ScreenFadeOut(ScreenFadeFactor);
-                printf("ground called from else\n");
-
-                // // render clouds
-                drawClouds(-1.1f, 0.9f, 0.1f, 80.0f);
-                drawClouds(-1.0f, 1.0f, 0.1f, 80.0f);
-                drawClouds(-0.9f, 0.9f, 0.1f, 80.0f);
-                drawClouds(-1.0f, 0.8f, 0.1f, 80.0f);
-
-                drawClouds(-0.4f, 0.7f, 0.099f, 100.0f);
-                drawClouds(-0.3f, 0.8f, 0.099f, 100.0f);
-                drawClouds(-0.2f, 0.7f, 0.099f, 100.0f);
-                drawClouds(-0.3f, 0.6f, 0.099f, 100.0f);
-
-                drawClouds(0.6f, 0.8f, 0.10f, 100.0f);
-                drawClouds(0.5f, 0.9f, 0.10f, 100.0f);
-                drawClouds(0.4f, 0.8f, 0.10f, 100.0f);
-                drawClouds(0.5f, 0.7f, 0.10f, 100.0f);
 
                 // // ground func call
                 drawGroundQuad();
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // // render clouds
+                cloudAnimation(xCloudPosition);
 
                 // // Mandir
                 drawMandir();
@@ -732,7 +709,7 @@ void display(void)
             if (FadeIn)
             {
                 ScreenFadeIn(ScreenFadeFactor);
-                printf("vitthal called\n");
+
                 psh_drawVitthal(0.0f, 0.0f, 60, 95);
                 calldrawFlower();
             }
@@ -765,25 +742,38 @@ void display(void)
         }
         break;
 
-    // case for end credit scene
+        // case for team names
     case 5:
-        if (endCreditSceneIn != true)
+        if (teamNamesFIn != true)
         {
             if (FadeIn)
             {
                 ScreenFadeIn(ScreenFadeFactor);
-                printf("vitthal called\n");
 
-                // our inspiration
-                our(-0.3f, 0.25f, 30.0f);
-                inspiration(0.2f, 0.25f, 30.0f);
+                // prasad name code
+                drawPrasadName(100.0f);
 
-                // Dr.Vijay Gokhale name code
-                drawVijayGokhale();
+                // Shriniwas name code
+                shriniwasName();
+
+                // harshal name call
+                drawHarshalName();
+
+                // yogesh name
+                drawYogeshName();
+
+                // sagar name code
+                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+                // pranali name code
+                psh_draw_name(0.1f, -1.45f);
+
+                // hemant name
+                drawHemantName();
             }
             if (ScreenFadeFactor <= 0.0f)
             {
-                endCreditSceneIn = true;
+                teamNamesFIn = true;
                 FadeIn = false;
                 FadeOut = true;
             }
@@ -794,19 +784,32 @@ void display(void)
             if (FadeOut)
             {
                 ScreenFadeOut(ScreenFadeFactor);
-                printf("vitthal called from else\n");
 
-                // our inspiration
-                our(-0.3f, 0.25f, 30.0f);
-                inspiration(0.2f, 0.25f, 30.0f);
+                // prasad name code
+                drawPrasadName(100.0f);
 
-                // Dr.Vijay Gokhale name code
-                drawVijayGokhale();
+                // Shriniwas name code
+                shriniwasName();
+
+                // harshal name call
+                drawHarshalName();
+
+                // yogesh name
+                drawYogeshName();
+
+                // sagar name code
+                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+                // pranali name code
+                psh_draw_name(0.1f, -1.45f);
+
+                // hemant name
+                drawHemantName();
             }
 
             if (ScreenFadeFactor >= 1.0f)
             {
-                endCreditSceneOut = true;
+                teamNamesFOut = true;
                 scence++;
                 ScreenFadeFactor = 1.0f;
                 FadeIn = true;
@@ -822,7 +825,6 @@ void display(void)
             if (FadeIn)
             {
                 ScreenFadeIn(ScreenFadeFactor);
-                printf("vitthal called\n");
 
                 // under guidance
                 under(-0.2f, 0.3f, 30.0f);
@@ -862,7 +864,6 @@ void display(void)
             if (FadeOut)
             {
                 ScreenFadeOut(ScreenFadeFactor);
-                printf("vitthal called from else\n");
 
                 // under guidance
                 under(-0.2f, 0.3f, 30.0f);
@@ -901,39 +902,24 @@ void display(void)
         }
         break;
 
-    // case for team names
+        // case for end credit scene
     case 7:
-        if (teamNamesFIn != true)
+        if (endCreditSceneIn != true)
         {
             if (FadeIn)
             {
                 ScreenFadeIn(ScreenFadeFactor);
-                printf("vitthal called\n");
 
-                // prasad name code
-                drawPrasadName(100.0f);
+                // our inspiration
+                our(-0.3f, 0.25f, 30.0f);
+                inspiration(0.2f, 0.25f, 30.0f);
 
-                // Shriniwas name code
-                shriniwasName();
-
-                // harshal name call
-                drawHarshalName();
-
-                // yogesh name
-                drawYogeshName();
-
-                // sagar name code
-                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-                // pranali name code
-                psh_draw_name(0.1f, -1.45f);
-
-                // hemant name
-                drawHemantName();
+                // Dr.Vijay Gokhale name code
+                drawVijayGokhale();
             }
             if (ScreenFadeFactor <= 0.0f)
             {
-                teamNamesFIn = true;
+                endCreditSceneIn = true;
                 FadeIn = false;
                 FadeOut = true;
             }
@@ -944,33 +930,18 @@ void display(void)
             if (FadeOut)
             {
                 ScreenFadeOut(ScreenFadeFactor);
-                printf("vitthal called from else\n");
 
-                // prasad name code
-                drawPrasadName(100.0f);
+                // our inspiration
+                our(-0.3f, 0.25f, 30.0f);
+                inspiration(0.2f, 0.25f, 30.0f);
 
-                // Shriniwas name code
-                shriniwasName();
-
-                // harshal name call
-                drawHarshalName();
-
-                // yogesh name
-                drawYogeshName();
-
-                // sagar name code
-                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-                // pranali name code
-                psh_draw_name(0.1f, -1.45f);
-
-                // hemant name
-                drawHemantName();
+                // Dr.Vijay Gokhale name code
+                drawVijayGokhale();
             }
 
             if (ScreenFadeFactor >= 1.0f)
             {
-                teamNamesFOut = true;
+                endCreditSceneOut = true;
                 scence++;
                 ScreenFadeFactor = 1.0f;
                 FadeIn = true;
@@ -1030,8 +1001,9 @@ void ScreenFadeIn(int value)
     if (FadeIn == true)
     {
         // THIS ALPHA FACTOR WILL CHANGE ON BASIS OF YOUR MACHINE
-        // ScreenFadeFactor = ScreenFadeFactor - 0.0010f;   // while record
-        ScreenFadeFactor = ScreenFadeFactor - 0.0009f; // original
+        ScreenFadeFactor = ScreenFadeFactor - 0.0010f; // while record
+        // ScreenFadeFactor = ScreenFadeFactor - 0.0009f; // original
+        // ScreenFadeFactor = ScreenFadeFactor - 0.009f; // testing
         if (ScreenFadeFactor <= 0.0f)
         {
             // ScreenFade = false;
@@ -1048,8 +1020,9 @@ void ScreenFadeOut(int value)
 {
     if (FadeOut == true)
     {
-        // ScreenFadeFactor = ScreenFadeFactor + 0.0010f;   // while record
-        ScreenFadeFactor = ScreenFadeFactor + 0.0009f; // original
+        ScreenFadeFactor = ScreenFadeFactor + 0.0010f; // while record
+        // ScreenFadeFactor = ScreenFadeFactor + 0.0009f; // original
+        // ScreenFadeFactor = ScreenFadeFactor + 0.009f; // testing
         if (ScreenFadeFactor >= 1.0f)
         {
             // ScreenFade = true;
@@ -3103,6 +3076,16 @@ void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, fl
 
 void drawGroundQuad()
 {
+
+    glBegin(GL_QUADS);
+    glColor3f(0.400f, 0.761f, 0.949f);
+
+    glVertex2f(-1.0f, 1.0f);
+    glVertex2f(1.0f, 1.0f);
+    glVertex2f(1.0f, 0.35f);
+    glVertex2f(-1.0f, 0.35f);
+
+    glEnd();
 
     glColor3f(0.991157f, 0.866667f, 0.329412f);
 
@@ -10317,6 +10300,125 @@ void letterT(float startingPointX, float startingPointY, float width, float thic
     glEnd();
 }
 
+void letterN(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    // Left vertical bar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Diagonal crossing bar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Right vertical bar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glEnd();
+}
+
+void letterO(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    // Left vertical border
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Right vertical border
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Top horizontal border
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+
+    // Bottom horizontal border
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+
+    glEnd();
+}
+
+void letterH(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    // Left vertical bar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Right vertical bar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Center connecting crossbar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+
+    glEnd();
+}
+
+void letterK(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
+{
+    glBegin(GL_QUADS);
+
+    // Main left vertical pillar
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    // Upper diagonal branch (extends up and right)
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f + thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+
+    // Lower diagonal branch (extends down and right)
+    glColor3f(1.0f, 0.0f, 1.0f);
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f + thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+
+    glEnd();
+}
+
 // guari tai name code
 
 // cloud code
@@ -10345,6 +10447,24 @@ void drawClouds(float xPoint, float yPoint, float radius, float cloudPercent)
         glVertex2f(x, y);
     }
     glEnd();
+}
+
+void cloudAnimation(float xCloudPosition)
+{
+    drawClouds(xCloudPosition + 0.2f, 2.2f, 0.1f, 40.0f);
+    drawClouds(xCloudPosition + 0.3f, 2.3f, 0.1f, 40.0f);
+    drawClouds(xCloudPosition + 0.4f, 2.2f, 0.1f, 40.0f);
+    drawClouds(xCloudPosition + 0.3f, 2.1f, 0.1f, 40.0f);
+
+    drawClouds(-0.4f, 1.4f, 0.099f, 60.0f);
+    drawClouds(-0.3f, 1.5f, 0.099f, 60.0f);
+    drawClouds(-0.2f, 1.4f, 0.099f, 60.0f);
+    drawClouds(-0.3f, 1.3f, 0.099f, 60.0f);
+
+    drawClouds(0.7f, 1.2f, 0.10f, 70.0f);
+    drawClouds(0.6f, 1.3f, 0.10f, 70.0f);
+    drawClouds(0.5f, 1.2f, 0.10f, 70.0f);
+    drawClouds(0.6f, 1.1f, 0.10f, 70.0f);
 }
 
 // cloud code
