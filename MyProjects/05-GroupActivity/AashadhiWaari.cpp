@@ -96,6 +96,7 @@ void letterN(float startingPointX, float startingPointY, float width, float thic
 void letterO(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
 void letterH(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
 void letterK(float startingPointX, float startingPointY, float width, float thickness, float SR_percent);
+void drawAnoushkaName(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
 
 // project name functions
 void SR_mukut(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
@@ -144,9 +145,13 @@ void drawYogeshName();
 void drawMandir();
 void drawVijayGokhale();
 void drawPrasadName(float name_percent);
+void drawSir(float SK_xPosition, float SK_yPosition, float percent, float SPK_xPosition, float SPK_yPosition, float SP_xPosition, float SP_yPosition);
 
 // Astromedicomp functions
 void AstroMediComp(float x_pos, float y_pos);
+
+// anoushka vrindavan function
+void drawTulshiVrindavan(float vXPosition, float vYPosition, float vPercent);
 
 // fade in out functions
 void ScreenFadeIn(int value);
@@ -162,15 +167,15 @@ float SR_XPosition = -1.53f;
 float SR_YPosition = 0.250f;
 float SR_Height = 1.5f;
 float SR_Width = 0.2f;
-float SR_currentSwayOffset = 0.0f;
+float SR_currentFlagWave = 0.0f;
 bool SR_bodyGoingUp = true;
 bool SR_flagSwayingLeft = true;
 // sagar name variables
-float startingPointX = -0.9f; // -0.9
-float startingPointY = -0.5f;
+float startingPointX = -1.66f; // -0.9
+float startingPointY = 0.30f;
 float width = 0.32f;
 float thickness = 0.10f;
-float SR_namePercent = 50.0;
+float SR_namePercent = 55.0;
 // cloud variable
 float xCloudPosition = -2.5f;
 
@@ -223,13 +228,14 @@ float lineR = 0.001f;
 float lineG = 0.001f;
 float lineB = 0.001f;
 // hemant name variables
-float x = 0.0f;
-float y = -2.15f;
-float hb_namePercent = 40.0f;
+float x = 1.05f;
+float y = 0.12f;
+float hb_namePercent = 45.0f;
 // lines colour
-float nameLineR = 0.25f;
-float nameLineG = 0.25f;
-float nameLineB = 0.44f;
+float nameLineR = 0.8f;
+float nameLineG = 0.8f;
+float nameLineB = 0.0f;
+// 0.8f, 0.5f, 0.0f
 
 // shriniwas variables
 float suj_percent = 65.0f;
@@ -238,7 +244,7 @@ float suj_y = -0.5f;
 // shriniwas name variables
 float suj_name_percent = 60.0f;
 float suj_name_x = 0.0f;
-float suj_name_y = 0.53f;
+float suj_name_y = -0.28f;
 // rama madam name variables
 float suj_ramamam_percent = 100.0f;
 float suj_ramamam_x = 0.0f;
@@ -260,8 +266,8 @@ float suj_gokhale_y = 0.0f;
 // float YBG_shift_X = -0.5f;
 // float YBG_shift_Y = -0.65f;
 int YBG_percent = 75;
-float YBG_shift_name_X = 0.15f;
-float YBG_shift_name_Y = -0.62f;
+float YBG_shift_name_X = 0.62f;
+float YBG_shift_name_Y = -0.12f;
 int YBG_name_percent = 80;
 // yogesh weena warkari variables
 float YBG_shift_X = 0.87f;
@@ -280,8 +286,8 @@ float PS_xPosition;
 float PS_yPosition = 0.0f;
 float pr_name_percent = 100;
 // prasad name variables
-float PRASAD_xPosition;
-float PRASAD_yPosition = 0.68f;
+float PRASAD_xPosition = -0.5f;
+float PRASAD_yPosition = 0.61f;
 
 // Astromedicomp variables
 float x_pos, y_pos;
@@ -289,8 +295,8 @@ float persent = 100.0f;
 
 // harshal name variables
 float har_percent = 40.0f;
-float har_xPosition = 0.0f;
-float har_yPosition = 0.22f;
+float har_xPosition = 0.47f;
+float har_yPosition = 0.76f;
 
 // fade in out code
 float ScreenFadeFactor = 1.0f; // Start fully black (faded in)
@@ -362,6 +368,8 @@ void initialize(void)
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glutTimerFunc(60, ScreenFadeIn, 0);
 }
 
 void resize(int width, int height)
@@ -394,6 +402,8 @@ void display(void)
     // // ground func call
     // drawGroundQuad();
 
+    // drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
+
     // // // render clouds
     // if (xCloudPosition <= 0.0f)
     // {
@@ -412,7 +422,7 @@ void display(void)
     // psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
 
     // drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
-    // drawTree(1.5f, 0.0f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent + 5);
+    // drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
 
     // SJ_Chopdar(0.6f, -0.5f, 65.0f);
     // SJ_Chopdar(-0.58f, -0.5f, 65.0f);
@@ -433,11 +443,13 @@ void display(void)
     // calldrawFlower();
 
     // our inspiration
-    // our(-0.3f, 0.25f, 30.0f);
-    // inspiration(0.2f, 0.25f, 30.0f);
+    // our(-0.3f, 0.30f, 30.0f);
+    // inspiration(0.2f, 0.30f, 30.0f);
 
-    // Dr. Vijay Gokhale name code
+    // // Dr. Vijay Gokhale name code
     // drawVijayGokhale();
+    // // float SK_xPosition, float SK_yPosition, float percent, float SPK_xPosition, float SPK_yPosition, float SP_xPosition, float SP_yPosition
+    // drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
 
     // under guidance
     // under(-0.2f, 0.3f, 30.0f);
@@ -467,24 +479,28 @@ void display(void)
     // // prasad name code
     // drawPrasadName(100.0f);
 
-    // // Shriniwas name code
-    // shriniwasName();
-
     // // harshal name call
     // drawHarshalName();
+
+    // // pranali name code
+    // psh_draw_name(-0.9f, 0.55f);
 
     // // yogesh name
     // drawYogeshName();
 
     // // sagar name code
-    // glColor3f(1.0f, 0.0f, 1.0f);
+    // glColor3f(1.0f, 0.5f, 0.0f);
     // drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-    // // pranali name code
-    // psh_draw_name(0.1f, -1.45f);
 
     // // hemant name
     // drawHemantName();
+
+    // // Shriniwas name code
+    // shriniwasName();
+
+    // // anoushka tai name
+    // glColor3f(1.0f, 1.0f, 1.0f);
+    // drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
 
     // fade in out switch case
     switch (scence)
@@ -496,7 +512,7 @@ void display(void)
 
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
                 AstroMediComp(0.02f, -0.4f);
             }
             if (ScreenFadeFactor <= 0.0f)
@@ -504,6 +520,7 @@ void display(void)
                 astromedicompFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
         else
@@ -511,7 +528,7 @@ void display(void)
             // printf("FadeOut %d", FadeOut);
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
                 AstroMediComp(0.02f, -0.4f);
             }
             if (ScreenFadeFactor >= 1.0f)
@@ -522,6 +539,7 @@ void display(void)
                 FadeOut = false;
                 ScreenFadeFactor = 1.0f;
                 scence++;
+                glutTimerFunc(60, ScreenFadeIn, 0);
             }
         }
         break;
@@ -533,7 +551,7 @@ void display(void)
 
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
                 renderGroupPresents(0.0f, 0.0f, 100, 100);
             }
             if (ScreenFadeFactor <= 0.0f)
@@ -541,6 +559,7 @@ void display(void)
                 bRenderGroupPresentsFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
         else
@@ -548,7 +567,7 @@ void display(void)
             // printf("FadeOut %d", FadeOut);
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
                 renderGroupPresents(0.0f, 0.0f, 100, 100);
             }
             if (ScreenFadeFactor >= 1.0f)
@@ -559,6 +578,7 @@ void display(void)
                 FadeOut = false;
                 ScreenFadeFactor = 1.0f;
                 scence++;
+                glutTimerFunc(60, ScreenFadeIn, 0);
             }
         }
         break;
@@ -569,7 +589,7 @@ void display(void)
         {
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
                 projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
             }
             if (ScreenFadeFactor <= 0.0f)
@@ -577,13 +597,14 @@ void display(void)
                 bProjectNameFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
         else
         {
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
                 projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
             }
             if (ScreenFadeFactor >= 1.0f)
@@ -594,6 +615,7 @@ void display(void)
                 FadeOut = false;
                 ScreenFadeFactor = 1.0f;
                 scence++;
+                glutTimerFunc(60, ScreenFadeIn, 0);
             }
         }
         break;
@@ -604,15 +626,17 @@ void display(void)
         {
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
 
                 // ground func call
                 drawGroundQuad();
 
-                if (xCloudPosition <= 0.0f)
-                {
-                    xCloudPosition = xCloudPosition + 0.0005f;
-                }
+                drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
+
+                // if (xCloudPosition <= 0.0f)
+                // {
+                //     xCloudPosition = xCloudPosition + 0.0005f;
+                // }
 
                 // render clouds
                 cloudAnimation(xCloudPosition);
@@ -627,7 +651,7 @@ void display(void)
                 psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
 
                 drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
-                drawTree(1.5f, 0.0f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent + 5);
+                drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
 
                 SJ_Chopdar(0.6f, -0.5f, 65.0f);
                 SJ_Chopdar(-0.58f, -0.5f, 65.0f);
@@ -646,6 +670,7 @@ void display(void)
                 showMainSceneFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
 
@@ -653,15 +678,17 @@ void display(void)
         {
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
 
                 // // ground func call
                 drawGroundQuad();
 
-                if (xCloudPosition <= 0.0f)
-                {
-                    xCloudPosition = xCloudPosition + 0.0005f;
-                }
+                drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
+
+                // if (xCloudPosition <= 0.0f)
+                // {
+                //     xCloudPosition = xCloudPosition + 0.0005f;
+                // }
 
                 // // render clouds
                 cloudAnimation(xCloudPosition);
@@ -676,7 +703,7 @@ void display(void)
                 psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
 
                 drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
-                drawTree(1.5f, 0.0f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent + 5);
+                drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
 
                 SJ_Chopdar(0.6f, -0.5f, 65.0f);
                 SJ_Chopdar(-0.58f, -0.5f, 65.0f);
@@ -698,6 +725,7 @@ void display(void)
                 ScreenFadeFactor = 1.0f;
                 FadeIn = true;
                 FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
             }
         }
         break;
@@ -708,7 +736,7 @@ void display(void)
         {
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
 
                 psh_drawVitthal(0.0f, 0.0f, 60, 95);
                 calldrawFlower();
@@ -718,6 +746,7 @@ void display(void)
                 bVitthalFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
 
@@ -725,8 +754,8 @@ void display(void)
         {
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
-                printf("vitthal called from else\n");
+                // ScreenFadeOut(ScreenFadeFactor);
+
                 psh_drawVitthal(0.0f, 0.0f, 60, 95);
                 calldrawFlower();
             }
@@ -738,6 +767,7 @@ void display(void)
                 ScreenFadeFactor = 1.0f;
                 FadeIn = true;
                 FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
             }
         }
         break;
@@ -748,34 +778,40 @@ void display(void)
         {
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
 
                 // prasad name code
                 drawPrasadName(100.0f);
 
-                // Shriniwas name code
-                shriniwasName();
-
                 // harshal name call
                 drawHarshalName();
+
+                // pranali name code
+                psh_draw_name(-0.9f, 0.55f);
 
                 // yogesh name
                 drawYogeshName();
 
                 // sagar name code
+                glColor3f(1.0f, 0.5f, 0.0f);
                 drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-                // pranali name code
-                psh_draw_name(0.1f, -1.45f);
 
                 // hemant name
                 drawHemantName();
+
+                // Shriniwas name code
+                shriniwasName();
+
+                // anoushka tai name
+                glColor3f(1.0f, 1.0f, 1.0f);
+                drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
             }
             if (ScreenFadeFactor <= 0.0f)
             {
                 teamNamesFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
 
@@ -783,28 +819,33 @@ void display(void)
         {
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
 
                 // prasad name code
                 drawPrasadName(100.0f);
 
-                // Shriniwas name code
-                shriniwasName();
-
                 // harshal name call
                 drawHarshalName();
+
+                // pranali name code
+                psh_draw_name(-0.9f, 0.55f);
 
                 // yogesh name
                 drawYogeshName();
 
                 // sagar name code
+                glColor3f(1.0f, 0.5f, 0.0f);
                 drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-                // pranali name code
-                psh_draw_name(0.1f, -1.45f);
 
                 // hemant name
                 drawHemantName();
+
+                // Shriniwas name code
+                shriniwasName();
+
+                // anoushka tai name
+                glColor3f(1.0f, 1.0f, 1.0f);
+                drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
             }
 
             if (ScreenFadeFactor >= 1.0f)
@@ -814,6 +855,7 @@ void display(void)
                 ScreenFadeFactor = 1.0f;
                 FadeIn = true;
                 FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
             }
         }
         break;
@@ -824,7 +866,15 @@ void display(void)
         {
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
 
                 // under guidance
                 under(-0.2f, 0.3f, 30.0f);
@@ -856,6 +906,7 @@ void display(void)
                 guidanceSceneFIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
 
@@ -863,7 +914,15 @@ void display(void)
         {
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
 
                 // under guidance
                 under(-0.2f, 0.3f, 30.0f);
@@ -898,6 +957,8 @@ void display(void)
                 ScreenFadeFactor = 1.0f;
                 FadeIn = true;
                 FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+                xCloudPosition = -2.5f;
             }
         }
         break;
@@ -908,20 +969,30 @@ void display(void)
         {
             if (FadeIn)
             {
-                ScreenFadeIn(ScreenFadeFactor);
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
 
                 // our inspiration
-                our(-0.3f, 0.25f, 30.0f);
-                inspiration(0.2f, 0.25f, 30.0f);
+                our(-0.3f, 0.30f, 30.0f);
+                inspiration(0.2f, 0.30f, 30.0f);
 
                 // Dr.Vijay Gokhale name code
                 drawVijayGokhale();
+                drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
             }
             if (ScreenFadeFactor <= 0.0f)
             {
                 endCreditSceneIn = true;
                 FadeIn = false;
                 FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
             }
         }
 
@@ -929,14 +1000,23 @@ void display(void)
         {
             if (FadeOut)
             {
-                ScreenFadeOut(ScreenFadeFactor);
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
 
                 // our inspiration
-                our(-0.3f, 0.25f, 30.0f);
-                inspiration(0.2f, 0.25f, 30.0f);
+                our(-0.3f, 0.30f, 30.0f);
+                inspiration(0.2f, 0.30f, 30.0f);
 
                 // Dr.Vijay Gokhale name code
                 drawVijayGokhale();
+                drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
             }
 
             if (ScreenFadeFactor >= 1.0f)
@@ -1000,10 +1080,10 @@ void ScreenFadeIn(int value)
     // printf("ScreenFadeIn\n");
     if (FadeIn == true)
     {
-        // THIS ALPHA FACTOR WILL CHANGE ON BASIS OF YOUR MACHINE
-        ScreenFadeFactor = ScreenFadeFactor - 0.0010f; // while record
+        // THIS ALPHA FACTOR WILL CHANGE ON BASIS OF MACHINE
+        // ScreenFadeFactor = ScreenFadeFactor - 0.0010f; // while record
         // ScreenFadeFactor = ScreenFadeFactor - 0.0009f; // original
-        // ScreenFadeFactor = ScreenFadeFactor - 0.009f; // testing
+        ScreenFadeFactor = ScreenFadeFactor - 0.00995f; // testing
         if (ScreenFadeFactor <= 0.0f)
         {
             // ScreenFade = false;
@@ -1011,7 +1091,7 @@ void ScreenFadeIn(int value)
             FadeOut = true;
         }
 
-        glutPostRedisplay();
+        // glutPostRedisplay();
         glutTimerFunc(60, ScreenFadeIn, 0);
     }
 }
@@ -1020,48 +1100,48 @@ void ScreenFadeOut(int value)
 {
     if (FadeOut == true)
     {
-        ScreenFadeFactor = ScreenFadeFactor + 0.0010f; // while record
+        // ScreenFadeFactor = ScreenFadeFactor + 0.0010f; // while record
         // ScreenFadeFactor = ScreenFadeFactor + 0.0009f; // original
-        // ScreenFadeFactor = ScreenFadeFactor + 0.009f; // testing
+        ScreenFadeFactor = ScreenFadeFactor + 0.00995f; // testing
         if (ScreenFadeFactor >= 1.0f)
         {
             // ScreenFade = true;
             FadeIn = true;
             FadeOut = false;
         }
-        glutPostRedisplay();
+        // glutPostRedisplay();
         glutTimerFunc(60, ScreenFadeOut, 0);
     }
 }
 
 void calldrawFlower()
 {
-    SR_yForFlower -= 0.003f;
+    SR_yForFlower = SR_yForFlower - 0.003f;
+
     if (SR_yForFlower < -1.5f)
     {
         SR_yForFlower = 1.0f;
     }
 
-    int flowerCount = 0;
+    int col = 0;
 
-    for (float xPos = -0.6f; xPos <= 0.6f; xPos += 0.08f)
+    for (float xPos = -0.8f; xPos <= 0.8f; xPos = xPos + 0.08f)
     {
-        float heightOffset = (float)(flowerCount * 7 % 13) * 0.15f;
-        float currentY = SR_yForFlower + heightOffset;
+        int columnNumber = (col * 7) % 13;
+        float baseY = SR_yForFlower + columnNumber * 0.15f;
 
         for (int row = 0; row < 12; row++)
         {
-            float individualY = currentY + (row * 0.2f);
+            float yPos = baseY + row * 0.2f;
 
-            if (individualY < -1.0f)
+            if (yPos < -1.0f)
             {
-                individualY = 1.0f + (individualY + 1.0f);
+                yPos = yPos + 2.0f;
             }
 
-            float sway = cos(individualY * 4.0f + (float)flowerCount) * 0.02f;
-            float finalX = xPos + sway;
+            int colorIndex = (col + row) % 6;
 
-            switch ((flowerCount + row) % 6)
+            switch (colorIndex)
             {
             case 0:
                 glColor3f(0.928f, 0.438f, 0.266f);
@@ -1083,12 +1163,17 @@ void calldrawFlower()
                 break;
             }
 
-            float sizeVar = (row % 2 == 0) ? 0.012f : 0.016f;
+            float size = 0.014f;
 
-            drawFlower(sizeVar, finalX, individualY);
+            if (row % 2 != 0)
+            {
+                size = 0.018f;
+            }
+
+            drawFlower(size, xPos, yPos);
         }
 
-        flowerCount++;
+        col = col + 1;
     }
 }
 
@@ -1964,27 +2049,27 @@ void dhwajGhetlelaWarkari(float SR_XPosition, float SR_YPosition, float SR_Heigh
 void callDhwajGhetlelWarkari()
 {
     float waveSpeed = 0.0012f;
-    float maxWaveHeight = 0.035f;
+    float maxFlagWidth = 0.035f;
 
     if (SR_flagSwayingLeft)
     {
-        SR_currentSwayOffset = SR_currentSwayOffset - waveSpeed;
-        if (SR_currentSwayOffset <= -maxWaveHeight)
+        SR_currentFlagWave = SR_currentFlagWave - waveSpeed;
+        if (SR_currentFlagWave <= -maxFlagWidth)
         {
             SR_flagSwayingLeft = false;
         }
     }
     else
     {
-        SR_currentSwayOffset = SR_currentSwayOffset + waveSpeed;
-        if (SR_currentSwayOffset >= maxWaveHeight)
+        SR_currentFlagWave = SR_currentFlagWave + waveSpeed;
+        if (SR_currentFlagWave >= maxFlagWidth)
         {
             SR_flagSwayingLeft = true;
         }
     }
 
-    dhwajGhetlelaWarkari(SR_XPosition, SR_YPosition, SR_Height, SR_Width, SR_currentSwayOffset, SR_percent);
-    dhwajGhetlelaWarkari(SR_XPosition + 2.0f, SR_YPosition, SR_Height - 1.5f, SR_Width, SR_currentSwayOffset, 55.0f);
+    dhwajGhetlelaWarkari(SR_XPosition, SR_YPosition, SR_Height, SR_Width, SR_currentFlagWave, SR_percent);
+    dhwajGhetlelaWarkari(SR_XPosition + 2.0f, SR_YPosition, SR_Height - 1.5f, SR_Width, SR_currentFlagWave, 55.0f);
 }
 
 void drawFlower(float radiusSize, float customX, float customY)
@@ -3077,13 +3162,37 @@ void hbZumbar(float offset_x, float offset_y, float radius_x, float radius_y, fl
 void drawGroundQuad()
 {
 
-    glBegin(GL_QUADS);
     glColor3f(0.400f, 0.761f, 0.949f);
+    glBegin(GL_QUADS);
 
+    // glColor3f(0.7f, 0.5f, 0.0f);
     glVertex2f(-1.0f, 1.0f);
+
     glVertex2f(1.0f, 1.0f);
-    glVertex2f(1.0f, 0.35f);
-    glVertex2f(-1.0f, 0.35f);
+    // glColor3f(0.400f, 0.761f, 0.949f);
+    glVertex2f(1.0f, 0.18f);
+    glVertex2f(-1.0f, 0.18f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    // glColor3f(0.400f, 0.761f, 0.949f);
+    glVertex2f(1.0f, 0.18f);
+    // glVertex2f(-1.0f, 0.18f);
+    glColor3f(0.7f, 0.5f, 0.0f);
+    // glVertex2f(1.0f, 0.36f);
+    glVertex2f(-1.0f, 0.36f);
+
+    glEnd();
+
+    // yellow
+    // glColor3f(1.0f, 0.5f, 0.0f);
+    // // orange
+    // glColor3f(0.8f, 0.5f, 0.0f);
+
+    // // orange
+    // // blue
 
     glEnd();
 
@@ -4297,7 +4406,7 @@ void projectName(float SR_xPosition, float SR_yPosition, float SR_width, float S
     glEnd();
 
     // Inner circle color needs to chages according to background
-    glColor3f(0.0f, 0.0f, 0.0f);
+    glColor3f(0.1f, 0.1f, 0.1f);
 
     glBegin(GL_TRIANGLE_FAN);
     // 1. Establish the center anchor point
@@ -6722,6 +6831,8 @@ void AstroMediComp(float x_pos, float y_pos)
 
 void shriniwasName()
 {
+    glColor3f(0.8f, 0.5f, 0.0f);
+
     // S
     glBegin(GL_QUADS);
     glVertex3f(suj_name_x + suj_VALUE_FROM_PERCENT(-0.95f, suj_name_percent), suj_name_y + suj_VALUE_FROM_PERCENT(0.20f, suj_name_percent), 0.0f);
@@ -9740,6 +9851,157 @@ void drawVijayGokhale()
     glEnd();
 }
 
+void drawSir(float SK_xPosition, float SK_yPosition, float percent, float SPK_xPosition, float SPK_yPosition, float SP_xPosition, float SP_yPosition)
+{
+    // SK_xPosition = 0.545;
+    // SK_yPosition = 0.0;
+    // percent = 100;
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.195f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SK_yPosition);  // T
+    glVertex2f(VALUE_FROM_PERCENT(-0.245f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SK_yPosition);  // S
+    glVertex2f(VALUE_FROM_PERCENT(-0.245f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.28f, percent) + SK_yPosition); // V
+    glVertex2f(VALUE_FROM_PERCENT(-0.194f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SK_yPosition); // I1
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.265f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SK_yPosition);  // W
+    glVertex2f(VALUE_FROM_PERCENT(-0.245f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.28f, percent) + SK_yPosition); // V
+    glVertex2f(VALUE_FROM_PERCENT(-0.194f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SK_yPosition); // I1
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SK_yPosition); // J1
+    glVertex2f(VALUE_FROM_PERCENT(-0.14f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SK_yPosition);   // Z
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.14f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SK_yPosition);    // Z
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SK_yPosition);  // J1
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.205f, percent) + SK_yPosition); // K1
+    glVertex2f(VALUE_FROM_PERCENT(-0.12f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.28f, percent) + SK_yPosition);   // A1
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.12f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.28f, percent) + SK_yPosition);   // A1
+    glVertex2f(VALUE_FROM_PERCENT(-0.12f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.195f, percent) + SK_yPosition);  // B1
+    glVertex2f(VALUE_FROM_PERCENT(-0.157f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.157f, percent) + SK_yPosition); // C1
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.205f, percent) + SK_yPosition); // K1
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.187f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.186f, percent) + SK_yPosition); // L1
+    glVertex2f(VALUE_FROM_PERCENT(-0.195f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.135f, percent) + SK_yPosition); // U
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.11f, percent) + SK_yPosition);  // G1
+    glVertex2f(VALUE_FROM_PERCENT(-0.157f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.157f, percent) + SK_yPosition); // C1
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.205f, percent) + SK_yPosition); // K1
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.194f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.195f, percent) + SK_yPosition); // H1
+    glVertex2f(VALUE_FROM_PERCENT(-0.187f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.186f, percent) + SK_yPosition); // L1
+    glVertex2f(VALUE_FROM_PERCENT(-0.195f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.135f, percent) + SK_yPosition); // U
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(-0.157f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.157f, percent) + SK_yPosition); // C1
+    glVertex2f(VALUE_FROM_PERCENT(-0.116f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.115f, percent) + SK_yPosition); // D1
+    glVertex2f(VALUE_FROM_PERCENT(-0.116f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SK_yPosition);   // E1
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SK_yPosition);   // F1
+    glVertex2f(VALUE_FROM_PERCENT(-0.168f, percent) + SK_xPosition, VALUE_FROM_PERCENT(0.11f, percent) + SK_yPosition);  // G1
+    glEnd();
+
+    // S
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.045f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SPK_yPosition);  // N2
+    glVertex2f(VALUE_FROM_PERCENT(0.116f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SPK_yPosition); // I2
+    glVertex2f(VALUE_FROM_PERCENT(0.192f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SPK_yPosition);  // M2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.065f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.29f, percent) + SPK_yPosition);  // O2
+    glVertex2f(VALUE_FROM_PERCENT(0.116f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SPK_yPosition);  // I2
+    glVertex2f(VALUE_FROM_PERCENT(0.116f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.195f, percent) + SPK_yPosition); // H2
+    glVertex2f(VALUE_FROM_PERCENT(0.065f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.186f, percent) + SPK_yPosition); // P2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.065f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.186f, percent) + SPK_yPosition); // P2
+    glVertex2f(VALUE_FROM_PERCENT(0.116f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.195f, percent) + SPK_yPosition); // H2
+    glVertex2f(VALUE_FROM_PERCENT(0.194f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.12f, percent) + SPK_yPosition);  // G2
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.108f, percent) + SPK_yPosition); // Q2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.108f, percent) + SPK_yPosition); // Q2
+    glVertex2f(VALUE_FROM_PERCENT(0.194f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.12f, percent) + SPK_yPosition);  // G2
+    glVertex2f(VALUE_FROM_PERCENT(0.194f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.025f, percent) + SPK_yPosition); // F2
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.052f, percent) + SPK_yPosition); // R2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.052f, percent) + SPK_yPosition); // R2
+    glVertex2f(VALUE_FROM_PERCENT(0.194f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.025f, percent) + SPK_yPosition); // F2
+    glVertex2f(VALUE_FROM_PERCENT(0.17f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SPK_yPosition);    // E2
+    glVertex2f(VALUE_FROM_PERCENT(0.115f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.052f, percent) + SPK_yPosition); // S2
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.115f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.052f, percent) + SPK_yPosition); // S2
+    glVertex2f(VALUE_FROM_PERCENT(0.17f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SPK_yPosition);    // E2
+    glVertex2f(VALUE_FROM_PERCENT(0.065f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SPK_yPosition);   // D2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.115f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.052f, percent) + SPK_yPosition);   // S2
+    glVertex2f(VALUE_FROM_PERCENT(0.065f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SPK_yPosition);     // D2
+    glVertex2f(VALUE_FROM_PERCENT(0.0642f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.1316f, percent) + SPK_yPosition); // C2
+    glVertex2f(VALUE_FROM_PERCENT(0.115f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.078f, percent) + SPK_yPosition);   // T2
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.116f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SPK_yPosition); // I2
+    glVertex2f(VALUE_FROM_PERCENT(0.192f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SPK_yPosition);  // M2
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SPK_yPosition); // J2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.25f, percent) + SPK_yPosition);  // J2
+    glVertex2f(VALUE_FROM_PERCENT(0.192f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SPK_yPosition);   // M2
+    glVertex2f(VALUE_FROM_PERCENT(0.192f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.175f, percent) + SPK_yPosition); // L2
+    glVertex2f(VALUE_FROM_PERCENT(0.142f, percent) + SPK_xPosition, VALUE_FROM_PERCENT(0.225f, percent) + SPK_yPosition); // K2
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.54f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SP_yPosition);  // Z3
+    glVertex2f(VALUE_FROM_PERCENT(0.54f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.28f, percent) + SP_yPosition); // D4
+    glVertex2f(VALUE_FROM_PERCENT(0.6f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SP_yPosition);   // B4
+    glVertex2f(VALUE_FROM_PERCENT(0.6f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.0f, percent) + SP_yPosition);   // A4
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT(0.54f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.28f, percent) + SP_yPosition); // D4
+    glVertex2f(VALUE_FROM_PERCENT(0.6f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SP_yPosition);   // B4
+    glVertex2f(VALUE_FROM_PERCENT(0.52f, percent) + SP_xPosition, VALUE_FROM_PERCENT(0.3f, percent) + SP_yPosition);  // C4
+    glEnd();
+}
+
 // Prasad vijay gokhale name code
 
 // Harshal name code
@@ -9923,6 +10185,7 @@ void drawHarshalName()
 
 void drawPrasadName(float name_percent)
 {
+    void prasadLetterA(float PRASAD_xPosition, float PRASAD_yPosition, float name_percent);
     // P
     glBegin(GL_QUADS);
     glColor3f(1.0f, 0.0f, 0.0f);
@@ -10025,46 +10288,7 @@ void drawPrasadName(float name_percent)
     glEnd();
 
     // A
-
-    glBegin(GL_QUADS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(VALUE_FROM_PERCENT(-0.11f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.3f, name_percent) + PRASAD_yPosition);  // U1
-    glVertex2f(VALUE_FROM_PERCENT(0.02f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.3f, name_percent) + PRASAD_yPosition);   // T1
-    glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.25f, name_percent) + PRASAD_yPosition); // B2
-    glVertex2f(VALUE_FROM_PERCENT(-0.09f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.28f, name_percent) + PRASAD_yPosition); // V1
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(VALUE_FROM_PERCENT(-0.09f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.28f, name_percent) + PRASAD_yPosition); // V1
-    glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.25f, name_percent) + PRASAD_yPosition); // B2
-    glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.0f, name_percent) + PRASAD_yPosition);  // N1
-    glVertex2f(VALUE_FROM_PERCENT(-0.09f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.0f, name_percent) + PRASAD_yPosition);  // M1
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(VALUE_FROM_PERCENT(-0.015f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.25f, name_percent) + PRASAD_yPosition); // A2
-    glVertex2f(VALUE_FROM_PERCENT(0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.28f, name_percent) + PRASAD_yPosition);   // S1
-    glVertex2f(VALUE_FROM_PERCENT(0.02f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.3f, name_percent) + PRASAD_yPosition);    // T1
-    glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.25f, name_percent) + PRASAD_yPosition);  // B2
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(VALUE_FROM_PERCENT(-0.015f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.25f, name_percent) + PRASAD_yPosition); // A2
-    glVertex2f(VALUE_FROM_PERCENT(0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.28f, name_percent) + PRASAD_yPosition);   // S1
-    glVertex2f(VALUE_FROM_PERCENT(0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.0f, name_percent) + PRASAD_yPosition);    // R1
-    glVertex2f(VALUE_FROM_PERCENT(-0.015f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.0f, name_percent) + PRASAD_yPosition);  // Q1
-    glEnd();
-
-    glBegin(GL_QUADS);
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.194f, name_percent) + PRASAD_yPosition);  // W1
-    glVertex2f(VALUE_FROM_PERCENT(-0.015f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.17f, name_percent) + PRASAD_yPosition);  // Z1
-    glVertex2f(VALUE_FROM_PERCENT(-0.015f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.112f, name_percent) + PRASAD_yPosition); // P1
-    glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.14f, name_percent) + PRASAD_yPosition);   // O1
-    glEnd();
+    prasadLetterA(-0.5f, 0.61f, name_percent);
 
     // S
 
@@ -10185,9 +10409,13 @@ void drawPrasadName(float name_percent)
     glVertex2f(VALUE_FROM_PERCENT(0.425f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.25f, name_percent) + PRASAD_yPosition); // R3
     glEnd();
 
+    prasadLetterA(-0.19f, 0.61f, name_percent);
+}
+
+void prasadLetterA(float PRASAD_xPosition, float PRASAD_yPosition, float name_percent)
+{
     // A
-    glPushMatrix();
-    glTranslatef(0.31f, 0.0f, 0.0f);
+
     glBegin(GL_QUADS);
     glColor3f(1.0f, 0.0f, 0.0f);
     glVertex2f(VALUE_FROM_PERCENT(-0.11f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.3f, name_percent) + PRASAD_yPosition);  // U1
@@ -10227,7 +10455,6 @@ void drawPrasadName(float name_percent)
     glVertex2f(VALUE_FROM_PERCENT(-0.015f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.112f, name_percent) + PRASAD_yPosition); // P1
     glVertex2f(VALUE_FROM_PERCENT(-0.04f, name_percent) + PRASAD_xPosition, VALUE_FROM_PERCENT(0.14f, name_percent) + PRASAD_yPosition);   // O1
     glEnd();
-    glPopMatrix();
 }
 
 // prasad name code
@@ -10260,19 +10487,16 @@ void letterI(float startingPointX, float startingPointY, float width, float thic
 {
     glBegin(GL_QUADS);
 
-    // Top horizontal cap
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
 
-    // Center vertical pillar
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f - (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f + (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f + (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f - (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Bottom horizontal foot base
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
@@ -10285,13 +10509,11 @@ void letterT(float startingPointX, float startingPointY, float width, float thic
 {
     glBegin(GL_QUADS);
 
-    // Top horizontal crossbar
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
 
-    // Centered vertical pillar
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f - (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f + (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2.0f + (thickness / 2.6f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
@@ -10304,22 +10526,16 @@ void letterN(float startingPointX, float startingPointY, float width, float thic
 {
     glBegin(GL_QUADS);
 
-    // Left vertical bar
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Diagonal crossing bar
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Right vertical bar
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
@@ -10332,29 +10548,21 @@ void letterO(float startingPointX, float startingPointY, float width, float thic
 {
     glBegin(GL_QUADS);
 
-    // Left vertical border
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Right vertical border
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Top horizontal border
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
 
-    // Bottom horizontal border
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
@@ -10367,22 +10575,16 @@ void letterH(float startingPointX, float startingPointY, float width, float thic
 {
     glBegin(GL_QUADS);
 
-    // Left vertical bar
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Right vertical bar
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Center connecting crossbar
-    glColor3f(1.0f, 0.0f, 1.0f);
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
@@ -10395,31 +10597,54 @@ void letterK(float startingPointX, float startingPointY, float width, float thic
 {
     glBegin(GL_QUADS);
 
-    // Main left vertical pillar
-    glColor3f(1.0f, 0.0f, 1.0f);
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
-    // Upper diagonal branch (extends up and right)
-    glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
-    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f + thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
 
-    // Lower diagonal branch (extends down and right)
-    glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
-    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f + thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    // glColor3f(0.0f, 1.0f, 0.0f); // green
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 1.5f), SR_percent));
+    // glColor3f(0.0f, 0.0f, 1.0f); // blue
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    // glColor3f(0.1f, 0.1f, 0.1f); // black
     glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    // glColor3f(1.0f, 0.0f, 0.0f); // red
 
     glEnd();
 }
 
 // guari tai name code
+
+// Anoushka tai name code
+
+void drawAnoushkaName(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent)
+{
+    letterA(startingPointX, startingPointY, width, thickness, SR_namePercent);
+    letterN(startingPointX + width + 0.08f, startingPointY, width, thickness, SR_namePercent);
+    letterO(startingPointX + (width * 2 + 0.085f), startingPointY, width, thickness, SR_namePercent);
+    letterU(startingPointX + (width * 3 + 0.092f), startingPointY, width, thickness, SR_namePercent);
+    letterS(startingPointX + (width * 4 + 0.095f), startingPointY, width, thickness, SR_namePercent);
+    letterH(startingPointX + (width * 5 + 0.10f), startingPointY, width, thickness, SR_namePercent);
+    letterK(startingPointX + (width * 6 + 0.105f), startingPointY, width, thickness, SR_namePercent);
+    letterA(startingPointX + (width * 7 + 0.105f), startingPointY, width, thickness, SR_namePercent);
+}
+
+// Anoushka tai name code
 
 // cloud code
 
@@ -10468,6 +10693,481 @@ void cloudAnimation(float xCloudPosition)
 }
 
 // cloud code
+
+// anoushka tai tulshi vrindavan code
+
+void drawTulshiVrindavan(float vXPosition, float vYPosition, float vPercent)
+{
+
+    // VrindavanCode
+    // upper Left Petal(-,+)
+    glBegin(GL_POLYGON);
+    glColor3f(0.40f, 0.70f, 1.0f);
+    glVertex3f(VALUE_FROM_PERCENT((0.0f + vXPosition), vPercent), VALUE_FROM_PERCENT((0.4f + vYPosition), vPercent), 0.0f);  // Top center
+    glVertex3f(VALUE_FROM_PERCENT((-0.2f + vXPosition), vPercent), VALUE_FROM_PERCENT((0.4f + vYPosition), vPercent), 0.0f); // topmost left
+    glVertex3f(VALUE_FROM_PERCENT((-0.4f + vXPosition), vPercent), VALUE_FROM_PERCENT((0.2f + vYPosition), vPercent), 0.0f); // middle leftmost
+    glVertex3f(VALUE_FROM_PERCENT((-0.2f + vXPosition), vPercent), VALUE_FROM_PERCENT((0.2f + vYPosition), vPercent), 0.0f); // middle near left
+    glEnd();
+    ////border
+    // glLineWidth(5.0f);
+    // glBegin(GL_LINES);
+    // glColor3f(0.0f, 0.0f,0.0f);
+    // glVertex2f (- 0.2f, 0.4f);
+    // glVertex2f(-0.4f, 0.2f);
+    // glEnd();
+
+    // upper Right Petal(+,+)
+    glBegin(GL_POLYGON);
+    glColor3f(0.40f, 0.70f, 1.0f);
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent), 0.0f); // Top ccenter
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent), 0.0f); // topmost right
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.4f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.2f), vPercent), 0.0f); // middle right most
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.2f), vPercent), 0.0f); // middle near
+    glEnd();
+
+    // L0wer right Petal(+,-)
+    glBegin(GL_QUADS);
+    glColor3f(0.40f, 0.70f, 1.0f);
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f); // middle right
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.4f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f); // middle rightmost
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.4f), vPercent), 0.0f); // bottmmost right
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.4f), vPercent), 0.0f); // bottom center
+    glEnd();
+    // L0wer Left Petal(-,-)
+    glBegin(GL_QUADS);
+    glColor3f(0.40f, 0.70f, 1.0f);
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f); // middle left
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.4f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f); // middle leftmost
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.4f), vPercent), 0.0f); // bottmmost left
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.4f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Middle large Hexagon
+    glBegin(GL_POLYGON);
+    glColor3f(1.0f, 0.8f, 1.0f);
+    glColor3f(1.0f, 0.6f, 0.2f);                                                                                              //
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.2f), vPercent), 0.0f);   // 1
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f);  // 2
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.4f), vPercent), 0.0f);  // 3
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f); // 4
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.2f), vPercent), 0.0f);  // 5
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent), 0.0f);   // 6*/
+    glEnd();
+
+    // middle small quad
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 1.0f, 0.2f);                                                                                             //
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);  // middle right
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.2f), vPercent), 0.0f); // middle down centre
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f); // middle left
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.2f), vPercent), 0.0f);  // up center
+    glEnd();
+
+    // Tulasi Code
+    //  Right Branch
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((vXPosition + 1.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.6f), vPercent));
+    glEnd();
+
+    // Middle Branch
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((vXPosition + 1.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.8f), vPercent));
+    glEnd();
+
+    // left Branch
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((vXPosition + 1.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + -0.2f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.6f), vPercent));
+    glEnd();
+
+    // Right Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                              // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.24f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.61f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                              // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.24f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.65f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                              // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.21f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.65f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                              // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.21f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.61f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // left Branch TopMost Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.24f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.61f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.24f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.65f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.21f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.65f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.21f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.61f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // left Branch-Right upper Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.60f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.63f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.17f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.63f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.17f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.60f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // left Branch-Right lower Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.13f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.13f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.58f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.58f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // left Branch-left lower Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.19f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.19f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.52f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.52f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // left Branch-left upeer Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.23f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.59f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.23f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.56f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.56f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.59f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Right Branch-right upeer Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                              // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.23f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.59f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                              // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.23f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.56f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                              // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.56f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                              // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.59f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Right Branch-left lower Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                              // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.13f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.56f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                              // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.13f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.59f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                              // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.59f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                              // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.56f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Right Branch-Right upper Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                              // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.60f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                              // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.20f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.63f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                              // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.17f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.63f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                              // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.17f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.60f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Right Branch-right lower Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                              // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.19f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                              // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.19f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.52f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                              // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.52f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                              // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.16f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Middle Branch-Topmost Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.019f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.83f), vPercent), 0.0f);  // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.85f), vPercent), 0.0f);    // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.019f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.83f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                                // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.8f), vPercent), 0.0f);     // bottom center
+    glEnd();
+
+    // Middle Branch-left Lower Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.70f), vPercent), 0.0f);  // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.73f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.73f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                                // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.70f), vPercent), 0.0f); // bottom center
+    glEnd();
+    // Middle Branch-right Lower Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.70f), vPercent), 0.0f);  // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.73f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.73f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.1f, 0.1f, 0.1f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.70f), vPercent), 0.0f); // bottom center
+    glEnd();
+    // Middle Branch-right Upper Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.75f), vPercent), 0.0f);  // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.78f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.78f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.0f, 0.1f, 0.0f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.75f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Middle Branch-left Upper Manjiree
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.75f), vPercent), 0.0f);  // middle right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.78f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.78f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.0f, 0.1f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.75f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Left branch -  lower leaf (-, +)
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.12f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.5f), vPercent), 0.0f);   // middle right
+    glColor3f(0.0f, 0.0f, 0.0f);                                                                                                // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.17f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.48f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.12f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.44f), vPercent), 0.0f);  // bottmmost right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.04f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.448f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Left branch -  Upper leaf (-, +)
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                 // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.045f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.540f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 0.0f, 0.0f);                                                                                                 // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.099f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.60f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                 // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.097f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.520f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                 // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.045f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.449f), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Right branch - Lower down Leaf(+, +)
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.12f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.5f), vPercent), 0.0f);    // middle right
+    glColor3f(0.0f, 0.0f, 0.0f);                                                                                                // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.175f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.470f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.13f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.44f), vPercent), 0.0f);   // bottmmost right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.06f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.455f), vPercent), 0.0f);  // bottom center
+    glEnd();
+
+    // Right branch - upper Leaf(+, +)
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                               // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.062f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.55f), vPercent), 0.0f); // middle right
+    glColor3f(0.0f, 0.0f, 0.0f);                                                                                               // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.128f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.60f), vPercent), 0.0f); // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                               // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.1f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.52f), vPercent), 0.0f);   // bottmmost right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                               // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.042f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.465), vPercent), 0.0f); // bottom center
+    glEnd();
+
+    // Middle branch -  Left leaf (-, +)
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.055f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.6f), vPercent), 0.0f);  // middle right
+    glColor3f(0.0f, 0.0f, 0.0f);                                                                                                // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.055f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.7f), vPercent), 0.0f);  // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + -0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.645), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.54f), vPercent), 0.0f);    // bottom center
+    glEnd();
+
+    // Middle branch -Right leaf (+, +)
+    glBegin(GL_QUADS);
+    glColor3f(1.0f, 0.0f, 0.0f);                                                                                                // red
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.055f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.6f), vPercent), 0.0f);   // middle right
+    glColor3f(0.0f, 0.0f, 0.0f);                                                                                                // black
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.055f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.7f), vPercent), 0.0f);   // middle rightmost
+    glColor3f(0.0f, 0.0f, 1.0f);                                                                                                // blue
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.013f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.645f), vPercent), 0.0f); // bottmmost right
+    glColor3f(0.0f, 1.0f, 0.0f);                                                                                                // green
+    glVertex3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.54f), vPercent), 0.0f);    // bottom center
+    glEnd();
+
+    // Swastic
+    // Swastic central Vertical line
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.1f), vPercent));
+    glEnd();
+    // Swastic central Horizontal line
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + -0.1f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.1f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent));
+    glEnd();
+    // Swastic Small Right line
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.0f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((vXPosition + 0.1f), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent));
+    glEnd();
+    // Swastic Small Down line
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((0.0f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((0.1f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((0.1f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.1f), vPercent));
+    glEnd();
+    // Swastic Small Left line
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((0.0f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.1f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((0.0f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.1f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((-0.1f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.1f), vPercent));
+    glEnd();
+    // Swastic Small Up line
+    glLineWidth(2.0f);
+    glBegin(GL_LINES);
+    glColor3f(VALUE_FROM_PERCENT((0.0f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.1f), vPercent), 0.0f);
+    glVertex2f(VALUE_FROM_PERCENT((-0.1f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent));
+    glVertex2f(VALUE_FROM_PERCENT((-0.1f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.1f), vPercent));
+    glEnd();
+
+    // // Rangoli Thipke
+    // // Left Thipka Middle
+    // glBegin(GL_QUADS);
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // red
+    // glVertex3f(VALUE_FROM_PERCENT((-0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);   // middle right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // green
+    // glVertex3f(VALUE_FROM_PERCENT((-0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.015f), vPercent), 0.0f); // middle rightmost
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // blue
+    // glVertex3f(VALUE_FROM_PERCENT((-0.4f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.015f), vPercent), 0.0f);  // bottmmost right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // black
+    // glVertex3f(VALUE_FROM_PERCENT((-0.4f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);    // bottom center
+    // glEnd();
+
+    // // Left Thipka Upper
+    // glBegin(GL_QUADS);
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // red
+    // glVertex3f(VALUE_FROM_PERCENT((-0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.39f), vPercent), 0.0f); // middle right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // green
+    // glVertex3f(VALUE_FROM_PERCENT((-0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.41f), vPercent), 0.0f); // middle rightmost
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // blue
+    // glVertex3f(VALUE_FROM_PERCENT((-0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.41f), vPercent), 0.0f); // bottmmost right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // black
+    // glVertex3f(VALUE_FROM_PERCENT((-0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.39f), vPercent), 0.0f); // bottom center
+    // glEnd();
+
+    // // Left Thipka bottom
+    // glBegin(GL_QUADS);
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // red
+    // glVertex3f(VALUE_FROM_PERCENT((-0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.39f), vPercent), 0.0f); // middle right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // green
+    // glVertex3f(VALUE_FROM_PERCENT((-0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.41f), vPercent), 0.0f); // middle rightmost
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // blue
+    // glVertex3f(VALUE_FROM_PERCENT((-0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.41f), vPercent), 0.0f); // bottmmost right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                                // black
+    // glVertex3f(VALUE_FROM_PERCENT((-0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.39f), vPercent), 0.0f); // bottom center
+    // glEnd();
+    // // Right Thipka upper
+    // glBegin(GL_QUADS);
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                              // red
+    // glVertex3f(VALUE_FROM_PERCENT((0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent), 0.0f);  // middle right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                              // green
+    // glVertex3f(VALUE_FROM_PERCENT((0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.42f), vPercent), 0.0f); // middle rightmost
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                              // blue
+    // glVertex3f(VALUE_FROM_PERCENT((0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.42f), vPercent), 0.0f); // bottmmost right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                              // black
+    // glVertex3f(VALUE_FROM_PERCENT((0.4f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.4f), vPercent), 0.0f);   // bottom center
+    // glEnd();
+    // // Right Thipka Centre
+    // glBegin(GL_QUADS);
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // red
+    // glVertex3f(VALUE_FROM_PERCENT((0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.00f), vPercent), 0.0f); // middle right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // green
+    // glVertex3f(VALUE_FROM_PERCENT((0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.02f), vPercent), 0.0f); // middle rightmost
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // blue
+    // glVertex3f(VALUE_FROM_PERCENT((0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.02f), vPercent), 0.0f); // bottmmost right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // black
+    // glVertex3f(VALUE_FROM_PERCENT((0.4f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + 0.0f), vPercent), 0.0f);    // bottom center
+    // glEnd();
+    // // Right Thipka bottom
+    // glBegin(GL_QUADS);
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // red
+    // glVertex3f(VALUE_FROM_PERCENT((0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.39f), vPercent), 0.0f); // middle right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // green
+    // glVertex3f(VALUE_FROM_PERCENT((0.42f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.41f), vPercent), 0.0f); // middle rightmost
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // blue
+    // glVertex3f(VALUE_FROM_PERCENT((0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.41f), vPercent), 0.0f); // bottmmost right
+    // glColor3f(1.0f, 1.0f, 1.0f);                                                                                               // black
+    // glVertex3f(VALUE_FROM_PERCENT((0.40f + vXPosition), vPercent), VALUE_FROM_PERCENT((vYPosition + -0.39f), vPercent), 0.0f); // bottom center
+    // glEnd();
+    // 	////border
+    // glLineWidth(5.0f);
+    // glBegin(GL_LINES);
+    // glColor3f(0.0f, 0.0f, 0.0f);
+    // glVertex2f(-0.2f, 0.4f);
+    // glVertex2f(-0.4f, 0.2f);
+    // glEnd();
+
+    // glLineWidth(5.0f);
+    // glBegin(GL_LINES);
+    // glColor3f(0.0f, 0.0f, 0.0f);
+    // glVertex2f(-0.4f, 0.2f);
+    // glVertex2f(-0.2f, 0.2f);
+    // glEnd();
+}
+
+// anoushka tai tulshi vrindavan code
 
 void keyboard(unsigned char key, int x, int y)
 {
