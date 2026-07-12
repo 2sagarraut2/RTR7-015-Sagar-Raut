@@ -20,7 +20,10 @@ int main(void)
         } while (SR_ch != 'Q' && SR_ch != 'q');
 
         printf("\n\n");
-        printf("Do you want to begin user contolled infinite loop again?...  (Press y/Y - Yes, Any other ky - No) ");
+        printf("Exiting user controlled infinte loop");
+
+        printf("\n\n");
+        printf("Do you want to begin user contolled infinite loop again?...  (Press y/Y - Yes, Any other key - No) ");
 
         scanf(" %c", &SR_option);
     } while (SR_option == 'Y' || SR_option == 'y');
