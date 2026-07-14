@@ -38,7 +38,7 @@ int main(void)
 
     printf("\n\n");
     printf("Number of space in the input string is %d\n", SR_spaceCount);
-    printf("Number of space in the input string are %d\n", SR_worCount);
+    printf("Number of word in the input string are %d\n", SR_worCount);
 
     printf("\n\n--End--\n\n");
     return (0);

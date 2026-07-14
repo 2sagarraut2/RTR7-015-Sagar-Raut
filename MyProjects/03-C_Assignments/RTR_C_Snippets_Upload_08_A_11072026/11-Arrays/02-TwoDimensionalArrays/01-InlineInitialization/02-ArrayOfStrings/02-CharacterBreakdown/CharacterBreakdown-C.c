@@ -14,8 +14,6 @@ int main(void)
     int SR_strActualNumChars = 0;
     int i, j;
 
-    printf("\n\n");
-
     SR_strArraySize = sizeof(strArray);
 
     SR_strArrayNumRows = SR_strArraySize / sizeof(strArray[0]);

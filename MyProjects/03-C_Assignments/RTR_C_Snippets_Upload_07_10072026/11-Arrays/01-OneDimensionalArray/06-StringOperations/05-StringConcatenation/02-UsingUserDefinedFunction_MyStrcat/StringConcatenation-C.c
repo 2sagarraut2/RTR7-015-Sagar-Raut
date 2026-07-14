@@ -13,6 +13,8 @@ int main(void)
     printf("Enter first string\n");
     fgets(SR_chArrayOne, SR_MAX_STRING_LENGTH, stdin);
 
+    SR_chArrayOne[strlen(SR_chArrayOne) - 1] = '\0';
+
     printf("\n\n");
     printf("Enter second string\n");
     fgets(SR_chArrayTwo, SR_MAX_STRING_LENGTH, stdin);
