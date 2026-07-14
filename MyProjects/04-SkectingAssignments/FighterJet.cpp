@@ -29,7 +29,10 @@
 #endif
 
 #include <stdio.h>
-#include <stdlib.h> // Required for exit()
+#include <stdlib.h>
+#include <math.h>
+
+void renderFighterJet(float, float);
 
 bool bIsFullScreen = false;
 
@@ -89,21 +92,111 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    glBegin(GL_TRIANGLES);
+    renderFighterJet(0.0f, 0.0f);
 
-    // 1st triangle
-    glColor3f(1.0f, 0.0f, 0.0f); // Red
-    glVertex3f(0.0f, 0.8f, 0.0f);
+    glutSwapBuffers();
+}
 
-    glColor3f(0.0f, 0.0f, 0.5f); // Blue
-    glVertex3f(0.8f, -0.4f, 0.0f);
+void renderFighterJet(float xPosition, float yPosition)
+{
 
-    glColor3f(0.0f, 1.0f, 0.0f); // Green
-    glVertex3f(-0.8f, -0.4f, 0.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_QUADS);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition - 0.075f, yPosition + 0.12f);
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition, yPosition + 0.12f);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition, yPosition + 0.07f);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition - 0.075f, yPosition + 0.07f);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition - 0.075f, yPosition - 0.06f);
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition, yPosition - 0.06f);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition, yPosition - 0.11f);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition - 0.075f, yPosition - 0.11f);
 
     glEnd();
 
-    glutSwapBuffers();
+    glBegin(GL_QUADS);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition - 0.03f, yPosition + 0.2f);
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition, yPosition + 0.2f);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition, yPosition - 0.2f);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition - 0.03f, yPosition - 0.2f);
+
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition, yPosition + 0.2f);
+    // glColor3f(0.0f, 1.0f, 0.0f);
+    glVertex2f(xPosition + 0.05f, yPosition);
+    // glColor3f(0.0f, 0.0f, 1.0f);
+    glVertex2f(xPosition, yPosition - 0.2f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition, yPosition + 0.07f);
+    glVertex2f(xPosition + 0.22f, yPosition + 0.07f);
+    glVertex2f(xPosition + 0.22f, yPosition - 0.07f);
+    glVertex2f(xPosition, yPosition - 0.07f);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition + 0.03f, yPosition + 0.3f);
+    // glColor3f(0.0f, 1.0f, 0.0f);
+    glVertex2f(xPosition + 0.07f, yPosition + 0.3f);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition + 0.20f, yPosition);
+    glVertex2f(xPosition + 0.07f, yPosition);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition + 0.03f, yPosition - 0.3f);
+    // glColor3f(0.0f, 1.0f, 0.0f);
+    glVertex2f(xPosition + 0.07f, yPosition - 0.3f);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition + 0.20f, yPosition);
+    glVertex2f(xPosition + 0.07f, yPosition);
+
+    glEnd();
+
+    glBegin(GL_QUADS);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition + 0.22f, yPosition + 0.03f);
+    glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
+    glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
+    glVertex2f(xPosition + 0.22f, yPosition - 0.03f);
+
+    glEnd();
+
+    glBegin(GL_TRIANGLES);
+
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
+    glVertex2f(xPosition + 0.4f, yPosition);
+    glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
+
+    glEnd();
 }
 
 void keyboard(unsigned char key, int x, int y)
