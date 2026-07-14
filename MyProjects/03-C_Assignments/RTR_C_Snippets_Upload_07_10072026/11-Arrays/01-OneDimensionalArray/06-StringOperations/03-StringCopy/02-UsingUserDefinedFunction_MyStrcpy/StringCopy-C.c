@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-#define SR_SR_MAX_STRING_LENGTH 512
+#define SR_MAX_STRING_LENGTH 512
 
 int main(void)
 {
     void MyStrcpy(char[], char[]);
 
-    char SR_chArrayOriginal[SR_SR_MAX_STRING_LENGTH], SR_chArrayCopy[SR_SR_MAX_STRING_LENGTH];
+    char SR_chArrayOriginal[SR_MAX_STRING_LENGTH], SR_chArrayCopy[SR_MAX_STRING_LENGTH];
 
     printf("\n\n");
     printf("Enter a string\n\n");
-    fgets(SR_chArrayOriginal, SR_SR_MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArrayOriginal, SR_MAX_STRING_LENGTH, stdin);
 
     MyStrcpy(SR_chArrayCopy, SR_chArrayOriginal);
 
@@ -47,7 +47,7 @@ int MyStrlen(char str[])
     int j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_SR_MAX_STRING_LENGTH; j++)
+    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
     {
         if (str[j] == '\0')
         {

@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 
-#define SR_SR_MAX_STRING_LENGTH 512
+#define SR_MAX_STRING_LENGTH 512
 
 int main(void)
 {
-    char SR_chArrayOne[SR_SR_MAX_STRING_LENGTH], SR_chArrayTwo[SR_SR_MAX_STRING_LENGTH];
+    char SR_chArrayOne[SR_MAX_STRING_LENGTH], SR_chArrayTwo[SR_MAX_STRING_LENGTH];
 
     printf("\n\n");
     printf("Enter first string\n");
-    fgets(SR_chArrayOne, SR_SR_MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArrayOne, SR_MAX_STRING_LENGTH, stdin);
 
     printf("\n\n");
     printf("Enter second string\n");
-    fgets(SR_chArrayTwo, SR_SR_MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArrayTwo, SR_MAX_STRING_LENGTH, stdin);
 
     printf("\n\n");
     printf("***Before concatination***\n\n");

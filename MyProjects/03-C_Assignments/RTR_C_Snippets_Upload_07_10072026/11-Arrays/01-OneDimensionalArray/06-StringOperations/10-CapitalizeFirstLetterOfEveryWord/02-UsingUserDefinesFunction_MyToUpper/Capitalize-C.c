@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define SR_SR_MAX_STRING_LENGTH 512
+#define SR_MAX_STRING_LENGTH 512
 
 #define SPACE ' '
 #define FULL_STOP '.'
@@ -14,13 +14,13 @@ int main(void)
     int MyStrlen(char[]);
     char myToUpper(char);
 
-    char SR_chArray[SR_SR_MAX_STRING_LENGTH], chArrayCapitalize[SR_SR_MAX_STRING_LENGTH];
+    char SR_chArray[SR_MAX_STRING_LENGTH], chArrayCapitalize[SR_MAX_STRING_LENGTH];
     int SR_iStringLength;
     int i, j;
 
     printf("\n\n");
     printf("ENter a string\n\n");
-    fgets(SR_chArray, SR_SR_MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArray, SR_MAX_STRING_LENGTH, stdin);
 
     SR_iStringLength = MyStrlen(SR_chArray);
     j = 0;
@@ -75,7 +75,7 @@ int MyStrlen(char str[])
     int j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_SR_MAX_STRING_LENGTH; j++)
+    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
     {
         if (str[j] == '\0')
         {
