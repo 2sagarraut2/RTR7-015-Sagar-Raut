@@ -1,52 +1,52 @@
 #include <stdio.h>
 
-#define NUM_ELEMENTS 10
+#define SR_NUM_ELEMENTS 10
 
 int main(void)
 {
-    int iArray[NUM_ELEMENTS];
-    int i, num, j, count = 0;
+    int SR_iArray[SR_NUM_ELEMENTS];
+    int i, SR_num, j, SR_count = 0;
 
     printf("\n\n");
 
     printf("Enter integer elements for Array\n\n");
-    for (i = 0; i < NUM_ELEMENTS; i++)
+    for (i = 0; i < SR_NUM_ELEMENTS; i++)
     {
-        scanf("%d", &num);
+        scanf("%d", &SR_num);
 
-        if (num < 0)
+        if (SR_num < 0)
         {
-            num = -1 * num;
+            SR_num = -1 * SR_num;
         }
 
-        iArray[i] = num;
+        SR_iArray[i] = SR_num;
     }
 
     printf("\n\n");
     printf("Array elements are:\n\n");
-    for (i = 0; i < NUM_ELEMENTS; i++)
+    for (i = 0; i < SR_NUM_ELEMENTS; i++)
     {
-        printf("%d", iArray[i]);
+        printf("%d", SR_iArray[i]);
     }
 
     printf("\n\n");
     printf("Prime number amongst array\n\n");
-    for (i = 0; i < NUM_ELEMENTS; i++)
+    for (i = 0; i < SR_NUM_ELEMENTS; i++)
     {
-        for (j = 0; j <= iArray[i]; j++)
+        for (j = 0; j <= SR_iArray[i]; j++)
         {
-            if ((iArray[i] % j) == 0)
+            if ((SR_iArray[i] % j) == 0)
             {
-                count++;
+                SR_count++;
             }
         }
 
-        if (count == 2)
+        if (SR_count == 2)
         {
-            printf("%d\n", iArray[i]);
+            printf("%d\n", SR_iArray[i]);
         }
 
-        count = 0;
+        SR_count = 0;
     }
 
     printf("\n\n--End--\n\n");

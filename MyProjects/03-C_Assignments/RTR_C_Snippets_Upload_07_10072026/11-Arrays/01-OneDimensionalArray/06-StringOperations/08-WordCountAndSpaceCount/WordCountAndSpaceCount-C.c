@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-#define MAX_STRING_LENGTH 512
+#define SR_SR_MAX_STRING_LENGTH 512
 
 int main(void)
 {
     int MyStrlen(char str[]);
 
-    char chArray[MAX_STRING_LENGTH];
-    int iStringLength;
+    char SR_chArray[SR_SR_MAX_STRING_LENGTH];
+    int SR_iStringLength;
     int i;
-    int worCount = 0, spaceCount = 0;
+    int SR_worCount = 0, SR_spaceCount = 0;
 
     printf("\n\n");
     printf("ENter a string\n\n");
-    fgets(chArray, MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArray, SR_SR_MAX_STRING_LENGTH, stdin);
 
-    iStringLength = MyStrlen(chArray);
+    SR_iStringLength = MyStrlen(SR_chArray);
 
-    for (i = 0; i < iStringLength; i++)
+    for (i = 0; i < SR_iStringLength; i++)
     {
-        switch (chArray[i])
+        switch (SR_chArray[i])
         {
         case 32:
-            spaceCount++;
+            SR_spaceCount++;
             break;
 
         default:
@@ -30,15 +30,15 @@ int main(void)
         }
     }
 
-    worCount = spaceCount + 1;
+    SR_worCount = SR_spaceCount + 1;
 
     printf("\n\n");
     printf("String entered by you is\n");
-    printf("%s\n", chArray);
+    printf("%s\n", SR_chArray);
 
     printf("\n\n");
-    printf("Number of space in the input string is %d\n", spaceCount);
-    printf("Number of space in the input string are %d\n", worCount);
+    printf("Number of space in the input string is %d\n", SR_spaceCount);
+    printf("Number of space in the input string are %d\n", SR_worCount);
 
     printf("\n\n--End--\n\n");
     return (0);
@@ -47,9 +47,9 @@ int main(void)
 int MyStrlen(char str[])
 {
     int j;
-    int stringLength = 0;
+    int SR_stringLength = 0;
 
-    for (j = 0; j < MAX_STRING_LENGTH; j++)
+    for (j = 0; j < SR_SR_MAX_STRING_LENGTH; j++)
     {
         if (str[j] == '\0')
         {
@@ -57,9 +57,9 @@ int MyStrlen(char str[])
         }
         else
         {
-            stringLength++;
+            SR_stringLength++;
         }
     }
 
-    return (stringLength);
+    return (SR_stringLength);
 }

@@ -8,7 +8,7 @@ int main()
 
     printf("\n\n");
 
-    printf("Enter value of num: ");
+    printf("Enter value of SR_num: ");
     scanf("%d", &number);
 
     if (number < 0)

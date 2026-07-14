@@ -4,14 +4,14 @@ int main()
 {
 
     // variables
-    int age;
+    int SR_age;
 
     printf("\n\n");
 
     printf("Enter Age: ");
-    scanf("%d", &age);
+    scanf("%d", &SR_age);
 
-    if (age >= 18)
+    if (SR_age >= 18)
     {
 
         printf("You are eligible for voting\n");

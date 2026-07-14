@@ -8,14 +8,14 @@ int main(int argc, char *argv[], char *envp[])
     void myMultiplication(int, int);
     int myDivision(int, int);
 
-    int res_sub, res_div;
+    int SR_res_sub, SR_res_div;
     int a, b;
 
     myAddition();
 
-    res_sub = mySubstraction();
+    SR_res_sub = mySubstraction();
     printf("\n\n");
-    printf("Result of subtraction %d\n\n", res_sub);
+    printf("Result of subtraction %d\n\n", SR_res_sub);
 
     printf("\n\n");
 
@@ -42,7 +42,7 @@ int main(int argc, char *argv[], char *envp[])
 
 void myAddition(void)
 {
-    int a, b, sum;
+    int a, b, SR_sum;
 
     printf("\n\n");
 
@@ -52,9 +52,9 @@ void myAddition(void)
     printf("Enter second number\n");
     scanf("%d", &b);
 
-    sum = a + b;
+    SR_sum = a + b;
 
-    printf("Result of adding %d and %d is %d\n\n", a, b, sum);
+    printf("Result of adding %d and %d is %d\n\n", a, b, SR_sum);
 }
 
 int mySubstraction(void)

@@ -12,33 +12,33 @@
 
 int main()
 {
-    char ch;
+    char SR_ch;
     int ch_value;
 
     printf("\n\n");
 
     printf("Enter character\n");
-    ch = getchar();
+    SR_ch = getchar();
 
-    if ((ch == 'A' || ch == 'a') || (ch == 'E' || ch == 'e') || (ch == 'I' || ch == 'i') || (ch == 'O' || ch == 'o') || (ch == 'U' || ch == 'u'))
+    if ((SR_ch == 'A' || SR_ch == 'a') || (SR_ch == 'E' || SR_ch == 'e') || (SR_ch == 'I' || SR_ch == 'i') || (SR_ch == 'O' || SR_ch == 'o') || (SR_ch == 'U' || SR_ch == 'u'))
     {
-        printf("Character %c entered by you is a vowel \n\n", ch);
+        printf("Character %c entered by you is a vowel \n\n", SR_ch);
     }
     else
     {
-        ch_value = (int)ch;
+        ch_value = (int)SR_ch;
 
         if ((ch_value >= CHAR_ALPHABET_LOWER_CASE_BEGINNING && ch_value <= CHAR_ALPHABET_LOWER_CASE_ENDING) || (ch_value >= CHAR_ALPHABET_UPPER_CASE_BEGINNING && ch_value <= CHAR_ALPHABET_UPPER_CASE_ENDING))
         {
-            printf("Character %c entered by you is a consonant \n\n", ch);
+            printf("Character %c entered by you is a consonant \n\n", SR_ch);
         }
         else if (ch_value >= CHAR_DEGIT_BEGINNING && ch_value <= CHAR_DEGIT_ENDING)
         {
-            printf("Character %c entered by you is a digit\n\n", ch);
+            printf("Character %c entered by you is a digit\n\n", SR_ch);
         }
         else
         {
-            printf("Character %c entered by you is a special character\n\n", ch);
+            printf("Character %c entered by you is a special character\n\n", SR_ch);
         }
     }
 

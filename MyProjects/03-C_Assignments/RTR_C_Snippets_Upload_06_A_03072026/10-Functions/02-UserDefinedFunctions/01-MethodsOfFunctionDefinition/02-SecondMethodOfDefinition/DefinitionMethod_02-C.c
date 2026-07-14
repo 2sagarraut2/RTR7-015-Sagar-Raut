@@ -4,13 +4,13 @@ int main(void)
 {
     int MyAddition(void);
 
-    int result;
+    int SR_result;
 
     printf("\n\n");
 
-    result = MyAddition();
+    SR_result = MyAddition();
 
-    printf("Addition is %d", result);
+    printf("Addition is %d", SR_result);
 
     printf("\n\n");
 
@@ -22,7 +22,7 @@ int main(void)
 int MyAddition(void)
 {
 
-    int a, b, sum;
+    int a, b, SR_sum;
 
     printf("Enter first number\n");
     scanf("%d", &a);
@@ -30,7 +30,7 @@ int MyAddition(void)
     printf("Enter second number\n");
     scanf("%d", &b);
 
-    sum = a + b;
+    SR_sum = a + b;
 
-    return (sum);
+    return (SR_sum);
 }

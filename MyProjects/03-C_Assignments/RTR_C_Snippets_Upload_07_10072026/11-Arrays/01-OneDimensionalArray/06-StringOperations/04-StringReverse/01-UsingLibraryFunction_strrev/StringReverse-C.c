@@ -1,31 +1,31 @@
 #include <stdio.h>
 #include <string.h>
 
-#define MAX_STRING_LENGTH 512
+#define SR_SR_MAX_STRING_LENGTH 512
 
 int main(void)
 {
-    char *customStrlen(char *str);
+    char *SR_customStrlen(char *str);
 
-    char chArrayOriginal[MAX_STRING_LENGTH];
+    char SR_chArrayOriginal[SR_SR_MAX_STRING_LENGTH];
 
     printf("\n\n");
     printf("Enter a string\n\n");
-    fgets(chArrayOriginal, MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArrayOriginal, SR_SR_MAX_STRING_LENGTH, stdin);
 
     printf("\n\n");
     printf("The original string entered by you is\n\n");
-    printf("%s\n", chArrayOriginal);
+    printf("%s\n", SR_chArrayOriginal);
 
     printf("\n\n");
     printf("The reversed string is \n\n");
-    printf("%s\n", customStrlen(chArrayOriginal));
+    printf("%s\n", SR_customStrlen(SR_chArrayOriginal));
 
     printf("\n\n--End--\n\n");
     return (0);
 }
 
-char *customStrlen(char *str)
+char *SR_customStrlen(char *str)
 {
 
     if (!str)

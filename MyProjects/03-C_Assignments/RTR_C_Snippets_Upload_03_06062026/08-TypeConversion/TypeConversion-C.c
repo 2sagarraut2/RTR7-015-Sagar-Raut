@@ -31,7 +31,7 @@ int main()
     a = 5;
     f = 7.8f;
     result_float = a + f;
-    printf("Integer a = %d and floating point nunber %f added gives floating point sum = %f\n\n", a, f, result_float);
+    printf("Integer a = %d and floating point nunber %f added gives floating point SR_sum = %f\n\n", a, f, result_float);
 
     result_int = a + f;
     printf("Integer a = %d and floating point nunber %f added gives integer Sum = %d\n\n", a, f, result_int);

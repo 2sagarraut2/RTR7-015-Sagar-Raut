@@ -4,7 +4,7 @@ int main(void)
 {
     int myAddition(int, int);
 
-    int a, b, sum;
+    int a, b, SR_sum;
 
     printf("Enter first number\n");
     scanf("%d", &a);
@@ -12,9 +12,9 @@ int main(void)
     printf("Enter second number\n");
     scanf("%d", &b);
 
-    sum = myAddition(a, b);
+    SR_sum = myAddition(a, b);
 
-    printf("Result of adding %d and %d is %d\n", a, b, sum);
+    printf("Result of adding %d and %d is %d\n", a, b, SR_sum);
     printf("---End---\n\n");
 
     return 0;

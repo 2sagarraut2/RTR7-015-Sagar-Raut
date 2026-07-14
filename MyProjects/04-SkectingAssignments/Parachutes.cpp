@@ -32,8 +32,11 @@
 #include <stdlib.h> // Required for exit()
 #include <math.h>
 
+#define SR_VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
+#define SCALE_RADIUS(radius, SR_percent) ((radius) * (SR_percent) / 100)
+
 void drawParachute(float centerX, float centerY, float radius);
-void drawClouds(float xPoint, float yPoint, float radius);
+void drawClouds(float xPoint, float yPoint, float radius, float cloudPercent);
 void drawMountains(float xPoint, float yPoint, float width, float height);
 
 bool bIsFullScreen = false;
@@ -106,20 +109,20 @@ void display(void)
 		xPosition = xPosition + 0.0005f;
 	}
 
-	drawClouds(xPosition + 0.2f, 0.8f, 0.1f);
-	drawClouds(xPosition + 0.3f, 0.9f, 0.1f);
-	drawClouds(xPosition + 0.4f, 0.8f, 0.1f);
-	drawClouds(xPosition + 0.3f, 0.7f, 0.1f);
+	drawClouds(xPosition + 0.2f, 0.8f, 0.1f, 50.0f);
+	drawClouds(xPosition + 0.3f, 0.9f, 0.1f, 50.0f);
+	drawClouds(xPosition + 0.4f, 0.8f, 0.1f, 50.0f);
+	drawClouds(xPosition + 0.3f, 0.7f, 0.1f, 50.0f);
 
-	drawClouds(-0.4f, 0.6f, 0.15f);
-	drawClouds(-0.3f, 0.7f, 0.15f);
-	drawClouds(-0.2f, 0.6f, 0.15f);
-	drawClouds(-0.3f, 0.5f, 0.15f);
+	drawClouds(-0.4f, 0.6f, 0.15f, 100.0f);
+	drawClouds(-0.3f, 0.7f, 0.15f, 100.0f);
+	drawClouds(-0.2f, 0.6f, 0.15f, 100.0f);
+	drawClouds(-0.3f, 0.5f, 0.15f, 100.0f);
 
-	drawClouds(0.8f, 0.8f, 0.2f);
-	drawClouds(0.7f, 0.9f, 0.2f);
-	drawClouds(0.6f, 0.8f, 0.2f);
-	drawClouds(0.7f, 0.7f, 0.2f);
+	drawClouds(0.8f, 0.8f, 0.2f, 100.0f);
+	drawClouds(0.7f, 0.9f, 0.2f, 100.0f);
+	drawClouds(0.6f, 0.8f, 0.2f, 100.0f);
+	drawClouds(0.7f, 0.7f, 0.2f, 100.0f);
 
 	// float xPoint, float yPoint, float width, float height
 	drawMountains(-1.2f, -1.0f, 1.0f, 0.8f);
@@ -137,15 +140,19 @@ void display(void)
 	glutPostRedisplay();
 }
 
-void drawClouds(float xPoint, float yPoint, float radius)
+void drawClouds(float xPoint, float yPoint, float radius, float cloudPercent)
 {
 	glColor3f(0.961f, 0.961f, 0.961f);
 
 	glBegin(GL_TRIANGLE_FAN);
-	// 1. Establish the center anchor point
+
+	xPoint = SR_VALUE_FROM_PERCENT((xPoint), cloudPercent);
+	yPoint = SR_VALUE_FROM_PERCENT((yPoint), cloudPercent);
+
+	radius = SCALE_RADIUS(radius, cloudPercent);
+
 	glVertex2f(xPoint, yPoint);
 
-	// 2. Wrap around 360 degrees to plot the outer edge
 	for (int i = 0; i <= 360; i++)
 	{
 		// Convert degrees to radians for cos() and sin()
@@ -158,6 +165,27 @@ void drawClouds(float xPoint, float yPoint, float radius)
 	}
 	glEnd();
 }
+
+// glBegin(GL_TRIANGLE_FAN);
+
+//     glColor3f(0.917f, 0.816f, 0.726f);
+
+//     float centerX = SR_VALUE_FROM_PERCENT((SR_XPosition + SR_Width / 2), SR_percent);
+//     float centerY = SR_VALUE_FROM_PERCENT((SR_YPosition - 0.35f), SR_percent);
+//     float radius = SCALE_RADIUS(0.048f, SR_percent);
+//     glVertex2f(centerX, centerY);
+
+//     for (int i = 0; i <= 360; i++)
+//     {
+
+//         float angle = i * 3.14159f / 180.0f;
+
+//         float x = centerX + (cos(angle) * radius);
+//         float y = centerY + (sin(angle) * radius);
+
+//         glVertex2f(x, y);
+//     }
+//     glEnd();
 
 void drawParachute(float centerX, float centerY, float radius)
 {

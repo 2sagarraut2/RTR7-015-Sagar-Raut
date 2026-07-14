@@ -24,8 +24,8 @@ int main(int agrc, char *argv[], char *envp[])
 
 int myAddition(int a, int b)
 {
-    int sum;
+    int SR_sum;
 
-    sum = a + b;
-    return (sum);
+    SR_sum = a + b;
+    return (SR_sum);
 }

@@ -21,8 +21,8 @@ int main(void)
 
 void changeCount(void)
 {
-    static int local_count = 0;
+    static int SR_local_count = 0;
 
-    local_count = local_count + 1;
-    printf("Local count = %d\n\n", local_count);
+    SR_local_count = SR_local_count + 1;
+    printf("Local SR_count = %d\n\n", SR_local_count);
 }

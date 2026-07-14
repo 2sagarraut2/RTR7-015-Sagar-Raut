@@ -4,8 +4,8 @@
 int main(int argc, char *argv[], char *envp[])
 {
     int i;
-    int num;
-    int sum = 0;
+    int SR_num;
+    int SR_sum = 0;
 
     if (argc != 4)
     {

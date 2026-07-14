@@ -31,12 +31,15 @@
 #include <stdio.h>
 #include <stdlib.h> // Required for exit()
 
+#define VALUE_FROM_PERCENT(complete_value, percent) ((complete_value * percent) / 100)
+
 bool bIsFullScreen = false;
 float xPosition = -0.99f;
 float yPosition = -0.99f;
+float size = 400.0f;
 
 // func declarations
-void moveMyRectangleOnX(float xPosition);
+void moveMyRectangleOnX(float xPosition, float yPosition, float percent);
 void moveMyRectangleOnY(float YPosition);
 
 int main(int argc, char *argv[])
@@ -95,29 +98,30 @@ void display(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	moveMyRectangleOnX(xPosition);
-	moveMyRectangleOnY(yPosition);
+	moveMyRectangleOnX(xPosition, yPosition, size);
+	// moveMyRectangleOnY(yPosition);
 
 	if (xPosition <= 1.0f || yPosition <= 1.0f)
 	{
 		xPosition += 0.001f;
 		yPosition += 0.001f;
+		size -= 5.0;
 	}
 
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
 
-void moveMyRectangleOnX(float xPosition)
+void moveMyRectangleOnX(float xPosition, float yPosition, float percent)
 {
 	glBegin(GL_QUADS);
 
 	// 1st triangle
 	glColor3f(1.0f, 0.0f, 0.0f); // Red
-	glVertex3f(xPosition, 0.2f, 0.0f);
-	glVertex3f(xPosition + 0.4f, 0.2f, 0.0f);
-	glVertex3f(xPosition + 0.4f, -0.2f, 0.0f);
-	glVertex3f(xPosition, -0.2f, 0.0f);
+	glVertex2f(VALUE_FROM_PERCENT(xPosition, percent), VALUE_FROM_PERCENT((yPosition), percent));
+	glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.4f), percent), VALUE_FROM_PERCENT((yPosition), percent));
+	glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.4f), percent), VALUE_FROM_PERCENT((yPosition + 0.60f), percent));
+	glVertex2f(VALUE_FROM_PERCENT(xPosition, percent), VALUE_FROM_PERCENT((yPosition + 0.60f), percent));
 
 	glEnd();
 }

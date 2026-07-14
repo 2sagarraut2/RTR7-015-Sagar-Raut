@@ -4,7 +4,7 @@ int main()
 {
 
     int a, b;
-    int result;
+    int SR_result;
 
     char option, option_division;
 
@@ -29,26 +29,26 @@ int main()
 
     if (option == 'A' || option == 'a')
     {
-        result = a + b;
-        printf("Addition of A = %d and B = %d gives result: %d\n\n", a, b, result);
+        SR_result = a + b;
+        printf("Addition of A = %d and B = %d gives SR_result: %d\n\n", a, b, SR_result);
     }
     else if (option == 'S' || option == 's')
     {
         if (a >= b)
         {
-            result = a - b;
-            printf("Subtraction of A = %d and B = %d gives result: %d\n\n", a, b, result);
+            SR_result = a - b;
+            printf("Subtraction of A = %d and B = %d gives SR_result: %d\n\n", a, b, SR_result);
         }
         else
         {
-            result = b - a;
-            printf("Subtraction of B = %d and A = %d gives result: %d\n\n", b, a, result);
+            SR_result = b - a;
+            printf("Subtraction of B = %d and A = %d gives SR_result: %d\n\n", b, a, SR_result);
         }
     }
     else if (option == 'M' || option == 'm')
     {
-        result = a * b;
-        printf("Multiplication of A = %d and B = %d gives result: %d\n\n", a, b, result);
+        SR_result = a * b;
+        printf("Multiplication of A = %d and B = %d gives SR_result: %d\n\n", a, b, SR_result);
     }
     else if (option == 'D' || option == 'd')
     {
@@ -66,26 +66,26 @@ int main()
 
             if (a >= b)
             {
-                result = a / b;
-                printf("Quotient upon division of A = %d and B = %d gives result: %d\n\n", a, b, result);
+                SR_result = a / b;
+                printf("Quotient upon division of A = %d and B = %d gives SR_result: %d\n\n", a, b, SR_result);
             }
             else
             {
-                result = b / a;
-                printf("Quotient upon division of B = %d and A = %d gives result: %d\n\n", b, a, result);
+                SR_result = b / a;
+                printf("Quotient upon division of B = %d and A = %d gives SR_result: %d\n\n", b, a, SR_result);
             }
         }
         else if (option_division == 'R' || option_division == 'r' || option_division == '%')
         {
             if (a >= b)
             {
-                result = a % b;
-                printf("Remainder upon division of A = %d and B = %d gives result: %d\n\n", a, b, result);
+                SR_result = a % b;
+                printf("Remainder upon division of A = %d and B = %d gives SR_result: %d\n\n", a, b, SR_result);
             }
             else
             {
-                result = b % a;
-                printf("Remainder upon division of B = %d and A = %d gives result: %d\n\n", b, a, result);
+                SR_result = b % a;
+                printf("Remainder upon division of B = %d and A = %d gives SR_result: %d\n\n", b, a, SR_result);
             }
         }
         else

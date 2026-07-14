@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-extern int global_count;
+extern int SR_global_count;
 
-void change_count_one(void)
+void SR_change_count_one(void)
 {
-    global_count = global_count + 1;
-    printf("change_count_one() : Value of global_count in File_01 = %d\n", global_count);
+    SR_global_count = SR_global_count + 1;
+    printf("SR_change_count_one() : Value of SR_global_count in File_01 = %d\n", SR_global_count);
 }

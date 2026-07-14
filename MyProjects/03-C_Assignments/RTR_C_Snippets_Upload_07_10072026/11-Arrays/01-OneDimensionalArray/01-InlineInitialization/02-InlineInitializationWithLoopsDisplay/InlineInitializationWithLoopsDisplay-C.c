@@ -2,71 +2,71 @@
 
 int main(void)
 {
-    int iArray[] = {9, 30, 6, 12, 98, 95, 20, 23, 2, 45};
+    int SR_iArray[] = {9, 30, 6, 12, 98, 95, 20, 23, 2, 45};
 
-    int intSize;
-    int iArraySize;
-    int iArrayNumElements;
+    int SR_intSize;
+    int SR_iArraySize;
+    int SR_iArrayNumElements;
 
-    float fArray[] = {1.2f, 2.3f, 3.4f, 4.5f, 5.6f, 6.7f, 7.8f, 8.9f, 9.9f, 10.5f};
+    float SR_fArray[] = {1.2f, 2.3f, 3.4f, 4.5f, 5.6f, 6.7f, 7.8f, 8.9f, 9.9f, 10.5f};
     int floatSize;
     int fArraySize;
     int fArrayNumElements;
 
-    char cArray[] = {'A', 'S', 'T', 'R', 'O', 'M', 'E', 'D', 'I', 'C', 'O', 'M', 'P'};
-    int charSize;
+    char SR_cArray[] = {'A', 'S', 'T', 'R', 'O', 'M', 'E', 'D', 'I', 'C', 'O', 'M', 'P'};
+    int SR_charSize;
     int cArraySize;
     int cArrayNumElements;
 
     int i;
 
     printf("\n\n");
-    iArraySize = sizeof(iArray);
-    iArrayNumElements = iArraySize / intSize;
+    SR_iArraySize = sizeof(SR_iArray);
+    SR_iArrayNumElements = SR_iArraySize / SR_intSize;
 
-    for (i = 0; i < iArrayNumElements; i++)
+    for (i = 0; i < SR_iArrayNumElements; i++)
     {
-        printf("iArray[%d] (elements %d) = %d\n", i, (i + 1), iArray[i]);
+        printf("SR_iArray[%d] (elements %d) = %d\n", i, (i + 1), SR_iArray[i]);
     }
 
-    intSize = sizeof(int);
-    iArraySize = sizeof(iArray);
-    iArrayNumElements = iArraySize / intSize;
-    printf("Size of data type int = %d bytes\n", intSize);
-    printf("Number of elements in int Array 'iArray' = %d elements\n", iArrayNumElements);
-    printf("Size of Array 'iArray[]' (%d elements * %d Bytes) = %d bytes\n\n", iArrayNumElements, intSize, iArraySize);
+    SR_intSize = sizeof(int);
+    SR_iArraySize = sizeof(SR_iArray);
+    SR_iArrayNumElements = SR_iArraySize / SR_intSize;
+    printf("Size of data type int = %d bytes\n", SR_intSize);
+    printf("Number of elements in int Array 'SR_iArray' = %d elements\n", SR_iArrayNumElements);
+    printf("Size of Array 'SR_iArray[]' (%d elements * %d Bytes) = %d bytes\n\n", SR_iArrayNumElements, SR_intSize, SR_iArraySize);
 
     printf("\n\n");
-    fArraySize = sizeof(fArray);
+    fArraySize = sizeof(SR_fArray);
     fArrayNumElements = fArraySize / floatSize;
 
     for (i = 0; i < fArrayNumElements; i++)
     {
-        printf("fArray[%d] (elements %d) = %f\n", i, (i + 1), fArray[i]);
+        printf("SR_fArray[%d] (elements %d) = %f\n", i, (i + 1), SR_fArray[i]);
     }
 
     floatSize = sizeof(float);
-    fArraySize = sizeof(fArray);
+    fArraySize = sizeof(SR_fArray);
     fArrayNumElements = fArraySize / floatSize;
     printf("Size of data type float = %d bytes\n", floatSize);
-    printf("Number of elements in float Array 'fArray' = %d elements\n", fArrayNumElements);
-    printf("Size of Array 'fArray[]' (%d elements * %d Bytes) = %d bytes\n\n", fArrayNumElements, floatSize, fArraySize);
+    printf("Number of elements in float Array 'SR_fArray' = %d elements\n", fArrayNumElements);
+    printf("Size of Array 'SR_fArray[]' (%d elements * %d Bytes) = %d bytes\n\n", fArrayNumElements, floatSize, fArraySize);
 
     printf("\n\n");
-    cArraySize = sizeof(cArray);
-    cArrayNumElements = cArraySize / charSize;
+    cArraySize = sizeof(SR_cArray);
+    cArrayNumElements = cArraySize / SR_charSize;
 
     for (i = 0; i < cArrayNumElements; i++)
     {
-        printf("cArray[%d] (elements %d) = %c\n", i, (i + 1), cArray[i]);
+        printf("SR_cArray[%d] (elements %d) = %c\n", i, (i + 1), SR_cArray[i]);
     }
 
-    charSize = sizeof(char);
-    cArraySize = sizeof(cArray);
-    cArrayNumElements = cArraySize / charSize;
-    printf("Size of data type char = %d bytes\n", charSize);
-    printf("Number of elements in char Array 'cArray' = %d elements\n", cArrayNumElements);
-    printf("Size of Array 'cArray[]' (%d elements * %d Bytes) = %d bytes\n\n", cArrayNumElements, charSize, cArraySize);
+    SR_charSize = sizeof(char);
+    cArraySize = sizeof(SR_cArray);
+    cArrayNumElements = cArraySize / SR_charSize;
+    printf("Size of data type char = %d bytes\n", SR_charSize);
+    printf("Number of elements in char Array 'SR_cArray' = %d elements\n", cArrayNumElements);
+    printf("Size of Array 'SR_cArray[]' (%d elements * %d Bytes) = %d bytes\n\n", cArrayNumElements, SR_charSize, cArraySize);
 
     printf("\n\n--End--\n\n");
     return (0);

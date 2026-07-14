@@ -32,7 +32,7 @@ int main()
 void PrintBinaryFormOfNumber(unsigned int decimal_number)
 {
     unsigned int quotient, remainder;
-    unsigned int num;
+    unsigned int SR_num;
     unsigned int binary_array[8];
     int i;
 
@@ -42,16 +42,16 @@ void PrintBinaryFormOfNumber(unsigned int decimal_number)
     }
 
     printf("\n\nThe binary form of the decimal integer %d is\t=\t", decimal_number);
-    num = decimal_number;
+    SR_num = decimal_number;
 
     i = 7;
 
-    while (num != 0)
+    while (SR_num != 0)
     {
-        quotient = num / 2;
-        remainder = num % 2;
+        quotient = SR_num / 2;
+        remainder = SR_num % 2;
         binary_array[i] = remainder;
-        num = quotient;
+        SR_num = quotient;
         i--;
     }
 

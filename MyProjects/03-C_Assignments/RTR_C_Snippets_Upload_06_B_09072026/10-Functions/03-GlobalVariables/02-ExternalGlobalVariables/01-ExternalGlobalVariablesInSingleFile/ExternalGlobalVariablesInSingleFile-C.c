@@ -3,14 +3,14 @@
 int main(void)
 {
 
-    void change_count(void);
+    void SR_change_count(void);
 
-    extern int global_count;
+    extern int SR_global_count;
 
     printf("\n");
-    printf("Value of global_count before change_count() = %d\n", global_count);
-    change_count();
-    printf("Value of global_count after change_count() = %d\n", global_count);
+    printf("Value of SR_global_count before SR_change_count() = %d\n", SR_global_count);
+    SR_change_count();
+    printf("Value of SR_global_count after SR_change_count() = %d\n", SR_global_count);
     printf("\n");
 
     printf("\n---End---\n");
@@ -18,12 +18,12 @@ int main(void)
     return (0);
 }
 
-int global_count = 0;
+int SR_global_count = 0;
 
-void change_count(void)
+void SR_change_count(void)
 {
-    global_count = 5;
+    SR_global_count = 5;
 
-    printf("Value of global_count in change_count() %d\n", global_count);
-    global_count = global_count + 5;
+    printf("Value of SR_global_count in SR_change_count() %d\n", SR_global_count);
+    SR_global_count = SR_global_count + 5;
 }

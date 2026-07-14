@@ -3,16 +3,16 @@
 int main()
 {
 
-    int age;
+    int SR_age;
 
     printf("\n\n");
 
-    printf("Enter age: ");
-    scanf("%d", &age);
+    printf("Enter SR_age: ");
+    scanf("%d", &SR_age);
 
     printf("\n\n");
 
-    if (age >= 18)
+    if (SR_age >= 18)
     {
         printf("Entering if-block...\n\n");
         printf("You are eligible for voting !!! \n\n");

@@ -5,7 +5,7 @@ int main(void)
 
     int i;
 
-    char ch;
+    char SR_ch;
 
     printf("\n\n");
 
@@ -22,9 +22,9 @@ int main(void)
             printf("\t %d \n", i);
         }
 
-        scanf(" %c", &ch);
+        scanf(" %c", &SR_ch);
 
-        if (ch == 'q' || ch == 'Q')
+        if (SR_ch == 'q' || SR_ch == 'Q')
         {
             break;
         }

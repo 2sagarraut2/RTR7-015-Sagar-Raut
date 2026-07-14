@@ -3,7 +3,7 @@
 int main()
 {
     int a, b;
-    int result;
+    int SR_result;
 
     char option, option_division;
 
@@ -29,18 +29,18 @@ int main()
     {
     case 'A':
     case 'a':
-        result = a + b;
-        printf("Addition of A = %d and B = %d gives result: %d\n", a, b, result);
+        SR_result = a + b;
+        printf("Addition of A = %d and B = %d gives SR_result: %d\n", a, b, SR_result);
         break;
     case 'S':
     case 's':
-        result = a - b;
-        printf("Subtraction of A = %d and B = %d gives result: %d\n", a, b, result);
+        SR_result = a - b;
+        printf("Subtraction of A = %d and B = %d gives SR_result: %d\n", a, b, SR_result);
         break;
     case 'M':
     case 'm':
-        result = a * b;
-        printf("Multiplication of A = %d and B = %d gives result: %d\n", a, b, result);
+        SR_result = a * b;
+        printf("Multiplication of A = %d and B = %d gives SR_result: %d\n", a, b, SR_result);
         break;
     case 'D':
     case 'd':
@@ -60,13 +60,13 @@ int main()
         case '/':
             if (a >= b)
             {
-                result = a / b;
-                printf("Quotient upon division of A = %d and B = %d gives result: %d\n", a, b, result);
+                SR_result = a / b;
+                printf("Quotient upon division of A = %d and B = %d gives SR_result: %d\n", a, b, SR_result);
             }
             else
             {
-                result = b / a;
-                printf("Quotient upon division of B = %d and A = %d gives result: %d\n", b, a, result);
+                SR_result = b / a;
+                printf("Quotient upon division of B = %d and A = %d gives SR_result: %d\n", b, a, SR_result);
             }
             break;
 
@@ -75,13 +75,13 @@ int main()
         case '%':
             if (a >= b)
             {
-                result = a % b;
-                printf("Remainder upon division of A = %d and B = %d gives result: %d\n", a, b, result);
+                SR_result = a % b;
+                printf("Remainder upon division of A = %d and B = %d gives SR_result: %d\n", a, b, SR_result);
             }
             else
             {
-                result = b % a;
-                printf("Remainder upon division of B = %d and A = %d gives result: %d\n", b, a, result);
+                SR_result = b % a;
+                printf("Remainder upon division of B = %d and A = %d gives SR_result: %d\n", b, a, SR_result);
             }
             break;
 

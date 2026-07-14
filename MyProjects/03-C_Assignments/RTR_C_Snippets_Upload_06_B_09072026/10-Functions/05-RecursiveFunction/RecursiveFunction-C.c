@@ -3,17 +3,17 @@
 int main(void)
 {
 
-    unsigned int num;
+    unsigned int SR_num;
 
     void recursive(unsigned int);
 
     printf("Enter one number\n");
-    scanf("%u", &num);
+    scanf("%u", &SR_num);
 
     printf("\n\n");
     printf("Output of recursive function : \n\n");
 
-    recursive(num);
+    recursive(SR_num);
 
     printf("\n---End---\n");
 

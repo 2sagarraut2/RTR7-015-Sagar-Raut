@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define MAX_STRING_LENGTH 512
+#define SR_SR_MAX_STRING_LENGTH 512
 
 #define SPACE ' '
 #define FULL_STOP '.'
@@ -14,43 +14,43 @@ int main(void)
     int MyStrlen(char[]);
     char myToUpper(char);
 
-    char chArray[MAX_STRING_LENGTH], chArrayCapitalize[MAX_STRING_LENGTH];
-    int iStringLength;
+    char SR_chArray[SR_SR_MAX_STRING_LENGTH], chArrayCapitalize[SR_SR_MAX_STRING_LENGTH];
+    int SR_iStringLength;
     int i, j;
 
     printf("\n\n");
     printf("ENter a string\n\n");
-    fgets(chArray, MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArray, SR_SR_MAX_STRING_LENGTH, stdin);
 
-    iStringLength = MyStrlen(chArray);
+    SR_iStringLength = MyStrlen(SR_chArray);
     j = 0;
 
-    for (i = 0; i < iStringLength; i++)
+    for (i = 0; i < SR_iStringLength; i++)
     {
         if (i == 0)
         {
-            chArrayCapitalize[j] = toupper(chArray[i]);
+            chArrayCapitalize[j] = toupper(SR_chArray[i]);
         }
-        else if (chArray[i] == SPACE)
+        else if (SR_chArray[i] == SPACE)
         {
-            chArrayCapitalize[j] = chArray[i];
-            chArrayCapitalize[j + 1] = myToUpper(chArray[i + 1]);
+            chArrayCapitalize[j] = SR_chArray[i];
+            chArrayCapitalize[j + 1] = myToUpper(SR_chArray[i + 1]);
 
             j++;
             i++;
         }
-        else if ((chArray[i] == FULL_STOP) || (chArray[i] == COMMA) || (chArray[i] == EXCLAMATION) || (chArray[i] == QUESTION_MARK) && (chArray[i] != SPACE))
+        else if ((SR_chArray[i] == FULL_STOP) || (SR_chArray[i] == COMMA) || (SR_chArray[i] == EXCLAMATION) || (SR_chArray[i] == QUESTION_MARK) && (SR_chArray[i] != SPACE))
         {
-            chArrayCapitalize[j] = chArray[i];
+            chArrayCapitalize[j] = SR_chArray[i];
             chArrayCapitalize[j + 1] = SPACE;
-            chArrayCapitalize[j + 2] = myToUpper(chArray[i + 1]);
+            chArrayCapitalize[j + 2] = myToUpper(SR_chArray[i + 1]);
 
             j = j + 2;
             i++;
         }
         else
         {
-            chArrayCapitalize[j] = chArray[i];
+            chArrayCapitalize[j] = SR_chArray[i];
         }
 
         j++;
@@ -60,7 +60,7 @@ int main(void)
 
     printf("\n\n");
     printf("String entered by you is\n");
-    printf("%s\n", chArray);
+    printf("%s\n", SR_chArray);
 
     printf("\n\n");
     printf("String after capitalization of every first word is \n");
@@ -73,9 +73,9 @@ int main(void)
 int MyStrlen(char str[])
 {
     int j;
-    int stringLength = 0;
+    int SR_stringLength = 0;
 
-    for (j = 0; j < MAX_STRING_LENGTH; j++)
+    for (j = 0; j < SR_SR_MAX_STRING_LENGTH; j++)
     {
         if (str[j] == '\0')
         {
@@ -83,27 +83,27 @@ int MyStrlen(char str[])
         }
         else
         {
-            stringLength++;
+            SR_stringLength++;
         }
     }
 
-    return (stringLength);
+    return (SR_stringLength);
 }
 
-char myToUpper(char ch)
+char myToUpper(char SR_ch)
 {
-    int num;
+    int SR_num;
     int c;
 
-    num = 'a' - 'A';
+    SR_num = 'a' - 'A';
 
-    if ((int)ch >= 97 && (int)ch <= 122)
+    if ((int)SR_ch >= 97 && (int)SR_ch <= 122)
     {
-        c = (int)ch - num;
+        c = (int)SR_ch - SR_num;
         return ((char)c);
     }
     else
     {
-        return (ch);
+        return (SR_ch);
     }
 }

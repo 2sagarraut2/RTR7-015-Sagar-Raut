@@ -31,14 +31,21 @@
 #include <stdio.h>
 #include <stdlib.h> // Required for exit()
 
+#define SR_VALUE_FROM_PERCENT(complete_value, SR_percent) (((complete_value) * (SR_percent)) / 100.0f)
+
 bool bIsFullScreen = false;
+float startingPointX = -0.9f; // -0.9
+float startingPointY = 0.5f;
+float width = 0.32f;
+float thickness = 0.10f;
+float SR_namePercent = 50.0;
 
 // function declarations
-void drawCoverBox(float startingPointX, float startingPointY, float width);
-void letterS(float startingPoint, float startingPointY, float width, float thickness);
-void letterA(float startingPointX, float startingPointY, float width, float thickness);
-void letterG(float startingPointX, float startingPointY, float width, float thickness);
-void letterR(float startingPointX, float startingPointY, float width, float thickness);
+void drawCoverBox(float startingPointX, float startingPointY, float width, float SR_percent);
+void letterS(float startingPoint, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterA(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterG(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
+void letterR(float startingPointX, float startingPointY, float width, float thickness, float SR_namePercent);
 
 int main(int argc, char *argv[])
 {
@@ -96,101 +103,98 @@ void display(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    float startingPointX = -0.9f; // -0.9
-    float width = 0.32f;
-    float thickness = 0.10f;
-
-    drawCoverBox(startingPointX, 0.5f, width);
+    drawCoverBox(startingPointX, startingPointY, width, SR_namePercent);
 
     // TODO: ADD WAIT TO ADD ANIMATIONS
 
     // float startingPoint, float startingPointY, float width, float thickness
-    letterS(startingPointX, 0.5f, width, thickness);
+    // sagar name code
+    letterS(startingPointX, startingPointY, width, thickness, SR_namePercent);
     startingPointX = startingPointX + width;
-    letterA(startingPointX, 0.5f, width, thickness);
+    letterA(startingPointX, startingPointY, width, thickness, SR_namePercent);
     startingPointX = startingPointX + width + thickness / 1.3f;
-    letterG(startingPointX, 0.5f, width, thickness);
+    letterG(startingPointX, startingPointY, width, thickness, SR_namePercent);
     startingPointX = startingPointX + width;
-    letterA(startingPointX, 0.5f, width, thickness);
+    letterA(startingPointX, startingPointY, width, thickness, SR_namePercent);
     startingPointX = startingPointX + width + thickness / 1.3f;
-    letterR(startingPointX, 0.5f, width, thickness);
+    letterR(startingPointX, startingPointY, width, thickness, SR_namePercent);
 
     glutSwapBuffers();
 }
 
-void drawCoverBox(float startingPointX, float startingPointY, float width)
+void drawCoverBox(float startingPointX, float startingPointY, float width, float SR_percent)
 {
     glColor3f(1.0f, 0.0f, 1.0f);
     glLineWidth(10.0f);
 
     glBegin(GL_LINE_LOOP);
-    glVertex2f(startingPointX - 0.04f, startingPointY + 0.04f);                         // Top-Left
-    glVertex2f(startingPointX + (width * 5.5f) + 0.04f, startingPointY + 0.04f);        // Top-Right
-    glVertex2f(startingPointX + (width * 5.5f) + 0.04f, startingPointY - width * 1.4f); // Bottom-Right
-    glVertex2f(startingPointX - 0.04f, startingPointY - width * 1.4f);                  // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY + 0.04f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + (width * 5.5f) + 0.04f), SR_percent), SR_VALUE_FROM_PERCENT(startingPointY + 0.04f, SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + (width * 5.5f) + 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width * 1.4f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - 0.04f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width * 1.4f), SR_percent));
     glEnd();
 
     glLineWidth(1.0f);
 }
 
-void letterS(float startingPointX, float startingPointY, float width, float thickness)
+void letterS(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
 {
     glBegin(GL_QUADS);
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY);                     // Top-Left
-    glVertex2f(startingPointX + width, startingPointY);             // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness);         // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY);                                       // Top-Left
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY);                    // Top-Right
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY - thickness * 2.5f); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness * 2.5);                     // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY - thickness - 0.06f);         // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - thickness - 0.06f); // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness * 2.5f);  // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness * 2.5f);          // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5f), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX + width / 1.4f, startingPointY - thickness - 0.06f); // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - thickness - 0.06);         // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness * 4.0f);         // Bottom-Right
-    glVertex2f(startingPointX + width / 1.4f, startingPointY - thickness * 4.0f);  // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 1.4f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.06), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 1.4f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4.0f), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY - (thickness * 3));                     // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - (thickness * 3));             // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness - (thickness * 3)); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness - (thickness * 3));         // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
 
     glEnd();
 }
 
-void letterA(float startingPointX, float startingPointY, float width, float thickness)
+void letterA(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
 {
     glBegin(GL_QUADS);
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX + width / 2, startingPointY);                        // Top-Left
-    glVertex2f(startingPointX + width / 2 + thickness / 1.3f, startingPointY);     // Top-Right
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY - thickness * 4); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness * 4);                    // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 2 + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX - width / 2 + width, startingPointY);                        // Top-Left
-    glVertex2f(startingPointX - width / 2 + width + thickness / 1.3f, startingPointY);     // Top-Right
-    glVertex2f(startingPointX + width + thickness / 1.3f, startingPointY - thickness * 4); // Bottom-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness * 4);                    // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - width / 2 + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - width / 2 + width + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX + 0.16f, startingPointY - thickness - 0.09f);          // Top-Left
-    glVertex2f(startingPointX - 0.082f + width, startingPointY - thickness - 0.09f); // Top-Right
-    glVertex2f(startingPointX - 0.045f + width, startingPointY - thickness * 2.8f);  // Bottom-Right
-    glVertex2f(startingPointX + 0.125f, startingPointY - thickness * 2.8f);          // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + 0.16f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.09f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - 0.082f + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - 0.09f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX - 0.045f + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + 0.125f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.8f), SR_percent));
 
     // printf("Top-Left - %f, %f\t", startingPointX + width / 2, startingPointY);
     // printf("Top-Right - %f, %f\t", startingPointX + width / 2 + thickness / 1.3f, startingPointY);
@@ -205,76 +209,76 @@ void letterA(float startingPointX, float startingPointY, float width, float thic
     glEnd();
 }
 
-void letterG(float startingPointX, float startingPointY, float width, float thickness)
+void letterG(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
 {
     glBegin(GL_QUADS);
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY);                     // Top-Left
-    glVertex2f(startingPointX + width, startingPointY);             // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness);         // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY);                                    // Top-Left
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY);                 // Top-Right
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY - thickness * 4); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness * 4);                    // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX + (thickness + 0.05f), startingPointY - width / 2.0f);    // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - width / 2.0f);                  // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness * 2.5);               // Bottom-Right
-    glVertex2f(startingPointX + (thickness + 0.05f), startingPointY - thickness * 2.5); // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + (thickness + 0.05f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 2.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 2.0f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + (thickness + 0.05f)), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2.5), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX + width - thickness / 1.3f, startingPointY - width / 1.8f);  // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - width / 1.8f);                     // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness * 4);                    // Bottom-Right
-    glVertex2f(startingPointX + width - thickness / 1.3f, startingPointY - thickness * 4); // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - width / 1.8f), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY - (thickness * 3));                     // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - (thickness * 3));             // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness - (thickness * 3)); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness - (thickness * 3));         // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (thickness * 3)), SR_percent));
 
     glEnd();
 }
 
-void letterR(float startingPointX, float startingPointY, float width, float thickness)
+void letterR(float startingPointX, float startingPointY, float width, float thickness, float SR_percent)
 {
     glBegin(GL_QUADS);
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY);                                    // Top-Left
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY);                 // Top-Right
-    glVertex2f(startingPointX + thickness / 1.3f, startingPointY - thickness * 4); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness * 4);                    // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + thickness / 1.3f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 4), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY);                             // Top-Left
-    glVertex2f(startingPointX + width / 0.98f, startingPointY);             // Top-Right
-    glVertex2f(startingPointX + width / 0.98f, startingPointY - thickness); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness);                 // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX + width - thickness + 0.02f, startingPointY);                 // Top-Left
-    glVertex2f(startingPointX + width + 0.006f, startingPointY);                            // Top-Right
-    glVertex2f(startingPointX + width + 0.006f, startingPointY - thickness * 2);            // Bottom-Right
-    glVertex2f(startingPointX + width - thickness + 0.02f, startingPointY - thickness * 2); // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness + 0.02f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width + 0.006f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width + 0.006f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width - thickness + 0.02f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness * 2), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY - (width / 2));                             // Top-Left
-    glVertex2f(startingPointX + width / 0.98f, startingPointY - (width / 2));             // Top-Right
-    glVertex2f(startingPointX + width / 0.98f, startingPointY - thickness - (width / 2)); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - thickness - (width / 2));                 // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width / 0.98f), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (width / 2)), SR_percent));
 
     glColor3f(1.0f, 0.0f, 1.0f);
-    glVertex2f(startingPointX, startingPointY - (width / 2));                 // Top-Left
-    glVertex2f(startingPointX + width, startingPointY - (width));             // Top-Right
-    glVertex2f(startingPointX + width, startingPointY - thickness - (width)); // Bottom-Right
-    glVertex2f(startingPointX, startingPointY - (width - 0.05f));             // Bottom-Left
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width / 2)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX + width), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - thickness - (width)), SR_percent));
+    glVertex2f(SR_VALUE_FROM_PERCENT((startingPointX), SR_percent), SR_VALUE_FROM_PERCENT((startingPointY - (width - 0.05f)), SR_percent));
 
     glEnd();
 }

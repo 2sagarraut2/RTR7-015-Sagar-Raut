@@ -5,21 +5,21 @@
 int main(int argc, char *argv[], char *envp[])
 {
 
-    int iNum_01, iNum_02, iResult;
+    int SR_iNum_01, SR_iNum_02, SR_iResult;
 
-    float fNum_01, fNum_02, fResult;
-
-    printf("\n\n");
-    printf("Enter a number\n");
-    scanf("%d", &iNum_01);
+    float fNum_01, SR_fNum_02, SR_fResult;
 
     printf("\n\n");
     printf("Enter a number\n");
-    scanf("%d", &iNum_02);
+    scanf("%d", &SR_iNum_01);
 
-    iResult = MAX_NUMBER(iNum_01, iNum_02);
+    printf("\n\n");
+    printf("Enter a number\n");
+    scanf("%d", &SR_iNum_02);
 
-    printf("result of macro function MAX_NUMBER() = %d", iResult);
+    SR_iResult = MAX_NUMBER(SR_iNum_01, SR_iNum_02);
+
+    printf("SR_result of macro function MAX_NUMBER() = %d", SR_iResult);
 
     printf("\n\n");
 
@@ -27,11 +27,11 @@ int main(int argc, char *argv[], char *envp[])
     scanf("%f", &fNum_01);
 
     printf("Enter a float number\n");
-    scanf("%f", &fNum_02);
+    scanf("%f", &SR_fNum_02);
 
-    fResult = MAX_NUMBER(fNum_01, fNum_02);
+    SR_fResult = MAX_NUMBER(fNum_01, SR_fNum_02);
 
-    printf("result of macro function MAX_NUMBER() = %f", fResult);
+    printf("SR_result of macro function MAX_NUMBER() = %f", SR_fResult);
 
     printf("\n---End---\n");
 

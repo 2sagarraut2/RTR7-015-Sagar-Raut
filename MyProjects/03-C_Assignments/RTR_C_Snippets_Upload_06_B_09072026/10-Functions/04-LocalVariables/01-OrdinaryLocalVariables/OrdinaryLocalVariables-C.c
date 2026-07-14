@@ -5,24 +5,24 @@ int main(void)
 
     int a = 5;
 
-    void change_count(void);
+    void SR_change_count(void);
 
     printf("\n");
     printf("A = %d\n\n", a);
 
-    change_count();
+    SR_change_count();
 
     printf("\n---End---\n");
 
     return (0);
 }
 
-void change_count()
+void SR_change_count()
 {
 
-    int local_count = 0;
+    int SR_local_count = 0;
 
-    local_count = local_count + 1;
+    SR_local_count = SR_local_count + 1;
 
-    printf("local_count = %d", local_count);
+    printf("SR_local_count = %d", SR_local_count);
 }

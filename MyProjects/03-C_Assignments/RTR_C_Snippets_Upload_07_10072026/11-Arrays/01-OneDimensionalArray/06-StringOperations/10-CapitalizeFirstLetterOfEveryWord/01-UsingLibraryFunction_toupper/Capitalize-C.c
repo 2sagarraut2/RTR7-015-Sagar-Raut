@@ -1,40 +1,40 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#define MAX_STRING_LENGTH 512
+#define SR_SR_MAX_STRING_LENGTH 512
 
 int main(void)
 {
     int MyStrlen(char[]);
 
-    char chArray[MAX_STRING_LENGTH], chArrayCapitalize[MAX_STRING_LENGTH];
-    int iStringLength;
+    char SR_chArray[SR_SR_MAX_STRING_LENGTH], chArrayCapitalize[SR_SR_MAX_STRING_LENGTH];
+    int SR_iStringLength;
     int i, j;
 
     printf("\n\n");
     printf("ENter a string\n\n");
-    fgets(chArray, MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArray, SR_SR_MAX_STRING_LENGTH, stdin);
 
-    iStringLength = MyStrlen(chArray);
+    SR_iStringLength = MyStrlen(SR_chArray);
     j = 0;
 
-    for (i = 0; i < iStringLength; i++)
+    for (i = 0; i < SR_iStringLength; i++)
     {
         if (i == 0)
         {
-            chArrayCapitalize[j] = toupper(chArray[i]);
+            chArrayCapitalize[j] = toupper(SR_chArray[i]);
         }
-        else if (chArray[i] == ' ')
+        else if (SR_chArray[i] == ' ')
         {
-            chArrayCapitalize[j] = chArray[i];
-            chArrayCapitalize[j + 1] = toupper(chArray[i + 1]);
+            chArrayCapitalize[j] = SR_chArray[i];
+            chArrayCapitalize[j + 1] = toupper(SR_chArray[i + 1]);
 
             j++;
             i++;
         }
         else
         {
-            chArrayCapitalize[j] = chArray[i];
+            chArrayCapitalize[j] = SR_chArray[i];
         }
 
         j++;
@@ -44,7 +44,7 @@ int main(void)
 
     printf("\n\n");
     printf("String entered by you is\n");
-    printf("%s\n", chArray);
+    printf("%s\n", SR_chArray);
 
     printf("\n\n");
     printf("Capitalized string is\n");
@@ -57,9 +57,9 @@ int main(void)
 int MyStrlen(char str[])
 {
     int j;
-    int stringLength = 0;
+    int SR_stringLength = 0;
 
-    for (j = 0; j < MAX_STRING_LENGTH; j++)
+    for (j = 0; j < SR_SR_MAX_STRING_LENGTH; j++)
     {
         if (str[j] == '\0')
         {
@@ -67,9 +67,9 @@ int MyStrlen(char str[])
         }
         else
         {
-            stringLength++;
+            SR_stringLength++;
         }
     }
 
-    return (stringLength);
+    return (SR_stringLength);
 }

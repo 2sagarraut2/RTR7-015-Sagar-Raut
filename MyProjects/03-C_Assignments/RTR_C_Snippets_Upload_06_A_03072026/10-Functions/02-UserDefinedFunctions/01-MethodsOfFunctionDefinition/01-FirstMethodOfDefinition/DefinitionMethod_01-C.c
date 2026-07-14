@@ -15,7 +15,7 @@ int main(int argc, char *argv[], char *envp[])
 void myAddition(void)
 {
 
-    int a, b, sum;
+    int a, b, SR_sum;
 
     printf("\n");
 
@@ -25,9 +25,9 @@ void myAddition(void)
     printf("Enter second number\n");
     scanf("%d", &b);
 
-    sum = a + b;
+    SR_sum = a + b;
 
     printf("\n\n");
 
-    printf("Sum of adding %d and %d is %d\n\n", a, b, sum);
+    printf("Sum of adding %d and %d is %d\n\n", a, b, SR_sum);
 }

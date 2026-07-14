@@ -12,15 +12,15 @@
 
 int main()
 {
-    char ch;
+    char SR_ch;
     int ch_value;
 
     printf("\n\n");
 
     printf("Enter character\n");
-    ch = getchar();
+    SR_ch = getchar();
 
-    switch (ch)
+    switch (SR_ch)
     {
     case 'A':
     case 'a':
@@ -36,22 +36,22 @@ int main()
 
     case 'U':
     case 'u':
-        printf("Character %c entered by you is a vowel \n\n", ch);
+        printf("Character %c entered by you is a vowel \n\n", SR_ch);
         break;
     default:
-        ch_value = (int)ch;
+        ch_value = (int)SR_ch;
 
         if ((ch_value >= CHAR_ALPHABET_LOWER_CASE_BEGINNING && ch_value <= CHAR_ALPHABET_LOWER_CASE_ENDING) || (ch_value >= CHAR_ALPHABET_UPPER_CASE_BEGINNING && ch_value <= CHAR_ALPHABET_UPPER_CASE_ENDING))
         {
-            printf("Character %c entered by you is a consonant \n\n", ch);
+            printf("Character %c entered by you is a consonant \n\n", SR_ch);
         }
         else if (ch_value >= CHAR_DEGIT_BEGINNING && ch_value <= CHAR_DEGIT_ENDING)
         {
-            printf("Character %c entered by you is a digit\n\n", ch);
+            printf("Character %c entered by you is a digit\n\n", SR_ch);
         }
         else
         {
-            printf("Character %c entered by you is a special character\n\n", ch);
+            printf("Character %c entered by you is a special character\n\n", SR_ch);
         }
         break;
     }

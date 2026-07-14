@@ -1,53 +1,53 @@
 #include <stdio.h>
 
-#define MAX_STRING_LENGTH 512
+#define SR_SR_MAX_STRING_LENGTH 512
 
 int main(void)
 {
     void MyStrcpy(char[], char[]);
 
-    char chArrayOriginal[MAX_STRING_LENGTH], chArrayCopy[MAX_STRING_LENGTH];
+    char SR_chArrayOriginal[SR_SR_MAX_STRING_LENGTH], SR_chArrayCopy[SR_SR_MAX_STRING_LENGTH];
 
     printf("\n\n");
     printf("Enter a string\n\n");
-    fgets(chArrayOriginal, MAX_STRING_LENGTH, stdin);
+    fgets(SR_chArrayOriginal, SR_SR_MAX_STRING_LENGTH, stdin);
 
-    MyStrcpy(chArrayCopy, chArrayOriginal);
-
-    printf("\n\n");
-    printf("The original string entered by you (i.e. 'chArrayOriginal[]') is: \n\n");
-    printf("%s\n", chArrayOriginal);
+    MyStrcpy(SR_chArrayCopy, SR_chArrayOriginal);
 
     printf("\n\n");
-    printf("The copied string entered by you (i.e. 'chArrayCopy[]') is: \n\n");
-    printf("%s\n", chArrayCopy);
+    printf("The original string entered by you (i.e. 'SR_chArrayOriginal[]') is: \n\n");
+    printf("%s\n", SR_chArrayOriginal);
+
+    printf("\n\n");
+    printf("The copied string entered by you (i.e. 'SR_chArrayCopy[]') is: \n\n");
+    printf("%s\n", SR_chArrayCopy);
 
     printf("\n\n--End--\n\n");
     return (0);
 }
 
-void MyStrcpy(char str_destination[], char str_source[])
+void MyStrcpy(char SR_str_destination[], char str_source[])
 {
     int MyStrlen(char[]);
 
-    int iStringLength = 0;
+    int SR_iStringLength = 0;
     int j;
 
-    iStringLength = MyStrlen(str_source);
-    for (j = 0; j < iStringLength; j++)
+    SR_iStringLength = MyStrlen(str_source);
+    for (j = 0; j < SR_iStringLength; j++)
     {
-        str_destination[j] = str_source[j];
+        SR_str_destination[j] = str_source[j];
     }
 
-    str_destination[j] = '\0';
+    SR_str_destination[j] = '\0';
 }
 
 int MyStrlen(char str[])
 {
     int j;
-    int stringLength = 0;
+    int SR_stringLength = 0;
 
-    for (j = 0; j < MAX_STRING_LENGTH; j++)
+    for (j = 0; j < SR_SR_MAX_STRING_LENGTH; j++)
     {
         if (str[j] == '\0')
         {
@@ -55,9 +55,9 @@ int MyStrlen(char str[])
         }
         else
         {
-            stringLength++;
+            SR_stringLength++;
         }
     }
 
-    return (stringLength);
+    return (SR_stringLength);
 }
