@@ -32,213 +32,106 @@
 #include <stdlib.h>
 #include <math.h>
 
-void renderFighterJet(float, float);
+#define VALUE_FROM_PERCENT(complete_value, percent) ((complete_value * percent) / 100)
 
-bool bIsFullScreen = false;
-
-int main(int argc, char *argv[])
-{
-    // function declarations
-    void initialize(void);
-    void uninitialize(void);
-    void resize(int, int);
-    void display(void);
-    void keyboard(unsigned char, int, int);
-    void mouse(int, int, int, int);
-
-    // code
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowSize(800, 600);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("My First RTR7 Program : Sagar Sambhaji Raut");
-
-    initialize();
-
-    glutReshapeFunc(resize);
-    glutDisplayFunc(display);
-    glutKeyboardFunc(keyboard);
-    glutMouseFunc(mouse);
-    glutCloseFunc(uninitialize);
-
-    glutMainLoop();
-
-    // flow should not come here
-    return (0);
-}
-
-void initialize(void)
-{
-    // code
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-}
-
-void resize(int width, int height)
-{
-    // code
-    if (height <= 0)
-        height = 1;
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-
-    glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-}
-
-void display(void)
-{
-    // code
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    renderFighterJet(0.0f, 0.0f);
-
-    glutSwapBuffers();
-}
-
-void renderFighterJet(float xPosition, float yPosition)
+void renderFighterJet(float xPosition, float yPosition, float percent)
 {
 
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition - 0.075f, yPosition + 0.12f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition - 0.075f), percent), VALUE_FROM_PERCENT((yPosition + 0.12f), percent));
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition, yPosition + 0.12f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition + 0.12f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition, yPosition + 0.07f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition + 0.07f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition - 0.075f, yPosition + 0.07f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition - 0.075f), percent), VALUE_FROM_PERCENT((yPosition + 0.07f), percent));
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition - 0.075f, yPosition - 0.06f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition - 0.075f), percent), VALUE_FROM_PERCENT((yPosition - 0.06f), percent));
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition, yPosition - 0.06f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition - 0.06f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition, yPosition - 0.11f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition - 0.11f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition - 0.075f, yPosition - 0.11f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition - 0.075f), percent), VALUE_FROM_PERCENT((yPosition - 0.11f), percent));
 
     glEnd();
 
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition - 0.03f, yPosition + 0.2f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition - 0.03f), percent), VALUE_FROM_PERCENT((yPosition + 0.2f), percent));
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition, yPosition + 0.2f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition + 0.2f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition, yPosition - 0.2f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition - 0.2f), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition - 0.03f, yPosition - 0.2f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition - 0.03f), percent), VALUE_FROM_PERCENT((yPosition - 0.2f), percent));
 
     glEnd();
 
     glBegin(GL_TRIANGLES);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition, yPosition + 0.2f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition + 0.2f), percent));
     // glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex2f(xPosition + 0.05f, yPosition);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.05f), percent), VALUE_FROM_PERCENT((yPosition), percent));
     // glColor3f(0.0f, 0.0f, 1.0f);
-    glVertex2f(xPosition, yPosition - 0.2f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition - 0.2f), percent));
 
     glEnd();
 
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition, yPosition + 0.07f);
-    glVertex2f(xPosition + 0.22f, yPosition + 0.07f);
-    glVertex2f(xPosition + 0.22f, yPosition - 0.07f);
-    glVertex2f(xPosition, yPosition - 0.07f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition + 0.07f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.22f), percent), VALUE_FROM_PERCENT((yPosition + 0.07f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.22f), percent), VALUE_FROM_PERCENT((yPosition - 0.07f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition - 0.07f), percent));
 
     glEnd();
 
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition + 0.03f, yPosition + 0.3f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.03f), percent), VALUE_FROM_PERCENT((yPosition + 0.3f), percent));
     // glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex2f(xPosition + 0.07f, yPosition + 0.3f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.07f), percent), VALUE_FROM_PERCENT((yPosition + 0.3f), percent));
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition + 0.20f, yPosition);
-    glVertex2f(xPosition + 0.07f, yPosition);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.20f), percent), VALUE_FROM_PERCENT((yPosition), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.07f), percent), VALUE_FROM_PERCENT((yPosition), percent));
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition + 0.03f, yPosition - 0.3f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.03f), percent), VALUE_FROM_PERCENT((yPosition - 0.3f), percent));
     // glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex2f(xPosition + 0.07f, yPosition - 0.3f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.07f), percent), VALUE_FROM_PERCENT((yPosition - 0.3f), percent));
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition + 0.20f, yPosition);
-    glVertex2f(xPosition + 0.07f, yPosition);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.20f), percent), VALUE_FROM_PERCENT((yPosition), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.07f), percent), VALUE_FROM_PERCENT((yPosition), percent));
 
     glEnd();
 
     glBegin(GL_QUADS);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition + 0.22f, yPosition + 0.03f);
-    glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
-    glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
-    glVertex2f(xPosition + 0.22f, yPosition - 0.03f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.22f), percent), VALUE_FROM_PERCENT((yPosition + 0.03f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.28f), percent), VALUE_FROM_PERCENT((yPosition + 0.03f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.28f), percent), VALUE_FROM_PERCENT((yPosition - 0.03f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.22f), percent), VALUE_FROM_PERCENT((yPosition - 0.03f), percent));
 
     glEnd();
 
     glBegin(GL_TRIANGLES);
 
     // glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
-    glVertex2f(xPosition + 0.4f, yPosition);
-    glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.28f), percent), VALUE_FROM_PERCENT((yPosition + 0.03f), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.4f), percent), VALUE_FROM_PERCENT((yPosition), percent));
+    glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.28f), percent), VALUE_FROM_PERCENT((yPosition - 0.03f), percent));
 
     glEnd();
-}
-
-void keyboard(unsigned char key, int x, int y)
-{
-    // code
-    switch (key)
-    {
-    case 27:
-        glutLeaveMainLoop();
-        break;
-    case 'F':
-    case 'f':
-        if (bIsFullScreen == false)
-        {
-            glutFullScreen();
-            bIsFullScreen = true;
-        }
-        else
-        {
-            glutLeaveFullScreen();
-            bIsFullScreen = false;
-        }
-        break;
-    default:
-        break;
-    }
-}
-
-void mouse(int button, int state, int x, int y)
-{
-    // code
-    switch (button)
-    {
-    case GLUT_RIGHT_BUTTON:
-        glutLeaveMainLoop();
-        break;
-    default:
-        break;
-    }
-}
-
-void uninitialize(void)
-{
-    // code
 }

@@ -1,0 +1,1 @@
+void renderFighterJet(float, float, float);
