@@ -2,10 +2,10 @@
 
 typedef struct
 {
-    int i;
-    float f;
-    double d;
-    char c;
+    int SR_i;
+    float SR_f;
+    double SR_d;
+    char SR_c;
 } MyData;
 
 MyData data;
@@ -14,19 +14,19 @@ int main(void)
 {
     int iSize = 0, fSize = 0, dSize = 0, structMyDataSize = 0;
 
-    data.i = 30;
-    data.f = 2.5f;
-    data.d = 3.0;
+    data.SR_i = 30;
+    data.SR_f = 2.5f;
+    data.SR_d = 3.0;
 
     printf("\n\n");
     printf("Data memebers of of 'struct MyData' are :\n\n");
-    printf("i = %d\n", data.i);
-    printf("i = %f\n", data.f);
-    printf("i = %lf\n", data.d);
+    printf("SR_i = %d\n", data.SR_i);
+    printf("SR_f = %f\n", data.SR_f);
+    printf("SR_d = %lf\n", data.SR_d);
 
-    iSize = sizeof(data.i);
-    fSize = sizeof(data.f);
-    dSize = sizeof(data.d);
+    iSize = sizeof(data.SR_i);
+    fSize = sizeof(data.SR_f);
+    dSize = sizeof(data.SR_d);
 
     printf("\n\n");
     printf("Sizes of data (in bytes) members of struct MyData are: \n\n");

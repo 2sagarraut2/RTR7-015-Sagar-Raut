@@ -5,14 +5,14 @@ int main(void)
 {
     typedef struct
     {
-        int x;
-        int y;
+        int SR_x;
+        int SR_y;
     } MyPoint;
 
     typedef struct
     {
-        int quadrant;
-        char axisLocation[11];
+        int SR_quadrant;
+        char SR_axisLocation[11];
     } MyPointProps;
 
     MyPoint point;
@@ -20,72 +20,72 @@ int main(void)
     MyPointProps PointProps;
 
     printf("\n\n");
-    printf("Enter x-cordinate for point A: \n");
-    scanf("%d", &point.x);
-    printf("Enter x-cordinate for point A: \n");
-    scanf("%d", &point.y);
+    printf("Enter SR_x-cordinate for point A: \n");
+    scanf("%d", &point.SR_x);
+    printf("Enter SR_y-cordinate for point A: \n");
+    scanf("%d", &point.SR_y);
 
     printf("\n\n");
-    printf("Point co-ordinates (x, y) are : (%d, %d)!!!\n\n", point.x, point.y);
+    printf("Point co-ordinates (SR_x, SR_y) are : (%d, %d)!!!\n\n", point.SR_x, point.SR_y);
 
-    if (point.x == 0 && point.y == 0)
+    if (point.SR_x == 0 && point.SR_y == 0)
     {
-        printf("point is at origin (%d, %d)!!!\n", point.x, point.y);
+        printf("point is at origin (%d, %d)!!!\n", point.SR_x, point.SR_y);
     }
     else
     {
-        if (point.x == 0)
+        if (point.SR_x == 0)
         {
-            if (point.y < 0)
+            if (point.SR_y < 0)
             {
-                strcpy(PointProps.axisLocation, "Negative Y");
+                strcpy(PointProps.SR_axisLocation, "Negative Y");
             }
 
-            if (point.y > 0)
+            if (point.SR_y > 0)
             {
-                strcpy(PointProps.axisLocation, "Positive Y");
+                strcpy(PointProps.SR_axisLocation, "Positive Y");
             }
 
-            PointProps.quadrant = 0;
-            printf("The point lies on the %s axis!!!\n\n", PointProps.axisLocation);
+            PointProps.SR_quadrant = 0;
+            printf("The point lies on the %s axis!!!\n\n", PointProps.SR_axisLocation);
         }
-        else if (point.y == 0)
+        else if (point.SR_y == 0)
         {
-            if (point.x < 0)
+            if (point.SR_x < 0)
             {
-                strcpy(PointProps.axisLocation, "Negative X");
+                strcpy(PointProps.SR_axisLocation, "Negative X");
             }
 
-            if (point.x > 0)
+            if (point.SR_x > 0)
             {
-                strcpy(PointProps.axisLocation, "Positive X");
+                strcpy(PointProps.SR_axisLocation, "Positive X");
             }
 
-            PointProps.quadrant = 0;
-            printf("The point lies on the %s axis!!!\n\n", PointProps.axisLocation);
+            PointProps.SR_quadrant = 0;
+            printf("The point lies on the %s axis!!!\n\n", PointProps.SR_axisLocation);
         }
         else
         {
-            PointProps.axisLocation[0] = '\0';
+            PointProps.SR_axisLocation[0] = '\0';
 
-            if (point.x > 0 && point.y > 0)
+            if (point.SR_x > 0 && point.SR_y > 0)
             {
-                PointProps.quadrant = 1;
+                PointProps.SR_quadrant = 1;
             }
-            else if (point.x < 0 && point.y > 0)
+            else if (point.SR_x < 0 && point.SR_y > 0)
             {
-                PointProps.quadrant = 2;
+                PointProps.SR_quadrant = 2;
             }
-            else if (point.x < 0 && point.y < 0)
+            else if (point.SR_x < 0 && point.SR_y < 0)
             {
-                PointProps.quadrant = 3;
+                PointProps.SR_quadrant = 3;
             }
             else
             {
-                PointProps.quadrant = 4;
+                PointProps.SR_quadrant = 4;
             }
 
-            printf("The point lies in quadrant: %d\n\n", PointProps.quadrant);
+            printf("The point lies in SR_quadrant: %d\n\n", PointProps.SR_quadrant);
         }
     }
 

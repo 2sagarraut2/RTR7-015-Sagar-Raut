@@ -2,8 +2,8 @@
 
 typedef struct
 {
-    int x;
-    int y;
+    int SR_x;
+    int SR_y;
 } MyPoint;
 
 int main(void)
@@ -11,27 +11,27 @@ int main(void)
 
     MyPoint pointA, pointB, pointC, pointD, pointE;
 
-    pointA.x = 7;
-    pointA.y = 3;
+    pointA.SR_x = 7;
+    pointA.SR_y = 3;
 
-    pointB.x = 45;
-    pointB.y = 55;
+    pointB.SR_x = 45;
+    pointB.SR_y = 55;
 
-    pointC.x = 11;
-    pointC.y = 22;
+    pointC.SR_x = 11;
+    pointC.SR_y = 22;
 
-    pointD.x = 90;
-    pointD.y = 100;
+    pointD.SR_x = 90;
+    pointD.SR_y = 100;
 
-    pointE.x = 134;
-    pointE.y = 225;
+    pointE.SR_x = 134;
+    pointE.SR_y = 225;
 
     printf("\n\n");
-    printf("Co-ordinates (x,y) of point 'A' are : (%d, %d)\n\n", pointA.x, pointA.y);
-    printf("Co-ordinates (x,y) of point 'B' are : (%d, %d)\n\n", pointB.x, pointB.y);
-    printf("Co-ordinates (x,y) of point 'C' are : (%d, %d)\n\n", pointC.x, pointC.y);
-    printf("Co-ordinates (x,y) of point 'D' are : (%d, %d)\n\n", pointD.x, pointD.y);
-    printf("Co-ordinates (x,y) of point 'E' are : (%d, %d)\n\n", pointE.x, pointE.y);
+    printf("Co-ordinates (SR_x,SR_y) of point 'A' are : (%d, %d)\n\n", pointA.SR_x, pointA.SR_y);
+    printf("Co-ordinates (SR_x,SR_y) of point 'B' are : (%d, %d)\n\n", pointB.SR_x, pointB.SR_y);
+    printf("Co-ordinates (SR_x,SR_y) of point 'C' are : (%d, %d)\n\n", pointC.SR_x, pointC.SR_y);
+    printf("Co-ordinates (SR_x,SR_y) of point 'D' are : (%d, %d)\n\n", pointD.SR_x, pointD.SR_y);
+    printf("Co-ordinates (SR_x,SR_y) of point 'E' are : (%d, %d)\n\n", pointE.SR_x, pointE.SR_y);
 
     printf("\n\n--End--\n\n");
     return (0);

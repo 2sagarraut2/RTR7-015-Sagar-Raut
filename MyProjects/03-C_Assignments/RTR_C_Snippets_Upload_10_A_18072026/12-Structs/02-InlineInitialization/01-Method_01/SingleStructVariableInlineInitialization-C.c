@@ -2,10 +2,10 @@
 
 typedef struct
 {
-    int i;
-    float f;
-    double d;
-    char c;
+    int SR_i;
+    float SR_f;
+    double SR_d;
+    char SR_c;
 } MyData;
 
 MyData data = {30, 34.56f, 67.55, 'A'};
@@ -15,10 +15,10 @@ int main(void)
     printf("\n\n");
 
     printf("Data members of 'struct MyData' are: \n\n");
-    printf("i = %d\n", data.i);
-    printf("f = %f\n", data.f);
-    printf("d = %lf\n", data.d);
-    printf("c = %c\n", data.c);
+    printf("SR_i = %d\n", data.SR_i);
+    printf("SR_f = %f\n", data.SR_f);
+    printf("SR_d = %lf\n", data.SR_d);
+    printf("SR_c = %c\n", data.SR_c);
 
     printf("\n\n--End--\n\n");
     return (0);
