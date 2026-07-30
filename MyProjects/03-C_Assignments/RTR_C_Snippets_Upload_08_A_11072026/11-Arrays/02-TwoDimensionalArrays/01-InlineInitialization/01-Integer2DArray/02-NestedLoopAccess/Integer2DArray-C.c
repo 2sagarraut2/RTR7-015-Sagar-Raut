@@ -7,7 +7,7 @@ int main(void)
     int SR_intSize = 0;
     int SR_iArraySize = 0;
     int SR_iArrayNumElements = 0, SR_iArrayNumRows = 0, SR_iArrayNumCols = 0;
-    int i, j;
+    int SR_i, SR_j;
 
     printf("\n\n");
     SR_intSize = sizeof(int);
@@ -24,12 +24,12 @@ int main(void)
     SR_iArrayNumElements = SR_iArrayNumRows * SR_iArrayNumCols;
     printf("Number of elements on 2D integer array is %d\n\n", SR_iArrayNumElements);
 
-    for (i = 0; i < SR_iArrayNumRows; i++)
+    for (SR_i = 0; SR_i < SR_iArrayNumRows; SR_i++)
     {
-        printf("*** ROW-%d ***\n", (i + 1));
-        for (j = 0; j < SR_iArrayNumCols; j++)
+        printf("*** ROW-%d ***\n", (SR_i + 1));
+        for (SR_j = 0; SR_j < SR_iArrayNumCols; SR_j++)
         {
-            printf("SR_iArray[%d][%d] = %d\n", i, j, SR_iArray[i][j]);
+            printf("SR_iArray[%d][%d] = %d\n", SR_i, SR_j, SR_iArray[SR_i][SR_j]);
         }
         printf("\n\n");
     }

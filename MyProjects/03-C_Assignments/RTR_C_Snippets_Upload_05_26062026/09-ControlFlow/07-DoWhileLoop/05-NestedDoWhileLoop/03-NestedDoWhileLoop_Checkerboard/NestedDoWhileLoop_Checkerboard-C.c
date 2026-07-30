@@ -3,31 +3,31 @@
 int main(void)
 {
 
-    int i, j, c;
+    int SR_i, SR_j, SR_c;
 
-    i = 0;
+    SR_i = 0;
     do
     {
-        j = 0;
+        SR_j = 0;
         do
         {
 
-            c = (((i & 0x8) == 0) ^ ((j & 0x8) == 0));
+            SR_c = (((SR_i & 0x8) == 0) ^ ((SR_j & 0x8) == 0));
 
-            if (c == 0)
+            if (SR_c == 0)
             {
                 printf(" ");
             }
 
-            if (c == 1)
+            if (SR_c == 1)
             {
                 printf("* ");
             }
-            j++;
-        } while (j < 64);
-        i++;
+            SR_j++;
+        } while (SR_j < 64);
+        SR_i++;
         printf("\n\n");
-    } while (i < 64);
+    } while (SR_i < 64);
 
     return 0;
 }

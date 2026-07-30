@@ -2,7 +2,7 @@
 
 union MyData
 {
-    int i;
+    int SR_i;
     float f;
     double d;
     char c;
@@ -14,9 +14,9 @@ int main(void)
 {
     printf("size of union is %lu\n", sizeof(U_data));
 
-    U_data.i = 10;
-    printf("%d\n", U_data.i);
-    printf("%p\n", &U_data.i);
+    U_data.SR_i = 10;
+    printf("%d\n", U_data.SR_i);
+    printf("%p\n", &U_data.SR_i);
     U_data.f = 2.5f;
     printf("%f\n", U_data.f);
     printf("%p\n", &U_data.f);

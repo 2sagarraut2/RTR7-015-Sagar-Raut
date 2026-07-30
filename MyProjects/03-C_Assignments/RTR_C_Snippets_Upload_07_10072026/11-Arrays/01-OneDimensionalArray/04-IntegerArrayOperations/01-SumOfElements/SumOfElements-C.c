@@ -5,17 +5,17 @@
 int main(void)
 {
     int SR_iArray[SR_NUM_ELEMENTS];
-    int i, SR_sum = 0;
+    int SR_i, SR_sum = 0;
 
     printf("Enter numbers for array\n");
-    for (i = 0; i < SR_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_NUM_ELEMENTS; SR_i++)
     {
-        scanf("%d", &SR_iArray[i]);
+        scanf("%d", &SR_iArray[SR_i]);
     }
 
-    for (i = 0; i < SR_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_NUM_ELEMENTS; SR_i++)
     {
-        SR_sum = SR_sum + SR_iArray[i];
+        SR_sum = SR_sum + SR_iArray[SR_i];
     }
 
     printf("Sum of all elements of array: %d\n", SR_sum);

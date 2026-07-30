@@ -11,7 +11,7 @@ int main(void)
     int SR_intSize = 0;
     int SR_iArraySize = 0;
     int SR_iArrayNumElements = 0, SR_iArrayWidth = 0, SR_iArrayHeight = 0, SR_iArrayDepth = 0;
-    int i = 0, j = 0, k = 0;
+    int SR_i = 0, SR_j = 0, SR_k = 0;
 
     printf("\n\n");
 
@@ -35,15 +35,15 @@ int main(void)
     printf("\n\n");
     printf("Elements in 3D array:\n\n");
 
-    for (i = 0; i < SR_iArrayWidth; i++)
+    for (SR_i = 0; SR_i < SR_iArrayWidth; SR_i++)
     {
-        printf("*** Row %d ***\n", (i + 1));
-        for (j = 0; j < SR_iArrayHeight; j++)
+        printf("*** Row %d ***\n", (SR_i + 1));
+        for (SR_j = 0; SR_j < SR_iArrayHeight; SR_j++)
         {
-            printf("*** Columns %d ***\n", (j + 1));
-            for (k = 0; k < SR_iArrayDepth; k++)
+            printf("*** Columns %d ***\n", (SR_j + 1));
+            for (SR_k = 0; SR_k < SR_iArrayDepth; SR_k++)
             {
-                printf("SR_iArray[%d][%d][%d] = %d\n", i, j, k, SR_iArray[i][j][k]);
+                printf("SR_iArray[%d][%d][%d] = %d\n", SR_i, SR_j, SR_k, SR_iArray[SR_i][SR_j][SR_k]);
             }
             printf("\n");
         }

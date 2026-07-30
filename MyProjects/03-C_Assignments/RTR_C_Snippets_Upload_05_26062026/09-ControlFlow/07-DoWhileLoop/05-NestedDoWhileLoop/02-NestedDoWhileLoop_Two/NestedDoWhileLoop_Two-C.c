@@ -3,35 +3,35 @@
 int main(void)
 {
 
-    int i, j, k;
+    int SR_i, SR_j, SR_k;
 
     printf("\n");
 
-    i = 1;
+    SR_i = 1;
     do
     {
-        printf("i = %d \n", i);
+        printf("SR_i = %d \n", SR_i);
         printf("------------");
 
-        j = 1;
+        SR_j = 1;
         do
         {
-            printf("\t j = %d\n", j);
+            printf("\t SR_j = %d\n", SR_j);
 
-            k = 1;
+            SR_k = 1;
             do
             {
-                printf("\t\t k = %d\n", k);
-                k++;
-            } while (k <= 3);
+                printf("\t\t SR_k = %d\n", SR_k);
+                SR_k++;
+            } while (SR_k <= 3);
             printf("\n\n");
-            j++;
-        } while (j <= 5);
+            SR_j++;
+        } while (SR_j <= 5);
 
-        i++;
+        SR_i++;
         printf("\n\n");
 
-    } while (i <= 10);
+    } while (SR_i <= 10);
     printf("\n\n");
 
     return 0;

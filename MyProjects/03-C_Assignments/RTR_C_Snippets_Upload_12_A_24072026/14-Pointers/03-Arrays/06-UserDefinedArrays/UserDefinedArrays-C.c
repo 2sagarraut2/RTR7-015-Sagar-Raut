@@ -20,7 +20,7 @@ int main(void)
     char *ptrcArray = NULL;
     unsigned int charArrayLength = 0;
 
-    int i;
+    int SR_i;
 
     printf("\n\n");
     printf("ENter the number of elements you want in the integer array\n");
@@ -42,9 +42,9 @@ int main(void)
 
     printf("\n\n");
     printf("Enter the %d integer elements to fill up integer array\n", intArrayLength);
-    for (i = 0; i < intArrayLength; i++)
+    for (SR_i = 0; SR_i < intArrayLength; SR_i++)
     {
-        scanf("%d", (ptriArray + i));
+        scanf("%d", (ptriArray + SR_i));
     }
 
     printf("\n\n");
@@ -67,9 +67,9 @@ int main(void)
 
     printf("\n\n");
     printf("Enter the %d float elements to fill up float array\n", floatArrayLength);
-    for (i = 0; i < floatArrayLength; i++)
+    for (SR_i = 0; SR_i < floatArrayLength; SR_i++)
     {
-        scanf("%f", (ptrffArray + i));
+        scanf("%f", (ptrffArray + SR_i));
     }
 
     printf("\n\n");
@@ -92,9 +92,9 @@ int main(void)
 
     printf("\n\n");
     printf("Enter the %d double elements to fill up double array\n", doubelArrayLength);
-    for (i = 0; i < doubelArrayLength; i++)
+    for (SR_i = 0; SR_i < doubelArrayLength; SR_i++)
     {
-        scanf("%lf", (ptrdArray + i));
+        scanf("%lf", (ptrdArray + SR_i));
     }
 
     printf("\n\n");
@@ -117,45 +117,45 @@ int main(void)
 
     printf("\n\n");
     printf("Enter the %d char elements to fill up char array\n", charArrayLength);
-    for (i = 0; i < charArrayLength; i++)
+    for (SR_i = 0; SR_i < charArrayLength; SR_i++)
     {
-        scanf(" %c", (ptrcArray + i));
+        scanf(" %c", (ptrcArray + SR_i));
     }
 
     // integer array
     printf("\n\n");
     printf("The integer array consists of %d elements as follows:\n", intArrayLength);
 
-    for (i = 0; i < intArrayLength; i++)
+    for (SR_i = 0; SR_i < intArrayLength; SR_i++)
     {
-        printf("%d \t \t at address: %p\n", *(ptriArray + i), (ptriArray + i));
+        printf("%d \t \t at address: %p\n", *(ptriArray + SR_i), (ptriArray + SR_i));
     }
 
     // float array
     printf("\n\n");
     printf("The float array consists of %d elements as follows:\n", floatArrayLength);
 
-    for (i = 0; i < floatArrayLength; i++)
+    for (SR_i = 0; SR_i < floatArrayLength; SR_i++)
     {
-        printf("%f \t \t at address: %p\n", *(ptrffArray + i), (ptrffArray + i));
+        printf("%f \t \t at address: %p\n", *(ptrffArray + SR_i), (ptrffArray + SR_i));
     }
 
     // double array
     printf("\n\n");
     printf("The double array consists of %d elements as follows:\n", doubelArrayLength);
 
-    for (i = 0; i < doubelArrayLength; i++)
+    for (SR_i = 0; SR_i < doubelArrayLength; SR_i++)
     {
-        printf("%lf \t \t at address: %p\n", *(ptrdArray + i), (ptrdArray + i));
+        printf("%lf \t \t at address: %p\n", *(ptrdArray + SR_i), (ptrdArray + SR_i));
     }
 
     // char array
     printf("\n\n");
     printf("The char array consists of %d elements as follows:\n", charArrayLength);
 
-    for (i = 0; i < charArrayLength; i++)
+    for (SR_i = 0; SR_i < charArrayLength; SR_i++)
     {
-        printf("%c \t \t at address: %p\n", *(ptrcArray + i), (ptrcArray + i));
+        printf("%c \t \t at address: %p\n", *(ptrcArray + SR_i), (ptrcArray + SR_i));
     }
 
     printf("\n\n--End--\n\n");

@@ -3,27 +3,27 @@
 int main(void)
 {
 
-    int i, j;
+    int SR_i, SR_j;
 
     printf("\n");
 
-    i = 1;
+    SR_i = 1;
     do
     {
-        printf("i = %d \n", i);
+        printf("SR_i = %d \n", SR_i);
         printf("------------");
 
-        j = 1;
+        SR_j = 1;
         do
         {
-            printf("\t j = %d\n", j);
-            j++;
-        } while (j <= 5);
+            printf("\t SR_j = %d\n", SR_j);
+            SR_j++;
+        } while (SR_j <= 5);
 
-        i++;
+        SR_i++;
         printf("\n\n");
 
-    } while (i <= 10);
+    } while (SR_i <= 10);
 
     return 0;
 }

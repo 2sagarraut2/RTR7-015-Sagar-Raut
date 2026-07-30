@@ -21,47 +21,47 @@ int main(void)
 
     Employee employeeRecords[NUM_EMPLOYEES];
 
-    int i;
+    int SR_i;
 
-    for (i = 0; i < NUM_EMPLOYEES; i++)
+    for (SR_i = 0; SR_i < NUM_EMPLOYEES; SR_i++)
     {
         printf("\n\n");
-        printf("Please enter data for employee number %d\n", (i + 1));
+        printf("Please enter data for employee number %d\n", (SR_i + 1));
 
         printf("Please enter name:\n");
-        MyGetString(employeeRecords[i].SR_name, SR_NAME_LENGTH);
+        MyGetString(employeeRecords[SR_i].SR_name, SR_NAME_LENGTH);
 
         printf("Please enter employee age\n");
-        scanf("%d", &employeeRecords[i].SR_age);
+        scanf("%d", &employeeRecords[SR_i].SR_age);
 
         printf("\n\n");
         printf("Please enter employees sex (M/m for Male and F/f for Female)\n");
-        scanf(" %c", &employeeRecords[i].SR_sex);
-        printf("%c", employeeRecords[i].SR_sex);
-        employeeRecords[i]
-            .SR_sex = toupper(employeeRecords[i].SR_sex);
+        scanf(" %c", &employeeRecords[SR_i].SR_sex);
+        printf("%c", employeeRecords[SR_i].SR_sex);
+        employeeRecords[SR_i]
+            .SR_sex = toupper(employeeRecords[SR_i].SR_sex);
 
         printf("\n\n");
         printf("Please enter employees salary\n");
-        scanf("%f", &employeeRecords[i].SR_salary);
+        scanf("%f", &employeeRecords[SR_i].SR_salary);
 
         printf("\n\n");
         printf("Is employee married? Y/y or N/n \n");
-        scanf(" %c", &employeeRecords[i].SR_maritalStatus);
-        printf("%c", employeeRecords[i].SR_maritalStatus);
-        employeeRecords[i].SR_maritalStatus = toupper(employeeRecords[i].SR_maritalStatus);
+        scanf(" %c", &employeeRecords[SR_i].SR_maritalStatus);
+        printf("%c", employeeRecords[SR_i].SR_maritalStatus);
+        employeeRecords[SR_i].SR_maritalStatus = toupper(employeeRecords[SR_i].SR_maritalStatus);
 
         printf("\n\n");
     }
 
-    for (i = 0; i < 5; i++)
+    for (SR_i = 0; SR_i < 5; SR_i++)
     {
-        printf("Employee Number %d \n", (i + 1));
-        printf("Name: \t %s\n", employeeRecords[i].SR_name);
-        printf("Age: \t %d\n", employeeRecords[i].SR_age);
-        printf("Salary: \t %f\n", employeeRecords[i].SR_salary);
+        printf("Employee Number %d \n", (SR_i + 1));
+        printf("Name: \t %s\n", employeeRecords[SR_i].SR_name);
+        printf("Age: \t %d\n", employeeRecords[SR_i].SR_age);
+        printf("Salary: \t %f\n", employeeRecords[SR_i].SR_salary);
 
-        if (employeeRecords[i].SR_sex == 'M' || employeeRecords[i].SR_sex == 'm')
+        if (employeeRecords[SR_i].SR_sex == 'M' || employeeRecords[SR_i].SR_sex == 'm')
         {
             printf("Sex: \t Male\n");
         }
@@ -70,7 +70,7 @@ int main(void)
             printf("Sex: \t Female\n");
         }
 
-        printf("Marital Status: \t %c\n\n", employeeRecords[i].SR_maritalStatus);
+        printf("Marital Status: \t %c\n\n", employeeRecords[SR_i].SR_maritalStatus);
     }
 
     printf("\n\n--End--\n\n");
@@ -79,7 +79,7 @@ int main(void)
 
 void MyGetString(char str[], int str_size)
 {
-    int i = 0;
+    int SR_i = 0;
     char ch;
 
     while ((ch = getchar()) == '\n')
@@ -87,9 +87,9 @@ void MyGetString(char str[], int str_size)
     }
     do
     {
-        str[i++] = ch;
+        str[SR_i++] = ch;
         ch = getchar();
-    } while (ch != '\n' && i < str_size - 1);
+    } while (ch != '\n' && SR_i < str_size - 1);
 
-    str[i] = '\0';
+    str[SR_i] = '\0';
 }

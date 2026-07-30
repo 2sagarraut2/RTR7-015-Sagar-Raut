@@ -23,7 +23,7 @@ int main(void)
     char employeePrasad[] = "Prasad";
     char employeePranali[] = "Pranali";
 
-    int i;
+    int SR_i;
 
     strcpy(employeeRecords[0].SR_name, employeeSagar);
     employeeRecords[0].SR_age = 30;
@@ -58,14 +58,14 @@ int main(void)
     printf("\n\n");
     printf("**** Display employee records ****\n");
 
-    for (i = 0; i < 5; i++)
+    for (SR_i = 0; SR_i < 5; SR_i++)
     {
-        printf("Employee Number %d \n", (i + 1));
-        printf("Name: \t %s\n", employeeRecords[i].SR_name);
-        printf("Age: \t %d\n", employeeRecords[i].SR_age);
-        printf("Salary: \t %f\n", employeeRecords[i].SR_salary);
+        printf("Employee Number %d \n", (SR_i + 1));
+        printf("Name: \t %s\n", employeeRecords[SR_i].SR_name);
+        printf("Age: \t %d\n", employeeRecords[SR_i].SR_age);
+        printf("Salary: \t %f\n", employeeRecords[SR_i].SR_salary);
 
-        if (employeeRecords[i].SR_sex == 'M' || employeeRecords[i].SR_sex == 'm')
+        if (employeeRecords[SR_i].SR_sex == 'M' || employeeRecords[SR_i].SR_sex == 'm')
         {
             printf("Sex: \t Male\n");
         }
@@ -74,7 +74,7 @@ int main(void)
             printf("Sex: \t Female\n");
         }
 
-        printf("Marital Status: \t %s\n\n", employeeRecords[i].SR_maritalStatus);
+        printf("Marital Status: \t %s\n\n", employeeRecords[SR_i].SR_maritalStatus);
     }
 
     printf("\n\n--End--\n\n");

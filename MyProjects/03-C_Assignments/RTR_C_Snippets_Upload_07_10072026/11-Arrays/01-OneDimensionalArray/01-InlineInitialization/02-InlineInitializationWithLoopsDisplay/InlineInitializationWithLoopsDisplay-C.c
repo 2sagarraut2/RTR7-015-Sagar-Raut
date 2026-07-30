@@ -18,15 +18,15 @@ int main(void)
     int cArraySize;
     int cArrayNumElements;
 
-    int i;
+    int SR_i;
 
     printf("\n\n");
     SR_iArraySize = sizeof(SR_iArray);
     SR_iArrayNumElements = SR_iArraySize / SR_intSize;
 
-    for (i = 0; i < SR_iArrayNumElements; i++)
+    for (SR_i = 0; SR_i < SR_iArrayNumElements; SR_i++)
     {
-        printf("SR_iArray[%d] (elements %d) = %d\n", i, (i + 1), SR_iArray[i]);
+        printf("SR_iArray[%d] (elements %d) = %d\n", SR_i, (SR_i + 1), SR_iArray[SR_i]);
     }
 
     SR_intSize = sizeof(int);
@@ -40,9 +40,9 @@ int main(void)
     fArraySize = sizeof(SR_fArray);
     fArrayNumElements = fArraySize / floatSize;
 
-    for (i = 0; i < fArrayNumElements; i++)
+    for (SR_i = 0; SR_i < fArrayNumElements; SR_i++)
     {
-        printf("SR_fArray[%d] (elements %d) = %f\n", i, (i + 1), SR_fArray[i]);
+        printf("SR_fArray[%d] (elements %d) = %f\n", SR_i, (SR_i + 1), SR_fArray[SR_i]);
     }
 
     floatSize = sizeof(float);
@@ -56,9 +56,9 @@ int main(void)
     cArraySize = sizeof(SR_cArray);
     cArrayNumElements = cArraySize / SR_charSize;
 
-    for (i = 0; i < cArrayNumElements; i++)
+    for (SR_i = 0; SR_i < cArrayNumElements; SR_i++)
     {
-        printf("SR_cArray[%d] (elements %d) = %c\n", i, (i + 1), SR_cArray[i]);
+        printf("SR_cArray[%d] (elements %d) = %c\n", SR_i, (SR_i + 1), SR_cArray[SR_i]);
     }
 
     SR_charSize = sizeof(char);

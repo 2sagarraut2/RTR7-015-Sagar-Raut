@@ -12,7 +12,7 @@ int main(void)
     int SR_strArraySize = 0;
     int SR_strArrayNumElements = 0, SR_strArrayNumRows = 0, strArrayNumCols = 0;
     int SR_strActualNumChars = 0;
-    int i;
+    int SR_i;
 
     printf("\n\n");
     SR_charSize = sizeof(char);
@@ -26,11 +26,11 @@ int main(void)
     printf("Numer of columns (String) in 2D array (String array) is %d\n\n", strArrayNumCols);
 
     SR_strArrayNumElements = SR_strArrayNumRows * strArrayNumCols;
-    printf("Total number of elements  (characters) in 2D character Array (String Array) i = %d\n\n", SR_strArrayNumElements);
+    printf("Total number of elements  (characters) in 2D character Array (String Array) SR_i = %d\n\n", SR_strArrayNumElements);
 
-    for (i = 0; i < SR_strArrayNumElements; i++)
+    for (SR_i = 0; SR_i < SR_strArrayNumElements; SR_i++)
     {
-        SR_strActualNumChars = SR_strActualNumChars + MyStrlen(strArray[i]);
+        SR_strActualNumChars = SR_strActualNumChars + MyStrlen(strArray[SR_i]);
     }
     printf("Actual number of elemenst (character) in 2D array (String Array) is %d\n\n", SR_strActualNumChars);
 
@@ -55,12 +55,12 @@ int main(void)
 
 int MyStrlen(char str[])
 {
-    int j;
+    int SR_j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
+    for (SR_j = 0; SR_j < SR_MAX_STRING_LENGTH; SR_j++)
     {
-        if (str[j] == '\0')
+        if (str[SR_j] == '\0')
         {
             break;
         }

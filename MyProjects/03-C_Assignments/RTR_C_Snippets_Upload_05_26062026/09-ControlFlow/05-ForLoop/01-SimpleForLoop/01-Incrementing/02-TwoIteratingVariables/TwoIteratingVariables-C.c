@@ -3,15 +3,15 @@
 int main()
 {
 
-    int i, j;
+    int SR_i, SR_j;
 
     printf("\n\n");
 
     printf("Printing digits from 1 to 10:\n");
 
-    for (i = 1, j = 10; i <= 10, j <= 100; i++, j = j + 10)
+    for (SR_i = 1, SR_j = 10; SR_i <= 10, SR_j <= 100; SR_i++, SR_j = SR_j + 10)
     {
-        printf("\t%d \t %d\n", i, j);
+        printf("\t%d \t %d\n", SR_i, SR_j);
     }
 
     return 0;

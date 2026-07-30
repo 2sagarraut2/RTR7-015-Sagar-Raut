@@ -25,7 +25,7 @@ int main(void)
 {
     MyDataOne dataOne;
     MyDataTwo dataTwo;
-    int i;
+    int SR_i;
 
     dataOne.fArray[0] = 1.1f;
     dataOne.fArray[1] = 2.5f;

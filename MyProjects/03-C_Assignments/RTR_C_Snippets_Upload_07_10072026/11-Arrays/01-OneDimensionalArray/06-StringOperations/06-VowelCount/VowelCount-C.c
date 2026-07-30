@@ -9,7 +9,7 @@ int main(void)
     char SR_chArray[SR_MAX_STRING_LENGTH];
     int SR_iStringLength;
     int SR_countA = 0, SR_countE = 0, SR_countI = 0, SR_countO = 0, SR_countU = 0;
-    int i;
+    int SR_i;
 
     printf("ENter a string\n\n");
     fgets(SR_chArray, SR_MAX_STRING_LENGTH, stdin);
@@ -20,9 +20,9 @@ int main(void)
 
     SR_iStringLength = MyStrlen(SR_chArray);
 
-    for (i = 0; i < SR_iStringLength; i++)
+    for (SR_i = 0; SR_i < SR_iStringLength; SR_i++)
     {
-        switch (SR_chArray[i])
+        switch (SR_chArray[SR_i])
         {
         case 'A':
         case 'a':
@@ -35,7 +35,7 @@ int main(void)
             break;
 
         case 'I':
-        case 'i':
+        case 'SR_i':
             SR_countI++;
             break;
 
@@ -58,7 +58,7 @@ int main(void)
     printf("In the string entered by you the vowels and the number of their occurences are aas follows:\n\n");
     printf("A or a has occurred %d times\n", SR_countA);
     printf("E or e has occurred %d times\n", SR_countE);
-    printf("I or i has occurred %d times\n", SR_countI);
+    printf("I or SR_i has occurred %d times\n", SR_countI);
     printf("O or o has occurred %d times\n", SR_countO);
     printf("U or u has occurred %d times\n", SR_countU);
 
@@ -68,12 +68,12 @@ int main(void)
 
 int MyStrlen(char str[])
 {
-    int j;
+    int SR_j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
+    for (SR_j = 0; SR_j < SR_MAX_STRING_LENGTH; SR_j++)
     {
-        if (str[j] == '\0')
+        if (str[SR_j] == '\0')
         {
             break;
         }

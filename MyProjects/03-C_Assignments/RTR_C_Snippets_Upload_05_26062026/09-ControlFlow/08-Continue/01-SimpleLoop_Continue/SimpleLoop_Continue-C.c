@@ -3,21 +3,21 @@
 int main(void)
 {
 
-    int i;
+    int SR_i;
 
     printf("\n");
 
     printf("printing even nunbers from 0 to 100\n");
 
-    for (i = 0; i <= 100; i++)
+    for (SR_i = 0; SR_i <= 100; SR_i++)
     {
-        if (i % 2 != 0)
+        if (SR_i % 2 != 0)
         {
             continue;
         }
         else
         {
-            printf("\t%d\n", i);
+            printf("\t%d\n", SR_i);
         }
     }
 

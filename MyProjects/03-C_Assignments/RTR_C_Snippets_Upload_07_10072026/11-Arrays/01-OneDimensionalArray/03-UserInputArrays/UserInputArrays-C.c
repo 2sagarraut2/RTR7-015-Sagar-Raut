@@ -9,49 +9,49 @@ int main(void)
     int SR_iArray[SR_INT_ARRAY_NUM_ELEMENTS];
     float SR_fArray[SR_FLOAT_ARRAY_NUM_ELEMENTS];
     char SR_cArray[SR_CHAR_ARRAY_NUM_ELEMENTS];
-    int i, SR_num;
+    int SR_i, SR_num;
 
     printf("\n\n");
     printf("Enter elements for Integer array: \n");
-    for (i = 0; i < SR_INT_ARRAY_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_INT_ARRAY_NUM_ELEMENTS; SR_i++)
     {
-        scanf("%d", &SR_iArray[i]);
+        scanf("%d", &SR_iArray[SR_i]);
     }
 
     printf("\n\n");
     printf("Enter elements for floating-point array: \n");
-    for (i = 0; i < SR_FLOAT_ARRAY_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_FLOAT_ARRAY_NUM_ELEMENTS; SR_i++)
     {
-        scanf("%f", &SR_fArray[i]);
+        scanf("%f", &SR_fArray[SR_i]);
     }
 
     printf("\n\n");
     printf("Enter elements for character array: \n");
-    for (i = 0; i < SR_CHAR_ARRAY_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_CHAR_ARRAY_NUM_ELEMENTS; SR_i++)
     {
-        scanf(" %c", &SR_cArray[i]);
-        printf("%c\n", SR_cArray[i]);
+        scanf(" %c", &SR_cArray[SR_i]);
+        printf("%c\n", SR_cArray[SR_i]);
     }
 
     printf("\n\n");
     printf("Integer array entered by you: \n\n");
-    for (i = 0; i < SR_INT_ARRAY_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_INT_ARRAY_NUM_ELEMENTS; SR_i++)
     {
-        printf("%d\n", SR_iArray[i]);
+        printf("%d\n", SR_iArray[SR_i]);
     }
 
     printf("\n\n");
     printf("Floating-point array entered by you: \n\n");
-    for (i = 0; i < SR_FLOAT_ARRAY_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_FLOAT_ARRAY_NUM_ELEMENTS; SR_i++)
     {
-        printf("%f\n", SR_fArray[i]);
+        printf("%f\n", SR_fArray[SR_i]);
     }
 
     printf("\n\n");
     printf("Character array entered by you: \n\n");
-    for (i = 0; i < SR_CHAR_ARRAY_NUM_ELEMENTS; i++)
+    for (SR_i = 0; SR_i < SR_CHAR_ARRAY_NUM_ELEMENTS; SR_i++)
     {
-        printf("%c\n", SR_cArray[i]);
+        printf("%c\n", SR_cArray[SR_i]);
     }
 
     printf("\n\n--End--\n\n");

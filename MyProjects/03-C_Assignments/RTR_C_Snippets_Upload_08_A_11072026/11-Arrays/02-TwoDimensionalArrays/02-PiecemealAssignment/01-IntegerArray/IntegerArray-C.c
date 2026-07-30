@@ -6,7 +6,7 @@ int main(void)
     int SR_intSize = 0;
     int SR_iArraySize = 0;
     int SR_iArrayNumElements = 0, SR_iArrayNumRows = 0, SR_iArrayNumCols = 0;
-    int i, j;
+    int SR_i, SR_j;
 
     printf("\n\n");
 
@@ -45,11 +45,11 @@ int main(void)
     SR_iArray[2][3] = 53;
     SR_iArray[2][4] = 175;
 
-    for (i = 0; i < SR_iArrayNumRows; i++)
+    for (SR_i = 0; SR_i < SR_iArrayNumRows; SR_i++)
     {
-        for (j = 0; j < SR_iArrayNumCols; j++)
+        for (SR_j = 0; SR_j < SR_iArrayNumCols; SR_j++)
         {
-            printf("SR_iArray[%d][%d] = %d\n", i, j, SR_iArray[i][j]);
+            printf("SR_iArray[%d][%d] = %d\n", SR_i, SR_j, SR_iArray[SR_i][SR_j]);
         }
     }
 

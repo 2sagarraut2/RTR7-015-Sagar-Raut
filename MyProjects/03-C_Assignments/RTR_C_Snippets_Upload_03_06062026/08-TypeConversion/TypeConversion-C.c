@@ -4,7 +4,7 @@ int main()
 {
 
     // variable declarations
-    int i, j;
+    int SR_i, SR_j;
     char ch_01, ch_02;
 
     int a, result_int;
@@ -17,15 +17,15 @@ int main()
     printf("\n\n");
 
     // INTERCONVERSION AND IMPLICIT TYPE-CASTING BETWEEN 'char' AND 'int' Types...
-    i = 70;
-    ch_01 = i;
-    printf("I = %d\n", i);
-    printf("Character 1 (after ch_01 = i) = %c\n\n", ch_01);
+    SR_i = 70;
+    ch_01 = SR_i;
+    printf("I = %d\n", SR_i);
+    printf("Character 1 (after ch_01 = SR_i) = %c\n\n", ch_01);
 
     ch_02 = 'Q';
-    j = ch_02;
+    SR_j = ch_02;
     printf("Character 2 = %c\n", ch_02);
-    printf("J (after j = ch_02) = %d\n\n", j);
+    printf("J (after SR_j = ch_02) = %d\n\n", SR_j);
 
     // IMPLICIT CONVERSION OF 'int' TO 'float'...
     a = 5;

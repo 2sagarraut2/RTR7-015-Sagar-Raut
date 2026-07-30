@@ -3,7 +3,7 @@
 int main(void)
 {
 
-    int i;
+    int SR_i;
 
     char SR_ch;
 
@@ -11,15 +11,15 @@ int main(void)
 
     printf("Princting even numberd from 1 to 100 for evry user input, exitting the loop when user enters 'Q' or 'q'");
 
-    for (i = 1; i <= 100; i++)
+    for (SR_i = 1; SR_i <= 100; SR_i++)
     {
-        if (i % 2 != 0)
+        if (SR_i % 2 != 0)
         {
             continue;
         }
         else
         {
-            printf("\t %d \n", i);
+            printf("\t %d \n", SR_i);
         }
 
         scanf(" %c", &SR_ch);

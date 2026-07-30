@@ -12,21 +12,21 @@ int main(void)
 {
     int numElements = sizeof(numTables) / sizeof(numTables[0]);
 
-    for (int i = 0; i < numElements; i++)
+    for (int SR_i = 0; SR_i < numElements; SR_i++)
     {
-        numTables[i].num = i + 1;
-        for (int j = 0; j < 10; j++)
+        numTables[SR_i].num = SR_i + 1;
+        for (int SR_j = 0; SR_j < 10; SR_j++)
         {
-            numTables[i].table[j] = (numTables[i].num * (j + 1));
+            numTables[SR_i].table[SR_j] = (numTables[SR_i].num * (SR_j + 1));
         }
     }
 
-    for (int i = 0; i < sizeof(numTables) / sizeof(numTables[0]); i++)
+    for (int SR_i = 0; SR_i < sizeof(numTables) / sizeof(numTables[0]); SR_i++)
     {
-        printf("Number: %d\n", numTables[i].num = i + 1);
-        for (int j = 0; j < sizeof(numTables[0]) / sizeof(numTables[0].table[0]); j++)
+        printf("Number: %d\n", numTables[SR_i].num = SR_i + 1);
+        for (int SR_j = 0; SR_j < sizeof(numTables[0]) / sizeof(numTables[0].table[0]); SR_j++)
         {
-            printf("%d\n", numTables[i].table[j] = (numTables[i].num * (j + 1)));
+            printf("%d\n", numTables[SR_i].table[SR_j] = (numTables[SR_i].num * (SR_j + 1)));
         }
         printf("\n");
     }

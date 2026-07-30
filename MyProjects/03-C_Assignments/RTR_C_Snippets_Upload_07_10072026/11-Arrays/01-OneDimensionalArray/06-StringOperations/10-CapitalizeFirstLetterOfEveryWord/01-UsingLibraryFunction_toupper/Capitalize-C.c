@@ -9,38 +9,38 @@ int main(void)
 
     char SR_chArray[SR_MAX_STRING_LENGTH], chArrayCapitalize[SR_MAX_STRING_LENGTH];
     int SR_iStringLength;
-    int i, j;
+    int SR_i, SR_j;
 
     printf("\n\n");
     printf("ENter a string\n\n");
     fgets(SR_chArray, SR_MAX_STRING_LENGTH, stdin);
 
     SR_iStringLength = MyStrlen(SR_chArray);
-    j = 0;
+    SR_j = 0;
 
-    for (i = 0; i < SR_iStringLength; i++)
+    for (SR_i = 0; SR_i < SR_iStringLength; SR_i++)
     {
-        if (i == 0)
+        if (SR_i == 0)
         {
-            chArrayCapitalize[j] = toupper(SR_chArray[i]);
+            chArrayCapitalize[SR_j] = toupper(SR_chArray[SR_i]);
         }
-        else if (SR_chArray[i] == ' ')
+        else if (SR_chArray[SR_i] == ' ')
         {
-            chArrayCapitalize[j] = SR_chArray[i];
-            chArrayCapitalize[j + 1] = toupper(SR_chArray[i + 1]);
+            chArrayCapitalize[SR_j] = SR_chArray[SR_i];
+            chArrayCapitalize[SR_j + 1] = toupper(SR_chArray[SR_i + 1]);
 
-            j++;
-            i++;
+            SR_j++;
+            SR_i++;
         }
         else
         {
-            chArrayCapitalize[j] = SR_chArray[i];
+            chArrayCapitalize[SR_j] = SR_chArray[SR_i];
         }
 
-        j++;
+        SR_j++;
     }
 
-    chArrayCapitalize[j] = '\0';
+    chArrayCapitalize[SR_j] = '\0';
 
     printf("\n\n");
     printf("String entered by you is\n");
@@ -56,12 +56,12 @@ int main(void)
 
 int MyStrlen(char str[])
 {
-    int j;
+    int SR_j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
+    for (SR_j = 0; SR_j < SR_MAX_STRING_LENGTH; SR_j++)
     {
-        if (str[j] == '\0')
+        if (str[SR_j] == '\0')
         {
             break;
         }

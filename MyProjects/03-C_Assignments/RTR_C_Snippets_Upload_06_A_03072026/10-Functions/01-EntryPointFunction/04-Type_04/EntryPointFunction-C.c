@@ -7,9 +7,9 @@ int main(int argc, char *argv[])
 
     printf("Command line arguments passed to this program are:\n");
 
-    for (int i = 0; i < argc; i++)
+    for (int SR_i = 0; SR_i < argc; SR_i++)
     {
-        printf("Command line argument number %d = %s\n", (i + 1), argv[i]);
+        printf("Command line argument number %d = %s\n", (SR_i + 1), argv[SR_i]);
     }
 
     return 0;

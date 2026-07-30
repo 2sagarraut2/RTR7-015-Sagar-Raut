@@ -68,12 +68,12 @@ int main(void)
 
 int MyStrlen(char str[])
 {
-    int j;
+    int SR_j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
+    for (SR_j = 0; SR_j < SR_MAX_STRING_LENGTH; SR_j++)
     {
-        if (str[j] == '\0')
+        if (str[SR_j] == '\0')
         {
             break;
         }

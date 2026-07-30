@@ -3,22 +3,22 @@
 int main(void)
 {
 
-    int i, j;
+    int SR_i, SR_j;
 
-    i = 1;
-    while (i <= 10)
+    SR_i = 1;
+    while (SR_i <= 10)
     {
-        printf("i = %d\n", i);
+        printf("SR_i = %d\n", SR_i);
 
         printf("-----------\n");
 
-        j = 1;
-        while (j <= 5)
+        SR_j = 1;
+        while (SR_j <= 5)
         {
-            printf("\tj = %d\n", j);
-            j++;
+            printf("\tj = %d\n", SR_j);
+            SR_j++;
         }
-        i++;
+        SR_i++;
         printf("\n\n");
     }
 

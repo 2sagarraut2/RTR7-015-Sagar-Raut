@@ -3,17 +3,17 @@
 int main(void)
 {
 
-    int i, j;
+    int SR_i, SR_j;
 
     printf("\n\n");
 
-    for (i = 1; i <= 20; i++)
+    for (SR_i = 1; SR_i <= 20; SR_i++)
     {
 
-        for (j = 1; j <= 20; j++)
+        for (SR_j = 1; SR_j <= 20; SR_j++)
         {
 
-            if (j > i)
+            if (SR_j > SR_i)
             {
                 break;
             }

@@ -3,33 +3,33 @@
 int main(void)
 {
 
-    int i, j, k;
+    int SR_i, SR_j, SR_k;
 
-    i = 1;
-    while (i <= 10)
+    SR_i = 1;
+    while (SR_i <= 10)
     {
-        printf("i = %d\n", i);
+        printf("SR_i = %d\n", SR_i);
 
         printf("-----------\n\n");
 
-        j = 1;
-        while (j <= 5)
+        SR_j = 1;
+        while (SR_j <= 5)
         {
-            printf("\tj = %d\n", j);
+            printf("\tj = %d\n", SR_j);
 
             printf("\t-----------\n\n");
 
-            k = 1;
-            while (k <= 3)
+            SR_k = 1;
+            while (SR_k <= 3)
             {
-                printf("\t\tk = %d \n", k);
-                k++;
+                printf("\t\tk = %d \n", SR_k);
+                SR_k++;
             }
 
             printf("\n\n");
-            j++;
+            SR_j++;
         }
-        i++;
+        SR_i++;
         printf("\n\n");
     }
 

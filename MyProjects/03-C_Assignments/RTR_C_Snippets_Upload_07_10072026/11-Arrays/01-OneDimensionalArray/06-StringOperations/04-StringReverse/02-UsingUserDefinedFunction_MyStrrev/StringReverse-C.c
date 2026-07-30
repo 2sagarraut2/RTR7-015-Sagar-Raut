@@ -31,29 +31,29 @@ void MyStrrev(char strDestination[], char strSource[])
     int MyStrlen(char[]);
 
     int SR_iStringLength = 0;
-    int i, j, len;
+    int SR_i, SR_j, SR_len;
 
     SR_iStringLength = MyStrlen(strSource);
 
-    len = SR_iStringLength - 1;
+    SR_len = SR_iStringLength - 1;
 
-    for (i = 0, j = len; i < SR_iStringLength, j >= 0; i++, j--)
+    for (SR_i = 0, SR_j = SR_len; SR_i < SR_iStringLength, SR_j >= 0; SR_i++, SR_j--)
     {
-        strDestination[i] = strSource[j];
+        strDestination[SR_i] = strSource[SR_j];
     }
 
-    strDestination[i] = '\0';
+    strDestination[SR_i] = '\0';
 }
 
 int MyStrlen(char str[])
 {
 
-    int j;
+    int SR_j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
+    for (SR_j = 0; SR_j < SR_MAX_STRING_LENGTH; SR_j++)
     {
-        if (str[j] == '\0')
+        if (str[SR_j] == '\0')
         {
             break;
         }

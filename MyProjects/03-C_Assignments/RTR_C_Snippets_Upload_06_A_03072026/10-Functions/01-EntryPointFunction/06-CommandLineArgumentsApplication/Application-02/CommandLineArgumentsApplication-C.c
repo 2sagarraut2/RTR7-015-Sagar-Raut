@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-    int i;
+    int SR_i;
     int SR_num;
     int SR_sum = 0;
 
@@ -20,9 +20,9 @@ int main(int argc, char *argv[], char *envp[])
 
     printf("\n\n");
     printf("Full name entered is: \n\n");
-    for (i = 1; i < argc; i++)
+    for (SR_i = 1; SR_i < argc; SR_i++)
     {
-        printf("%s ", argv[i]);
+        printf("%s ", argv[SR_i]);
     }
 
     printf("\n\n");

@@ -12,33 +12,33 @@ int main(void)
     int SR_strArraySize = 0;
     int SR_strArrayNumRows = 0;
     int SR_strActualNumChars = 0;
-    int i, j;
+    int SR_i, SR_j;
 
     SR_strArraySize = sizeof(strArray);
 
     SR_strArrayNumRows = SR_strArraySize / sizeof(strArray[0]);
 
-    for (i = 0; i < SR_strArrayNumRows; i++)
+    for (SR_i = 0; SR_i < SR_strArrayNumRows; SR_i++)
     {
-        SR_iStrLength[i] = MyStrlen(strArray[i]);
+        SR_iStrLength[SR_i] = MyStrlen(strArray[SR_i]);
     }
 
     printf("\n\n");
     printf("The entire string array: \n\n");
-    for (i = 0; i < SR_strArrayNumRows; i++)
+    for (SR_i = 0; SR_i < SR_strArrayNumRows; SR_i++)
     {
-        printf("%s ", strArray[i]);
+        printf("%s ", strArray[SR_i]);
     }
 
     printf("\n\n");
     printf("String in the 2D Array : \n\n");
 
-    for (i = 0; i < SR_strArrayNumRows; i++)
+    for (SR_i = 0; SR_i < SR_strArrayNumRows; SR_i++)
     {
-        printf("String number %d => %s\n\n", (i + 1), strArray[i]);
-        for (j = 0; j < SR_iStrLength[i]; j++)
+        printf("String number %d => %s\n\n", (SR_i + 1), strArray[SR_i]);
+        for (SR_j = 0; SR_j < SR_iStrLength[SR_i]; SR_j++)
         {
-            printf("Character %d = %d\n", (j + 1), strArray[i][j]);
+            printf("Character %d = %d\n", (SR_j + 1), strArray[SR_i][SR_j]);
         }
     }
 
@@ -48,12 +48,12 @@ int main(void)
 
 int MyStrlen(char str[])
 {
-    int j;
+    int SR_j;
     int SR_stringLength = 0;
 
-    for (j = 0; j < SR_MAX_STRING_LENGTH; j++)
+    for (SR_j = 0; SR_j < SR_MAX_STRING_LENGTH; SR_j++)
     {
-        if (str[j] == '\0')
+        if (str[SR_j] == '\0')
         {
             break;
         }

@@ -3,18 +3,18 @@
 int main(void)
 {
 
-    int i;
+    int SR_i;
 
     printf("\n\n");
 
     printf("Printing digits from 1 to 100:\n\n");
 
-    i = 1;
+    SR_i = 1;
     do
     {
-        printf("\t%d\n", i);
-        i++;
-    } while (i <= 100);
+        printf("\t%d\n", SR_i);
+        SR_i++;
+    } while (SR_i <= 100);
 
     return 0;
 }

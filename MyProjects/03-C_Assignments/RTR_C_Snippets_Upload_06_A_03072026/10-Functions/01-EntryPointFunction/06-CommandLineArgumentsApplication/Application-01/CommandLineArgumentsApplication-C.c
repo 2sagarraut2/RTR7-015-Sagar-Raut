@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[], char *envp[])
 {
-    int i;
+    int SR_i;
     int SR_num;
     int SR_sum = 0;
 
@@ -21,9 +21,9 @@ int main(int argc, char *argv[], char *envp[])
 
     printf("\n\n");
     printf("Sum of all integer command line arguments is: \n\n");
-    for (i = 0; i < argc; i++)
+    for (SR_i = 0; SR_i < argc; SR_i++)
     {
-        SR_num = atoi(argv[i]);
+        SR_num = atoi(argv[SR_i]);
 
         SR_sum = SR_sum + SR_num;
     }
