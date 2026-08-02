@@ -54,7 +54,7 @@ int main(void)
         ptrSR_iArray = NULL;
 
         printf("\n\n");
-        printf("Memory allocated for integer array has been successfully freed!");
+        printf("Memory allocated for integer array has been successfully released!");
     }
 
     printf("\n\n--End--\n\n");

@@ -8,7 +8,7 @@ int main(void)
 
     typedef int MY_INT;
 
-    typedef float PVG_FLOAT;
+    typedef float SR_FLOAT;
 
     typedef char CHARACTER;
 
@@ -22,8 +22,8 @@ int main(void)
     MY_INT SR_a = 10, SR_i = 0;
     MY_INT SR_iArray[] = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55};
 
-    PVG_FLOAT SR_f_pvg = 50.1f;
-    const PVG_FLOAT f_pvg_pi = 3.14f;
+    SR_FLOAT SR_float = 50.1f;
+    const SR_FLOAT SR_float_pi = 3.14f;
 
     CHARACTER ch = '*';
     CHARACTER SR_chArray01[] = "Hello";
@@ -46,8 +46,8 @@ int main(void)
     }
     printf("\n\n");
 
-    printf("Type PVG_FLOAT variable f = %f\n\n", SR_f_pvg);
-    printf("Type PVG_FLOAT constant f = %f\n\n", f_pvg_pi);
+    printf("Type SR_FLOAT variable f = %f\n\n", SR_float);
+    printf("Type SR_FLOAT constant f = %f\n\n", SR_float_pi);
 
     printf("\n\n");
     printf("Type MY_DOUBLE variable d = %lf \n", d);
