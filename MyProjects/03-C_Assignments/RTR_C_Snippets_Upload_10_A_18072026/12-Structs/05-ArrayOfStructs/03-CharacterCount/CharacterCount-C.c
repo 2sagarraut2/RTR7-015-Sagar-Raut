@@ -64,7 +64,7 @@ int main(void)
 
             if (str[SR_i] == characterAndCount[SR_j].ch)
             {
-                printf("inside if\n");
+                // printf("inside if\n");
                 characterAndCount[SR_j].chCount++;
             }
         }

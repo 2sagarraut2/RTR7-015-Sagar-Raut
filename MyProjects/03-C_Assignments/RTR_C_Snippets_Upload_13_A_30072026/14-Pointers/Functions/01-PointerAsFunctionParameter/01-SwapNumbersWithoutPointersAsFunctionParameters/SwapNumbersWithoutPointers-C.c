@@ -35,6 +35,6 @@ void swap(int a, int b)
     a = b;
     b = temp;
 
-    printf("Values after swapping\n");
+    printf("\nValues after swapping\n");
     printf("a = %d, b = %d\n\n", a, b);
 }

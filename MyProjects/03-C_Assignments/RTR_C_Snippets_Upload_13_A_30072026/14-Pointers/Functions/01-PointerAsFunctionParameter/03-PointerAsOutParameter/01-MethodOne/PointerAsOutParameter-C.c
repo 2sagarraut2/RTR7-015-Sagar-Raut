@@ -17,7 +17,7 @@ int main(void)
     printf("Please enter second number\n");
     scanf("%d", &b);
 
-    mathematicalOperations(a, b, &ansSum, &ansSub, &ansMult, &ansDivQuo, &ansDivRem);
+    mathematicalOperations(a, b, ansSum, ansSub, ansMult, ansDivQuo, ansDivRem);
 
     printf("Results\n\n");
     printf("Sum = %d\n", ansSum);

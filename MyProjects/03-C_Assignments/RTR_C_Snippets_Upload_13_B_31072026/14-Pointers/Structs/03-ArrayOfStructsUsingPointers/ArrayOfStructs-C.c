@@ -21,8 +21,8 @@ int main(void)
     SR_Employee *pEMployeeRecord = NULL;
     int SR_numEmployees = 0, i = 0;
 
-    printf("\n\n");
-    printf("Enter number of EMployees whose details you want to record\n");
+    printf("\n");
+    printf("Enter number of Employees whose details you want to record\n");
     scanf("%d", &SR_numEmployees);
 
     printf("\n\n");
@@ -47,17 +47,17 @@ int main(void)
         printf("Please enter employee age\n");
         scanf("%u", &pEMployeeRecord[i].SR_age);
 
-        printf("\n\n");
+        printf("\n");
         printf("Please enter sex of employee (M/m for male & F/f for female)\n");
         scanf(" %c", &pEMployeeRecord[i].SR_sex);
         pEMployeeRecord[i].SR_sex = toupper(pEMployeeRecord[i].SR_sex);
 
-        printf("\n\n");
+        printf("\n");
         printf("Please enter marital status of employee (Enter 'Y' if married else enter 'N')\n");
-        scanf("%c", &pEMployeeRecord[i].SR_maritalStatus);
+        scanf(" %c", &pEMployeeRecord[i].SR_maritalStatus);
         pEMployeeRecord[i].SR_maritalStatus = toupper(pEMployeeRecord[i].SR_maritalStatus);
 
-        printf("\n\n");
+        printf("\n");
         printf("Please enter salary of the employee\n");
         scanf("%f", &pEMployeeRecord[i].SR_salary);
     }
@@ -73,7 +73,7 @@ int main(void)
         printf("SR_Employee marital status: \t");
         if (pEMployeeRecord[i].SR_maritalStatus == 'Y')
         {
-            printf("Married");
+            printf("Married\n\n");
         }
         else
         {
@@ -85,8 +85,11 @@ int main(void)
     {
         free(pEMployeeRecord);
         pEMployeeRecord = NULL;
-        printf("Memory allocated tp %d employees has been released", SR_numEmployees);
+        printf("Memory allocated to %d employees has been released", SR_numEmployees);
     }
+
+    printf("\n\n--End--\n\n");
+    return (0);
 }
 
 void SR_MyGetString(char str[], int str_size)
