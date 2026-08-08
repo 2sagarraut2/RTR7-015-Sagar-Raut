@@ -15,51 +15,51 @@ int main(void)
     struct MyData SR_data1, SR_data2, SR_data3, SR_answerData;
 
     printf("\n\n\n\n");
-    printf("Enter integer value for 'i' of 'struct MyData SR_data1' ; ");
+    printf("Enter integer value for 'i' of 'struct MyData SR_data1' : ");
     scanf("%d", &SR_data1.SR_i);
 
     printf("\n\n");
-    printf("Enter floating point value for 'f' of 'struct MyData SR_data1' ; ");
+    printf("Enter floating point value for 'f' of 'struct MyData SR_data1' : ");
     scanf("%f", &SR_data1.SR_f);
 
     printf("\n\n");
-    printf("Enter double value for 'f' of 'struct MyData SR_data1' ; ");
+    printf("Enter double value for 'f' of 'struct MyData SR_data1' : ");
     scanf("%lf", &SR_data1.SR_d);
 
     printf("\n\n");
-    printf("Enter character value for 'c' of 'struct MyData SR_data1' ; ");
+    printf("Enter character value for 'c' of 'struct MyData SR_data1' : ");
     scanf(" %c", &SR_data1.SR_c);
 
     printf("\n\n\n\n");
-    printf("Enter integer value for 'i' of 'struct MyData SR_data2' ; ");
+    printf("Enter integer value for 'i' of 'struct MyData SR_data2' : ");
     scanf("%d", &SR_data2.SR_i);
 
     printf("\n\n");
-    printf("Enter floating point value for 'f' of 'struct MyData SR_data2' ; ");
+    printf("Enter floating point value for 'f' of 'struct MyData SR_data2' : ");
     scanf("%f", &SR_data2.SR_f);
 
     printf("\n\n");
-    printf("Enter double value for 'd' of 'struct MyData SR_data2' ; ");
+    printf("Enter double value for 'd' of 'struct MyData SR_data2' : ");
     scanf("%lf", &SR_data2.SR_d);
 
     printf("\n\n");
-    printf("Enter character value for 'c' of 'struct MyData SR_data2' ; ");
+    printf("Enter character value for 'c' of 'struct MyData SR_data2' : ");
     scanf(" %c", &SR_data2.SR_c);
 
     printf("\n\n\n\n");
-    printf("Enter integer value for 'i' of 'struct MyData SR_data3' ; ");
+    printf("Enter integer value for 'i' of 'struct MyData SR_data3' : ");
     scanf("%d", &SR_data3.SR_i);
 
     printf("\n\n");
-    printf("Enter floating point value for 'f' of 'struct MyData SR_data3' ; ");
+    printf("Enter floating point value for 'f' of 'struct MyData SR_data3' : ");
     scanf("%f", &SR_data3.SR_f);
 
     printf("\n\n");
-    printf("Enter double value for 'd' of 'struct MyData SR_data3' ; ");
+    printf("Enter double value for 'd' of 'struct MyData SR_data3' : ");
     scanf("%lf", &SR_data3.SR_d);
 
     printf("\n\n");
-    printf("Enter character value for 'c' of 'struct MyData SR_data3' ; ");
+    printf("Enter character value for 'c' of 'struct MyData SR_data3' : ");
     scanf(" %c", &SR_data3.SR_c);
 
     SR_answerData = AddStructMembers(SR_data1, SR_data2, SR_data3);
