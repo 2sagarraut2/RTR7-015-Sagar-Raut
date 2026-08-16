@@ -397,7 +397,7 @@ void display(void)
     // renderGroupPresents(0.0f, 0.0f, 100, 100);
     // Tila(0.0f, -1.0f, 400, 200);
 
-    projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
+    // projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
 
     // // ground func call
     // drawGroundQuad();
@@ -503,541 +503,541 @@ void display(void)
     // drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
 
     // fade in out switch case
-    // switch (scence)
-    // {
-    // // case for Astromedicomp
-    // case 0:
-    //     if (astromedicompFIn != true)
-    //     {
-
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-    //             AstroMediComp(0.02f, -0.4f);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             astromedicompFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         // printf("FadeOut %d", FadeOut);
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-    //             AstroMediComp(0.02f, -0.4f);
-    //         }
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             astromedicompFOut = true;
-    //             // Reset for next scene
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             ScreenFadeFactor = 1.0f;
-    //             scence++;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //         }
-    //     }
-    //     break;
-
-    // // case for render group presents
-    // case 1:
-    //     if (bRenderGroupPresentsFIn != true)
-    //     {
-
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-    //             renderGroupPresents(0.0f, 0.0f, 100, 100);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bRenderGroupPresentsFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         // printf("FadeOut %d", FadeOut);
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-    //             renderGroupPresents(0.0f, 0.0f, 100, 100);
-    //         }
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bRenderGroupPresentsFOut = true;
-    //             // Reset for next scene
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             ScreenFadeFactor = 1.0f;
-    //             scence++;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //         }
-    //     }
-    //     break;
-
-    // // case for showing project name
-    // case 2:
-    //     if (bProjectNameFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-    //             projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bProjectNameFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-    //             projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
-    //         }
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bProjectNameFOut = true;
-    //             // Reset for next scene
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             ScreenFadeFactor = 1.0f;
-    //             scence++;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //         }
-    //     }
-    //     break;
+    switch (scence)
+    {
+    // case for Astromedicomp
+    case 0:
+        if (astromedicompFIn != true)
+        {
+
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+                AstroMediComp(0.02f, -0.4f);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                astromedicompFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+        else
+        {
+            // printf("FadeOut %d", FadeOut);
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+                AstroMediComp(0.02f, -0.4f);
+            }
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                astromedicompFOut = true;
+                // Reset for next scene
+                FadeIn = true;
+                FadeOut = false;
+                ScreenFadeFactor = 1.0f;
+                scence++;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+            }
+        }
+        break;
+
+    // case for render group presents
+    case 1:
+        if (bRenderGroupPresentsFIn != true)
+        {
+
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+                renderGroupPresents(0.0f, 0.0f, 100, 100);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bRenderGroupPresentsFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+        else
+        {
+            // printf("FadeOut %d", FadeOut);
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+                renderGroupPresents(0.0f, 0.0f, 100, 100);
+            }
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bRenderGroupPresentsFOut = true;
+                // Reset for next scene
+                FadeIn = true;
+                FadeOut = false;
+                ScreenFadeFactor = 1.0f;
+                scence++;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+            }
+        }
+        break;
+
+    // case for showing project name
+    case 2:
+        if (bProjectNameFIn != true)
+        {
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+                projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bProjectNameFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+        else
+        {
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+                projectName(SR_xPosition, SR_yPosition, SR_width, SR_height, SR_thickness, 100.0);
+            }
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bProjectNameFOut = true;
+                // Reset for next scene
+                FadeIn = true;
+                FadeOut = false;
+                ScreenFadeFactor = 1.0f;
+                scence++;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+            }
+        }
+        break;
 
-    // // case for showing main scene
-    // case 3:
-    //     if (showMainSceneFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-
-    //             // ground func call
-    //             drawGroundQuad();
-
-    //             drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
-
-    //             // if (xCloudPosition <= 0.0f)
-    //             // {
-    //             //     xCloudPosition = xCloudPosition + 0.0005f;
-    //             // }
-
-    //             // render clouds
-    //             cloudAnimation(xCloudPosition);
-
-    //             // Mandir
-    //             drawMandir();
-
-    //             drawTree(SR_tree_xPosition, SR_tree_yPosition, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent);
-
-    //             // ghoda
-    //             // void psh_draw_ghoda(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
-    //             psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
-
-    //             drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
-    //             drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
-
-    //             SJ_Chopdar(0.6f, -0.5f, 65.0f);
-    //             SJ_Chopdar(-0.58f, -0.5f, 65.0f);
-
-    //             yg_Veena_Warkari();
-
-    //             callDhwajGhetlelWarkari();
-
-    //             // Pranalis code
-
-    //             // Hemant code
-    //             hbPalakhi(hb_x, hb_y, hb_h, hb_w);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             showMainSceneFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-
-    //             // // ground func call
-    //             drawGroundQuad();
-
-    //             drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
-
-    //             // if (xCloudPosition <= 0.0f)
-    //             // {
-    //             //     xCloudPosition = xCloudPosition + 0.0005f;
-    //             // }
-
-    //             // // render clouds
-    //             cloudAnimation(xCloudPosition);
-
-    //             // // Mandir
-    //             drawMandir();
-
-    //             drawTree(SR_tree_xPosition, SR_tree_yPosition, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent);
-
-    //             // // ghoda
-    //             // // void psh_draw_ghoda(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
-    //             psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
-
-    //             drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
-    //             drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
-
-    //             SJ_Chopdar(0.6f, -0.5f, 65.0f);
-    //             SJ_Chopdar(-0.58f, -0.5f, 65.0f);
-
-    //             yg_Veena_Warkari();
-
-    //             callDhwajGhetlelWarkari();
-
-    //             // // Pranalis code
-
-    //             // // Hemant code
-    //             hbPalakhi(hb_x, hb_y, hb_h, hb_w);
-    //         }
-
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             showMainSceneFOut = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //         }
-    //     }
-    //     break;
-
-    // // case for showing vitthal
-    // case 4:
-    //     if (bVitthalFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-
-    //             psh_drawVitthal(0.0f, 0.0f, 60, 95);
-    //             calldrawFlower();
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             bVitthalFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-
-    //             psh_drawVitthal(0.0f, 0.0f, 60, 95);
-    //             calldrawFlower();
-    //         }
-
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             bVitthalFout = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //         }
-    //     }
-    //     break;
-
-    //     // case for team names
-    // case 5:
-    //     if (teamNamesFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-
-    //             // prasad name code
-    //             drawPrasadName(100.0f);
-
-    //             // harshal name call
-    //             drawHarshalName();
-
-    //             // pranali name code
-    //             psh_draw_name(-0.9f, 0.55f);
-
-    //             // yogesh name
-    //             drawYogeshName();
-
-    //             // sagar name code
-    //             glColor3f(1.0f, 0.5f, 0.0f);
-    //             drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-    //             // hemant name
-    //             drawHemantName();
-
-    //             // Shriniwas name code
-    //             shriniwasName();
-
-    //             // anoushka tai name
-    //             glColor3f(1.0f, 1.0f, 1.0f);
-    //             drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             teamNamesFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-
-    //             // prasad name code
-    //             drawPrasadName(100.0f);
-
-    //             // harshal name call
-    //             drawHarshalName();
-
-    //             // pranali name code
-    //             psh_draw_name(-0.9f, 0.55f);
-
-    //             // yogesh name
-    //             drawYogeshName();
-
-    //             // sagar name code
-    //             glColor3f(1.0f, 0.5f, 0.0f);
-    //             drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
-
-    //             // hemant name
-    //             drawHemantName();
-
-    //             // Shriniwas name code
-    //             shriniwasName();
-
-    //             // anoushka tai name
-    //             glColor3f(1.0f, 1.0f, 1.0f);
-    //             drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
-    //         }
-
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             teamNamesFOut = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //         }
-    //     }
-    //     break;
-
-    // // case for guidance scene
-    // case 6:
-    //     if (guidanceSceneFIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-
-    //             if (xCloudPosition <= 0.0f)
-    //             {
-    //                 xCloudPosition = xCloudPosition + 0.0005f;
-    //             }
-
-    //             // render clouds
-    //             cloudAnimation(xCloudPosition);
-
-    //             // under guidance
-    //             under(-0.2f, 0.3f, 30.0f);
-    //             guidance(0.2f, 0.3f, 30.0f);
-
-    //             // rama madam name
-    //             Rama(-0.37f, 0.1f, 30.0f);
-    //             gokhale(0.0f, 0.1f, 30.0f);
-    //             madam(0.54f, 0.1f, 30.0f);
-    //             // pradnya madam name
-    //             pradnya(-0.54f, -0.1f, 30.0f);
-    //             gokhale(0.0f, -0.1f, 30.0f);
-    //             madam(0.54f, -0.1f, 30.0f);
-
-    //             // Guari tai name
-    //             // letterG(startingPointX, startingPointY, width, thickness, SR_percent);
-    //             glColor3f(1.0f, 1.0f, 1.0f);
-    //             letterG(-1.9f, -1.3f, width, thickness, 20.0f);
-    //             letterA(-1.9f + width + 0.03f, -1.3f, width, thickness, 20.0f);
-    //             letterU(-1.9f + (width * 2 + 0.12f), -1.3f, width, thickness, 20.0f);
-    //             letterR(-1.9f + (width * 3 + 0.14f), -1.3f, width, thickness, 20.0f);
-    //             letterI(-1.9f + (width * 4 + 0.18f), -1.3f, width, thickness, 20.0f);
-    //             letterT(-1.5f + (width * 5 + 0.05f), -1.3f, width, thickness, 20.0f);
-    //             letterA(-1.5f + (width * 6 + 0.05f), -1.3f, width, thickness, 20.0f);
-    //             letterI(-1.5f + (width * 7 + 0.15f), -1.3f, width, thickness, 20.0f);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             guidanceSceneFIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-
-    //             if (xCloudPosition <= 0.0f)
-    //             {
-    //                 xCloudPosition = xCloudPosition + 0.0005f;
-    //             }
-
-    //             // render clouds
-    //             cloudAnimation(xCloudPosition);
-
-    //             // under guidance
-    //             under(-0.2f, 0.3f, 30.0f);
-    //             guidance(0.2f, 0.3f, 30.0f);
-
-    //             // rama madam name
-    //             Rama(-0.37f, 0.1f, 30.0f);
-    //             gokhale(0.0f, 0.1f, 30.0f);
-    //             madam(0.54f, 0.1f, 30.0f);
-    //             // pradnya madam name
-    //             pradnya(-0.54f, -0.1f, 30.0f);
-    //             gokhale(0.0f, -0.1f, 30.0f);
-    //             madam(0.54f, -0.1f, 30.0f);
-
-    //             // Guari tai name
-    //             // letterG(startingPointX, startingPointY, width, thickness, SR_percent);
-    //             glColor3f(1.0f, 1.0f, 1.0f);
-    //             letterG(-1.9f, -1.3f, width, thickness, 20.0f);
-    //             letterA(-1.9f + width + 0.03f, -1.3f, width, thickness, 20.0f);
-    //             letterU(-1.9f + (width * 2 + 0.12f), -1.3f, width, thickness, 20.0f);
-    //             letterR(-1.9f + (width * 3 + 0.14f), -1.3f, width, thickness, 20.0f);
-    //             letterI(-1.9f + (width * 4 + 0.18f), -1.3f, width, thickness, 20.0f);
-    //             letterT(-1.5f + (width * 5 + 0.05f), -1.3f, width, thickness, 20.0f);
-    //             letterA(-1.5f + (width * 6 + 0.05f), -1.3f, width, thickness, 20.0f);
-    //             letterI(-1.5f + (width * 7 + 0.15f), -1.3f, width, thickness, 20.0f);
-    //         }
-
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             guidanceSceneFOut = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
-    //             glutTimerFunc(60, ScreenFadeIn, 0);
-    //             xCloudPosition = -2.5f;
-    //         }
-    //     }
-    //     break;
-
-    //     // case for end credit scene
-    // case 7:
-    //     if (endCreditSceneIn != true)
-    //     {
-    //         if (FadeIn)
-    //         {
-    //             // ScreenFadeIn(ScreenFadeFactor);
-
-    //             if (xCloudPosition <= 0.0f)
-    //             {
-    //                 xCloudPosition = xCloudPosition + 0.0005f;
-    //             }
-
-    //             // render clouds
-    //             cloudAnimation(xCloudPosition);
-
-    //             // our inspiration
-    //             our(-0.3f, 0.30f, 30.0f);
-    //             inspiration(0.2f, 0.30f, 30.0f);
-
-    //             // Dr.Vijay Gokhale name code
-    //             drawVijayGokhale();
-    //             drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
-    //         }
-    //         if (ScreenFadeFactor <= 0.0f)
-    //         {
-    //             endCreditSceneIn = true;
-    //             FadeIn = false;
-    //             FadeOut = true;
-    //             glutTimerFunc(60, ScreenFadeOut, 0);
-    //         }
-    //     }
-
-    //     else
-    //     {
-    //         if (FadeOut)
-    //         {
-    //             // ScreenFadeOut(ScreenFadeFactor);
-
-    //             if (xCloudPosition <= 0.0f)
-    //             {
-    //                 xCloudPosition = xCloudPosition + 0.0005f;
-    //             }
-
-    //             // render clouds
-    //             cloudAnimation(xCloudPosition);
-
-    //             // our inspiration
-    //             our(-0.3f, 0.30f, 30.0f);
-    //             inspiration(0.2f, 0.30f, 30.0f);
-
-    //             // Dr.Vijay Gokhale name code
-    //             drawVijayGokhale();
-    //             drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
-    //         }
-
-    //         if (ScreenFadeFactor >= 1.0f)
-    //         {
-    //             endCreditSceneOut = true;
-    //             scence++;
-    //             ScreenFadeFactor = 1.0f;
-    //             FadeIn = true;
-    //             FadeOut = false;
-
-    //             if (scence == 8)
-    //             {
-    //                 std::system("killall afplay");
-    //                 glutLeaveMainLoop();
-    //             }
-    //         }
-    //     }
-    //     break;
-    // }
-
-    // ScreenQuad();
+    // case for showing main scene
+    case 3:
+        if (showMainSceneFIn != true)
+        {
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                // ground func call
+                drawGroundQuad();
+
+                drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
+
+                // if (xCloudPosition <= 0.0f)
+                // {
+                //     xCloudPosition = xCloudPosition + 0.0005f;
+                // }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
+
+                // Mandir
+                drawMandir();
+
+                drawTree(SR_tree_xPosition, SR_tree_yPosition, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent);
+
+                // ghoda
+                // void psh_draw_ghoda(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
+                psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
+
+                drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
+                drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
+
+                SJ_Chopdar(0.6f, -0.5f, 65.0f);
+                SJ_Chopdar(-0.58f, -0.5f, 65.0f);
+
+                yg_Veena_Warkari();
+
+                callDhwajGhetlelWarkari();
+
+                // Pranalis code
+
+                // Hemant code
+                hbPalakhi(hb_x, hb_y, hb_h, hb_w);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                showMainSceneFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+
+        else
+        {
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                // // ground func call
+                drawGroundQuad();
+
+                drawTulshiVrindavan(-1.1f, -2.9f, 30.0f);
+
+                // if (xCloudPosition <= 0.0f)
+                // {
+                //     xCloudPosition = xCloudPosition + 0.0005f;
+                // }
+
+                // // render clouds
+                cloudAnimation(xCloudPosition);
+
+                // // Mandir
+                drawMandir();
+
+                drawTree(SR_tree_xPosition, SR_tree_yPosition, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent);
+
+                // // ghoda
+                // // void psh_draw_ghoda(float psh_x_pos, float psh_y_pos, int psh_width_percentage, int psh_height_percentage);
+                psh_draw_ghoda(-0.4f, 0.35f, 25, 30);
+
+                drawTree(-0.10f, 1.07f, SR_tree_width, SR_tree_height, SR_tree_thickness, 35.0f);
+                drawTree(0.5f, 0.4f, SR_tree_width, SR_tree_height, SR_tree_thickness, SR_tree_percent - 20);
+
+                SJ_Chopdar(0.6f, -0.5f, 65.0f);
+                SJ_Chopdar(-0.58f, -0.5f, 65.0f);
+
+                yg_Veena_Warkari();
+
+                callDhwajGhetlelWarkari();
+
+                // // Pranalis code
+
+                // // Hemant code
+                hbPalakhi(hb_x, hb_y, hb_h, hb_w);
+            }
+
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                showMainSceneFOut = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+            }
+        }
+        break;
+
+    // case for showing vitthal
+    case 4:
+        if (bVitthalFIn != true)
+        {
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                psh_drawVitthal(0.0f, 0.0f, 60, 95);
+                calldrawFlower();
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                bVitthalFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+
+        else
+        {
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                psh_drawVitthal(0.0f, 0.0f, 60, 95);
+                calldrawFlower();
+            }
+
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                bVitthalFout = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+            }
+        }
+        break;
+
+        // case for team names
+    case 5:
+        if (teamNamesFIn != true)
+        {
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                // prasad name code
+                drawPrasadName(100.0f);
+
+                // harshal name call
+                drawHarshalName();
+
+                // pranali name code
+                psh_draw_name(-0.9f, 0.55f);
+
+                // yogesh name
+                drawYogeshName();
+
+                // sagar name code
+                glColor3f(1.0f, 0.5f, 0.0f);
+                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+                // hemant name
+                drawHemantName();
+
+                // Shriniwas name code
+                shriniwasName();
+
+                // anoushka tai name
+                glColor3f(1.0f, 1.0f, 1.0f);
+                drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                teamNamesFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+
+        else
+        {
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                // prasad name code
+                drawPrasadName(100.0f);
+
+                // harshal name call
+                drawHarshalName();
+
+                // pranali name code
+                psh_draw_name(-0.9f, 0.55f);
+
+                // yogesh name
+                drawYogeshName();
+
+                // sagar name code
+                glColor3f(1.0f, 0.5f, 0.0f);
+                drawSagarName(startingPointX, startingPointY, width, thickness, SR_namePercent);
+
+                // hemant name
+                drawHemantName();
+
+                // Shriniwas name code
+                shriniwasName();
+
+                // anoushka tai name
+                glColor3f(1.0f, 1.0f, 1.0f);
+                drawAnoushkaName(-1.4, -1.00, 0.32, 0.10, 50.0);
+            }
+
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                teamNamesFOut = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+            }
+        }
+        break;
+
+    // case for guidance scene
+    case 6:
+        if (guidanceSceneFIn != true)
+        {
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
+
+                // under guidance
+                under(-0.2f, 0.3f, 30.0f);
+                guidance(0.2f, 0.3f, 30.0f);
+
+                // rama madam name
+                Rama(-0.37f, 0.1f, 30.0f);
+                gokhale(0.0f, 0.1f, 30.0f);
+                madam(0.54f, 0.1f, 30.0f);
+                // pradnya madam name
+                pradnya(-0.54f, -0.1f, 30.0f);
+                gokhale(0.0f, -0.1f, 30.0f);
+                madam(0.54f, -0.1f, 30.0f);
+
+                // Guari tai name
+                // letterG(startingPointX, startingPointY, width, thickness, SR_percent);
+                glColor3f(1.0f, 1.0f, 1.0f);
+                letterG(-1.9f, -1.3f, width, thickness, 20.0f);
+                letterA(-1.9f + width + 0.03f, -1.3f, width, thickness, 20.0f);
+                letterU(-1.9f + (width * 2 + 0.12f), -1.3f, width, thickness, 20.0f);
+                letterR(-1.9f + (width * 3 + 0.14f), -1.3f, width, thickness, 20.0f);
+                letterI(-1.9f + (width * 4 + 0.18f), -1.3f, width, thickness, 20.0f);
+                letterT(-1.5f + (width * 5 + 0.05f), -1.3f, width, thickness, 20.0f);
+                letterA(-1.5f + (width * 6 + 0.05f), -1.3f, width, thickness, 20.0f);
+                letterI(-1.5f + (width * 7 + 0.15f), -1.3f, width, thickness, 20.0f);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                guidanceSceneFIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+
+        else
+        {
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
+
+                // under guidance
+                under(-0.2f, 0.3f, 30.0f);
+                guidance(0.2f, 0.3f, 30.0f);
+
+                // rama madam name
+                Rama(-0.37f, 0.1f, 30.0f);
+                gokhale(0.0f, 0.1f, 30.0f);
+                madam(0.54f, 0.1f, 30.0f);
+                // pradnya madam name
+                pradnya(-0.54f, -0.1f, 30.0f);
+                gokhale(0.0f, -0.1f, 30.0f);
+                madam(0.54f, -0.1f, 30.0f);
+
+                // Guari tai name
+                // letterG(startingPointX, startingPointY, width, thickness, SR_percent);
+                glColor3f(1.0f, 1.0f, 1.0f);
+                letterG(-1.9f, -1.3f, width, thickness, 20.0f);
+                letterA(-1.9f + width + 0.03f, -1.3f, width, thickness, 20.0f);
+                letterU(-1.9f + (width * 2 + 0.12f), -1.3f, width, thickness, 20.0f);
+                letterR(-1.9f + (width * 3 + 0.14f), -1.3f, width, thickness, 20.0f);
+                letterI(-1.9f + (width * 4 + 0.18f), -1.3f, width, thickness, 20.0f);
+                letterT(-1.5f + (width * 5 + 0.05f), -1.3f, width, thickness, 20.0f);
+                letterA(-1.5f + (width * 6 + 0.05f), -1.3f, width, thickness, 20.0f);
+                letterI(-1.5f + (width * 7 + 0.15f), -1.3f, width, thickness, 20.0f);
+            }
+
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                guidanceSceneFOut = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+                glutTimerFunc(60, ScreenFadeIn, 0);
+                xCloudPosition = -2.5f;
+            }
+        }
+        break;
+
+        // case for end credit scene
+    case 7:
+        if (endCreditSceneIn != true)
+        {
+            if (FadeIn)
+            {
+                // ScreenFadeIn(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
+
+                // our inspiration
+                our(-0.3f, 0.30f, 30.0f);
+                inspiration(0.2f, 0.30f, 30.0f);
+
+                // Dr.Vijay Gokhale name code
+                drawVijayGokhale();
+                drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
+            }
+            if (ScreenFadeFactor <= 0.0f)
+            {
+                endCreditSceneIn = true;
+                FadeIn = false;
+                FadeOut = true;
+                glutTimerFunc(60, ScreenFadeOut, 0);
+            }
+        }
+
+        else
+        {
+            if (FadeOut)
+            {
+                // ScreenFadeOut(ScreenFadeFactor);
+
+                if (xCloudPosition <= 0.0f)
+                {
+                    xCloudPosition = xCloudPosition + 0.0005f;
+                }
+
+                // render clouds
+                cloudAnimation(xCloudPosition);
+
+                // our inspiration
+                our(-0.3f, 0.30f, 30.0f);
+                inspiration(0.2f, 0.30f, 30.0f);
+
+                // Dr.Vijay Gokhale name code
+                drawVijayGokhale();
+                drawSir(0.18f, -0.5f, 70.0f, -0.2f, -0.5f, -0.43f, -0.5f);
+            }
+
+            if (ScreenFadeFactor >= 1.0f)
+            {
+                endCreditSceneOut = true;
+                scence++;
+                ScreenFadeFactor = 1.0f;
+                FadeIn = true;
+                FadeOut = false;
+
+                if (scence == 8)
+                {
+                    std::system("killall afplay");
+                    glutLeaveMainLoop();
+                }
+            }
+        }
+        break;
+    }
+
+    ScreenQuad();
 
     glutSwapBuffers();
     glutPostRedisplay();
