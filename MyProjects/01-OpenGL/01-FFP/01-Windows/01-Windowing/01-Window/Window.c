@@ -35,14 +35,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	hwnd = CreateWindow(lpszAppName,
 						TEXT("My First RTR7 Program : Sagar Sambhaji Raut"),
 						WS_OVERLAPPEDWINDOW,
-						CW_USEDEFAULT,
-						CW_USEDEFAULT,
-						CW_USEDEFAULT,
-						CW_USEDEFAULT,
-						NULL,
-						NULL,
-						hInstance,
-						NULL);
+						CW_USEDEFAULT, // x
+						CW_USEDEFAULT, // y
+						CW_USEDEFAULT, // width
+						CW_USEDEFAULT, // height
+						NULL,		   // parent process
+						NULL,		   // menu name
+						hInstance,	   // compulsory
+						NULL);		   // creation parameter long ptr void *
 
 	// show window
 	ShowWindow(hwnd, iCmdShow);
@@ -54,7 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
 		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		DispatchMessage(&msg); // message sent to WndProc
 	}
 
 	return ((int)msg.wParam);
@@ -71,12 +71,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	case WM_KEYDOWN:
 		PostQuitMessage(0);
 		break;
-	case WM_RBUTTONDOWN:
-		PostQuitMessage(0);
-		break;
-	case WM_LBUTTONDOWN:
-		PostQuitMessage(0);
-		break;
+	// case WM_RBUTTONDOWN:
+	// 	PostQuitMessage(0);
+	// 	break;
+	// case WM_LBUTTONDOWN:
+	// 	PostQuitMessage(0);
+	// 	break;
 	default:
 		break;
 	}
