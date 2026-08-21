@@ -11,27 +11,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	WNDCLASSEX SR_wndclass;
 	HWND hwnd = NULL;
 	MSG msg;
-	TCHAR lpszAppName[] = TEXT("RTR7_SSR");
+	TCHAR lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
 
 	// code
 	// WNDCLASSEX structure initialisation
 	SR_wndclass.cbSize = sizeof(WNDCLASSEX);
-	SR_wndclass.style = CS_HREDRAW | CS_VREDRAW;
+	SR_wndclass.style = CS_HREDRAW | CS_VREDRAW; // Class Style
 	SR_wndclass.cbClsExtra = 0;
 	SR_wndclass.cbWndExtra = 0;
-	SR_wndclass.lpfnWndProc = WndProc;
+	SR_wndclass.lpfnWndProc = WndProc; // long pointer function
 	SR_wndclass.hInstance = hInstance;
-	SR_wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-	SR_wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	SR_wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH); // handle background
+	SR_wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);			 // IDI_APPLICATION MACRO - Identifier Icon application -> LPCTSTR - long pointer to constantly NULL terminated string
+	// To provide user defined icon we will give hInstance that we created as first parameter
+
+	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // IDC_ARROW - Indetifier cursor
+	// To provide user defined icon we will give hInstance that we created as first parameter
+
 	SR_wndclass.lpszClassName = lpszAppName;
 	SR_wndclass.lpszMenuName = NULL;
 	SR_wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
 
 	// Register above WNDCLASS structure
-	RegisterClassEx(&SR_wndclass);
+	RegisterClassEx(&SR_wndclass); // return value is atom - immutable string goes to into mater table
 
 	// create the window
+	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindow(lpszAppName,
 						TEXT("My First RTR7 Program : Sagar Sambhaji Raut"),
 						WS_OVERLAPPEDWINDOW,
