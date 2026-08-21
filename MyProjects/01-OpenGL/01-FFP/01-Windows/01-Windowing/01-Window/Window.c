@@ -51,10 +51,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	UpdateWindow(hwnd);
 
 	// message loop
-	while (GetMessage(&msg, NULL, 0, 0))
+	while (GetMessage(&msg, // interrupt message coming from OS
+					  NULL, // to handle instance of all window
+					  0,	// min message range
+					  0		// max message range
+					  ))
 	{
-		TranslateMessage(&msg);
-		DispatchMessage(&msg); // message sent to WndProc
+		TranslateMessage(&msg); // translates virtual-key messages into character messages
+		DispatchMessage(&msg);	// message sent to WndProc
 	}
 
 	return ((int)msg.wParam);
@@ -68,15 +72,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	case WM_KEYDOWN:
+	// case WM_KEYDOWN:
+	// 	PostQuitMessage(0);
+	// 	break;
+	case WM_RBUTTONDOWN:
 		PostQuitMessage(0);
 		break;
-	// case WM_RBUTTONDOWN:
-	// 	PostQuitMessage(0);
-	// 	break;
-	// case WM_LBUTTONDOWN:
-	// 	PostQuitMessage(0);
-	// 	break;
+	case WM_LBUTTONDOWN:
+		PostQuitMessage(0);
+		break;
 	default:
 		break;
 	}
