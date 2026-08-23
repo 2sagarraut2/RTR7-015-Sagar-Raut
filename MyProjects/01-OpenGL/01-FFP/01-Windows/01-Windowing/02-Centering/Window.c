@@ -1,5 +1,8 @@
 // header files
 #include <windows.h>
+// macros
+#define WIN_WIDTH 800
+#define WIN_HEIGHT 600
 
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -35,19 +38,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// Register above WNDCLASS structure
 	RegisterClassEx(&SR_wndclass); // return value is atom - immutable string goes to into mater table
 
+	// Centering
+	int screenWidth = GetSystemMetrics(SM_CXSCREEN);  // x of screen - SM - SystemMetrics CX - count of x
+	int screenHeight = GetSystemMetrics(SM_CYSCREEN); // y of screen - CY - count of y
+
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindow(lpszAppName,
-						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-01-Window"),
+						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-02-Icon"),
 						WS_OVERLAPPEDWINDOW,
-						CW_USEDEFAULT, // x
-						CW_USEDEFAULT, // y
-						CW_USEDEFAULT, // width
-						CW_USEDEFAULT, // height
-						NULL,		   // parent process
-						NULL,		   // menu name
-						hInstance,	   // compulsory
-						NULL);		   // creation parameter long ptr void *
+						screenWidth / 2 - WIN_WIDTH / 2,   // x
+						screenHeight / 2 - WIN_HEIGHT / 2, // y
+						WIN_WIDTH,						   // width
+						WIN_HEIGHT,						   // height
+						NULL,							   // parent process
+						NULL,							   // menu name
+						hInstance,						   // compulsory
+						NULL);							   // creation parameter long ptr void *
 
 	// show window
 	ShowWindow(hwnd, iCmdShow);
