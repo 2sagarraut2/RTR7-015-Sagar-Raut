@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// code
 	// WNDCLASSEX structure initialisation
 	SR_wndclass.cbSize = sizeof(WNDCLASSEX);
-	SR_wndclass.style = CS_HREDRAW | CS_VREDRAW; // Class Style
+	SR_wndclass.style = CS_HREDRAW | CS_VREDRAW; // Class Style - Painting window when resized
 	SR_wndclass.cbClsExtra = 0;
 	SR_wndclass.cbWndExtra = 0;
 	SR_wndclass.lpfnWndProc = WndProc; // long pointer function
@@ -31,7 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// To provide user defined icon we will give hInstance that we created as first parameter
 
 	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // IDC_ARROW - Indetifier cursor
-	// To provide user defined icon we will give hInstance that we created as first parameter of WinMain
+	// To provide user defined icon we will give hInstance that we created as first parameter
 
 	SR_wndclass.lpszClassName = lpszAppName;
 	SR_wndclass.lpszMenuName = NULL;
@@ -47,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindow(lpszAppName,
-						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-03-Icon"),
+						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-06-HelloWorld"),
 						WS_OVERLAPPEDWINDOW,
 						screenWidth / 2 - WIN_WIDTH / 2,   // x
 						screenHeight / 2 - WIN_HEIGHT / 2, // y
@@ -80,19 +80,55 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
+	// variable declarations
+	HDC hdc; // handle to DC - device context or Graphics specialist
+	PAINTSTRUCT ps;
+	RECT rc;
+	TCHAR str[] = TEXT("Hello, World!!!");
+
 	// code
 	switch (iMsg)
 	{
+	case WM_CREATE:
+		break;
+	case WM_SETFOCUS:
+		break;
+	case WM_KILLFOCUS:
+		break;
+	case WM_SIZE:
+		break;
+	case WM_KEYDOWN:
+		switch (wParam)
+		{
+		case VK_ESCAPE:
+			break;
+		default:
+			break;
+		}
+		break;
+	case WM_CHAR:
+		switch (wParam)
+		{
+		case 'F':
+		case 'f':
+			break;
+		}
+		break;
+	case WM_PAINT:
+		GetClientRect(hwnd, &rc);						  // Get Windows client rectangles dimentions - only client area and not the title bar
+		hdc = BeginPaint(hwnd, &ps);					  // Get Graphics context
+		SetBkColor(hdc, RGB(0, 0, 0));					  // Hello World texts Background color
+		SetTextColor(hdc, RGB(0, 255, 0));				  // Color of Text
+		DrawText(hdc,									  // specialist
+				 str,									  // string
+				 -1,									  // Whole string
+				 &rc,									  // which rectangle
+				 DT_SINGLELINE | DT_CENTER | DT_VCENTER); // Single line text (not multiline) | Horizontal center | verticle center
+		EndPaint(hwnd, &ps);							  // return specialist to window
+		break;
+	case WM_CLOSE:
+		break;
 	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	// case WM_KEYDOWN:
-	// 	PostQuitMessage(0);
-	// 	break;
-	case WM_RBUTTONDOWN:
-		PostQuitMessage(0);
-		break;
-	case WM_LBUTTONDOWN:
 		PostQuitMessage(0);
 		break;
 	default:

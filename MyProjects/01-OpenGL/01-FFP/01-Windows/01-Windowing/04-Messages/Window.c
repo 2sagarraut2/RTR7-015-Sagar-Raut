@@ -112,7 +112,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		{
 		case 'F':
 		case 'f':
-			MessageBox(hwnd, TEXT("WM_CHAR:F/f key is pressed"), TEXT("Message"), MB_OK);
+			MessageBox(hwnd, TEXT("WM_CHAR:F/f key pressed"), TEXT("Message"), MB_OK);
 			break;
 		}
 		break;
