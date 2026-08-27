@@ -92,6 +92,7 @@ void display(void)
 	void renderCake(float, float, float, float);
 	void renderCandle(float, float, float);
 	void renderBalloon(float xPoint, float yPoint, float size, float colorR, float colorG, float colorB);
+	void renderPerson(float xPoint, float yPoint, float size);
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -103,21 +104,23 @@ void display(void)
 
 	// renderLightHouse(0.5f, 0.0f, 100.0f);
 
-	renderCake(0.0f, 0.0f, 100.0f, 0.1f);
+	// renderCake(0.0f, 0.0f, 100.0f, 0.1f);
 
-	// render candle calls
-	// DO NOT CHANGE SIZE OF THE CANDLE
-	renderCandle(-0.01f, 0.5, 100.0f);
+	// // render candle calls
+	// // DO NOT CHANGE SIZE OF THE CANDLE
+	// renderCandle(-0.01f, 0.5, 100.0f);
 
-	renderCandle(-0.09f, 0.32f, 80.0f);
-	renderCandle(0.07f, 0.32f, 80.0f);
+	// renderCandle(-0.09f, 0.32f, 80.0f);
+	// renderCandle(0.07f, 0.32f, 80.0f);
 
-	renderCandle(-0.13f, 0.12f, 80.0f);
-	renderCandle(0.11f, 0.12f, 80.0f);
+	// renderCandle(-0.13f, 0.12f, 80.0f);
+	// renderCandle(0.11f, 0.12f, 80.0f);
 
-	renderBalloon(-0.5f, 0.0f, 30.0f, 0.192f, 0.302f, 0.615f);
+	// renderBalloon(-0.3f, 0.0f, 30.0f, 0.192f, 0.302f, 0.615f);
 
-	renderBalloon(0.5f, 0.0f, 30.0f, 0.92f, 0.102f, 0.315f);
+	// renderBalloon(0.3f, 0.0f, 30.0f, 0.92f, 0.102f, 0.315f);
+
+	renderPerson(0.0f, 0.0f, 100.0f);
 
 	glutSwapBuffers();
 }
@@ -778,6 +781,59 @@ void renderBalloon(float xPoint, float yPoint, float size, float colorR, float c
 
 		glVertex2f(x, y);
 	}
+
+	glEnd();
+}
+
+void renderPerson(float xPoint, float yPoint, float size)
+{
+	glColor3f(1.0, 1.0, 1.0f);
+
+	float centerX = xPoint + 0.060f;
+	float centerY = yPoint + 0.2f;
+	float radius = 0.1f;
+
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius * 1.7f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glVertex2f((xPoint - 0.075f), yPoint);
+	glVertex2f((xPoint + (0.2f)), yPoint);
+	glVertex2f((xPoint + (0.2f)), yPoint - (0.6f));
+	glVertex2f((xPoint - 0.075f), yPoint - (0.6f));
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glVertex2f((xPoint), yPoint - (0.6f));
+	glVertex2f((xPoint - 0.075f), yPoint - (0.6f));
+	glVertex2f((xPoint - 0.075f), yPoint - (1.0f));
+	glVertex2f((xPoint), yPoint - (1.0f));
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glVertex2f((xPoint + 0.125f), yPoint - (0.6f));
+	glVertex2f((xPoint + 0.2f), yPoint - (0.6f));
+	glVertex2f((xPoint + 0.2f), yPoint - (1.0f));
+	glVertex2f((xPoint + 0.125f), yPoint - (1.0f));
 
 	glEnd();
 }
