@@ -117,7 +117,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		case 'A':
 		case 'a':
-			wsprintf(str, TEXT("Addition is %d"), num1 + num2);
+			wsprintf(str, TEXT("Addition of %d and %d is %d"), num1, num2, (num1 + num2));
 			MessageBox(NULL, str, TEXT("Addition"), MB_OK);
 			break;
 		}

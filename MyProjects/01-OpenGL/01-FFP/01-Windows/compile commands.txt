@@ -1,0 +1,8 @@
+cl.exe /c /EHsc /I C:\freeglut\include OGL.cpp
+link.exe OGL.obj /LIBPATH:C:\freeglut\lib\x64 /SUBSYSTEM:CONSOLE
+
+cl.exe /c /EHsc Window.c
+rc Window.rc -> this gives Window.res file
+link.exe Window.obj Window.res User32.lib GDI32.lib /SUBSYSTEM:WINDOWS
+
+EHsc - exception handler synchronous catch
