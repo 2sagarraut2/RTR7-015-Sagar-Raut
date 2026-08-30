@@ -47,7 +47,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindow(lpszAppName,
-						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-05-HelloWorld"),
+						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-HelloWorld"),
 						WS_OVERLAPPEDWINDOW,
 						screenWidth / 2 - WIN_WIDTH / 2,   // x
 						screenHeight / 2 - WIN_HEIGHT / 2, // y
@@ -124,7 +124,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 				 -1,									  // Whole string
 				 &rc,									  // which rectangle
 				 DT_SINGLELINE | DT_CENTER | DT_VCENTER); // Single line text (not multiline) | Horizontal center | verticle center
-		EndPaint(hwnd, &ps);							  // return specialist to window
+
+		EndPaint(hwnd, &ps); // return specialist to window
 		break;
 	case WM_CLOSE:
 		break;

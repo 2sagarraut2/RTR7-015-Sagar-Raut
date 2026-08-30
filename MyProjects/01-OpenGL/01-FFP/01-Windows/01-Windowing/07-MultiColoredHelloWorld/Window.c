@@ -50,7 +50,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindow(lpszAppName,
-						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-06-MultiColoredHelloWorld"),
+						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-MultiColoredHelloWorld"),
 						WS_OVERLAPPEDWINDOW,
 						screenWidth / 2 - WIN_WIDTH / 2,   // x
 						screenHeight / 2 - WIN_HEIGHT / 2, // y
