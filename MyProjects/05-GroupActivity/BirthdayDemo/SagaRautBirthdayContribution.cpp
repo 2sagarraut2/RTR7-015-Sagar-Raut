@@ -120,7 +120,7 @@ void display(void)
 
 	// renderBalloon(0.3f, 0.0f, 30.0f, 0.92f, 0.102f, 0.315f);
 
-	renderPerson(0.0f, 0.0f, 100.0f);
+	renderPerson(0.0f, 0.5f, 50.0f);
 
 	glutSwapBuffers();
 }
@@ -787,11 +787,14 @@ void renderBalloon(float xPoint, float yPoint, float size, float colorR, float c
 
 void renderPerson(float xPoint, float yPoint, float size)
 {
+	float scale = size / 100.0f;
+
+	// face
 	glColor3f(1.0, 1.0, 1.0f);
 
-	float centerX = xPoint + 0.060f;
-	float centerY = yPoint + 0.2f;
-	float radius = 0.1f;
+	float centerX = xPoint + (0.060f * scale);
+	float centerY = yPoint + (0.2f * scale);
+	float radius = 0.1f * scale;
 
 	glBegin(GL_TRIANGLE_FAN);
 	// 1. Establish the center anchor point
@@ -810,30 +813,203 @@ void renderPerson(float xPoint, float yPoint, float size)
 	}
 	glEnd();
 
+	// left eye
+	glColor3f(0.1, 0.1, 0.1f);
+
+	centerX = xPoint + (0.020f * scale);
+	centerY = yPoint + (0.25f * scale);
+	radius = 0.01f * scale;
+
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius * 1.7f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// right eye
+	glColor3f(0.1, 0.1, 0.1f);
+
+	centerX = xPoint + (0.1f * scale);
+	centerY = yPoint + (0.25f * scale);
+	radius = 0.01f * scale;
+
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius * 1.7f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// mouth
+	glColor3f(0.1, 0.1, 0.1f);
+
+	centerX = xPoint + (0.060f * scale);
+	centerY = yPoint + (0.15f * scale);
+	radius = 0.03f * scale;
+
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 180; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius * 1.7f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	glColor3f(1.0, 1.0, 1.0f);
+
+	// shirt
 	glBegin(GL_QUADS);
 
-	glVertex2f((xPoint - 0.075f), yPoint);
-	glVertex2f((xPoint + (0.2f)), yPoint);
-	glVertex2f((xPoint + (0.2f)), yPoint - (0.6f));
-	glVertex2f((xPoint - 0.075f), yPoint - (0.6f));
+	// glVertex2f(VALUE_FROM_PERCENT((xPoint - 0.075f), size), VALUE_FROM_PERCENT((yPoint), size));
+	// glVertex2f(VALUE_FROM_PERCENT((xPoint + (0.2f)), size), VALUE_FROM_PERCENT((yPoint), size));
+	// glVertex2f(VALUE_FROM_PERCENT((xPoint + (0.205f)), size), VALUE_FROM_PERCENT((yPoint - (0.6f)), size));
+	// glVertex2f(VALUE_FROM_PERCENT((xPoint - 0.080f), size), VALUE_FROM_PERCENT((yPoint - (0.6f)), size));
+
+	glVertex2f((xPoint - (0.075f * scale)), (yPoint) + (0.0f * scale));
+	glVertex2f((xPoint + ((0.2f) * scale)), (yPoint) + (0.0f * scale));
+	glVertex2f((xPoint + ((0.205f) * scale)), (yPoint) - (0.6f * scale));
+	glVertex2f((xPoint - (0.080f * scale)), (yPoint) - (0.6f * scale));
 
 	glEnd();
 
+	// hand left
 	glBegin(GL_QUADS);
 
-	glVertex2f((xPoint), yPoint - (0.6f));
-	glVertex2f((xPoint - 0.075f), yPoint - (0.6f));
-	glVertex2f((xPoint - 0.075f), yPoint - (1.0f));
-	glVertex2f((xPoint), yPoint - (1.0f));
+	glVertex2f((xPoint - (0.075f * scale)), (yPoint) - (0.0f * scale));
+	glVertex2f((xPoint - (0.075f * scale)), (yPoint) - (0.15f * scale));
+	glVertex2f((xPoint - (0.15f * scale)), (yPoint) - (0.25f * scale));
+	glVertex2f((xPoint - (0.24f * scale)), (yPoint) - (0.25f * scale));
+
+	// red
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f((xPoint - (0.15f * scale)), (yPoint) - (0.25f * scale));
+	// green
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f((xPoint - (0.24f * scale)), (yPoint) - (0.25f * scale));
+	// white
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f((xPoint - (0.075f * scale)), (yPoint) - (0.45f * scale));
+	// blue
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f((xPoint - (0.075f * scale)), (yPoint) - (0.35f * scale));
 
 	glEnd();
 
+	// hand right
 	glBegin(GL_QUADS);
 
-	glVertex2f((xPoint + 0.125f), yPoint - (0.6f));
-	glVertex2f((xPoint + 0.2f), yPoint - (0.6f));
-	glVertex2f((xPoint + 0.2f), yPoint - (1.0f));
-	glVertex2f((xPoint + 0.125f), yPoint - (1.0f));
+	glVertex2f((xPoint + ((0.2f) * scale)), (yPoint) + (0.0f * scale));
+	glVertex2f((xPoint + ((0.2f) * scale)), (yPoint) - (0.15f * scale));
+	glVertex2f((xPoint + ((0.27f) * scale)), (yPoint) - (0.25f * scale));
+	glVertex2f((xPoint + ((0.35f) * scale)), (yPoint) - (0.25f * scale));
+
+	glVertex2f((xPoint + ((0.27f) * scale)), (yPoint) - (0.25f * scale));
+	glVertex2f((xPoint + ((0.35f) * scale)), (yPoint) - (0.25f * scale));
+	glVertex2f((xPoint + ((0.15f) * scale)), (yPoint) - (0.47f * scale));
+	glVertex2f((xPoint + ((0.07f) * scale)), (yPoint) - (0.45f * scale));
+
+	glEnd();
+
+	// leg1
+	glBegin(GL_QUADS);
+
+	// red
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f((xPoint) + (0.05f * scale), (yPoint) - (0.6f * scale));
+	// green
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f((xPoint) - (0.075f * scale), (yPoint) - (0.6f * scale));
+	// blue
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f((xPoint) - (0.075f * scale), (yPoint) - (1.0f * scale));
+	// white
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f((xPoint) + (0.0f * scale), (yPoint) - (1.0f * scale));
+
+	glEnd();
+
+	// leg2
+	glBegin(GL_QUADS);
+
+	// red
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f((xPoint + 0.075f * scale), (yPoint - (0.6f * scale)));
+	// green
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f((xPoint + 0.2f * scale), (yPoint - (0.6f * scale)));
+	// blue
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f((xPoint + 0.2f * scale), (yPoint - (1.0f * scale)));
+	// white
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f((xPoint + 0.125f * scale), (yPoint - (1.0f * scale)));
+
+	glEnd();
+
+	// shoe1
+
+	glBegin(GL_QUADS);
+
+	// red
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f((xPoint * scale), yPoint - (1.0f * scale));
+	// green
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f((xPoint - 0.075f * scale), yPoint - (1.0f * scale));
+	// blue
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f((xPoint - 0.135f * scale), yPoint - (1.1f * scale));
+	// white
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f((xPoint * scale), yPoint - (1.1f * scale));
+
+	glEnd();
+
+	// shoe2
+	glBegin(GL_QUADS);
+
+	// red
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex2f((xPoint + 0.125f * scale), yPoint - (1.0f * scale));
+	// green
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex2f((xPoint + 0.2f * scale), yPoint - (1.0f * scale));
+	// blue
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex2f((xPoint + 0.25f * scale), yPoint - (1.1f * scale));
+	// white
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex2f((xPoint + 0.125f * scale), yPoint - (1.1f * scale));
 
 	glEnd();
 }
