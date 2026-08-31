@@ -89,7 +89,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
 						  lpszAppName,
-						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-BlueScreen"),
+						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-OpenGL-01-BlueScreen"),
 						  WS_OVERLAPPEDWINDOW	// top window
 							  | WS_CLIPCHILDREN // cut all children window
 							  | WS_CLIPSIBLINGS // cut all siblings

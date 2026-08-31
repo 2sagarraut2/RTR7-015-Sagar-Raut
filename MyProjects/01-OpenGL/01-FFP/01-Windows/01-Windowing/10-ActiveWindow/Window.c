@@ -1,7 +1,5 @@
 // header files
 #include <windows.h>
-#include <stdio.h>	// For file I/O
-#include <stdlib.h> // For exit(0)
 #include "Window.h"
 // macros
 #define WIN_WIDTH 800
@@ -15,43 +13,20 @@ HWND ghwnd = NULL;
 BOOL bFullscreen = FALSE;
 DWORD dwStyle;
 WINDOWPLACEMENT wpPrev;
-FILE *gpFile = NULL; // global pointer to file
-
-BOOL bActiveWindow = FALSE;		  // to check whether window is active or in focus
-BOOL bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
-	// function declarations
-	int initialise(void); // to initialise things required for rendering
-	void render(void);	  // here starts rendering
-	void update(void);	  // continues rendering
-	void uninitialise(void);
-
 	// variable declarations
 	WNDCLASSEX SR_wndclass;
 	HWND hwnd = NULL;
 	MSG msg;
 	TCHAR lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
-	BOOL bDone = FALSE;						// to use in gameloop
 
 	// code
-	// create log file
-	gpFile = fopen("Log.txt", "w"); // file open -> if does not exists then create | w - write & clean it
-	if (gpFile == NULL)
-	{
-		MessageBox(NULL, TEXT("Log file creation failed"), TEXT("Error"), MB_OK);
-		exit(0);
-	}
-	else
-	{
-		fprintf(gpFile, "SSR: Program successfully started.\n\n");
-	}
-
 	// WNDCLASSEX structure initialisation
 	SR_wndclass.cbSize = sizeof(WNDCLASSEX);
-	SR_wndclass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC; // Class Style, CS_OWNDC - fixed non discardable/purgeable device context
+	SR_wndclass.style = CS_HREDRAW | CS_VREDRAW; // Class Style
 	SR_wndclass.cbClsExtra = 0;
 	SR_wndclass.cbWndExtra = 0;
 	SR_wndclass.lpfnWndProc = WndProc; // long pointer function
@@ -79,7 +54,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
 						  lpszAppName,
-						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-LogFile"),
+						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-ActiveWindow"),
 						  WS_OVERLAPPEDWINDOW	// top window
 							  | WS_CLIPCHILDREN // cut all children window
 							  | WS_CLIPSIBLINGS // cut all siblings
@@ -96,62 +71,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// set global window handle
 	ghwnd = hwnd;
 
-	int iResult = initialise();
-	if (iResult != 0)
-	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() failed\n");
-		DestroyWindow(hwnd);
-		hwnd = NULL;
-	}
-	else
-	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() succeded\n");
-	}
-
 	// show window
 	ShowWindow(hwnd, iCmdShow);
 
 	// update the window to paint its background
 	UpdateWindow(hwnd);
 
-	SetForegroundWindow(hwnd); // brings window to foreground
-	SetFocus(hwnd);			   // set focuns to our window
-
-	// game loop
-	while (bDone == FALSE)
+	// message loop
+	while (GetMessage(&msg, // interrupt message coming from OS
+					  NULL, // to handle instance of all window
+					  0,	// min message range
+					  0		// max message range
+					  ))
 	{
-		// PM_REMOVE - peek message remove
-		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
-		{
-			if (msg.message == WM_QUIT)
-			{
-				bDone = TRUE;
-			}
-			else
-			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
-		}
-		else
-		{
-			if (bActiveWindow == TRUE)
-			{
-				if (bEscapeKeyIsPressed == TRUE)
-				{
-					bDone = TRUE;
-				}
-
-				// render
-				render();
-				// update
-				update();
-			}
-		}
+		TranslateMessage(&msg); // translates virtual-key messages into character messages
+		DispatchMessage(&msg);	// message sent to WndProc
 	}
-
-	// uninitialise
-	uninitialise();
 
 	return ((int)msg.wParam);
 }
@@ -159,9 +94,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// local function declarations
-	void resize(int, int); // width and height
 	void toggleFullscreen(void);
-	void uninitialise(void);
 
 	// code
 	switch (iMsg)
@@ -171,19 +104,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		wpPrev.length = sizeof(WINDOWPLACEMENT);
 		break;
 	case WM_SETFOCUS:
-		bActiveWindow = TRUE;
 		break;
 	case WM_KILLFOCUS:
-		bActiveWindow = FALSE;
 		break;
 	case WM_SIZE:
-		resize(LOWORD(lParam), HIWORD(lParam));
 		break;
 	case WM_KEYDOWN:
 		switch (wParam)
 		{
 		case VK_ESCAPE:
-			bEscapeKeyIsPressed = TRUE;
 			break;
 		default:
 			break;
@@ -209,7 +138,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_CLOSE:
-		uninitialise();
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -266,45 +194,5 @@ void toggleFullscreen(void)
 						 SWP_FRAMECHANGED);
 
 		ShowCursor(TRUE);
-	}
-}
-
-int initialise(void)
-{
-	// code
-	return 0;
-}
-
-void resize(int width, int height)
-{
-	// code
-}
-
-void render(void)
-{
-	// code
-}
-
-void update(void)
-{
-	// code
-}
-
-void uninitialise(void)
-{
-	// code
-	// destroy window
-	if (ghwnd)
-	{
-		DestroyWindow(ghwnd);
-		ghwnd = NULL;
-	}
-
-	// close log file
-	if (gpFile)
-	{
-		fprintf(gpFile, "SSR: Program successfully terminated.\n");
-		fclose(gpFile);
-		gpFile = NULL;
 	}
 }

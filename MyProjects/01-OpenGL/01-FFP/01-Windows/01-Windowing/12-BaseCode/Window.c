@@ -2,15 +2,7 @@
 #include <windows.h>
 #include <stdio.h>	// For file I/O
 #include <stdlib.h> // For exit(0)
-
-// OpenGL related header files
-#include <gl\GL.h> // inside include path gl directory inside which GL.h file
-
-#include "OGL.h"
-
-// link with openGL import library
-#pragma comment(lib, "opengl32.lib")
-
+#include "Window.h"
 // macros
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
@@ -20,8 +12,6 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // global variable declarations
 HWND ghwnd = NULL;
-HDC ghdc = NULL;   // graphic card specialist device context handle
-HGLRC ghrc = NULL; // rendering conext of opengl graphic library rendering context
 BOOL bFullscreen = FALSE;
 DWORD dwStyle;
 WINDOWPLACEMENT wpPrev;
@@ -89,7 +79,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// CreateWindowEX is also there to use when we want give extra styles
 	hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
 						  lpszAppName,
-						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-OpenGL-02-GLTriangleWithoutGLUT"),
+						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-BaseCode"),
 						  WS_OVERLAPPEDWINDOW	// top window
 							  | WS_CLIPCHILDREN // cut all children window
 							  | WS_CLIPSIBLINGS // cut all siblings
@@ -113,39 +103,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
-	else if (iResult == -1)
-	{
-		fprintf(gpFile, "SSR: initialise(): failed to get device context\n");
-		DestroyWindow(hwnd);
-		hwnd = NULL;
-	}
-	else if (iResult == -2)
-	{
-		fprintf(gpFile, "SSR: initialise(): failed to get pixel format\n");
-		DestroyWindow(hwnd);
-		hwnd = NULL;
-	}
-	else if (iResult == -3)
-	{
-		fprintf(gpFile, "SSR: initialise(): failed to set pixel format\n");
-		DestroyWindow(hwnd);
-		hwnd = NULL;
-	}
-	else if (iResult == -4)
-	{
-		fprintf(gpFile, "SSR: initialise() failed to get rendering context\n");
-		DestroyWindow(hwnd);
-		hwnd = NULL;
-	}
-	else if (iResult == -5)
-	{
-		fprintf(gpFile, "SSR: initialise() failed to switch current context to rendering context\n");
-		DestroyWindow(hwnd);
-		hwnd = NULL;
-	}
 	else
 	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() succeeded\n");
+		fprintf(gpFile, "SSR: WinMain(): initialise() succeded\n");
 	}
 
 	// show window
@@ -311,111 +271,18 @@ void toggleFullscreen(void)
 
 int initialise(void)
 {
-	// function declarations
-	void resize(int, int);
-
-	// variable declarations
-	PIXELFORMATDESCRIPTOR pfd;
-	int iPixelFormatIndex;
-
 	// code
-	memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
-
-	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-	pfd.nVersion = 1; // conventional
-	pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
-	// PFD_DRAW_TO_WINDOW want to draw on window
-	// PFD_DOUBLEBUFFER to use double for rendering fast and realistic to avoid lag (un-noticable) between two buffer rendering
-	pfd.iPixelType = PFD_TYPE_RGBA; // reg green blue alpha - transperancy
-	pfd.cRedBits = 8;
-	pfd.cGreenBits = 8;
-	pfd.cBlueBits = 8;
-	pfd.cAlphaBits = 8;
-
-	// ask for specialist
-	ghdc = GetDC(ghwnd);
-
-	if (ghdc == NULL)
-	{
-		return -1;
-	}
-
-	// index of select pixel format is onebased
-	iPixelFormatIndex = ChoosePixelFormat(ghdc, &pfd);
-
-	if (iPixelFormatIndex == 0)
-	{
-		return -2;
-	}
-
-	if (SetPixelFormat(ghdc, iPixelFormatIndex, &pfd) == FALSE)
-	{
-		return -3;
-	}
-
-	// use wgl to get rendering context of my set index
-	ghrc = wglCreateContext(ghdc);
-
-	if (ghrc == NULL)
-	{
-		return -4;
-	}
-
-	// make ghrc as current rendering context
-	if (wglMakeCurrent(ghdc, ghrc) == FALSE)
-	{
-		return -5;
-	}
-
-	// choose screen clearing color as blue
-	// red green blue alpha
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-	// warmup resize
-	resize(WIN_WIDTH, WIN_HEIGHT);
-
 	return 0;
 }
 
 void resize(int width, int height)
 {
 	// code
-	if (height <= 0)
-	{
-		height = 1; // in future while calculating perspective we will devide by height so to avoid divide by zero infinity
-	}
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	// to match left top of viewport to window
-	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-	// width and height are of size_t type varibales so we typecasted to GLsizei
 }
 
 void render(void)
 {
 	// code
-	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glBegin(GL_TRIANGLES);
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.8f, 0.0f);
-
-	glColor3f(0.0f, 0.0f, 0.5f);
-	glVertex3f(0.8f, -0.4f, 0.0f);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-0.8f, -0.4f, 0.0f);
-
-	glEnd();
-
-	// do double buffering
-	SwapBuffers(ghdc);
 }
 
 void update(void)
@@ -426,33 +293,6 @@ void update(void)
 void uninitialise(void)
 {
 	// code
-	// if exiting in fullscreen first restore and then proceed
-	if (bFullscreen == TRUE)
-	{
-		toggleFullscreen();
-		bFullscreen = FALSE;
-	}
-
-	// first check the current context and if it is then unmake it
-	if (wglGetCurrentContext() == ghrc)
-	{
-		wglMakeCurrent(NULL, NULL);
-
-		// now destroy the rendering context
-		if (ghrc)
-		{
-			wglDeleteContext(ghrc);
-			ghrc = NULL;
-		}
-
-		// release the device context
-		if (ghdc)
-		{
-			ReleaseDC(ghwnd, ghdc);
-			ghdc = NULL;
-		}
-	}
-
 	// destroy window
 	if (ghwnd)
 	{
@@ -463,7 +303,7 @@ void uninitialise(void)
 	// close log file
 	if (gpFile)
 	{
-		fprintf(gpFile, "\nSSR: Program successfully terminated.\n");
+		fprintf(gpFile, "SSR: Program successfully terminated.\n");
 		fclose(gpFile);
 		gpFile = NULL;
 	}
