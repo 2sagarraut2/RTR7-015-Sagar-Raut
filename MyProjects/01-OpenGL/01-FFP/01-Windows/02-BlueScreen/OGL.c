@@ -113,7 +113,36 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
-	// add if else ladder of iResult values
+	else if (iResult == -1)
+	{
+		fprintf(gpFile, "SSR: initialise(): failed to get device context\n");
+		DestroyWindow(hwnd);
+		hwnd = NULL;
+	}
+	else if (iResult == -2)
+	{
+		fprintf(gpFile, "SSR: initialise(): failed to get pixel format\n");
+		DestroyWindow(hwnd);
+		hwnd = NULL;
+	}
+	else if (iResult == -3)
+	{
+		fprintf(gpFile, "SSR: initialise(): failed to set pixel format\n");
+		DestroyWindow(hwnd);
+		hwnd = NULL;
+	}
+	else if (iResult == -4)
+	{
+		fprintf(gpFile, "SSR: initialise() failed to get rendering context\n");
+		DestroyWindow(hwnd);
+		hwnd = NULL;
+	}
+	else if (iResult == -5)
+	{
+		fprintf(gpFile, "SSR: initialise() failed to switch current context to rendering context\n");
+		DestroyWindow(hwnd);
+		hwnd = NULL;
+	}
 	else
 	{
 		fprintf(gpFile, "SSR: WinMain(): initialise() succeeded\n");
