@@ -13,9 +13,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 {
 	// variable declarations
 	WNDCLASSEX SR_wndclass;
-	HWND hwnd = NULL;
-	MSG msg;
-	TCHAR lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
+	HWND SR_hwnd = NULL;
+	MSG SR_msg;
+	TCHAR SR_lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
 
 	// code
 	// WNDCLASSEX structure initialisation
@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // IDC_ARROW - Indetifier cursor
 	// To provide user defined icon we will give hInstance that we created as first parameter
 
-	SR_wndclass.lpszClassName = lpszAppName;
+	SR_wndclass.lpszClassName = SR_lpszAppName;
 	SR_wndclass.lpszMenuName = NULL;
 	SR_wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(MY_ICON));
 
@@ -46,53 +46,53 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
-	hwnd = CreateWindow(lpszAppName,
-						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-MessageBoxWithStrings"),
-						WS_OVERLAPPEDWINDOW,
-						screenWidth / 2 - WIN_WIDTH / 2,   // x
-						screenHeight / 2 - WIN_HEIGHT / 2, // y
-						WIN_WIDTH,						   // width
-						WIN_HEIGHT,						   // height
-						NULL,							   // parent process
-						NULL,							   // menu name
-						hInstance,						   // compulsory
-						NULL);							   // creation parameter long ptr void *
+	SR_hwnd = CreateWindow(SR_lpszAppName,
+						   TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-MessageBoxWithStrings"),
+						   WS_OVERLAPPEDWINDOW,
+						   screenWidth / 2 - WIN_WIDTH / 2,	  // x
+						   screenHeight / 2 - WIN_HEIGHT / 2, // y
+						   WIN_WIDTH,						  // width
+						   WIN_HEIGHT,						  // height
+						   NULL,							  // parent process
+						   NULL,							  // menu name
+						   hInstance,						  // compulsory
+						   NULL);							  // creation parameter long ptr void *
 
 	// show window
-	ShowWindow(hwnd, iCmdShow);
+	ShowWindow(SR_hwnd, iCmdShow);
 
 	// update the window to paint its background
-	UpdateWindow(hwnd);
+	UpdateWindow(SR_hwnd);
 
 	// message loop
-	while (GetMessage(&msg, // interrupt message coming from OS
-					  NULL, // to handle instance of all window
-					  0,	// min message range
-					  0		// max message range
+	while (GetMessage(&SR_msg, // interrupt message coming from OS
+					  NULL,	   // to handle instance of all window
+					  0,	   // min message range
+					  0		   // max message range
 					  ))
 	{
-		TranslateMessage(&msg); // translates virtual-key messages into character messages
-		DispatchMessage(&msg);	// message sent to WndProc
+		TranslateMessage(&SR_msg); // translates virtual-key messages into character messages
+		DispatchMessage(&SR_msg);  // message sent to WndProc
 	}
 
 	// TCHAR str[255];
-	// wsprintf(str, TEXT("%d"), (int)msg.wParam);
+	// wsprintf(str, TEXT("%d"), (int)SR_msg.wParam);
 	// MessageBox(NULL, str, TEXT("WPARAM"), MB_OK);
 
-	return ((int)msg.wParam);
+	return ((int)SR_msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// variable declarations
-	TCHAR str[255];
-	int num1 = 204, num2 = 6;
+	TCHAR SR_str[255];
+	int SR_num1 = 204, SR_num2 = 6;
 
 	// code
-	switch (iMsg)
+	switch (SR_iMsg)
 	{
 	case WM_CREATE:
-		// MessageBox(hwnd, TEXT("WM_CREATE is received"), TEXT("Message"), MB_OK);
+		// MessageBox(SR_hwnd, TEXT("WM_CREATE is received"), TEXT("Message"), MB_OK);
 		break;
 	case WM_SETFOCUS:
 		break;
@@ -117,8 +117,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 			break;
 		case 'A':
 		case 'a':
-			wsprintf(str, TEXT("Addition of %d and %d is %d"), num1, num2, (num1 + num2));
-			MessageBox(NULL, str, TEXT("Addition"), MB_OK);
+			wsprintf(SR_str, TEXT("Addition of %d and %d is %d"), SR_num1, SR_num2, (SR_num1 + SR_num2));
+			MessageBox(NULL, SR_str, "Addition", MB_OK);
 			break;
 		}
 		break;
@@ -131,5 +131,5 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
+	return (DefWindowProc(SR_hwnd, SR_iMsg, wParam, lParam));
 }

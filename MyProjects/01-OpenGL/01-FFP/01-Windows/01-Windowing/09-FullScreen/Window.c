@@ -9,19 +9,19 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // global variable declarations
-HWND ghwnd = NULL;
-BOOL bFullscreen = FALSE;
-DWORD dwStyle;
-WINDOWPLACEMENT wpPrev;
+HWND SR_ghwnd = NULL;
+BOOL SR_bFullscreen = FALSE;
+DWORD SR_dwStyle;
+WINDOWPLACEMENT SR_wpPrev;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
 	// variable declarations
 	WNDCLASSEX SR_wndclass;
-	HWND hwnd = NULL;
-	MSG msg;
-	TCHAR lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
+	HWND SR_hwnd = NULL;
+	MSG SR_msg;
+	TCHAR SR_lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
 
 	// code
 	// WNDCLASSEX structure initialisation
@@ -39,7 +39,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // IDC_ARROW - Indetifier cursor
 	// To provide user defined icon we will give hInstance that we created as first parameter
 
-	SR_wndclass.lpszClassName = lpszAppName;
+	SR_wndclass.lpszClassName = SR_lpszAppName;
 	SR_wndclass.lpszMenuName = NULL;
 	SR_wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(MY_ICON));
 
@@ -52,46 +52,46 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
-	hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
-						  lpszAppName,
-						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-FullScreen"),
-						  WS_OVERLAPPEDWINDOW	// top window
-							  | WS_CLIPCHILDREN // cut all children window
-							  | WS_CLIPSIBLINGS // cut all siblings
-							  | WS_VISIBLE,
-						  screenWidth / 2 - WIN_WIDTH / 2,	 // x
-						  screenHeight / 2 - WIN_HEIGHT / 2, // y
-						  WIN_WIDTH,						 // width
-						  WIN_HEIGHT,						 // height
-						  NULL,								 // parent process
-						  NULL,								 // menu name
-						  hInstance,						 // compulsory
-						  NULL);							 // creation parameter long ptr void *
+	SR_hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
+							 SR_lpszAppName,
+							 TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-FullScreen"),
+							 WS_OVERLAPPEDWINDOW   // top window
+								 | WS_CLIPCHILDREN // cut all children window
+								 | WS_CLIPSIBLINGS // cut all siblings
+								 | WS_VISIBLE,
+							 screenWidth / 2 - WIN_WIDTH / 2,	// x
+							 screenHeight / 2 - WIN_HEIGHT / 2, // y
+							 WIN_WIDTH,							// width
+							 WIN_HEIGHT,						// height
+							 NULL,								// parent process
+							 NULL,								// menu name
+							 hInstance,							// compulsory
+							 NULL);								// creation parameter long ptr void *
 
 	// set global window handle
-	ghwnd = hwnd;
+	SR_ghwnd = SR_hwnd;
 
 	// show window
-	ShowWindow(hwnd, iCmdShow);
+	ShowWindow(SR_hwnd, iCmdShow);
 
 	// update the window to paint its background
-	UpdateWindow(hwnd);
+	UpdateWindow(SR_hwnd);
 
 	// message loop
-	while (GetMessage(&msg, // interrupt message coming from OS
-					  NULL, // to handle instance of all window
-					  0,	// min message range
-					  0		// max message range
+	while (GetMessage(&SR_msg, // interrupt message coming from OS
+					  NULL,	   // to handle instance of all window
+					  0,	   // min message range
+					  0		   // max message range
 					  ))
 	{
-		TranslateMessage(&msg); // translates virtual-key messages into character messages
-		DispatchMessage(&msg);	// message sent to WndProc
+		TranslateMessage(&SR_msg); // translates virtual-key messages into character messages
+		DispatchMessage(&SR_msg);  // message sent to WndProc
 	}
 
-	return ((int)msg.wParam);
+	return ((int)SR_msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// local function declarations
 	void toggleFullscreen(void);
@@ -100,8 +100,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	switch (iMsg)
 	{
 	case WM_CREATE:
-		memset(&wpPrev, 0, sizeof(WINDOWPLACEMENT));
-		wpPrev.length = sizeof(WINDOWPLACEMENT);
+		memset(&SR_wpPrev, 0, sizeof(WINDOWPLACEMENT));
+		SR_wpPrev.length = sizeof(WINDOWPLACEMENT);
 		break;
 	case WM_SETFOCUS:
 		break;
@@ -123,15 +123,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		{
 		case 'F':
 		case 'f':
-			if (bFullscreen == FALSE)
+			if (SR_bFullscreen == FALSE)
 			{
 				toggleFullscreen();
-				bFullscreen = TRUE;
+				SR_bFullscreen = TRUE;
 			}
 			else
 			{
 				toggleFullscreen();
-				bFullscreen = FALSE;
+				SR_bFullscreen = FALSE;
 			}
 
 			break;
@@ -146,35 +146,35 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
+	return (DefWindowProc(SR_hwnd, iMsg, wParam, lParam));
 }
 
 void toggleFullscreen(void)
 {
 	// variable declarations
-	MONITORINFO mi;
+	MONITORINFO SR_mi;
 
 	// code
-	if (bFullscreen == FALSE)
+	if (SR_bFullscreen == FALSE)
 	{
-		dwStyle = GetWindowLong(ghwnd, GWL_STYLE); // get style of window from long parameter
+		SR_dwStyle = GetWindowLong(SR_ghwnd, GWL_STYLE); // get style of window from long parameter
 
-		if (dwStyle & WS_OVERLAPPEDWINDOW)
+		if (SR_dwStyle & WS_OVERLAPPEDWINDOW)
 		{
-			memset(&mi, 0, sizeof(MONITORINFO));
-			mi.cbSize = sizeof(MONITORINFO);
+			memset(&SR_mi, 0, sizeof(MONITORINFO));
+			SR_mi.cbSize = sizeof(MONITORINFO);
 
-			if (GetWindowPlacement(ghwnd, &wpPrev) && GetMonitorInfo(MonitorFromWindow(ghwnd, MONITORINFOF_PRIMARY), &mi))
+			if (GetWindowPlacement(SR_ghwnd, &SR_wpPrev) && GetMonitorInfo(MonitorFromWindow(SR_ghwnd, MONITORINFOF_PRIMARY), &SR_mi))
 			{
-				SetWindowLong(ghwnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
-				SetWindowPos(ghwnd,
-							 HWND_TOP,								 // set to top
-							 mi.rcMonitor.left,						 // RECT rc left point
-							 mi.rcMonitor.top,						 // top point
-							 mi.rcMonitor.right - mi.rcMonitor.left, // width
-							 mi.rcMonitor.bottom - mi.rcMonitor.top, // height
-							 SWP_NOZORDER |							 // set window position no z order
-								 SWP_FRAMECHANGED					 // set window position WM_NCCALCSIZE
+				SetWindowLong(SR_ghwnd, GWL_STYLE, SR_dwStyle & ~WS_OVERLAPPEDWINDOW);
+				SetWindowPos(SR_ghwnd,
+							 HWND_TOP,									   // set to top
+							 SR_mi.rcMonitor.left,						   // RECT rc left point
+							 SR_mi.rcMonitor.top,						   // top point
+							 SR_mi.rcMonitor.right - SR_mi.rcMonitor.left, // width
+							 SR_mi.rcMonitor.bottom - SR_mi.rcMonitor.top, // height
+							 SWP_NOZORDER |								   // set window position no z order
+								 SWP_FRAMECHANGED						   // set window position WM_NCCALCSIZE
 
 				);
 			}
@@ -184,9 +184,9 @@ void toggleFullscreen(void)
 	}
 	else
 	{
-		SetWindowLong(ghwnd, GWL_STYLE, dwStyle | WS_OVERLAPPEDWINDOW);
-		SetWindowPlacement(ghwnd, &wpPrev);
-		SetWindowPos(ghwnd, HWND_TOP, 0, 0, 0, 0,
+		SetWindowLong(SR_ghwnd, GWL_STYLE, SR_dwStyle | WS_OVERLAPPEDWINDOW);
+		SetWindowPlacement(SR_ghwnd, &SR_wpPrev);
+		SetWindowPos(SR_ghwnd, HWND_TOP, 0, 0, 0, 0,
 					 SWP_NOMOVE |			 // Use window placement set by WindowPlacement
 						 SWP_NOSIZE |		 // Use window size set by WindowPlacement
 						 SWP_NOOWNERZORDER | // dont change order even if tooltip or dialg box changes

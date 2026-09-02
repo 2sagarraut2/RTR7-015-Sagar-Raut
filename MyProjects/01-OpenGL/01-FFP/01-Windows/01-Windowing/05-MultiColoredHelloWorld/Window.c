@@ -16,9 +16,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 {
 	// variable declarations
 	WNDCLASSEX SR_wndclass;
-	HWND hwnd = NULL;
-	MSG msg;
-	TCHAR lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
+	HWND SR_hwnd = NULL;
+	MSG SR_msg;
+	TCHAR SR_lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
 
 	// code
 	// WNDCLASSEX structure initialisation
@@ -36,7 +36,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // IDC_ARROW - Indetifier cursor
 	// To provide user defined icon we will give hInstance that we created as first parameter
 
-	SR_wndclass.lpszClassName = lpszAppName;
+	SR_wndclass.lpszClassName = SR_lpszAppName;
 	SR_wndclass.lpszMenuName = NULL;
 	SR_wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(MY_ICON));
 
@@ -49,39 +49,39 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
-	hwnd = CreateWindow(lpszAppName,
-						TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-MultiColoredHelloWorld"),
-						WS_OVERLAPPEDWINDOW,
-						screenWidth / 2 - WIN_WIDTH / 2,   // x
-						screenHeight / 2 - WIN_HEIGHT / 2, // y
-						WIN_WIDTH,						   // width
-						WIN_HEIGHT,						   // height
-						NULL,							   // parent process
-						NULL,							   // menu name
-						hInstance,						   // compulsory
-						NULL);							   // creation parameter long ptr void *
+	SR_hwnd = CreateWindow(SR_lpszAppName,
+						   TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-01-Windowing-MultiColoredHelloWorld"),
+						   WS_OVERLAPPEDWINDOW,
+						   screenWidth / 2 - WIN_WIDTH / 2,	  // x
+						   screenHeight / 2 - WIN_HEIGHT / 2, // y
+						   WIN_WIDTH,						  // width
+						   WIN_HEIGHT,						  // height
+						   NULL,							  // parent process
+						   NULL,							  // menu name
+						   hInstance,						  // compulsory
+						   NULL);							  // creation parameter long ptr void *
 
 	// show window
-	ShowWindow(hwnd, iCmdShow);
+	ShowWindow(SR_hwnd, iCmdShow);
 
 	// update the window to paint its background
-	UpdateWindow(hwnd);
+	UpdateWindow(SR_hwnd);
 
 	// message loop
-	while (GetMessage(&msg, // interrupt message coming from OS
-					  NULL, // to handle instance of all window
-					  0,	// min message range
-					  0		// max message range
+	while (GetMessage(&SR_msg, // interrupt message coming from OS
+					  NULL,	   // to handle instance of all window
+					  0,	   // min message range
+					  0		   // max message range
 					  ))
 	{
-		TranslateMessage(&msg); // translates virtual-key messages into character messages
-		DispatchMessage(&msg);	// message sent to WndProc
+		TranslateMessage(&SR_msg); // translates virtual-key messages into character messages
+		DispatchMessage(&SR_msg);  // message sent to WndProc
 	}
 
-	return ((int)msg.wParam);
+	return ((int)SR_msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// variable declarations
 	HDC hdc; // handle to DC - device context or Graphics specialist
@@ -90,7 +90,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	TCHAR str[] = TEXT("Hello, World!!!");
 
 	// code
-	switch (iMsg)
+	switch (SR_iMsg)
 	{
 	case WM_CREATE:
 		break;
@@ -118,43 +118,43 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		case 'R':
 		case 'r':
 			iPaintFlag = 1;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		case 'G':
 		case 'g':
 			iPaintFlag = 2;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		case 'B':
 		case 'b':
 			iPaintFlag = 3;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		case 'C':
 		case 'c':
 			iPaintFlag = 4;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		case 'M':
 		case 'm':
 			iPaintFlag = 5;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		case 'Y':
 		case 'y':
 			iPaintFlag = 6;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		default:
 			iPaintFlag = -1;
-			InvalidateRect(hwnd, NULL, TRUE);
+			InvalidateRect(SR_hwnd, NULL, TRUE);
 			break;
 		}
 		break;
 	case WM_PAINT:
-		GetClientRect(hwnd, &rc);	   // Get Windows client rectangles dimentions - only client area and not the title bar
-		hdc = BeginPaint(hwnd, &ps);   // Get Graphics context
-		SetBkColor(hdc, RGB(0, 0, 0)); // Hello World texts Background color
+		GetClientRect(SR_hwnd, &rc);	// Get Windows client rectangles dimentions - only client area and not the title bar
+		hdc = BeginPaint(SR_hwnd, &ps); // Get Graphics context
+		SetBkColor(hdc, RGB(0, 0, 0));	// Hello World texts Background color
 
 		if (iPaintFlag == 1)
 		{
@@ -191,7 +191,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 				 -1,									  // Whole string
 				 &rc,									  // which rectangle
 				 DT_SINGLELINE | DT_CENTER | DT_VCENTER); // Single line text (not multiline) | Horizontal center | verticle center
-		EndPaint(hwnd, &ps);							  // return specialist to window
+		EndPaint(SR_hwnd, &ps);							  // return specialist to window
 		break;
 	case WM_CLOSE:
 		break;
@@ -202,5 +202,5 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
+	return (DefWindowProc(SR_hwnd, SR_iMsg, wParam, lParam));
 }

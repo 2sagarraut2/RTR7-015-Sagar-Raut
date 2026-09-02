@@ -11,11 +11,11 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // global variable declarations
-HWND ghwnd = NULL;
-BOOL bFullscreen = FALSE;
-DWORD dwStyle;
-WINDOWPLACEMENT wpPrev;
-FILE *gpFile = NULL; // global pointer to file
+HWND SR_ghwnd = NULL;
+BOOL SR_bFullscreen = FALSE;
+DWORD SR_dwStyle;
+WINDOWPLACEMENT SR_wpPrev;
+FILE *SR_gpFile = NULL; // global pointer to file
 
 BOOL bActiveWindow = FALSE;		  // to check whether window is active or in focus
 BOOL bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
@@ -38,15 +38,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	// code
 	// create log file
-	gpFile = fopen("Log.txt", "w"); // file open -> if does not exists then create | w - write & clean it
-	if (gpFile == NULL)
+	SR_gpFile = fopen("Log.txt", "w"); // file open -> if does not exists then create | w - write & clean it
+	if (SR_gpFile == NULL)
 	{
 		MessageBox(NULL, TEXT("Log file creation failed"), TEXT("Error"), MB_OK);
 		exit(0);
 	}
 	else
 	{
-		fprintf(gpFile, "SSR: Program successfully started.\n\n");
+		fprintf(SR_gpFile, "SSR: Program successfully started.\n\n");
 	}
 
 	// WNDCLASSEX structure initialisation
@@ -94,18 +94,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 						  NULL);							 // creation parameter long ptr void *
 
 	// set global window handle
-	ghwnd = hwnd;
+	SR_ghwnd = hwnd;
 
 	int iResult = initialise();
 	if (iResult != 0)
 	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() failed\n");
+		fprintf(SR_gpFile, "SSR: WinMain(): initialise() failed\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else
 	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() succeded\n");
+		fprintf(SR_gpFile, "SSR: WinMain(): initialise() succeded\n");
 	}
 
 	// show window
@@ -156,7 +156,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	return ((int)msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// local function declarations
 	void resize(int, int); // width and height
@@ -164,11 +164,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	void uninitialise(void);
 
 	// code
-	switch (iMsg)
+	switch (SR_iMsg)
 	{
 	case WM_CREATE:
-		memset(&wpPrev, 0, sizeof(WINDOWPLACEMENT));
-		wpPrev.length = sizeof(WINDOWPLACEMENT);
+		memset(&SR_wpPrev, 0, sizeof(WINDOWPLACEMENT));
+		SR_wpPrev.length = sizeof(WINDOWPLACEMENT);
 		break;
 	case WM_SETFOCUS:
 		bActiveWindow = TRUE;
@@ -194,15 +194,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		{
 		case 'F':
 		case 'f':
-			if (bFullscreen == FALSE)
+			if (SR_bFullscreen == FALSE)
 			{
 				toggleFullscreen();
-				bFullscreen = TRUE;
+				SR_bFullscreen = TRUE;
 			}
 			else
 			{
 				toggleFullscreen();
-				bFullscreen = FALSE;
+				SR_bFullscreen = FALSE;
 			}
 
 			break;
@@ -218,35 +218,35 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
+	return (DefWindowProc(hwnd, SR_iMsg, wParam, lParam));
 }
 
 void toggleFullscreen(void)
 {
 	// variable declarations
-	MONITORINFO mi;
+	MONITORINFO SR_mi;
 
 	// code
-	if (bFullscreen == FALSE)
+	if (SR_bFullscreen == FALSE)
 	{
-		dwStyle = GetWindowLong(ghwnd, GWL_STYLE); // get style of window from long parameter
+		SR_dwStyle = GetWindowLong(SR_ghwnd, GWL_STYLE); // get style of window from long parameter
 
-		if (dwStyle & WS_OVERLAPPEDWINDOW)
+		if (SR_dwStyle & WS_OVERLAPPEDWINDOW)
 		{
-			memset(&mi, 0, sizeof(MONITORINFO));
-			mi.cbSize = sizeof(MONITORINFO);
+			memset(&SR_mi, 0, sizeof(MONITORINFO));
+			SR_mi.cbSize = sizeof(MONITORINFO);
 
-			if (GetWindowPlacement(ghwnd, &wpPrev) && GetMonitorInfo(MonitorFromWindow(ghwnd, MONITORINFOF_PRIMARY), &mi))
+			if (GetWindowPlacement(SR_ghwnd, &SR_wpPrev) && GetMonitorInfo(MonitorFromWindow(SR_ghwnd, MONITORINFOF_PRIMARY), &SR_mi))
 			{
-				SetWindowLong(ghwnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
-				SetWindowPos(ghwnd,
-							 HWND_TOP,								 // set to top
-							 mi.rcMonitor.left,						 // RECT rc left point
-							 mi.rcMonitor.top,						 // top point
-							 mi.rcMonitor.right - mi.rcMonitor.left, // width
-							 mi.rcMonitor.bottom - mi.rcMonitor.top, // height
-							 SWP_NOZORDER |							 // set window position no z order
-								 SWP_FRAMECHANGED					 // set window position WM_NCCALCSIZE
+				SetWindowLong(SR_ghwnd, GWL_STYLE, SR_dwStyle & ~WS_OVERLAPPEDWINDOW);
+				SetWindowPos(SR_ghwnd,
+							 HWND_TOP,									   // set to top
+							 SR_mi.rcMonitor.left,						   // RECT rc left point
+							 SR_mi.rcMonitor.top,						   // top point
+							 SR_mi.rcMonitor.right - SR_mi.rcMonitor.left, // width
+							 SR_mi.rcMonitor.bottom - SR_mi.rcMonitor.top, // height
+							 SWP_NOZORDER |								   // set window position no z order
+								 SWP_FRAMECHANGED						   // set window position WM_NCCALCSIZE
 
 				);
 			}
@@ -256,9 +256,9 @@ void toggleFullscreen(void)
 	}
 	else
 	{
-		SetWindowLong(ghwnd, GWL_STYLE, dwStyle | WS_OVERLAPPEDWINDOW);
-		SetWindowPlacement(ghwnd, &wpPrev);
-		SetWindowPos(ghwnd, HWND_TOP, 0, 0, 0, 0,
+		SetWindowLong(SR_ghwnd, GWL_STYLE, SR_dwStyle | WS_OVERLAPPEDWINDOW);
+		SetWindowPlacement(SR_ghwnd, &SR_wpPrev);
+		SetWindowPos(SR_ghwnd, HWND_TOP, 0, 0, 0, 0,
 					 SWP_NOMOVE |			 // Use window placement set by WindowPlacement
 						 SWP_NOSIZE |		 // Use window size set by WindowPlacement
 						 SWP_NOOWNERZORDER | // dont change order even if tooltip or dialg box changes
@@ -294,17 +294,17 @@ void uninitialise(void)
 {
 	// code
 	// destroy window
-	if (ghwnd)
+	if (SR_ghwnd)
 	{
-		DestroyWindow(ghwnd);
-		ghwnd = NULL;
+		DestroyWindow(SR_ghwnd);
+		SR_ghwnd = NULL;
 	}
 
 	// close log file
-	if (gpFile)
+	if (SR_gpFile)
 	{
-		fprintf(gpFile, "SSR: Program successfully terminated.\n");
-		fclose(gpFile);
-		gpFile = NULL;
+		fprintf(SR_gpFile, "SSR: Program successfully terminated.\n");
+		fclose(SR_gpFile);
+		SR_gpFile = NULL;
 	}
 }

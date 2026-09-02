@@ -19,16 +19,16 @@
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 // global variable declarations
-HWND ghwnd = NULL;
-HDC ghdc = NULL;   // graphic card specialist device context handle
-HGLRC ghrc = NULL; // rendering conext of opengl graphic library rendering context
-BOOL bFullscreen = FALSE;
-DWORD dwStyle;
-WINDOWPLACEMENT wpPrev;
-FILE *gpFile = NULL; // global pointer to file
+HWND SR_ghwnd = NULL;
+HDC SR_ghdc = NULL;	  // graphic card specialist device context handle
+HGLRC SR_ghrc = NULL; // rendering conext of opengl graphic library rendering context
+BOOL SR_bFullscreen = FALSE;
+DWORD SR_dwStyle;
+WINDOWPLACEMENT SR_wpPrev;
+FILE *SR_gpFile = NULL; // global pointer to file
 
-BOOL bActiveWindow = FALSE;		  // to check whether window is active or in focus
-BOOL bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
+BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
+BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -48,15 +48,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	// code
 	// create log file
-	gpFile = fopen("Log.txt", "w"); // file open -> if does not exists then create | w - write & clean it
-	if (gpFile == NULL)
+	SR_gpFile = fopen("Log.txt", "w"); // file open -> if does not exists then create | w - write & clean it
+	if (SR_gpFile == NULL)
 	{
 		MessageBox(NULL, TEXT("Log file creation failed"), TEXT("Error"), MB_OK);
 		exit(0);
 	}
 	else
 	{
-		fprintf(gpFile, "SSR: Program successfully started.\n\n");
+		fprintf(SR_gpFile, "SSR: Program successfully started.\n\n");
 	}
 
 	// WNDCLASSEX structure initialisation
@@ -104,48 +104,48 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 						  NULL);							 // creation parameter long ptr void *
 
 	// set global window handle
-	ghwnd = hwnd;
+	SR_ghwnd = hwnd;
 
 	int iResult = initialise();
 	if (iResult != 0)
 	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() failed\n");
+		fprintf(SR_gpFile, "SSR: WinMain(): initialise() failed\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else if (iResult == -1)
 	{
-		fprintf(gpFile, "SSR: initialise(): failed to get device context\n");
+		fprintf(SR_gpFile, "SSR: initialise(): failed to get device context\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else if (iResult == -2)
 	{
-		fprintf(gpFile, "SSR: initialise(): failed to get pixel format\n");
+		fprintf(SR_gpFile, "SSR: initialise(): failed to get pixel format\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else if (iResult == -3)
 	{
-		fprintf(gpFile, "SSR: initialise(): failed to set pixel format\n");
+		fprintf(SR_gpFile, "SSR: initialise(): failed to set pixel format\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else if (iResult == -4)
 	{
-		fprintf(gpFile, "SSR: initialise() failed to get rendering context\n");
+		fprintf(SR_gpFile, "SSR: initialise() failed to get rendering context\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else if (iResult == -5)
 	{
-		fprintf(gpFile, "SSR: initialise() failed to switch current context to rendering context\n");
+		fprintf(SR_gpFile, "SSR: initialise() failed to switch current context to rendering context\n");
 		DestroyWindow(hwnd);
 		hwnd = NULL;
 	}
 	else
 	{
-		fprintf(gpFile, "SSR: WinMain(): initialise() succeeded\n");
+		fprintf(SR_gpFile, "SSR: WinMain(): initialise() succeeded\n");
 	}
 
 	// show window
@@ -175,9 +175,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 		}
 		else
 		{
-			if (bActiveWindow == TRUE)
+			if (SR_bActiveWindow == TRUE)
 			{
-				if (bEscapeKeyIsPressed == TRUE)
+				if (SR_bEscapeKeyIsPressed == TRUE)
 				{
 					bDone = TRUE;
 				}
@@ -196,7 +196,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	return ((int)msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// local function declarations
 	void resize(int, int); // width and height
@@ -204,17 +204,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 	void uninitialise(void);
 
 	// code
-	switch (iMsg)
+	switch (SR_iMsg)
 	{
 	case WM_CREATE:
-		memset(&wpPrev, 0, sizeof(WINDOWPLACEMENT));
-		wpPrev.length = sizeof(WINDOWPLACEMENT);
+		memset(&SR_wpPrev, 0, sizeof(WINDOWPLACEMENT));
+		SR_wpPrev.length = sizeof(WINDOWPLACEMENT);
 		break;
 	case WM_SETFOCUS:
-		bActiveWindow = TRUE;
+		SR_bActiveWindow = TRUE;
 		break;
 	case WM_KILLFOCUS:
-		bActiveWindow = FALSE;
+		SR_bActiveWindow = FALSE;
 		break;
 	case WM_SIZE:
 		resize(LOWORD(lParam), HIWORD(lParam));
@@ -223,7 +223,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		switch (wParam)
 		{
 		case VK_ESCAPE:
-			bEscapeKeyIsPressed = TRUE;
+			SR_bEscapeKeyIsPressed = TRUE;
 			break;
 		default:
 			break;
@@ -234,15 +234,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		{
 		case 'F':
 		case 'f':
-			if (bFullscreen == FALSE)
+			if (SR_bFullscreen == FALSE)
 			{
 				toggleFullscreen();
-				bFullscreen = TRUE;
+				SR_bFullscreen = TRUE;
 			}
 			else
 			{
 				toggleFullscreen();
-				bFullscreen = FALSE;
+				SR_bFullscreen = FALSE;
 			}
 
 			break;
@@ -258,35 +258,35 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT iMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	}
 
-	return (DefWindowProc(hwnd, iMsg, wParam, lParam));
+	return (DefWindowProc(hwnd, SR_iMsg, wParam, lParam));
 }
 
 void toggleFullscreen(void)
 {
 	// variable declarations
-	MONITORINFO mi;
+	MONITORINFO SR_mi;
 
 	// code
-	if (bFullscreen == FALSE)
+	if (SR_bFullscreen == FALSE)
 	{
-		dwStyle = GetWindowLong(ghwnd, GWL_STYLE); // get style of window from long parameter
+		SR_dwStyle = GetWindowLong(SR_ghwnd, GWL_STYLE); // get style of window from long parameter
 
-		if (dwStyle & WS_OVERLAPPEDWINDOW)
+		if (SR_dwStyle & WS_OVERLAPPEDWINDOW)
 		{
-			memset(&mi, 0, sizeof(MONITORINFO));
-			mi.cbSize = sizeof(MONITORINFO);
+			memset(&SR_mi, 0, sizeof(MONITORINFO));
+			SR_mi.cbSize = sizeof(MONITORINFO);
 
-			if (GetWindowPlacement(ghwnd, &wpPrev) && GetMonitorInfo(MonitorFromWindow(ghwnd, MONITORINFOF_PRIMARY), &mi))
+			if (GetWindowPlacement(SR_ghwnd, &SR_wpPrev) && GetMonitorInfo(MonitorFromWindow(SR_ghwnd, MONITORINFOF_PRIMARY), &SR_mi))
 			{
-				SetWindowLong(ghwnd, GWL_STYLE, dwStyle & ~WS_OVERLAPPEDWINDOW);
-				SetWindowPos(ghwnd,
-							 HWND_TOP,								 // set to top
-							 mi.rcMonitor.left,						 // RECT rc left point
-							 mi.rcMonitor.top,						 // top point
-							 mi.rcMonitor.right - mi.rcMonitor.left, // width
-							 mi.rcMonitor.bottom - mi.rcMonitor.top, // height
-							 SWP_NOZORDER |							 // set window position no z order
-								 SWP_FRAMECHANGED					 // set window position WM_NCCALCSIZE
+				SetWindowLong(SR_ghwnd, GWL_STYLE, SR_dwStyle & ~WS_OVERLAPPEDWINDOW);
+				SetWindowPos(SR_ghwnd,
+							 HWND_TOP,									   // set to top
+							 SR_mi.rcMonitor.left,						   // RECT rc left point
+							 SR_mi.rcMonitor.top,						   // top point
+							 SR_mi.rcMonitor.right - SR_mi.rcMonitor.left, // width
+							 SR_mi.rcMonitor.bottom - SR_mi.rcMonitor.top, // height
+							 SWP_NOZORDER |								   // set window position no z order
+								 SWP_FRAMECHANGED						   // set window position WM_NCCALCSIZE
 
 				);
 			}
@@ -296,9 +296,9 @@ void toggleFullscreen(void)
 	}
 	else
 	{
-		SetWindowLong(ghwnd, GWL_STYLE, dwStyle | WS_OVERLAPPEDWINDOW);
-		SetWindowPlacement(ghwnd, &wpPrev);
-		SetWindowPos(ghwnd, HWND_TOP, 0, 0, 0, 0,
+		SetWindowLong(SR_ghwnd, GWL_STYLE, SR_dwStyle | WS_OVERLAPPEDWINDOW);
+		SetWindowPlacement(SR_ghwnd, &SR_wpPrev);
+		SetWindowPos(SR_ghwnd, HWND_TOP, 0, 0, 0, 0,
 					 SWP_NOMOVE |			 // Use window placement set by WindowPlacement
 						 SWP_NOSIZE |		 // Use window size set by WindowPlacement
 						 SWP_NOOWNERZORDER | // dont change order even if tooltip or dialg box changes
@@ -315,54 +315,54 @@ int initialise(void)
 	void resize(int, int);
 
 	// variable declarations
-	PIXELFORMATDESCRIPTOR pfd;
-	int iPixelFormatIndex;
+	PIXELFORMATDESCRIPTOR SR_pfd;
+	int SR_iPixelFormatIndex;
 
 	// code
-	memset(&pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
+	memset(&SR_pfd, 0, sizeof(PIXELFORMATDESCRIPTOR));
 
-	pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
-	pfd.nVersion = 1; // conventional
-	pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
+	SR_pfd.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+	SR_pfd.nVersion = 1; // conventional
+	SR_pfd.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER;
 	// PFD_DRAW_TO_WINDOW want to draw on window
 	// PFD_DOUBLEBUFFER to use double for rendering fast and realistic to avoid lag (un-noticable) between two buffer rendering
-	pfd.iPixelType = PFD_TYPE_RGBA; // reg green blue alpha - transperancy
-	pfd.cRedBits = 8;
-	pfd.cGreenBits = 8;
-	pfd.cBlueBits = 8;
-	pfd.cAlphaBits = 8;
+	SR_pfd.iPixelType = PFD_TYPE_RGBA; // reg green blue alpha - transperancy
+	SR_pfd.cRedBits = 8;
+	SR_pfd.cGreenBits = 8;
+	SR_pfd.cBlueBits = 8;
+	SR_pfd.cAlphaBits = 8;
 
 	// ask for specialist
-	ghdc = GetDC(ghwnd);
+	SR_ghdc = GetDC(SR_ghwnd);
 
-	if (ghdc == NULL)
+	if (SR_ghdc == NULL)
 	{
 		return -1;
 	}
 
 	// index of select pixel format is onebased
-	iPixelFormatIndex = ChoosePixelFormat(ghdc, &pfd);
+	SR_iPixelFormatIndex = ChoosePixelFormat(SR_ghdc, &SR_pfd);
 
-	if (iPixelFormatIndex == 0)
+	if (SR_iPixelFormatIndex == 0)
 	{
 		return -2;
 	}
 
-	if (SetPixelFormat(ghdc, iPixelFormatIndex, &pfd) == FALSE)
+	if (SetPixelFormat(SR_ghdc, SR_iPixelFormatIndex, &SR_pfd) == FALSE)
 	{
 		return -3;
 	}
 
 	// use wgl to get rendering context of my set index
-	ghrc = wglCreateContext(ghdc);
+	SR_ghrc = wglCreateContext(SR_ghdc);
 
-	if (ghrc == NULL)
+	if (SR_ghrc == NULL)
 	{
 		return -4;
 	}
 
-	// make ghrc as current rendering context
-	if (wglMakeCurrent(ghdc, ghrc) == FALSE)
+	// make SR_ghrc as current rendering context
+	if (wglMakeCurrent(SR_ghdc, SR_ghrc) == FALSE)
 	{
 		return -5;
 	}
@@ -415,7 +415,7 @@ void render(void)
 	// glEnd();
 
 	// do double buffering
-	SwapBuffers(ghdc);
+	SwapBuffers(SR_ghdc);
 }
 
 void update(void)
@@ -427,44 +427,44 @@ void uninitialise(void)
 {
 	// code
 	// if exiting in fullscreen first restore and then proceed
-	if (bFullscreen == TRUE)
+	if (SR_bFullscreen == TRUE)
 	{
 		toggleFullscreen();
-		bFullscreen = FALSE;
+		SR_bFullscreen = FALSE;
 	}
 
 	// first check the current context and if it is then unmake it
-	if (wglGetCurrentContext() == ghrc)
+	if (wglGetCurrentContext() == SR_ghrc)
 	{
 		wglMakeCurrent(NULL, NULL);
 
 		// now destroy the rendering context
-		if (ghrc)
+		if (SR_ghrc)
 		{
-			wglDeleteContext(ghrc);
-			ghrc = NULL;
+			wglDeleteContext(SR_ghrc);
+			SR_ghrc = NULL;
 		}
 
 		// release the device context
-		if (ghdc)
+		if (SR_ghdc)
 		{
-			ReleaseDC(ghwnd, ghdc);
-			ghdc = NULL;
+			ReleaseDC(SR_ghwnd, SR_ghdc);
+			SR_ghdc = NULL;
 		}
 	}
 
 	// destroy window
-	if (ghwnd)
+	if (SR_ghwnd)
 	{
-		DestroyWindow(ghwnd);
-		ghwnd = NULL;
+		DestroyWindow(SR_ghwnd);
+		SR_ghwnd = NULL;
 	}
 
 	// close log file
-	if (gpFile)
+	if (SR_gpFile)
 	{
-		fprintf(gpFile, "\nSSR: Program successfully terminated.\n");
-		fclose(gpFile);
-		gpFile = NULL;
+		fprintf(SR_gpFile, "\nSSR: Program successfully terminated.\n");
+		fclose(SR_gpFile);
+		SR_gpFile = NULL;
 	}
 }
