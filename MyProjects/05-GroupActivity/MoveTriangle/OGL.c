@@ -15,6 +15,8 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+GLfloat moveTriangleVariable = 0.0f;
+
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -251,6 +253,20 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 	case WM_CLOSE:
 		uninitialise();
 		break;
+	case WM_TIMER:
+		KillTimer(SR_hwnd, 1234);
+
+		// code to move rectangle
+		if (moveTriangleVariable <= 2.0f)
+		{
+			moveTriangleVariable = moveTriangleVariable + 0.02f;
+		}
+		else if (moveTriangleVariable > 2.0f)
+		{
+			moveTriangleVariable = -2.0f;
+		}
+		SetTimer(SR_hwnd, 1234, 5, NULL);
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -374,6 +390,9 @@ int initialise(void)
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
+	// we will set timer here
+	SetTimer(SR_ghwnd, 1234, 0, NULL);
+
 	return 0;
 }
 
@@ -404,13 +423,13 @@ void render(void)
 	glBegin(GL_TRIANGLES);
 
 	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 0.8f, 0.0f);
+	glVertex3f(0.0f + moveTriangleVariable, 0.8f, 0.0f);
 
 	glColor3f(0.0f, 0.0f, 0.5f);
-	glVertex3f(0.8f, -0.4f, 0.0f);
+	glVertex3f(0.8f + moveTriangleVariable, -0.4f, 0.0f);
 
 	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-0.8f, -0.4f, 0.0f);
+	glVertex3f(-0.8f + moveTriangleVariable, -0.4f, 0.0f);
 
 	glEnd();
 
