@@ -15,8 +15,6 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-GLfloat moveTriangleVariable = 0.0f;
-
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -91,7 +89,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// CreateWindowEX is also there to use when we want give extra styles
 	SR_hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
 							 SR_lpszAppName,
-							 TEXT("RTR7-015-Sagar-Raut-MyProjects-05-GroupActivity-MoveTriangle"),
+							 TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-OpenGL-03-BWTriangle-01-Ortho"),
 							 WS_OVERLAPPEDWINDOW   // top window
 								 | WS_CLIPCHILDREN // cut all children window
 								 | WS_CLIPSIBLINGS // cut all siblings
@@ -253,20 +251,6 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 	case WM_CLOSE:
 		uninitialise();
 		break;
-	case WM_TIMER:
-		KillTimer(SR_hwnd, 1234);
-
-		// code to move rectangle
-		if (moveTriangleVariable <= 2.0f)
-		{
-			moveTriangleVariable = moveTriangleVariable + 0.02f;
-		}
-		else if (moveTriangleVariable > 2.0f)
-		{
-			moveTriangleVariable = -2.0f;
-		}
-		SetTimer(SR_hwnd, 1234, 5, NULL);
-		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -385,13 +369,10 @@ int initialise(void)
 
 	// choose screen clearing color as blue
 	// red green blue alpha
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // here we selected color to clear screen color
 
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
-
-	// we will set timer here
-	SetTimer(SR_ghwnd, 1234, 0, NULL);
 
 	return 0;
 }
@@ -410,6 +391,26 @@ void resize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
+	// orthographic projection
+	if (width <= height)
+	{
+		glOrtho(-100.0f,									  // left
+				100.0f,										  // right
+				-100.0f * ((GLfloat)height / (GLfloat)width), // bottom
+				100.0f * ((GLfloat)height / (GLfloat)width),  // top
+				-100.0f,									  // near
+				100.0f);									  // far
+	}
+	else
+	{
+		glOrtho(-100.0f * ((GLfloat)width / (GLfloat)height), // left
+				100.0f * ((GLfloat)width / (GLfloat)height),  // right
+				-100.0f,									  // bottom
+				100.0f,										  // top
+				-100.0f,									  // near
+				100.0f);									  // far
+	}
 }
 
 void render(void)
@@ -422,14 +423,11 @@ void render(void)
 
 	glBegin(GL_TRIANGLES);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f + moveTriangleVariable, 0.8f, 0.0f);
+	glVertex3f(0.0f, 50.0f, 0.0f);
 
-	glColor3f(0.0f, 0.0f, 0.5f);
-	glVertex3f(0.8f + moveTriangleVariable, -0.4f, 0.0f);
+	glVertex3f(-50.0f, -50.0f, 0.0f);
 
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-0.8f + moveTriangleVariable, -0.4f, 0.0f);
+	glVertex3f(50.0f, -50.0f, 0.0f);
 
 	glEnd();
 

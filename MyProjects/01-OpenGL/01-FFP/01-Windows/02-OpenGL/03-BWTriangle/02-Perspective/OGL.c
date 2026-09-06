@@ -4,18 +4,18 @@
 #include <stdlib.h> // For exit(0)
 
 // OpenGL related header files
-#include <gl\GL.h> // inside include path gl directory inside which GL.h file
+#include <gl\GL.h>	// inside include path gl directory inside which GL.h file
+#include <gl\GLU.h> // Graphic library utility functions header file
 
 #include "OGL.h"
 
 // link with openGL import library
-#pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "OPENGL32.lib")
+#pragma comment(lib, "GLU32.lib")
 
 // macros
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
-
-GLfloat moveTriangleVariable = 0.0f;
 
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// CreateWindowEX is also there to use when we want give extra styles
 	SR_hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
 							 SR_lpszAppName,
-							 TEXT("RTR7-015-Sagar-Raut-MyProjects-05-GroupActivity-MoveTriangle"),
+							 TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-OpenGL-03-BWTriangle-02-Perspective"),
 							 WS_OVERLAPPEDWINDOW   // top window
 								 | WS_CLIPCHILDREN // cut all children window
 								 | WS_CLIPSIBLINGS // cut all siblings
@@ -253,20 +253,6 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 	case WM_CLOSE:
 		uninitialise();
 		break;
-	case WM_TIMER:
-		KillTimer(SR_hwnd, 1234);
-
-		// code to move rectangle
-		if (moveTriangleVariable <= 2.0f)
-		{
-			moveTriangleVariable = moveTriangleVariable + 0.02f;
-		}
-		else if (moveTriangleVariable > 2.0f)
-		{
-			moveTriangleVariable = -2.0f;
-		}
-		SetTimer(SR_hwnd, 1234, 5, NULL);
-		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -385,13 +371,10 @@ int initialise(void)
 
 	// choose screen clearing color as blue
 	// red green blue alpha
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // here we selected color to clear screen color
 
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
-
-	// we will set timer here
-	SetTimer(SR_ghwnd, 1234, 0, NULL);
 
 	return 0;
 }
@@ -410,6 +393,13 @@ void resize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
+	// perspective projection
+	gluPerspective(45.0f,							 // angle
+				   (GLfloat)width / (GLfloat)height, // ratio of width and height
+				   0.1f,							 // near
+				   100.0f);							 // far
+													 // this internally calls frustum
 }
 
 void render(void)
@@ -420,16 +410,13 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	glTranslatef(0.0f, 0.0f, -3.0f);
+
 	glBegin(GL_TRIANGLES);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f + moveTriangleVariable, 0.8f, 0.0f);
-
-	glColor3f(0.0f, 0.0f, 0.5f);
-	glVertex3f(0.8f + moveTriangleVariable, -0.4f, 0.0f);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-0.8f + moveTriangleVariable, -0.4f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
 
 	glEnd();
 
