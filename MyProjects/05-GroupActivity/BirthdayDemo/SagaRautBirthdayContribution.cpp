@@ -98,7 +98,7 @@ void display(void)
 	void renderRTRBoard(float, float, float);
 	void renderEducationBoard(float, float, float);
 
-	void drawRTR(float, float, float);
+	void drawRTR(float, float, float, float, float);
 	void drawBachelorOfCommerce(float, float, float);
 
 	// code
@@ -129,8 +129,11 @@ void display(void)
 
 	// renderPerson(0.0f, 0.5f, 100.0f);
 
-	renderRTRBoard(0.0f, 0.0f, 50.0f);
-	renderEducationBoard(0.5f, 0.0f, 60.0f);
+	renderRTRBoard(0.0f, 0.0f, 100.0f);
+	renderEducationBoard(0.5f, 0.0f, 100.0f);
+
+	// drawRTR(0.0f, 0.0f, 0.125f, 0.4f, 50.0f);
+	// drawBachelorOfCommerce(0.0f, 0.0f, 100.0f);
 
 	glutSwapBuffers();
 }
@@ -1138,6 +1141,56 @@ void renderRTRBoard(float xPoint, float yPoint, float size)
 	glVertex2f(xPoint + (0.18f * scale), yPoint - (0.25f * scale));
 
 	glEnd();
+
+	// letter R
+	glColor3f(1.0f, 0.0f, 0.0f);
+
+	glLineWidth(4.0f);
+
+	glBegin(GL_LINES);
+
+	// letter R
+	glVertex2f(xPoint + (0.03f * scale), yPoint - (0.03f * scale));
+	glVertex2f(xPoint + (0.03f * scale), yPoint - (0.12f * scale));
+
+	glVertex2f(xPoint + (0.028f * scale), yPoint - (0.03f * scale));
+	glVertex2f(xPoint + (0.06f * scale), yPoint - (0.03f * scale));
+
+	glVertex2f(xPoint + (0.06f * scale), yPoint - (0.025f * scale));
+	glVertex2f(xPoint + (0.06f * scale), yPoint - (0.08f * scale));
+
+	glVertex2f(xPoint + (0.062f * scale), yPoint - (0.08f * scale));
+	glVertex2f(xPoint + (0.03f * scale), yPoint - (0.08f * scale));
+
+	glVertex2f(xPoint + (0.03f * scale), yPoint - (0.08f * scale));
+	glVertex2f(xPoint + (0.062f * scale), yPoint - (0.12f * scale));
+
+	// letter T
+	glVertex2f(xPoint + (0.070f * scale), yPoint - (0.03f * scale));
+	glVertex2f(xPoint + (0.106f * scale), yPoint - (0.03f * scale));
+
+	glVertex2f(xPoint + (0.086f * scale), yPoint - (0.03f * scale));
+	glVertex2f(xPoint + (0.086f * scale), yPoint - (0.12f * scale));
+
+	// letter R
+	glVertex2f(xPoint + (0.116f * scale), yPoint - (0.03f * scale));
+	glVertex2f(xPoint + (0.116f * scale), yPoint - (0.12f * scale));
+
+	glVertex2f(xPoint + (0.114f * scale), yPoint - (0.03f * scale));
+	glVertex2f(xPoint + (0.146f * scale), yPoint - (0.03f * scale));
+
+	glVertex2f(xPoint + (0.146f * scale), yPoint - (0.025f * scale));
+	glVertex2f(xPoint + (0.146f * scale), yPoint - (0.08f * scale));
+
+	glVertex2f(xPoint + (0.148f * scale), yPoint - (0.08f * scale));
+	glVertex2f(xPoint + (0.114f * scale), yPoint - (0.08f * scale));
+
+	glVertex2f(xPoint + (0.114f * scale), yPoint - (0.08f * scale));
+	glVertex2f(xPoint + (0.148f * scale), yPoint - (0.12f * scale));
+
+	glEnd();
+
+	glLineWidth(1.0f);
 }
 
 void renderEducationBoard(float xPoint, float yPoint, float size)
@@ -1239,7 +1292,140 @@ void renderEducationBoard(float xPoint, float yPoint, float size)
 		glVertex2f(x, y);
 	}
 	glEnd();
+
+	// Bachelor of Commerce
+	glColor3f(1.0f, 1.0f, 0.0f);
+
+	glLineWidth(4.0f);
+
+	glBegin(GL_LINES);
+
+	// letter B
+	glVertex2f(xPoint - (0.02f * scale), yPoint + (0.15f * scale));
+	glVertex2f(xPoint - (0.02f * scale), yPoint + (0.05f * scale));
+
+	glVertex2f(xPoint - (0.02f * scale), yPoint + (0.15f * scale));
+	glVertex2f(xPoint + (0.02f * scale), yPoint + (0.15f * scale));
+
+	glVertex2f(xPoint + (0.02f * scale), yPoint + (0.15f * scale));
+	glVertex2f(xPoint + (0.02f * scale), yPoint + (0.05f * scale));
+
+	glVertex2f(xPoint + (0.02f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint - (0.02f * scale), yPoint + (0.10f * scale));
+
+	glVertex2f(xPoint - (0.02f * scale), yPoint + (0.05f * scale));
+	glVertex2f(xPoint + (0.02f * scale), yPoint + (0.05f * scale));
+
+	// point in between
+	glBegin(GL_POINT);
+
+	glVertex2f(xPoint + (0.03f * scale), yPoint + (0.05f * scale));
+	glVertex2f(xPoint + (0.037f * scale), yPoint + (0.05f * scale));
+
+	glEnd();
+
+	glLineWidth(4.0f);
+
+	glBegin(GL_LINES);
+
+	// letter C
+	glVertex2f(xPoint + (0.050f * scale), yPoint + (0.15f * scale));
+	glVertex2f(xPoint + (0.050f * scale), yPoint + (0.05f * scale));
+
+	glVertex2f(xPoint + (0.050f * scale), yPoint + (0.05f * scale));
+	glVertex2f(xPoint + (0.090f * scale), yPoint + (0.05f * scale));
+
+	glVertex2f(xPoint + (0.050f * scale), yPoint + (0.15f * scale));
+	glVertex2f(xPoint + (0.090f * scale), yPoint + (0.15f * scale));
+
+	glVertex2f(xPoint + (0.100f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint + (0.100f * scale), yPoint + (0.05f * scale));
+
+	glVertex2f(xPoint + (0.100f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint + (0.125f * scale), yPoint + (0.10f * scale));
+
+	glVertex2f(xPoint + (0.100f * scale), yPoint + (0.05f * scale));
+	glVertex2f(xPoint + (0.125 * scale), yPoint + (0.05f * scale));
+
+	glVertex2f(xPoint + (0.125f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint + (0.125 * scale), yPoint + (0.05f * scale));
+
+	// m letter
+	glVertex2f(xPoint + (0.1375f * scale), yPoint + (0.11f * scale));
+	glVertex2f(xPoint + (0.1375 * scale), yPoint + (0.045f * scale));
+
+	glVertex2f(xPoint + (0.1375f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint + (0.1775f * scale), yPoint + (0.10f * scale));
+
+	glVertex2f(xPoint + (0.1575f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint + (0.1575 * scale), yPoint + (0.045f * scale));
+
+	glVertex2f(xPoint + (0.1775f * scale), yPoint + (0.10f * scale));
+	glVertex2f(xPoint + (0.1775 * scale), yPoint + (0.045f * scale));
+
+	glEnd();
+
+	glEnd();
 }
+
+// void drawRTR(float xPoint, float yPoint, float width, float height, float size)
+// {
+// 	float scale = size / 100.0f;
+
+// 	glColor3f(1.0f, 0.0f, 0.0f);
+
+// 	glLineWidth(8.0f);
+
+// 	glBegin(GL_LINES);
+
+// 	// R letter
+// 	glColor3f(1.0f, 0.0f, 0.0f);
+// 	glVertex2f(xPoint + (0.0f * scale), yPoint - (0.0f * scale));
+// 	glVertex2f(xPoint + (0.0f * scale), yPoint - (height * scale));
+
+// 	glVertex2f(xPoint + (0.0f * scale), yPoint - (0.0f * scale));
+// 	glVertex2f(xPoint + (width * scale), yPoint - (0.0f * scale));
+
+// 	glVertex2f(xPoint + (width * scale), yPoint - (0.0f * scale));
+// 	glVertex2f(xPoint + (width * scale), yPoint - (height / 2 * scale));
+
+// 	glVertex2f(xPoint + (width * scale), yPoint - (height / 2 * scale));
+// 	glVertex2f(xPoint + (0.0f * scale), yPoint - (height / 2 * scale));
+
+// 	glVertex2f(xPoint + (0.0f * scale), yPoint - (height / 2 * scale));
+// 	glVertex2f(xPoint + (width * scale), yPoint - height * scale);
+
+// 	// T letter
+// 	glVertex2f(xPoint + (width + 0.025f * scale), yPoint - (0.0f * scale));
+// 	glVertex2f(xPoint + ((width * 2) + 0.025f * scale), yPoint - (0.0f * scale));
+
+// 	glVertex2f(xPoint + ((width + (width / 2)) + 0.030f * scale), yPoint - (0.0f));
+// 	glVertex2f(xPoint + ((width + (width / 2)) + 0.030f * scale), yPoint - (height * scale));
+
+// 	// letter R
+// 	glVertex2f(xPoint + (width * 2) + 0.050f, yPoint - (0.0f * scale));
+// 	glVertex2f(xPoint + (width * 2) + 0.050f, yPoint - (height * scale));
+
+// 	glVertex2f(xPoint + (width * 2) + 0.050f, yPoint - (0.0f * scale));
+// 	glVertex2f(xPoint + (width * 3) + 0.050f, yPoint - (0.0f * scale));
+
+// 	glVertex2f(xPoint + (width * 3) + 0.050f, yPoint);
+// 	glVertex2f(xPoint + (width * 3) + 0.050f, yPoint - (height / 2 * scale));
+
+// 	glVertex2f(xPoint + (width * 3) + 0.050f, yPoint - (height / 2 * scale));
+// 	glVertex2f(xPoint + (width * 2) + 0.050f, yPoint - (height / 2 * scale));
+
+// 	glVertex2f(xPoint + (width * 2) + 0.050f, yPoint - (height / 2 * scale));
+// 	glVertex2f(xPoint + (width * 3) + 0.050f, yPoint - (height * scale));
+
+// 	glEnd();
+
+// 	glLineWidth(1.0f);
+// }
+
+// void drawBachelorOfCommerce(float xPoint, float yPoint, float size)
+// {
+// }
 
 void keyboard(unsigned char key, int x, int y)
 {
