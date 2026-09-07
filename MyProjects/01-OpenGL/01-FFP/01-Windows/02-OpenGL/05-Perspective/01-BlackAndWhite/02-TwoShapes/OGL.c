@@ -91,7 +91,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// CreateWindowEX is also there to use when we want give extra styles
 	SR_hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
 							 SR_lpszAppName,
-							 TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-OpenGL-03-BWTriangle-02-Perspective"),
+							 TEXT("RTR7-015-Sagar-Raut:") TEXT(__FILE__),
 							 WS_OVERLAPPEDWINDOW   // top window
 								 | WS_CLIPCHILDREN // cut all children window
 								 | WS_CLIPSIBLINGS // cut all siblings
@@ -414,9 +414,18 @@ void render(void)
 
 	glBegin(GL_TRIANGLES);
 
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
+	glVertex3f(-1.0f, 0.5f, 0.0f);
+	glVertex3f(-2.0f, -1.0f, 0.0f);
+	glVertex3f(0.0f, -1.0f, 0.0f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glVertex3f(1.7f, 0.5f, 0.0f);
+	glVertex3f(0.2f, 0.5f, 0.0f);
+	glVertex3f(0.2f, -1.0f, 0.0f);
+	glVertex3f(1.7f, -1.0f, 0.0f);
 
 	glEnd();
 

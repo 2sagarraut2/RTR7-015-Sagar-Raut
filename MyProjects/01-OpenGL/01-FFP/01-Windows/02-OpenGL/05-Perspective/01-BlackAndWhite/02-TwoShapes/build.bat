@@ -2,7 +2,7 @@ del *.exe
 del *.obj
 del *.obj
 
-cl.exe /c /EHsc OGL.c
+cl.exe /FC /c /EHsc OGL.c
 
 rc.exe OGL.rc
 
