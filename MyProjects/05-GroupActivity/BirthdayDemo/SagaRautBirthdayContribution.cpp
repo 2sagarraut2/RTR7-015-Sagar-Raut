@@ -101,6 +101,8 @@ void display(void)
 	void drawRTR(float, float, float, float, float);
 	void drawBachelorOfCommerce(float, float, float);
 
+	void renderClock(float, float, float, float);
+
 	// code
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -129,13 +131,23 @@ void display(void)
 
 	// renderPerson(0.0f, 0.5f, 100.0f);
 
-	renderRTRBoard(0.0f, 0.0f, 100.0f);
-	renderEducationBoard(0.5f, 0.0f, 100.0f);
+	// renderRTRBoard(0.0f, 0.0f, 100.0f);
+	// renderEducationBoard(0.5f, 0.0f, 100.0f);
 
 	// drawRTR(0.0f, 0.0f, 0.125f, 0.4f, 50.0f);
 	// drawBachelorOfCommerce(0.0f, 0.0f, 100.0f);
 
+	static float angleForClock = 450;
+
+	if (angleForClock >= 90)
+	{
+		angleForClock = angleForClock - 1.0f;
+	}
+
+	renderClock(0.0f, 0.0f, 100.0f, angleForClock);
+
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 void renderLightHouse(float xPoint, float yPoint, float size)
@@ -1187,6 +1199,68 @@ void renderRTRBoard(float xPoint, float yPoint, float size)
 
 	glVertex2f(xPoint + (0.114f * scale), yPoint - (0.08f * scale));
 	glVertex2f(xPoint + (0.148f * scale), yPoint - (0.12f * scale));
+
+	glEnd();
+
+	glLineWidth(1.0f);
+}
+
+void renderClock(float xPoint, float yPoint, float size, float angleForClock)
+{
+	float scale = size / 100.0f;
+
+	// clock face
+	glColor3f(1.0f, 0.0f, 1.0f);
+
+	float centerX = xPoint + (0.0f * scale);
+	float centerY = yPoint + (0.0f * scale);
+	float radius = 0.2f * scale;
+
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius * 1.8f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	glColor3f(0.1, 0.1, 0.1f);
+	radius = 0.197f * scale;
+
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 90; i <= angleForClock; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius * 1.8f);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	// clock hand
+	glLineWidth(4.0f);
+
+	glColor3f(0.1, 0.1, 0.1f);
+	glBegin(GL_LINES);
+
+	glVertex2f(xPoint, yPoint);
+	glVertex2f(xPoint, yPoint + 0.23f);
 
 	glEnd();
 
