@@ -404,26 +404,79 @@ void resize(int width, int height)
 
 void render(void)
 {
+	// function declarations
+	void whiteTriangle(void);
+	void coloredTriangle(void);
+	void whiteRectangle(void);
+
 	// code
 	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
+	glTranslatef(0.0f, 0.0f, -9.0f);
 
+	// draw white triangle
+	whiteTriangle();
+
+	// draw colored triangle
+	glTranslatef(2.5f, 0.0f, 0.0f);
+	coloredTriangle();
+
+	// draw white rectangle
+	glTranslatef(0.0f, 2.0f, 0.0f);
+	whiteRectangle();
+
+	// do double buffering
+	SwapBuffers(SR_ghdc);
+}
+
+void whiteTriangle(void)
+{
+	// code
 	glBegin(GL_TRIANGLES);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(-1.0f, -1.0f, 0.0f);
 	glVertex3f(1.0f, -1.0f, 0.0f);
 
 	glEnd();
+}
 
-	// do double buffering
-	SwapBuffers(SR_ghdc);
+void coloredTriangle(void)
+{
+	// code
+
+	glBegin(GL_TRIANGLES);
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
+
+	glEnd();
+}
+
+void whiteRectangle(void)
+{
+	// code
+	glBegin(GL_QUADS);
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glVertex3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
+
+	glEnd();
 }
 
 void update(void)

@@ -32,6 +32,8 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
+GLfloat angleTriangle = 0.0f;
+
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
@@ -410,14 +412,19 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
+	glTranslatef(0.0f, 0.0f, -3.5f);
+
+	glRotatef(angleTriangle, 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_TRIANGLES);
 
 	glColor3f(1.0f, 0.0f, 0.0f);
-
 	glVertex3f(0.0f, 1.0f, 0.0f);
+
+	glColor3f(0.0f, 1.0f, 0.0f);
 	glVertex3f(-1.0f, -1.0f, 0.0f);
+
+	glColor3f(0.0f, 0.0f, 1.0f);
 	glVertex3f(1.0f, -1.0f, 0.0f);
 
 	glEnd();
@@ -429,6 +436,12 @@ void render(void)
 void update(void)
 {
 	// code
+	angleTriangle = angleTriangle + 0.05f;
+
+	if (angleTriangle >= 360.0f)
+	{
+		angleTriangle = angleTriangle - 360.0f;
+	}
 }
 
 void uninitialise(void)
