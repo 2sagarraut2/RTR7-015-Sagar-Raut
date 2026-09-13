@@ -36,7 +36,7 @@
 bool bIsFullScreen = false;
 float xPosition = -0.99f;
 float yPosition = -0.99f;
-float size = 400.0f;
+float size = 100.0f;
 
 // func declarations
 void moveMyRectangleOnX(float xPosition, float yPosition, float percent);
@@ -101,11 +101,16 @@ void display(void)
 	moveMyRectangleOnX(xPosition, yPosition, size);
 	// moveMyRectangleOnY(yPosition);
 
-	if (xPosition <= 1.0f || yPosition <= 1.0f)
+	if (yPosition <= 1.0f || xPosition)
 	{
 		xPosition += 0.001f;
 		yPosition += 0.001f;
-		size -= 5.0;
+
+		if (yPosition >= 1.0f || xPosition >= 1.0f)
+		{
+			yPosition = -0.99f;
+			xPosition = -0.99f;
+		}
 	}
 
 	glutSwapBuffers();

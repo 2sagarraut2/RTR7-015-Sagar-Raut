@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 void initialize(void)
 {
 	// code
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 }
 
 void resize(int width, int height)
@@ -131,20 +131,20 @@ void display(void)
 
 	// renderPerson(0.0f, 0.5f, 100.0f);
 
-	// renderRTRBoard(0.0f, 0.0f, 100.0f);
-	// renderEducationBoard(0.5f, 0.0f, 100.0f);
+	renderRTRBoard(0.0f, 0.0f, 100.0f);
+	renderEducationBoard(0.5f, 0.0f, 100.0f);
 
 	// drawRTR(0.0f, 0.0f, 0.125f, 0.4f, 50.0f);
 	// drawBachelorOfCommerce(0.0f, 0.0f, 100.0f);
 
-	static float angleForClock = 450;
+	// static float angleForClock = 180;
 
-	if (angleForClock >= 90)
-	{
-		angleForClock = angleForClock - 1.0f;
-	}
+	// if (angleForClock >= 90)
+	// {
+	// 	angleForClock = angleForClock - 0.5f;
+	// }
 
-	renderClock(0.0f, 0.0f, 100.0f, angleForClock);
+	// renderClock(0.0f, 0.0f, 100.0f, angleForClock);
 
 	glutSwapBuffers();
 	glutPostRedisplay();
