@@ -313,6 +313,7 @@ int initialise(void)
 {
 	// function declarations
 	void resize(int, int);
+	void printGLInfo(void);
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -367,6 +368,9 @@ int initialise(void)
 		return -5;
 	}
 
+	// printfOpenGLInfo
+	printGLInfo();
+
 	// choose screen clearing color as blue
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
@@ -375,6 +379,14 @@ int initialise(void)
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
 	return 0;
+}
+
+void printGLInfo(void)
+{
+	// code
+	fprintf(SR_gpFile, "OpenGL Vendor: %s\n", glGetString(GL_VENDOR));
+	fprintf(SR_gpFile, "OpenGL Renderer: %s\n", glGetString(GL_RENDERER));
+	fprintf(SR_gpFile, "OpenGL Version: %s\n\n", glGetString(GL_VERSION));
 }
 
 void resize(int width, int height)
