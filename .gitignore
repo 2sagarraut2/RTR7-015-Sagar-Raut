@@ -2,6 +2,7 @@
 rtr_scene
 *.obj
 my_app
+desktop.ini
 
 *.obj
 *.exe
