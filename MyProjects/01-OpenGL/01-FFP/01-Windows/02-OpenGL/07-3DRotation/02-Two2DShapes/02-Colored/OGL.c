@@ -391,6 +391,14 @@ int initialise(void)
 	return 0;
 }
 
+void printGLInfo(void)
+{
+	// code
+	fprintf(SR_gpFile, "OpenGL Vendor: %s\n", glGetString(GL_VENDOR));
+	fprintf(SR_gpFile, "OpenGL Renderer: %s\n", glGetString(GL_RENDERER));
+	fprintf(SR_gpFile, "OpenGL Version: %s\n\n", glGetString(GL_VERSION));
+}
+
 void resize(int width, int height)
 {
 	// code
@@ -472,7 +480,9 @@ void render(void)
 
 	glScalef(0.75f, 0.75f, 0.75f);
 
-	glRotatef(angleCube, 1.0f, 1.0f, 1.0f);
+	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
 
 	glBegin(GL_QUADS);
 

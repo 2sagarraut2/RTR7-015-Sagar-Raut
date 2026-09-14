@@ -4,14 +4,12 @@
 #include <stdlib.h> // For exit(0)
 
 // OpenGL related header files
-#include <gl\GL.h>	// inside include path gl directory inside which GL.h file
-#include <gl\GLU.h> // Graphic library utility functions header file
+#include <gl\GL.h> // inside include path gl directory inside which GL.h file
 
 #include "OGL.h"
 
 // link with openGL import library
-#pragma comment(lib, "OPENGL32.lib")
-#pragma comment(lib, "GLU32.lib")
+#pragma comment(lib, "opengl32.lib")
 
 // macros
 #define WIN_WIDTH 800
@@ -43,10 +41,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 
 	// variable declarations
 	WNDCLASSEX SR_wndclass;
-	HWND SR_hwnd = NULL;
-	MSG SR_msg;
-	TCHAR SR_lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
-	BOOL SR_bDone = FALSE;					   // to use in gameloop
+	HWND hwnd = NULL;
+	MSG msg;
+	TCHAR lpszAppName[] = TEXT("RTR7_SSR"); // TEXT -> MACRO
+	BOOL bDone = FALSE;						// to use in gameloop
 
 	// code
 	// create log file
@@ -76,7 +74,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	SR_wndclass.hCursor = LoadCursor(NULL, IDC_ARROW); // IDC_ARROW - Indetifier cursor
 	// To provide user defined icon we will give hInstance that we created as first parameter
 
-	SR_wndclass.lpszClassName = SR_lpszAppName;
+	SR_wndclass.lpszClassName = lpszAppName;
 	SR_wndclass.lpszMenuName = NULL;
 	SR_wndclass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(MY_ICON));
 
@@ -84,66 +82,66 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	RegisterClassEx(&SR_wndclass); // return value is atom - immutable string goes to into mater table
 
 	// Centering
-	int SR_screenWidth = GetSystemMetrics(SM_CXSCREEN);	 // x of screen - SM - SystemMetrics CX - count of x
-	int SR_screenHeight = GetSystemMetrics(SM_CYSCREEN); // y of screen - CY - count of y
+	int screenWidth = GetSystemMetrics(SM_CXSCREEN);  // x of screen - SM - SystemMetrics CX - count of x
+	int screenHeight = GetSystemMetrics(SM_CYSCREEN); // y of screen - CY - count of y
 
 	// create the window
 	// CreateWindowEX is also there to use when we want give extra styles
-	SR_hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
-							 SR_lpszAppName,
-							 TEXT("RTR7-015-Sagar-Raut:") TEXT(__FILE__),
-							 WS_OVERLAPPEDWINDOW   // top window
-								 | WS_CLIPCHILDREN // cut all children window
-								 | WS_CLIPSIBLINGS // cut all siblings
-								 | WS_VISIBLE,
-							 SR_screenWidth / 2 - WIN_WIDTH / 2,   // x
-							 SR_screenHeight / 2 - WIN_HEIGHT / 2, // y
-							 WIN_WIDTH,							   // width
-							 WIN_HEIGHT,						   // height
-							 NULL,								   // parent process
-							 NULL,								   // menu name
-							 hInstance,							   // compulsory
-							 NULL);								   // creation parameter long ptr void *
+	hwnd = CreateWindowEx(WS_EX_APPWINDOW, // Extended window style -> App window -> having top most order of z
+						  lpszAppName,
+						  TEXT("RTR7-015-Sagar-Raut-MyProjects-01-OpenGL-01-FFP-01-Windows-02-OpenGL-01-BlueScreen"),
+						  WS_OVERLAPPEDWINDOW	// top window
+							  | WS_CLIPCHILDREN // cut all children window
+							  | WS_CLIPSIBLINGS // cut all siblings
+							  | WS_VISIBLE,
+						  screenWidth / 2 - WIN_WIDTH / 2,	 // x
+						  screenHeight / 2 - WIN_HEIGHT / 2, // y
+						  WIN_WIDTH,						 // width
+						  WIN_HEIGHT,						 // height
+						  NULL,								 // parent process
+						  NULL,								 // menu name
+						  hInstance,						 // compulsory
+						  NULL);							 // creation parameter long ptr void *
 
 	// set global window handle
-	SR_ghwnd = SR_hwnd;
+	SR_ghwnd = hwnd;
 
-	int SR_iResult = initialise();
-	if (SR_iResult != 0)
+	int iResult = initialise();
+	if (iResult != 0)
 	{
 		fprintf(SR_gpFile, "SSR: WinMain(): initialise() failed\n");
-		DestroyWindow(SR_hwnd);
-		SR_hwnd = NULL;
+		DestroyWindow(hwnd);
+		hwnd = NULL;
 	}
-	else if (SR_iResult == -1)
+	else if (iResult == -1)
 	{
 		fprintf(SR_gpFile, "SSR: initialise(): failed to get device context\n");
-		DestroyWindow(SR_hwnd);
-		SR_hwnd = NULL;
+		DestroyWindow(hwnd);
+		hwnd = NULL;
 	}
-	else if (SR_iResult == -2)
+	else if (iResult == -2)
 	{
 		fprintf(SR_gpFile, "SSR: initialise(): failed to get pixel format\n");
-		DestroyWindow(SR_hwnd);
-		SR_hwnd = NULL;
+		DestroyWindow(hwnd);
+		hwnd = NULL;
 	}
-	else if (SR_iResult == -3)
+	else if (iResult == -3)
 	{
 		fprintf(SR_gpFile, "SSR: initialise(): failed to set pixel format\n");
-		DestroyWindow(SR_hwnd);
-		SR_hwnd = NULL;
+		DestroyWindow(hwnd);
+		hwnd = NULL;
 	}
-	else if (SR_iResult == -4)
+	else if (iResult == -4)
 	{
 		fprintf(SR_gpFile, "SSR: initialise() failed to get rendering context\n");
-		DestroyWindow(SR_hwnd);
-		SR_hwnd = NULL;
+		DestroyWindow(hwnd);
+		hwnd = NULL;
 	}
-	else if (SR_iResult == -5)
+	else if (iResult == -5)
 	{
 		fprintf(SR_gpFile, "SSR: initialise() failed to switch current context to rendering context\n");
-		DestroyWindow(SR_hwnd);
-		SR_hwnd = NULL;
+		DestroyWindow(hwnd);
+		hwnd = NULL;
 	}
 	else
 	{
@@ -151,28 +149,28 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	}
 
 	// show window
-	ShowWindow(SR_hwnd, iCmdShow);
+	ShowWindow(hwnd, iCmdShow);
 
 	// update the window to paint its background
-	UpdateWindow(SR_hwnd);
+	UpdateWindow(hwnd);
 
-	SetForegroundWindow(SR_hwnd); // brings window to foreground
-	SetFocus(SR_hwnd);			  // set focuns to our window
+	SetForegroundWindow(hwnd); // brings window to foreground
+	SetFocus(hwnd);			   // set focuns to our window
 
 	// game loop
-	while (SR_bDone == FALSE)
+	while (bDone == FALSE)
 	{
 		// PM_REMOVE - peek message remove
-		if (PeekMessage(&SR_msg, NULL, 0, 0, PM_REMOVE))
+		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
-			if (SR_msg.message == WM_QUIT)
+			if (msg.message == WM_QUIT)
 			{
-				SR_bDone = TRUE;
+				bDone = TRUE;
 			}
 			else
 			{
-				TranslateMessage(&SR_msg);
-				DispatchMessage(&SR_msg);
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
 			}
 		}
 		else
@@ -181,7 +179,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 			{
 				if (SR_bEscapeKeyIsPressed == TRUE)
 				{
-					SR_bDone = TRUE;
+					bDone = TRUE;
 				}
 
 				// render
@@ -195,10 +193,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
 	// uninitialise
 	uninitialise();
 
-	return ((int)SR_msg.wParam);
+	return ((int)msg.wParam);
 }
 
-LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lParam)
 {
 	// local function declarations
 	void resize(int, int); // width and height
@@ -260,7 +258,7 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 		break;
 	}
 
-	return (DefWindowProc(SR_hwnd, SR_iMsg, wParam, lParam));
+	return (DefWindowProc(hwnd, SR_iMsg, wParam, lParam));
 }
 
 void toggleFullscreen(void)
@@ -315,6 +313,7 @@ int initialise(void)
 {
 	// function declarations
 	void resize(int, int);
+	void printGLInfo(void);
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -369,9 +368,12 @@ int initialise(void)
 		return -5;
 	}
 
+	// printfOpenGLInfo
+	printGLInfo();
+
 	// choose screen clearing color as blue
 	// red green blue alpha
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // here we selected color to clear screen color
+	glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
@@ -395,96 +397,37 @@ void resize(int width, int height)
 		height = 1; // in future while calculating perspective we will devide by height so to avoid divide by zero infinity
 	}
 
+	// glMatrixMode(GL_PROJECTION);
+	// glLoadIdentity();
+
 	// to match left top of viewport to window
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 	// width and height are of size_t type varibales so we typecasted to GLsizei
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	// perspective projection
-	gluPerspective(45.0f,							 // angle
-				   (GLfloat)width / (GLfloat)height, // ratio of width and height
-				   0.1f,							 // near
-				   100.0f);							 // far
-													 // this internally calls frustum
 }
 
 void render(void)
 {
-	// function declarations
-	void whiteTriangle(void);
-	void coloredTriangle(void);
-	void whiteRectangle(void);
-
 	// code
 	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	// glMatrixMode(GL_PROJECTION);
+	// glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -9.0f);
+	// glBegin(GL_TRIANGLES);
 
-	// draw white triangle
-	whiteTriangle();
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	// glVertex3f(0.0f, 0.8f, 0.0f);
 
-	// draw colored triangle
-	glTranslatef(2.5f, 0.0f, 0.0f);
-	coloredTriangle();
+	// glColor3f(0.0f, 0.0f, 0.5f);
+	// glVertex3f(0.8f, -0.4f, 0.0f);
 
-	// draw white rectangle
-	glTranslatef(0.0f, 2.0f, 0.0f);
-	whiteRectangle();
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	// glVertex3f(-0.8f, -0.4f, 0.0f);
+
+	// glEnd();
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
-}
-
-void whiteTriangle(void)
-{
-	// code
-	glBegin(GL_TRIANGLES);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
-
-	glEnd();
-}
-
-void coloredTriangle(void)
-{
-	// code
-
-	glBegin(GL_TRIANGLES);
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
-
-	glEnd();
-}
-
-void whiteRectangle(void)
-{
-	// code
-	glBegin(GL_QUADS);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
-
-	glEnd();
 }
 
 void update(void)
