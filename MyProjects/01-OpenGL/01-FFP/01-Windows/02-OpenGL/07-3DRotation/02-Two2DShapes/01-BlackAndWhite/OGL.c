@@ -374,8 +374,8 @@ int initialise(void)
 		return -5;
 	}
 
-	// void printGLInfo(void);
-	printGLInfo(void);
+	// printGLInfo
+	printGLInfo();
 
 	// enable depth
 	glShadeModel(GL_SMOOTH);			   // shading smooth

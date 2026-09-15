@@ -374,7 +374,7 @@ int initialise(void)
 	}
 
 	// void printGLInfo
-	printGLInfo(void);
+	printGLInfo();
 
 	// choose screen clearing color as blue
 	// red green blue alpha
