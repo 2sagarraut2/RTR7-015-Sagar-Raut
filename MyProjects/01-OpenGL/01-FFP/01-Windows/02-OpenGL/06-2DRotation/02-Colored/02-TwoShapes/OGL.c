@@ -374,7 +374,7 @@ int initialise(void)
 
 	// choose screen clearing color as blue
 	// red green blue alpha
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // here we selected color to clear screen color
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
 
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);

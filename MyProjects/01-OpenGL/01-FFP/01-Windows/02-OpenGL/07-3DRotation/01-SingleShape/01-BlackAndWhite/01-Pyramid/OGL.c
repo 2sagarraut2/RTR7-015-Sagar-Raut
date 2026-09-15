@@ -17,6 +17,8 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+GLfloat anglePyramid = 0.0f;
+
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -333,6 +335,7 @@ int initialise(void)
 	SR_pfd.cGreenBits = 8;
 	SR_pfd.cBlueBits = 8;
 	SR_pfd.cAlphaBits = 8;
+	SR_pfd.cDepthBits = 32;
 
 	// ask for specialist
 	SR_ghdc = GetDC(SR_ghwnd);
@@ -368,6 +371,14 @@ int initialise(void)
 	{
 		return -5;
 	}
+
+	// enable depth
+	glShadeModel(GL_SMOOTH);			   // shading smooth
+	glClearDepth(1.0f);					   // reset all depth values to 1
+	glEnable(GL_DEPTH_TEST);			   // depth test
+	glDepthFunc(GL_LEQUAL);				   // less than equal
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
+		   GL_NICEST);					   // do it nicest
 
 	// choose screen clearing color as blue
 	// red green blue alpha
@@ -413,27 +424,38 @@ void resize(int width, int height)
 void render(void)
 {
 	// code
-	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
+	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
+			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
+	// pyramid
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
+	glTranslatef(0.0f, 0.0f, -6.0f);
+
+	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_TRIANGLES);
 
-	glVertex3f(-1.0f, 0.5f, 0.0f);
-	glVertex3f(-2.0f, -1.0f, 0.0f);
-	glVertex3f(0.0f, -1.0f, 0.0f);
+	// front face
+	glVertex3f(0.0f, 1.0f, 0.0f);	// front-top
+	glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
+	glVertex3f(1.0f, -1.0f, 1.0f);	// front-right
 
-	glEnd();
+	// right
+	glVertex3f(0.0f, 1.0f, 0.0f);	// right-top
+	glVertex3f(1.0f, -1.0f, 1.0f);	// right-left
+	glVertex3f(1.0f, -1.0f, -1.0f); // right-right
 
-	glBegin(GL_QUADS);
+	// back
+	glVertex3f(0.0f, 1.0f, 0.0f);	 // back-top
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // back-left
+	glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
 
-	glVertex3f(1.7f, 0.5f, 0.0f);
-	glVertex3f(0.2f, 0.5f, 0.0f);
-	glVertex3f(0.2f, -1.0f, 0.0f);
-	glVertex3f(1.7f, -1.0f, 0.0f);
+	// left
+	glVertex3f(0.0f, 1.0f, 0.0f);	 // left-top
+	glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // left-right
 
 	glEnd();
 
@@ -444,6 +466,12 @@ void render(void)
 void update(void)
 {
 	// code
+	anglePyramid = anglePyramid + 0.02f;
+
+	if (anglePyramid >= 360)
+	{
+		anglePyramid = 0.0f;
+	}
 }
 
 void uninitialise(void)

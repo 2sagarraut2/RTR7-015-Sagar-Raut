@@ -17,6 +17,8 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+GLfloat angleCube = 0.0f;
+
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -333,6 +335,7 @@ int initialise(void)
 	SR_pfd.cGreenBits = 8;
 	SR_pfd.cBlueBits = 8;
 	SR_pfd.cAlphaBits = 8;
+	SR_pfd.cDepthBits = 32;
 
 	// ask for specialist
 	SR_ghdc = GetDC(SR_ghwnd);
@@ -368,6 +371,14 @@ int initialise(void)
 	{
 		return -5;
 	}
+
+	// enable depth
+	glShadeModel(GL_SMOOTH);			   // shading smooth
+	glClearDepth(1.0f);					   // reset all depth values to 1
+	glEnable(GL_DEPTH_TEST);			   // depth test
+	glDepthFunc(GL_LEQUAL);				   // less than equal
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
+		   GL_NICEST);					   // do it nicest
 
 	// choose screen clearing color as blue
 	// red green blue alpha
@@ -413,27 +424,63 @@ void resize(int width, int height)
 void render(void)
 {
 	// code
-	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
+	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
+			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
+	// cube
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
+	glTranslatef(0.0f, 0.0f, -6.0f);
 
-	glBegin(GL_TRIANGLES);
+	glScalef(0.75f, 0.75f, 0.75f);
 
-	glVertex3f(-1.0f, 0.5f, 0.0f);
-	glVertex3f(-2.0f, -1.0f, 0.0f);
-	glVertex3f(0.0f, -1.0f, 0.0f);
-
-	glEnd();
+	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
 
 	glBegin(GL_QUADS);
 
-	glVertex3f(1.7f, 0.5f, 0.0f);
-	glVertex3f(0.2f, 0.5f, 0.0f);
-	glVertex3f(0.2f, -1.0f, 0.0f);
-	glVertex3f(1.7f, -1.0f, 0.0f);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-right of front
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// top-left of front
+	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-right of front
+
+	// right
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of right
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-left of right
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-left of right
+	glVertex3f(1.0f, -1.0f, -1.0f); // bottom-right of right
+
+	// back
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	 // top-right of back
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of back
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of back
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
+
+	// left
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
+
+	// top
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
+	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
+	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
+
+	// bottom
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of bottom
 
 	glEnd();
 
@@ -444,6 +491,12 @@ void render(void)
 void update(void)
 {
 	// code
+	angleCube = angleCube + 0.05f;
+
+	if (angleCube >= 360)
+	{
+		angleCube = 0.0f;
+	}
 }
 
 void uninitialise(void)
