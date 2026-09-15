@@ -315,6 +315,7 @@ int initialise(void)
 {
 	// function declarations
 	void resize(int, int);
+	void printGLInfo(void);
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -368,6 +369,9 @@ int initialise(void)
 	{
 		return -5;
 	}
+
+	// printGLInfo
+	printGLInfo(void);
 
 	// choose screen clearing color as blue
 	// red green blue alpha

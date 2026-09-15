@@ -317,6 +317,7 @@ int initialise(void)
 {
 	// function declarations
 	void resize(int, int);
+	void printGLInfo(void);
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -371,6 +372,9 @@ int initialise(void)
 	{
 		return -5;
 	}
+
+	// printGLInfo
+	printGLInfo(void);
 
 	// enable depth
 	glShadeModel(GL_SMOOTH);			   // shading smooth
