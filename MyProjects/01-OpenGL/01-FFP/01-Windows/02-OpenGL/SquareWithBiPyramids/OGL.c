@@ -436,7 +436,9 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(-1.0f, 0.0f, -6.0f);
+	glTranslatef(-1.0f, 1.0f, -6.0f);
+
+	glScalef(0.75f, 0.75f, 0.75f);
 
 	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
 
@@ -480,13 +482,11 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(1.5f, 0.0f, -6.0f);
+	glTranslatef(-1.0f, -0.5f, -6.0f);
 
 	glScalef(0.75f, 0.75f, 0.75f);
 
-	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
+	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_QUADS);
 
@@ -511,21 +511,21 @@ void render(void)
 	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
 
 	// left
-	glColor3f(0.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 1.0f, 0.0f);
 	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
 	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
 	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
 	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
 
 	// top
-	glColor3f(1.0f, 0.0f, 1.0f);
+	glColor3f(0.0f, 1.0f, 1.0f);
 	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
 	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
 	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
 	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
 
 	// bottom
-	glColor3f(1.0f, 1.0f, 0.0f);
+	glColor3f(1.0f, 0.0f, 1.0f);
 	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
 	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
 	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom

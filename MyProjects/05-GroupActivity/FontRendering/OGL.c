@@ -434,6 +434,7 @@ void resize(int width, int height)
 void render(void)
 {
 	GLvoid glPrint(const char *fmt, ...);
+	GLvoid KillFont(GLvoid);
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // here we clear screen for which blue color was previously selected
@@ -448,6 +449,8 @@ void render(void)
 	glRasterPos2f(0.0f, 0.0f);
 
 	glPrint("Sagar"); // Print GL Text To The Screen
+
+	// KillFont();
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
