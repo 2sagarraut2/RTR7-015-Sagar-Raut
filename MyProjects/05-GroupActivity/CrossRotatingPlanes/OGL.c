@@ -14,8 +14,11 @@
 #pragma comment(lib, "GLU32.lib")
 
 // macros
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 600
+// #define WIN_WIDTH 800
+// #define WIN_HEIGHT 600
+
+int WIN_WIDTH = 800;
+int WIN_HEIGHT = 600;
 
 GLfloat anglePyramid = 0.0f;
 GLfloat angleCube = 0.0f;
@@ -412,8 +415,11 @@ void resize(int width, int height)
 	}
 
 	// to match left top of viewport to window
-	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-	// width and height are of size_t type varibales so we typecasted to GLsizei
+	// glViewport(0, 0, (GLsizei)width / 2, (GLsizei)height / 2);
+
+	WIN_WIDTH = width;
+	WIN_HEIGHT = height;
+	// width and height are of size_t type variables so we typecasted to GLsizei
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -428,11 +434,18 @@ void resize(int width, int height)
 
 void render(void)
 {
+	// function declarations
+	void drawCrossPlanes();
+	void drawPyramid(void);
+	void drawCube(void);
+
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
-	// pyramid
+	// cross plane1
+	glViewport(0, 0, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -440,8 +453,54 @@ void render(void)
 
 	glRotatef(anglePyramid, 1.0f, 0.0f, 0.0f);
 	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
+
+	drawCrossPlanes();
+
+	// cross plane2
+	glViewport((GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(0.0f, 0.0f, -6.0f);
+
+	glRotatef(anglePyramid, 1.0f, 0.0f, 0.0f);
+	// glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
 	// glRotatef(anglePyramid, 0.0f, 0.0f, 1.0f);
 
+	drawCrossPlanes();
+
+	// pyramid
+
+	glViewport(0, (GLsizei)WIN_HEIGHT / 2, (GLsizei)WIN_WIDTH, (GLsizei)WIN_HEIGHT / 2);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(-1.0f, 0.0f, -6.0f);
+
+	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
+
+	drawPyramid();
+
+	// cube
+	glViewport(0, 0, (GLsizei)WIN_WIDTH, (GLsizei)WIN_HEIGHT / 2);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(0.0f, 0.0f, -6.0f);
+
+	glScalef(0.75f, 0.75f, 0.75f);
+
+	drawCube();
+
+	// do double buffering
+	SwapBuffers(SR_ghdc);
+}
+
+void drawCrossPlanes()
+{
 	glBegin(GL_QUADS);
 
 	glColor3f(1.0f, 0.0f, 0.0f);
@@ -457,9 +516,105 @@ void render(void)
 	glVertex3f(1.0f, -1.0f, 1.0f);
 
 	glEnd();
+}
 
-	// do double buffering
-	SwapBuffers(SR_ghdc);
+void drawCube()
+{
+	// cube
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glTranslatef(1.5f, 0.0f, -6.0f);
+
+	glScalef(0.75f, 0.75f, 0.75f);
+
+	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
+
+	glBegin(GL_QUADS);
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-right of front
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// top-left of front
+	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-right of front
+
+	// right
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of right
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-left of right
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-left of right
+	glVertex3f(1.0f, -1.0f, -1.0f); // bottom-right of right
+
+	// back
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	 // top-right of back
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of back
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of back
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
+
+	// left
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
+
+	// top
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
+	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
+	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
+
+	// bottom
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of bottom
+
+	glEnd();
+}
+
+void drawPyramid()
+{
+	glBegin(GL_TRIANGLES);
+
+	// front face
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // front-top
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f); // front-right
+
+	// right
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // right-top
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f); // right-left
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f); // right-right
+
+	// back
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // back-top
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f); // back-left
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
+
+	// left
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // left-top
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f); // left-right
+
+	glEnd();
 }
 
 void update(void)
