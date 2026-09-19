@@ -7,6 +7,9 @@
 #include <gl\GL.h>	// inside include path gl directory inside which GL.h file
 #include <gl\GLU.h> // Graphic library utility functions header file
 
+#define _USE_MATH_DEFINES 1
+#include <math.h>
+
 #include "OGL.h"
 
 // link with openGL import library
@@ -33,6 +36,14 @@ FILE *SR_gpFile = NULL; // global pointer to file
 
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
+
+// transformation matrices
+GLfloat identityMatrix[16];
+GLfloat translationMatrix[16];
+GLfloat scaleMatrix[16];
+GLfloat rotationMatrix_X[16];
+GLfloat rotationMatrix_Y[16];
+GLfloat rotationMatrix_Z[16];
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -433,15 +444,156 @@ void render(void)
 
 	// cube
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	// glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -6.0f);
+	identityMatrix[0] = 1.0f;
+	identityMatrix[1] = 0.0f;
+	identityMatrix[2] = 0.0f;
+	identityMatrix[3] = 0.0f;
 
-	glScalef(0.75f, 0.75f, 0.75f);
+	identityMatrix[4] = 0.0f;
+	identityMatrix[5] = 1.0f;
+	identityMatrix[6] = 0.0f;
+	identityMatrix[7] = 0.0f;
 
-	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
+	identityMatrix[8] = 0.0f;
+	identityMatrix[9] = 0.0f;
+	identityMatrix[10] = 1.0f;
+	identityMatrix[11] = 0.0f;
+
+	identityMatrix[12] = 0.0f;
+	identityMatrix[13] = 0.0f;
+	identityMatrix[14] = 0.0f;
+	identityMatrix[15] = 1.0f;
+
+	glLoadMatrixf(identityMatrix);
+
+	// translation matrix
+	// glTranslatef(0.0f, 0.0f, -6.0f);
+
+	translationMatrix[0] = 1.0f;
+	translationMatrix[1] = 0.0f;
+	translationMatrix[2] = 0.0f;
+	translationMatrix[3] = 0.0f;
+
+	translationMatrix[4] = 0.0f;
+	translationMatrix[5] = 1.0f;
+	translationMatrix[6] = 0.0f;
+	translationMatrix[7] = 0.0f;
+
+	translationMatrix[8] = 0.0f;
+	translationMatrix[9] = 0.0f;
+	translationMatrix[10] = 1.0f;
+	translationMatrix[11] = 0.0f;
+
+	translationMatrix[12] = 0.0f;
+	translationMatrix[13] = 0.0f;
+	translationMatrix[14] = -6.0f;
+	translationMatrix[15] = 1.0f;
+
+	glMultMatrixf(translationMatrix);
+
+	// scale Matrix
+	// glScalef(0.75f, 0.75f, 0.75f);
+
+	scaleMatrix[0] = 0.75f;
+	scaleMatrix[1] = 0.0f;
+	scaleMatrix[2] = 0.0f;
+	scaleMatrix[3] = 0.0f;
+
+	scaleMatrix[4] = 0.0f;
+	scaleMatrix[5] = 0.75f;
+	scaleMatrix[6] = 0.0f;
+	scaleMatrix[7] = 0.0f;
+
+	scaleMatrix[8] = 0.0f;
+	scaleMatrix[9] = 0.0f;
+	scaleMatrix[10] = 0.75f;
+	scaleMatrix[11] = 0.0f;
+
+	scaleMatrix[12] = 0.0f;
+	scaleMatrix[13] = 0.0f;
+	scaleMatrix[14] = 0.0f;
+	scaleMatrix[15] = 1.0f;
+
+	glMultMatrixf(scaleMatrix);
+
+	// converted angle in degrees to angle in radians
+	GLfloat angle = angleCube * (M_PI / 180.0f);
+
+	// rotation matrix
+	// glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
+	// glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
+	// glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
+
+	// rotation matrix X
+	rotationMatrix_X[0] = 1.0f;
+	rotationMatrix_X[1] = 0.0f;
+	rotationMatrix_X[2] = 0.0f;
+	rotationMatrix_X[3] = 0.0f;
+
+	rotationMatrix_X[4] = 0.0f;
+	rotationMatrix_X[5] = cos(angle);
+	rotationMatrix_X[6] = sin(angle);
+	rotationMatrix_X[7] = 0.0f;
+
+	rotationMatrix_X[8] = 0.0f;
+	rotationMatrix_X[9] = -sin(angle);
+	rotationMatrix_X[10] = cos(angle);
+	rotationMatrix_X[11] = 0.0f;
+
+	rotationMatrix_X[12] = 0.0f;
+	rotationMatrix_X[13] = 0.0f;
+	rotationMatrix_X[14] = 0.0;
+	rotationMatrix_X[15] = 1.0f;
+
+	glMultMatrixf(rotationMatrix_X);
+
+	// rotation matrix Y
+	rotationMatrix_Y[0] = cos(angle);
+	rotationMatrix_Y[1] = 0.0f;
+	rotationMatrix_Y[2] = -sin(angle);
+	rotationMatrix_Y[3] = 0.0f;
+
+	rotationMatrix_Y[4] = 0.0f;
+	rotationMatrix_Y[5] = 1.0f;
+	rotationMatrix_Y[6] = 0.0f;
+	rotationMatrix_Y[7] = 0.0f;
+
+	rotationMatrix_Y[8] = sin(angle);
+	rotationMatrix_Y[9] = 0.0f;
+	rotationMatrix_Y[10] = cos(angle);
+	rotationMatrix_Y[11] = 0.0f;
+
+	rotationMatrix_Y[12] = 0.0f;
+	rotationMatrix_Y[13] = 0.0f;
+	rotationMatrix_Y[14] = 0.0;
+	rotationMatrix_Y[15] = 1.0f;
+
+	glMultMatrixf(rotationMatrix_Y);
+
+	// rotation matrix Z
+	rotationMatrix_Z[0] = cos(angle);
+	rotationMatrix_Z[1] = sin(angle);
+	rotationMatrix_Z[2] = 0.0f;
+	rotationMatrix_Z[3] = 0.0f;
+
+	rotationMatrix_Z[4] = -sin(angle);
+	rotationMatrix_Z[5] = cos(angle);
+	rotationMatrix_Z[6] = 0.0f;
+	rotationMatrix_Z[7] = 0.0f;
+
+	rotationMatrix_Z[8] = 0.0f;
+	rotationMatrix_Z[9] = 0.0f;
+	rotationMatrix_Z[10] = 1.0f;
+	rotationMatrix_Z[11] = 0.0f;
+
+	rotationMatrix_Z[12] = 0.0f;
+	rotationMatrix_Z[13] = 0.0f;
+	rotationMatrix_Z[14] = 0.0;
+	rotationMatrix_Z[15] = 1.0f;
+
+	glMultMatrixf(rotationMatrix_Z);
 
 	glBegin(GL_QUADS);
 
