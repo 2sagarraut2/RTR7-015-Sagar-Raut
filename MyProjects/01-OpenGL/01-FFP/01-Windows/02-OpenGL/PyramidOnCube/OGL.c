@@ -436,7 +436,7 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(-1.0f, 1.0f, -6.0f);
+	glTranslatef(0.0f, 1.0f, -6.0f);
 
 	glScalef(0.75f, 0.75f, 0.75f);
 
@@ -482,7 +482,7 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(-1.0f, -0.5f, -6.0f);
+	glTranslatef(0.0f, -0.5f, -6.0f);
 
 	glScalef(0.75f, 0.75f, 0.75f);
 
