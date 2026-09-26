@@ -73,16 +73,16 @@ int main(void)
 
     // filling values into host arrays
     hostInput1[0] = 101.0f;
-    hostInput1[2] = 102.0f;
-    hostInput1[3] = 103.0f;
-    hostInput1[4] = 104.0f;
-    hostInput1[5] = 105.0f;
+    hostInput1[1] = 102.0f;
+    hostInput1[2] = 103.0f;
+    hostInput1[3] = 104.0f;
+    hostInput1[4] = 105.0f;
 
     hostInput2[0] = 201.0f;
-    hostInput2[2] = 202.0f;
-    hostInput2[3] = 203.0f;
-    hostInput2[4] = 204.0f;
-    hostInput2[5] = 205.0f;
+    hostInput2[1] = 202.0f;
+    hostInput2[2] = 203.0f;
+    hostInput2[3] = 204.0f;
+    hostInput2[4] = 205.0f;
 
     // device memory allocation
     result = cudaMalloc((void **)&deviceInput1, size);
