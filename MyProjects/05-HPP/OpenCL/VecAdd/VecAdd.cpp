@@ -35,14 +35,14 @@ float timeOnGPU = 0.0f;
 
 // OpenCL kernel
 const char *oclSourceCode =
-    "__kernel void vecAddGPU(__global float *in1, __global float *in2, __global float *out, int len)\n"
-    "{\n"
-    "   int i = get_global_id(0);\n"
-    "   if(i < len)\n"
-    "   {\n"
-    "       out[i] = in1[i] + in2[i];\n"
-    "   }\n"
-    "}\n";
+    "__kernel void vecAddGPU(__global float *in1, __global float *in2, __global float *out, int len)"
+    "{"
+    "int i = get_global_id(0);"
+    "if(i < len)"
+    "{"
+    "out[i] = in1[i] + in2[i];"
+    "}"
+    "}";
 
 // entry-point function
 int main(void)
@@ -307,7 +307,7 @@ int main(void)
     // output
     printf("Array1 begins from 0th index %.6f to %dth index %.6f\n", hostInput1[0], iNumberOfArrayElements - 1, hostInput1[iNumberOfArrayElements - 1]);
     printf("Array2 begins from 0th index %.6f to %dth index %.6f\n", hostInput2[0], iNumberOfArrayElements - 1, hostInput2[iNumberOfArrayElements - 1]);
-    printf("OpenCL Kernel Global Work Size = %lu and Local Work Size = %lu\n", globalWorkSize, localWorkSize);
+    printf("OpenCL Kernel Global Work Size = %zu and Local Work Size = %zu\n", globalWorkSize, localWorkSize);
     printf("Output Array begins from 0th index %.6f to %dth index %.6f\n", hostOutput[0], iNumberOfArrayElements - 1, hostOutput[iNumberOfArrayElements - 1]);
 
     printf("Time taken for Vector Addition on CPU = %.6f\n", timeOnCPU);
@@ -329,20 +329,23 @@ void fillFloatArrayWithRandomNumbers(float *arr, int len)
     }
 }
 
-void vecAddCPU(const float *arr1, const float *arr2, float out, int len)
+void vecAddCPU(const float *arr1, const float *arr2, float *out, int len)
 {
-    StopWatchInterface timer = NULL;
+    StopWatchInterface *timer = NULL;
     sdkCreateTimer(&timer);
     sdkStartTimer(&timer);
+
     for (int i = 0; i < len; i++)
     {
         out[i] = arr1[i] + arr2[i];
     }
+
     sdkStopTimer(&timer);
     timeOnCPU = sdkGetTimerValue(&timer);
     sdkDeleteTimer(&timer);
     timer = NULL;
 }
+
 size_t roundGlobalSizeToNearestMultipleOfLocalSize(int local_size, unsigned int global_size)
 {
     // code
@@ -356,6 +359,7 @@ size_t roundGlobalSizeToNearestMultipleOfLocalSize(int local_size, unsigned int 
         return (global_size + local_size - r);
     }
 }
+
 void cleanup(void)
 {
     // code

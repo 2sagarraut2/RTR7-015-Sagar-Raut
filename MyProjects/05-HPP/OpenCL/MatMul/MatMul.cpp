@@ -36,22 +36,22 @@ float timeOnGPU = 0.0f;
 
 // OpenCL kernel
 const char *oclSourceCode =
-    "__kernel void matMulGPU(__global int *A, __global int *B, __global int *C, int numARows, int numAColumns, int numBColumns, int numCColumns)\n"
-    "{\n"
-    "   int row = get_global_id(0);\n"
-    "   int column = get_global_id(1);\n"
-    "   if ((row < numARows) && (column < numBColumns))\n"
-    "   {\n"
-    "       int value = 0;\n"
-    "       for (int k = 0; k < numAColumns; k++)\n"
-    "       {\n"
-    "           int a = A[row * numAColumns + k];\n"
-    "           int b = B[k * numBColumns + column];\n"
-    "           value += a * b;\n"
-    "       }\n"
-    "       C[row * numCColumns + column] = value;\n"
-    "   }\n"
-    "}\n";
+    "__kernel void matMulGPU(__global int *A, __global int *B, __global int *C, int numARows, int numAColumns, int numBColumns, int numCColumns)" \
+    "{" \
+    "   int row = get_global_id(0);" \
+    "   int column = get_global_id(1);" \
+    "   if ((row < numARows) && (column < numBColumns))" \
+    "   {" \
+    "       int value = 0;" \
+    "       for (int k = 0; k < numAColumns; k++)" \
+    "       {" \
+    "           int a = A[row * numAColumns + k];" \
+    "           int b = B[k * numBColumns + column];" \
+    "           value += a * b;" \
+    "       }" \
+    "       C[row * numCColumns + column] = value;" \
+    "   }" \
+    "}";
 
 int main(int argc, char *argv[])
 {
@@ -383,6 +383,7 @@ void InitA(int *data, int row, int col)
         }
     }
 }
+
 void InitB(int *data, int row, int col)
 {
     int num = BLOCK_WIDTH;
@@ -395,6 +396,7 @@ void InitB(int *data, int row, int col)
         }
     }
 }
+
 void matMulCPU(int *A, int *B, int *C, int numARows, int numAColumns, int numBColumns, int numCColumns)
 {
     StopWatchInterface *timer = NULL;
@@ -419,6 +421,7 @@ void matMulCPU(int *A, int *B, int *C, int numARows, int numAColumns, int numBCo
     sdkDeleteTimer(&timer);
     timer = NULL;
 }
+
 void cleanup(void)
 {
     if (deviceC)

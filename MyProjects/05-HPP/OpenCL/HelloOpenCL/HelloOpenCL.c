@@ -1,7 +1,7 @@
 // header files
 // standard headers
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h> // for exit
 
 // OpenCL headers
 #include <CL/opencl.h>
@@ -9,14 +9,15 @@
 // global variables
 const int iNumberOfArrayElements = 5;
 
+// opencl specific variables
 cl_platform_id oclPlatformID;
 cl_device_id oclDeviceID;
 
-cl_context oclContext;
-cl_command_queue oclCommandQueue;
+cl_context oclContext = NULL;
+cl_command_queue oclCommandQueue = NULL;
 
-cl_program oclProgram;
-cl_kernel oclKernel;
+cl_program oclProgram = NULL;
+cl_kernel oclKernel = NULL;
 
 float *hostInput1 = NULL;
 float *hostInput2 = NULL;
@@ -28,14 +29,14 @@ cl_mem deviceOutput = NULL;
 
 // OpenCL kernel
 const char *oclSourceCode =
-    "_kernel void vecAddGPU(_global float *in1, _global float *in2, _global float *out, int len)\n"
-    "{\n"
-    "   int i = get_global_id(0);\n"
-    "   if(i < len)\n"
-    "   {\n"
-    "       out[i] = in1[i] + in2[i];\n"
-    "   }\n"
-    "}\n";
+    "__kernel void vecAddGPU(__global float *in1, __global float *in2, __global float *out, int len)"
+    "{"
+    "int i = get_global_id(0);"
+    "if(i < len)"
+    "{"
+    "out[i] = in1[i] + in2[i];"
+    "}"
+    "}";
 
 // entry-point function
 int main(void)
@@ -115,6 +116,7 @@ int main(void)
 
     // create command queue
     oclCommandQueue = clCreateCommandQueue(oclContext, oclDeviceID, 0, &result);
+    // clCreateCommandQueueWithProperties - use if given warning to clCreateCommandQueue
     if (result != CL_SUCCESS)
     {
         printf("clCreateCommandQueue() Failed: %d\n", result);
@@ -123,6 +125,8 @@ int main(void)
     }
 
     // create OpenCL program from .cl
+    // program object which will compile and link (build) the kernel code
+    // this program contains kernel compilar and linker of GPU program
     oclProgram = clCreateProgramWithSource(oclContext, 1, (const char **)&oclSourceCode, NULL, &result);
     if (result != CL_SUCCESS)
     {
@@ -132,12 +136,22 @@ int main(void)
     }
 
     // build OpenCL program
-    result = clBuildProgram(oclProgram, 0, NULL, NULL, NULL, NULL);
+    result = clBuildProgram(oclProgram, // program object
+                            0,          // number of devices
+                            NULL,       // array of multiple devices list
+                            NULL,       // buid option string - FAST_MATH
+                            NULL,       // if callback function then provide address of callback function
+                            NULL);      // parameter to callback function
     if (result != CL_SUCCESS)
     {
         size_t len;
-        char buffer[2048];
-        clGetProgramBuildInfo(oclProgram, oclDeviceID, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, &len);
+        char buffer[2048];                          // to store error in kernel
+        clGetProgramBuildInfo(oclProgram,           // build program
+                              oclDeviceID,          // device id
+                              CL_PROGRAM_BUILD_LOG, // build log
+                              sizeof(buffer),       // size of the buffer in which we will get this info
+                              buffer,               // address of buffer
+                              &len);                // length of information given
         printf("Program Build Log: %s\n", buffer);
         printf("clBuildProgram() Failed: %d\n", result);
         cleanup();
@@ -145,7 +159,9 @@ int main(void)
     }
 
     // create OpenCL kernel by passing kernel function name that we used in .cl file
-    oclKernel = clCreateKernel(oclProgram, "vecAddGPU", &result);
+    oclKernel = clCreateKernel(oclProgram,  // name of program
+                               "vecAddGPU", // function from which we want to create kernel
+                               &result);    // error
     if (result != CL_SUCCESS)
     {
         printf("clCreateKernel() Failed: %d\n", result);
@@ -154,32 +170,45 @@ int main(void)
     }
 
     // device memory allocation
-    deviceInput1 = clCreateBuffer(oclContext, CL_MEM_READ_ONLY, size, NULL, &result);
+    deviceInput1 = clCreateBuffer(oclContext,       // context
+                                  CL_MEM_READ_ONLY, // we want read data from input1
+                                  size,             // size of input1
+                                  NULL,             // address of existing buffer if we have so that it can be copied
+                                  &result);         // error
     if (result != CL_SUCCESS)
     {
-        printf("clCreateBuffer() Failed For 1st Input Array: %d\n", result);
+        printf("clCreateBuffer() Failed For deviceInput1 Array: %d\n", result);
         cleanup();
         exit(EXIT_FAILURE);
     }
 
-    deviceInput2 = clCreateBuffer(oclContext, CL_MEM_READ_ONLY, size, NULL, &result);
+    deviceInput2 = clCreateBuffer(oclContext,       // context
+                                  CL_MEM_READ_ONLY, // we want read data from input1
+                                  size,             // size of input1
+                                  NULL,             // address of existing buffer if we have so that it can be copied
+                                  &result);
     if (result != CL_SUCCESS)
     {
-        printf("clCreateBuffer() Failed For 2nd Input Array: %d\n", result);
+        printf("clCreateBuffer() Failed For deviceInput2 Array: %d\n", result);
         cleanup();
         exit(EXIT_FAILURE);
     }
 
-    deviceOutput = clCreateBuffer(oclContext, CL_MEM_WRITE_ONLY, size, NULL, &result);
+    deviceOutput = clCreateBuffer(oclContext, CL_MEM_WRITE_ONLY, // we want for writing
+                                  size, NULL, &result);
     if (result != CL_SUCCESS)
     {
-        printf("clCreateBuffer() Failed For Output Array: %d\n", result);
+        printf("clCreateBuffer() Failed For deviceOutput Array: %d\n", result);
         cleanup();
         exit(EXIT_FAILURE);
     }
 
-    // set based 0th argument i.e. deviceInput1
-    result = clSetKernelArg(oclKernel, 0, sizeof(cl_mem), (void *)&deviceInput1);
+    // set 0 based argument i.e. deviceInput1
+    // setting opencl kernel arguments
+    result = clSetKernelArg(oclKernel,              // kernel name
+                            0,                      // index of the parameter to the kernel
+                            sizeof(cl_mem),         // size of sending parameter
+                            (void *)&deviceInput1); // parameter name
     if (result != CL_SUCCESS)
     {
         printf("clSetKernelArg() Failed For 1st Argument: %d\n", result);
@@ -187,7 +216,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    // set based 1st argument i.e. deviceInput2
+    // set 0 based 1st argument i.e. deviceInput2
     result = clSetKernelArg(oclKernel, 1, sizeof(cl_mem), (void *)&deviceInput2);
     if (result != CL_SUCCESS)
     {
@@ -196,7 +225,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    // set based 2nd argument i.e. deviceOutput
+    // set 0 based 2nd argument i.e. deviceOutput
     result = clSetKernelArg(oclKernel, 2, sizeof(cl_mem), (void *)&deviceOutput);
     if (result != CL_SUCCESS)
     {
@@ -205,7 +234,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    // set based 3rd argument i.e. len
+    // set 0 based 3rd argument i.e. len
     result = clSetKernelArg(oclKernel, 3, sizeof(cl_int), (void *)&iNumberOfArrayElements);
     if (result != CL_SUCCESS)
     {
@@ -215,7 +244,15 @@ int main(void)
     }
 
     // write above 'input' device buffer to device memory
-    result = clEnqueueWriteBuffer(oclCommandQueue, deviceInput1, CL_FALSE, 0, size, hostInput1, 0, NULL, NULL);
+    result = clEnqueueWriteBuffer(oclCommandQueue, // which queue
+                                  deviceInput1,    // which buffer | target
+                                  CL_FALSE,        // asynchronous || non-blocking
+                                  0,               // where to start from 0th byte of state
+                                  size,            // size of data
+                                  hostInput1,      // source name
+                                  0,               // number of event array
+                                  NULL,            // how many events
+                                  NULL);           // which one will be returned
     if (result != CL_SUCCESS)
     {
         printf("clEnqueueWriteBuffer() Failed For 1st Input Device Buffer: %d\n", result);
@@ -233,7 +270,16 @@ int main(void)
 
     // kernel configuration
     size_t global_size = 5; // 1-D 5 element array operation
-    result = clEnqueueNDRangeKernel(oclCommandQueue, oclKernel, 1, NULL, &global_size, NULL, 0, NULL, NULL);
+    // tell opencl to execute kernel
+    result = clEnqueueNDRangeKernel(oclCommandQueue, //
+                                    oclKernel,       // which kernel
+                                    1,               // dimention
+                                    NULL,            // reserved
+                                    &global_size,    // global size
+                                    NULL,            // local size
+                                    0,               // number of event array
+                                    NULL,            // how many events
+                                    NULL);           // which one will be returned
     if (result != CL_SUCCESS)
     {
         printf("clEnqueueNDRangeKernel() Failed: %d\n", result);
@@ -242,10 +288,18 @@ int main(void)
     }
 
     // finish OpenCL command queue
-    clFinish(oclCommandQueue);
+    clFinish(oclCommandQueue); // enqueue finished start executing
 
     // read back result from the device (i.e from deviceOutput) into cpu variable (i.e hostOutput)
-    result = clEnqueueReadBuffer(oclCommandQueue, deviceOutput, CL_TRUE, 0, size, hostOutput, 0, NULL, NULL);
+    result = clEnqueueReadBuffer(oclCommandQueue,
+                                 deviceOutput, // from where to read
+                                 CL_TRUE,      // blocking reading | synchronous
+                                 0,            // from 0th byte of set
+                                 size,         // how much to read
+                                 hostOutput,   // where to copy after reading
+                                 0,            // number of event array
+                                 NULL,         // how many events
+                                 NULL);        // which one will be returned
     if (result != CL_SUCCESS)
     {
         printf("clEnqueueReadBuffer() Failed: %d\n", result);
@@ -273,46 +327,55 @@ void cleanup(void)
         clReleaseMemObject(deviceOutput);
         deviceOutput = NULL;
     }
+
     if (deviceInput2)
     {
         clReleaseMemObject(deviceInput2);
         deviceInput2 = NULL;
     }
+
     if (deviceInput1)
     {
         clReleaseMemObject(deviceInput1);
         deviceInput1 = NULL;
     }
+
     if (oclKernel)
     {
         clReleaseKernel(oclKernel);
         oclKernel = NULL;
     }
+
     if (oclProgram)
     {
         clReleaseProgram(oclProgram);
         oclProgram = NULL;
     }
+
     if (oclCommandQueue)
     {
         clReleaseCommandQueue(oclCommandQueue);
         oclCommandQueue = NULL;
     }
+
     if (oclContext)
     {
         clReleaseContext(oclContext);
         oclContext = NULL;
     }
+
     if (hostOutput)
     {
         free(hostOutput);
         hostOutput = NULL;
     }
+
     if (hostInput2)
     {
         free(hostInput2);
         hostInput2 = NULL;
     }
+
     if (hostInput1)
     {
         free(hostInput1);
