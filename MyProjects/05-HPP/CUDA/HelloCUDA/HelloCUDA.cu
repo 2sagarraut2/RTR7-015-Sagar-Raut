@@ -21,6 +21,8 @@ float *deviceOutput = NULL;
 // CUDA kernel definition
 __global__ void vecAddGPU(float *in1, float *in2, float *out, int len)
 {
+    // HPP THREADS REPLACE HOST LOOPS
+
     // code
     int i = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -131,6 +133,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
+    // CUDA kernel config
     dim3 dimGrid = dim3(iNumberOfArrayElements, 1, 1);
     dim3 dimBlock = dim3(1, 1, 1);
 
