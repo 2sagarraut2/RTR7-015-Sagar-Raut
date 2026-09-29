@@ -423,7 +423,7 @@ void render(void)
 	glLoadIdentity();
 
 	// glTranslatef(0.0f, 0.0f, -3.0f);
-	gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0);
+	gluLookAt(-1, 0, 5, 0, 0, 0, 0, 1, 0);
 
 	glBegin(GL_TRIANGLES);
 

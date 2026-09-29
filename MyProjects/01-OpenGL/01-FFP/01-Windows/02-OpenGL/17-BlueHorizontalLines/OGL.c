@@ -483,14 +483,14 @@ void render(void)
 	glVertex3f(-3.0f, 1.0f, 0.0f);
 
 	glEnd();
-	glLineWidth(2.0f);
+	// glLineWidth(2.0f);
 
 	// blue horizontal lines below x axis
 	lineCounter = 1;
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(2.0f);
+	glLineWidth(0.0f);
 
 	glBegin(GL_LINES);
 
@@ -506,10 +506,10 @@ void render(void)
 
 	glEnd();
 
-	glLineWidth(1.0f);
+	glLineWidth(0.0f);
 
 	// every 5th horizontal line
-	glLineWidth(3.0f);
+	glLineWidth(4.0f);
 	glBegin(GL_LINES);
 
 	glVertex3f(3.0f, -0.25f, 0.0f);

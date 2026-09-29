@@ -437,13 +437,13 @@ void render(void)
 
 	glLineWidth(5.0f);
 
-	glBegin(GL_LINES);
+	// glBegin(GL_LINES);
 
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(-1.0f, 0.0f, 0.0f);
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	// glVertex3f(1.0f, 0.0f, 0.0f);
+	// glVertex3f(-1.0f, 0.0f, 0.0f);
 
-	glEnd();
+	// glEnd();
 
 	glBegin(GL_LINES);
 

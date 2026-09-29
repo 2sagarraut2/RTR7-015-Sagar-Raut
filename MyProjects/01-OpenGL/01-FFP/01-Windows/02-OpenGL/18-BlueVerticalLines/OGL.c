@@ -451,7 +451,7 @@ void render(void)
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(2.0f);
+	glLineWidth(0.0f);
 
 	glBegin(GL_LINES);
 
@@ -491,7 +491,7 @@ void render(void)
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(2.0f);
+	glLineWidth(0.0f);
 
 	glBegin(GL_LINES);
 
