@@ -429,7 +429,6 @@ void render(void)
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
-	// pyramid
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -450,11 +449,11 @@ void render(void)
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(2.0f);
+	glLineWidth(1.0f);
 
 	glBegin(GL_LINES);
 
-	for (GLfloat yValue = 0.05f; yValue <= 1.05f; yValue = yValue + 0.05f)
+	for (GLfloat yValue = 0.02f; yValue <= 1.05f; yValue = yValue + 0.02f)
 	{
 		if (lineCounter % 5 != 0)
 		{
@@ -473,28 +472,39 @@ void render(void)
 	glLineWidth(3.0f);
 	glBegin(GL_LINES);
 
-	glVertex3f(3.0f, 0.25f, 0.0f);
-	glVertex3f(-3.0f, 0.25f, 0.0f);
-	glVertex3f(3.0f, 0.50f, 0.0f);
-	glVertex3f(-3.0f, 0.50f, 0.0f);
-	glVertex3f(3.0f, 0.75f, 0.0f);
-	glVertex3f(-3.0f, 0.75f, 0.0f);
+	glVertex3f(3.0f, 0.1f, 0.0f);
+	glVertex3f(-3.0f, 0.1f, 0.0f);
+	glVertex3f(3.0f, 0.2f, 0.0f);
+	glVertex3f(-3.0f, 0.2f, 0.0f);
+	glVertex3f(3.0f, 0.3f, 0.0f);
+	glVertex3f(-3.0f, 0.3f, 0.0f);
+	glVertex3f(3.0f, 0.4f, 0.0f);
+	glVertex3f(-3.0f, 0.4f, 0.0f);
+	glVertex3f(3.0f, 0.5f, 0.0f);
+	glVertex3f(-3.0f, 0.5f, 0.0f);
+	glVertex3f(3.0f, 0.6f, 0.0f);
+	glVertex3f(-3.0f, 0.6f, 0.0f);
+	glVertex3f(3.0f, 0.7f, 0.0f);
+	glVertex3f(-3.0f, 0.7f, 0.0f);
+	glVertex3f(3.0f, 0.8f, 0.0f);
+	glVertex3f(-3.0f, 0.8f, 0.0f);
+	glVertex3f(3.0f, 0.9f, 0.0f);
+	glVertex3f(-3.0f, 0.9f, 0.0f);
 	glVertex3f(3.0f, 1.0f, 0.0f);
 	glVertex3f(-3.0f, 1.0f, 0.0f);
 
 	glEnd();
-	// glLineWidth(2.0f);
 
 	// blue horizontal lines below x axis
 	lineCounter = 1;
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(0.0f);
+	glLineWidth(1.0f);
 
 	glBegin(GL_LINES);
 
-	for (GLfloat yValue = -0.05f; yValue >= -1.05f; yValue = yValue - 0.05f)
+	for (GLfloat yValue = -0.02f; yValue >= -1.05f; yValue = yValue - 0.02f)
 	{
 		if (lineCounter % 5 != 0)
 		{
@@ -509,20 +519,31 @@ void render(void)
 	glLineWidth(0.0f);
 
 	// every 5th horizontal line
-	glLineWidth(4.0f);
+	glLineWidth(3.0f);
 	glBegin(GL_LINES);
 
-	glVertex3f(3.0f, -0.25f, 0.0f);
-	glVertex3f(-3.0f, -0.25f, 0.0f);
-	glVertex3f(3.0f, -0.50f, 0.0f);
-	glVertex3f(-3.0f, -0.50f, 0.0f);
-	glVertex3f(3.0f, -0.75f, 0.0f);
-	glVertex3f(-3.0f, -0.75f, 0.0f);
+	glVertex3f(3.0f, -0.1f, 0.0f);
+	glVertex3f(-3.0f, -0.1f, 0.0f);
+	glVertex3f(3.0f, -0.2f, 0.0f);
+	glVertex3f(-3.0f, -0.2f, 0.0f);
+	glVertex3f(3.0f, -0.3f, 0.0f);
+	glVertex3f(-3.0f, -0.3f, 0.0f);
+	glVertex3f(3.0f, -0.4f, 0.0f);
+	glVertex3f(-3.0f, -0.4f, 0.0f);
+	glVertex3f(3.0f, -0.5f, 0.0f);
+	glVertex3f(-3.0f, -0.5f, 0.0f);
+	glVertex3f(3.0f, -0.6f, 0.0f);
+	glVertex3f(-3.0f, -0.6f, 0.0f);
+	glVertex3f(3.0f, -0.7f, 0.0f);
+	glVertex3f(-3.0f, -0.7f, 0.0f);
+	glVertex3f(3.0f, -0.8f, 0.0f);
+	glVertex3f(-3.0f, -0.8f, 0.0f);
+	glVertex3f(3.0f, -0.9f, 0.0f);
+	glVertex3f(-3.0f, -0.9f, 0.0f);
 	glVertex3f(3.0f, -1.0f, 0.0f);
 	glVertex3f(-3.0f, -1.0f, 0.0f);
 
 	glEnd();
-	glLineWidth(2.0f);
 
 	lineCounter = 1;
 

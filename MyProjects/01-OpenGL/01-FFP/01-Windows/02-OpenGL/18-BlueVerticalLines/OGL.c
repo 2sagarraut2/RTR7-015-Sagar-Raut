@@ -444,18 +444,16 @@ void render(void)
 
 	glEnd();
 
-	glLineWidth(1.0f);
-
 	// blue vertical lines on the right side y axis
 	GLint lineCounter = 1;
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(0.0f);
+	glLineWidth(1.0f);
 
 	glBegin(GL_LINES);
 
-	for (GLfloat xValue = 0.05f; xValue <= 1.05f; xValue = xValue + 0.05f)
+	for (GLfloat xValue = 0.02f; xValue <= 1.05f; xValue = xValue + 0.02f)
 	{
 		if (lineCounter % 5 != 0)
 		{
@@ -474,28 +472,39 @@ void render(void)
 	glLineWidth(4.0f);
 	glBegin(GL_LINES);
 
-	glVertex3f(0.25f, 3.0f, 0.0f);
-	glVertex3f(0.25f, -3.0f, 0.0f);
-	glVertex3f(0.50f, 3.0f, 0.0f);
-	glVertex3f(0.50f, -3.0f, 0.0f);
-	glVertex3f(0.75f, 3.0f, 0.0f);
-	glVertex3f(0.75f, -3.0f, 0.0f);
+	glVertex3f(0.1f, 3.0f, 0.0f);
+	glVertex3f(0.1f, -3.0f, 0.0f);
+	glVertex3f(0.2f, 3.0f, 0.0f);
+	glVertex3f(0.2f, -3.0f, 0.0f);
+	glVertex3f(0.3f, 3.0f, 0.0f);
+	glVertex3f(0.3f, -3.0f, 0.0f);
+	glVertex3f(0.4f, 3.0f, 0.0f);
+	glVertex3f(0.4f, -3.0f, 0.0f);
+	glVertex3f(0.5f, 3.0f, 0.0f);
+	glVertex3f(0.5f, -3.0f, 0.0f);
+	glVertex3f(0.6f, 3.0f, 0.0f);
+	glVertex3f(0.6f, -3.0f, 0.0f);
+	glVertex3f(0.7f, 3.0f, 0.0f);
+	glVertex3f(0.7f, -3.0f, 0.0f);
+	glVertex3f(0.8f, 3.0f, 0.0f);
+	glVertex3f(0.8f, -3.0f, 0.0f);
+	glVertex3f(0.9f, 3.0f, 0.0f);
+	glVertex3f(0.9f, -3.0f, 0.0f);
 	glVertex3f(1.0f, 3.0f, 0.0f);
 	glVertex3f(1.0f, -3.0f, 0.0f);
 
 	glEnd();
-	glLineWidth(2.0f);
 
 	// blue vertical lines on the left side y axis
 	lineCounter = 1;
 
 	glColor3f(0.0f, 0.0f, 1.0f);
 
-	glLineWidth(0.0f);
+	glLineWidth(1.0f);
 
 	glBegin(GL_LINES);
 
-	for (GLfloat xValue = -0.05f; xValue >= -1.05f; xValue = xValue - 0.05f)
+	for (GLfloat xValue = -0.02f; xValue >= -1.05f; xValue = xValue - 0.02f)
 	{
 		if (lineCounter % 5 != 0)
 		{
@@ -513,17 +522,28 @@ void render(void)
 	glLineWidth(4.0f);
 	glBegin(GL_LINES);
 
-	glVertex3f(-0.25f, 3.0f, 0.0f);
-	glVertex3f(-0.25f, -3.0f, 0.0f);
-	glVertex3f(-0.50f, 3.0f, 0.0f);
-	glVertex3f(-0.50f, -3.0f, 0.0f);
-	glVertex3f(-0.75f, 3.0f, 0.0f);
-	glVertex3f(-0.75f, -3.0f, 0.0f);
+	glVertex3f(-0.1f, 3.0f, 0.0f);
+	glVertex3f(-0.1f, -3.0f, 0.0f);
+	glVertex3f(-0.2f, 3.0f, 0.0f);
+	glVertex3f(-0.2f, -3.0f, 0.0f);
+	glVertex3f(-0.3f, 3.0f, 0.0f);
+	glVertex3f(-0.3f, -3.0f, 0.0f);
+	glVertex3f(-0.4f, 3.0f, 0.0f);
+	glVertex3f(-0.4f, -3.0f, 0.0f);
+	glVertex3f(-0.5f, 3.0f, 0.0f);
+	glVertex3f(-0.5f, -3.0f, 0.0f);
+	glVertex3f(-0.6f, 3.0f, 0.0f);
+	glVertex3f(-0.6f, -3.0f, 0.0f);
+	glVertex3f(-0.7f, 3.0f, 0.0f);
+	glVertex3f(-0.7f, -3.0f, 0.0f);
+	glVertex3f(-0.8f, 3.0f, 0.0f);
+	glVertex3f(-0.8f, -3.0f, 0.0f);
+	glVertex3f(-0.9f, 3.0f, 0.0f);
+	glVertex3f(-0.9f, -3.0f, 0.0f);
 	glVertex3f(-1.0f, 3.0f, 0.0f);
 	glVertex3f(-1.0f, -3.0f, 0.0f);
 
 	glEnd();
-	glLineWidth(2.0f);
 
 	lineCounter = 1;
 
