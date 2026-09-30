@@ -696,17 +696,17 @@ void render(void)
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
 
-	glVertex3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 0.0f);
+	glVertex3f(0.3f, 0.3f, 0.0f);
+	glVertex3f(-0.3f, 0.3f, 0.0f);
 
-	glVertex3f(-1.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glVertex3f(-0.3f, 0.3f, 0.0f);
+	glVertex3f(-0.3f, -0.3f, 0.0f);
 
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
+	glVertex3f(-0.3f, -0.3f, 0.0f);
+	glVertex3f(0.3f, -0.3f, 0.0f);
 
-	glVertex3f(1.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(0.3f, -0.3f, 0.0f);
+	glVertex3f(0.3f, 0.3f, 0.0f);
 
 	glEnd();
 	glLineWidth(1.0f);

@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <stdio.h>	// For file I/O
 #include <stdlib.h> // For exit(0)
-#include <math.h>
 
 // OpenGL related header files
 #include <gl\GL.h>	// inside include path gl directory inside which GL.h file
@@ -32,9 +31,6 @@ FILE *SR_gpFile = NULL; // global pointer to file
 
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
-
-BOOL showCircleUsingLines = TRUE;
-BOOL showCircleUsingPoints = FALSE;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -252,19 +248,6 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 			}
 
 			break;
-		case 'L':
-		case 'l':
-			if (showCircleUsingLines)
-			{
-				showCircleUsingLines = !showCircleUsingLines;
-				showCircleUsingPoints = !showCircleUsingPoints;
-			}
-			else if (showCircleUsingPoints)
-			{
-				showCircleUsingLines = !showCircleUsingLines;
-				showCircleUsingPoints = !showCircleUsingPoints;
-			}
-			break;
 		}
 		break;
 	case WM_CLOSE:
@@ -442,31 +425,13 @@ void resize(int width, int height)
 
 void render(void)
 {
-	// function declarations
-	void renderGraph(void);
-	void renderCircleUsingLines(void);
-	void renderCircleUsingPoints(void);
-
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
+	// cube
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	glTranslatef(0.0f, 0.0f, -2.0f);
-
-	renderGraph();
-
-	if (showCircleUsingLines)
-	{
-		renderCircleUsingLines();
-	}
-
-	if (showCircleUsingPoints)
-	{
-		renderCircleUsingPoints();
-	}
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
@@ -475,324 +440,6 @@ void render(void)
 void update(void)
 {
 	// code
-}
-
-void renderGraph()
-{
-	// HORIZONTAL LINES CODE STARTS HERE
-
-	// Blue horizontal lines above x axis
-	GLint lineCounter = 1;
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-
-	glLineWidth(1.0f);
-
-	glBegin(GL_LINES);
-
-	for (GLfloat yValue = 0.02f; yValue <= 2.0f; yValue = yValue + 0.02f)
-	{
-		if (lineCounter % 5 != 0)
-		{
-			glVertex3f(3.0f, yValue, 0.0f);
-			glVertex3f(-3.0f, yValue, 0.0f);
-		}
-
-		lineCounter++;
-	}
-
-	glEnd();
-
-	glLineWidth(1.0f);
-
-	// every 5th horizontal line
-	glLineWidth(3.0f);
-	glBegin(GL_LINES);
-
-	glVertex3f(3.0f, 0.1f, 0.0f);
-	glVertex3f(-3.0f, 0.1f, 0.0f);
-	glVertex3f(3.0f, 0.2f, 0.0f);
-	glVertex3f(-3.0f, 0.2f, 0.0f);
-	glVertex3f(3.0f, 0.3f, 0.0f);
-	glVertex3f(-3.0f, 0.3f, 0.0f);
-	glVertex3f(3.0f, 0.4f, 0.0f);
-	glVertex3f(-3.0f, 0.4f, 0.0f);
-	glVertex3f(3.0f, 0.5f, 0.0f);
-	glVertex3f(-3.0f, 0.5f, 0.0f);
-	glVertex3f(3.0f, 0.6f, 0.0f);
-	glVertex3f(-3.0f, 0.6f, 0.0f);
-	glVertex3f(3.0f, 0.7f, 0.0f);
-	glVertex3f(-3.0f, 0.7f, 0.0f);
-	glVertex3f(3.0f, 0.8f, 0.0f);
-	glVertex3f(-3.0f, 0.8f, 0.0f);
-	glVertex3f(3.0f, 0.9f, 0.0f);
-	glVertex3f(-3.0f, 0.9f, 0.0f);
-	glVertex3f(3.0f, 1.0f, 0.0f);
-	glVertex3f(-3.0f, 1.0f, 0.0f);
-
-	glEnd();
-
-	// blue horizontal lines below x axis
-	lineCounter = 1;
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-
-	glLineWidth(1.0f);
-
-	glBegin(GL_LINES);
-
-	for (GLfloat yValue = -0.02f; yValue >= -2.0f; yValue = yValue - 0.02f)
-	{
-		if (lineCounter % 5 != 0)
-		{
-			glVertex3f(3.0f, yValue, 0.0f);
-			glVertex3f(-3.0f, yValue, 0.0f);
-		}
-		lineCounter++;
-	}
-
-	glEnd();
-
-	glLineWidth(0.0f);
-
-	// every 5th horizontal line
-	glLineWidth(3.0f);
-	glBegin(GL_LINES);
-
-	glVertex3f(3.0f, -0.1f, 0.0f);
-	glVertex3f(-3.0f, -0.1f, 0.0f);
-	glVertex3f(3.0f, -0.2f, 0.0f);
-	glVertex3f(-3.0f, -0.2f, 0.0f);
-	glVertex3f(3.0f, -0.3f, 0.0f);
-	glVertex3f(-3.0f, -0.3f, 0.0f);
-	glVertex3f(3.0f, -0.4f, 0.0f);
-	glVertex3f(-3.0f, -0.4f, 0.0f);
-	glVertex3f(3.0f, -0.5f, 0.0f);
-	glVertex3f(-3.0f, -0.5f, 0.0f);
-	glVertex3f(3.0f, -0.6f, 0.0f);
-	glVertex3f(-3.0f, -0.6f, 0.0f);
-	glVertex3f(3.0f, -0.7f, 0.0f);
-	glVertex3f(-3.0f, -0.7f, 0.0f);
-	glVertex3f(3.0f, -0.8f, 0.0f);
-	glVertex3f(-3.0f, -0.8f, 0.0f);
-	glVertex3f(3.0f, -0.9f, 0.0f);
-	glVertex3f(-3.0f, -0.9f, 0.0f);
-	glVertex3f(3.0f, -1.0f, 0.0f);
-	glVertex3f(-3.0f, -1.0f, 0.0f);
-
-	glEnd();
-
-	lineCounter = 1;
-
-	// VERTICAL LINES STARTS HERE
-	glLineWidth(5.0f);
-
-	glBegin(GL_LINES);
-
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(0.0f, -1.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-
-	glEnd();
-
-	// blue vertical lines on the right side y axis
-	lineCounter = 1;
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-
-	glLineWidth(1.0f);
-
-	glBegin(GL_LINES);
-
-	for (GLfloat xValue = 0.02f; xValue <= 2.0f; xValue = xValue + 0.02f)
-	{
-		if (lineCounter % 5 != 0)
-		{
-			glVertex3f(xValue, 3.0f, 0.0f);
-			glVertex3f(xValue, -3.0f, 0.0f);
-		}
-
-		lineCounter++;
-	}
-
-	glEnd();
-
-	glLineWidth(1.0f);
-
-	// every 5th horizontal line
-	glLineWidth(4.0f);
-	glBegin(GL_LINES);
-
-	glVertex3f(0.1f, 3.0f, 0.0f);
-	glVertex3f(0.1f, -3.0f, 0.0f);
-	glVertex3f(0.2f, 3.0f, 0.0f);
-	glVertex3f(0.2f, -3.0f, 0.0f);
-	glVertex3f(0.3f, 3.0f, 0.0f);
-	glVertex3f(0.3f, -3.0f, 0.0f);
-	glVertex3f(0.4f, 3.0f, 0.0f);
-	glVertex3f(0.4f, -3.0f, 0.0f);
-	glVertex3f(0.5f, 3.0f, 0.0f);
-	glVertex3f(0.5f, -3.0f, 0.0f);
-	glVertex3f(0.6f, 3.0f, 0.0f);
-	glVertex3f(0.6f, -3.0f, 0.0f);
-	glVertex3f(0.7f, 3.0f, 0.0f);
-	glVertex3f(0.7f, -3.0f, 0.0f);
-	glVertex3f(0.8f, 3.0f, 0.0f);
-	glVertex3f(0.8f, -3.0f, 0.0f);
-	glVertex3f(0.9f, 3.0f, 0.0f);
-	glVertex3f(0.9f, -3.0f, 0.0f);
-	glVertex3f(1.0f, 3.0f, 0.0f);
-	glVertex3f(1.0f, -3.0f, 0.0f);
-
-	glVertex3f(1.1f, 3.0f, 0.0f);
-	glVertex3f(1.1f, -3.0f, 0.0f);
-	glVertex3f(1.2f, 3.0f, 0.0f);
-	glVertex3f(1.2f, -3.0f, 0.0f);
-	glVertex3f(1.3f, 3.0f, 0.0f);
-	glVertex3f(1.3f, -3.0f, 0.0f);
-	glVertex3f(1.4f, 3.0f, 0.0f);
-	glVertex3f(1.4f, -3.0f, 0.0f);
-	glVertex3f(1.5f, 3.0f, 0.0f);
-	glVertex3f(1.5f, -3.0f, 0.0f);
-	glVertex3f(1.6f, 3.0f, 0.0f);
-	glVertex3f(1.6f, -3.0f, 0.0f);
-
-	glEnd();
-
-	// blue vertical lines on the left side y axis
-	lineCounter = 1;
-
-	glColor3f(0.0f, 0.0f, 1.0f);
-
-	glLineWidth(1.0f);
-
-	glBegin(GL_LINES);
-
-	for (GLfloat xValue = -0.02f; xValue >= -2.0f; xValue = xValue - 0.02f)
-	{
-		if (lineCounter % 5 != 0)
-		{
-			glVertex3f(xValue, 3.0f, 0.0f);
-			glVertex3f(xValue, -3.0f, 0.0f);
-		}
-		lineCounter++;
-	}
-
-	glEnd();
-
-	glLineWidth(1.0f);
-
-	// every 5th horizontal line
-	glLineWidth(4.0f);
-	glBegin(GL_LINES);
-
-	glVertex3f(-0.1f, 3.0f, 0.0f);
-	glVertex3f(-0.1f, -3.0f, 0.0f);
-	glVertex3f(-0.2f, 3.0f, 0.0f);
-	glVertex3f(-0.2f, -3.0f, 0.0f);
-	glVertex3f(-0.3f, 3.0f, 0.0f);
-	glVertex3f(-0.3f, -3.0f, 0.0f);
-	glVertex3f(-0.4f, 3.0f, 0.0f);
-	glVertex3f(-0.4f, -3.0f, 0.0f);
-	glVertex3f(-0.5f, 3.0f, 0.0f);
-	glVertex3f(-0.5f, -3.0f, 0.0f);
-	glVertex3f(-0.6f, 3.0f, 0.0f);
-	glVertex3f(-0.6f, -3.0f, 0.0f);
-	glVertex3f(-0.7f, 3.0f, 0.0f);
-	glVertex3f(-0.7f, -3.0f, 0.0f);
-	glVertex3f(-0.8f, 3.0f, 0.0f);
-	glVertex3f(-0.8f, -3.0f, 0.0f);
-	glVertex3f(-0.9f, 3.0f, 0.0f);
-	glVertex3f(-0.9f, -3.0f, 0.0f);
-	glVertex3f(-1.0f, 3.0f, 0.0f);
-	glVertex3f(-1.0f, -3.0f, 0.0f);
-
-	glVertex3f(-1.1f, 3.0f, 0.0f);
-	glVertex3f(-1.1f, -3.0f, 0.0f);
-	glVertex3f(-1.2f, 3.0f, 0.0f);
-	glVertex3f(-1.2f, -3.0f, 0.0f);
-	glVertex3f(-1.3f, 3.0f, 0.0f);
-	glVertex3f(-1.3f, -3.0f, 0.0f);
-	glVertex3f(-1.4f, 3.0f, 0.0f);
-	glVertex3f(-1.4f, -3.0f, 0.0f);
-	glVertex3f(-1.5f, 3.0f, 0.0f);
-	glVertex3f(-1.5f, -3.0f, 0.0f);
-	glVertex3f(-1.6f, 3.0f, 0.0f);
-	glVertex3f(-1.6f, -3.0f, 0.0f);
-
-	glEnd();
-
-	// Red Horizontal Line
-	glLineWidth(5.0f);
-
-	glBegin(GL_LINES);
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(3.0f, 0.0f, 0.0f);
-	glVertex3f(-3.0f, 0.0f, 0.0f);
-
-	glEnd();
-
-	lineCounter = 1;
-}
-
-void renderCircleUsingLines()
-{
-	// HOLLOW CIRCLE
-	GLfloat centerX = 0.0f;
-	GLfloat centerY = 0.0f;
-	GLfloat radius = 0.3f;
-
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glLineWidth(3.0f);
-
-	glBegin(GL_LINE_LOOP);
-
-	for (int i = 0; i < 360; i++)
-	{
-		GLfloat angle = i * 3.14159f / 180.0f;
-
-		GLfloat x = centerX + cos(angle) * radius;
-		GLfloat y = centerY + sin(angle) * radius;
-
-		glVertex3f(x, y, 0.0f);
-	}
-
-	glEnd();
-
-	glLineWidth(1.0f);
-}
-
-void renderCircleUsingPoints()
-{
-	// HOLLOW CIRCLE
-	GLfloat centerX = 0.0f;
-	GLfloat centerY = 0.0f;
-	GLfloat radius = 0.3f;
-
-	glColor3f(1.0f, 1.0f, 0.0f);
-
-	glEnable(GL_POINT_SMOOTH);
-
-	glPointSize(3.0f);
-
-	glShadeModel(GL_SMOOTH);
-
-	glBegin(GL_POINTS);
-
-	for (int i = 0; i < 360; i = i + 5)
-	{
-		GLfloat angle = i * 3.14159f / 180.0f;
-
-		GLfloat x = centerX + cos(angle) * radius;
-		GLfloat y = centerY + sin(angle) * radius;
-
-		glVertex3f(x, y, 0.0f);
-	}
-
-	glEnd();
-
-	glLineWidth(1.0f);
 }
 
 void uninitialise(void)

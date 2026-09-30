@@ -17,8 +17,6 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-GLfloat angleCube = 0.0f;
-
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -435,59 +433,6 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -6.0f);
-
-	glScalef(0.75f, 0.75f, 0.75f);
-
-	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
-
-	glBegin(GL_QUADS);
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 1.0f);	// top-right of front
-	glVertex3f(-1.0f, 1.0f, 1.0f);	// top-left of front
-	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
-	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-right of front
-
-	// right
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of right
-	glVertex3f(1.0f, 1.0f, 1.0f);	// top-left of right
-	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-left of right
-	glVertex3f(1.0f, -1.0f, -1.0f); // bottom-right of right
-
-	// back
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);	 // top-right of back
-	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of back
-	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of back
-	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
-
-	// left
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
-	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
-	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
-	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
-
-	// top
-	glColor3f(0.0f, 1.0f, 1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
-	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
-	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
-	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
-
-	// bottom
-	glColor3f(1.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
-	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
-	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom
-	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of bottom
-
-	glEnd();
-
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
@@ -495,12 +440,6 @@ void render(void)
 void update(void)
 {
 	// code
-	angleCube = angleCube + 0.02f;
-
-	if (angleCube >= 360)
-	{
-		angleCube = 0.0f;
-	}
 }
 
 void uninitialise(void)

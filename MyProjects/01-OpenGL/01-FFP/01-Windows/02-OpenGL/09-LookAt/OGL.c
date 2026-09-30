@@ -32,6 +32,8 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
+GLfloat angleCube = 0.0f;
+
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
@@ -373,6 +375,14 @@ int initialise(void)
 	// printGLInfo
 	printGLInfo();
 
+	// enable depth
+	glShadeModel(GL_SMOOTH);			   // shading smooth
+	glClearDepth(1.0f);					   // reset all depth values to 1
+	glEnable(GL_DEPTH_TEST);			   // depth test
+	glDepthFunc(GL_LEQUAL);				   // less than equal
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
+		   GL_NICEST);					   // do it nicest
+
 	// choose screen clearing color as blue
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
@@ -417,19 +427,62 @@ void resize(int width, int height)
 void render(void)
 {
 	// code
-	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
+	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
+			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
+	// cube
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	// glTranslatef(0.0f, 0.0f, -3.0f);
-	gluLookAt(-1, 0, 5, 0, 0, 0, 0, 1, 0);
+	// glTranslatef(0.0f, 0.0f, -6.0f);
+	gluLookAt(0.0f, 2.0f, 5.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	glBegin(GL_TRIANGLES);
+	// glScalef(0.75f, 0.75f, 0.75f);
 
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
+	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
+
+	glBegin(GL_QUADS);
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-right of front
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// top-left of front
+	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-right of front
+
+	// right
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of right
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-left of right
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-left of right
+	glVertex3f(1.0f, -1.0f, -1.0f); // bottom-right of right
+
+	// back
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	 // top-right of back
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of back
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of back
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
+
+	// left
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
+
+	// top
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
+	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
+	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
+
+	// bottom
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of bottom
 
 	glEnd();
 
@@ -440,6 +493,12 @@ void render(void)
 void update(void)
 {
 	// code
+	angleCube = angleCube + 0.02f;
+
+	if (angleCube >= 360)
+	{
+		angleCube = 0.0f;
+	}
 }
 
 void uninitialise(void)
