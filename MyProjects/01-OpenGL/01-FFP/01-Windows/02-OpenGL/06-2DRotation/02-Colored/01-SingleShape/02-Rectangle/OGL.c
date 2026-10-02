@@ -444,8 +444,6 @@ void render(void)
 
 	glEnd();
 
-	glEnd();
-
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
