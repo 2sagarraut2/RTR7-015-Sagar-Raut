@@ -464,13 +464,13 @@ void render(void)
 	glColor3f(1.0f, 1.0f, 1.0f); //  white
 	renderCircleUsingLines(0.7f);
 
-	glColor3f(1.0f, 0.0f, 1.0f); //  purple
+	glColor3f(0.5f, 0.0f, 0.5f); //  purple
 	renderCircleUsingLines(0.8f);
 
-	glColor3f(0.128f, 0.128f, 0.128f); //  grey
+	glColor3f(0.5f, 0.0f, 0.5f); //  grey
 	renderCircleUsingLines(0.9f);
 
-	glColor3f(1.0f, 0.165f, 0.0f); // orange
+	glColor3f(1.0f, 0.647f, 0.0f); // orange
 	renderCircleUsingLines(1.0f);
 
 	// do double buffering

@@ -17,9 +17,6 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-GLfloat anglePyramid = 0.0f;
-GLfloat angleCube = 0.0f;
-
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -428,87 +425,65 @@ void resize(int width, int height)
 
 void render(void)
 {
+	// function declarations
+	void renderTriangles(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
-	// cube
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -6.0f);
+	glTranslatef(0.0f, 0.0f, -3.0f);
+	renderTriangles(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
+	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
+	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
+	renderTriangles(0.4f, 0.4f, 0.0f, 1.0f, 1.0f);
+	renderTriangles(0.5f, 0.5f, 1.0f, 0.0f, 1.0f);
+	renderTriangles(0.6f, 0.6f, 1.0f, 1.0f, 0.0f);
+	renderTriangles(0.7f, 0.7f, 1.0f, 1.0f, 1.0f);
+	renderTriangles(0.8f, 0.8f, 0.5f, 0.0f, 0.5f);
+	renderTriangles(0.9f, 0.9f, 0.5f, 0.0f, 0.5f);
+	renderTriangles(1.0f, 1.0f, 1.0f, 0.647f, 0.0f);
 
-	glScalef(0.75f, 0.75f, 0.75f);
-
-	glRotatef(angleCube, 1.0f, 0.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
-	glRotatef(angleCube, 0.0f, 0.0f, 1.0f);
-
-	glBegin(GL_QUADS);
-
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, 1.0f);	// top-right of front
-	glVertex3f(-1.0f, 1.0f, 1.0f);	// top-left of front
-	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
-	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-right of front
-
-	// right
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of right
-	glVertex3f(1.0f, 1.0f, 1.0f);	// top-left of right
-	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-left of right
-	glVertex3f(1.0f, -1.0f, -1.0f); // bottom-right of right
-
-	// back
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);	 // top-right of back
-	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of back
-	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of back
-	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
-
-	// left
-	glColor3f(0.0f, 1.0f, 1.0f);
-	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
-	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
-	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
-	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
-
-	// top
-	glColor3f(1.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
-	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
-	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
-	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
-
-	// bottom
-	glColor3f(1.0f, 1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
-	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
-	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom
-	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of bottom
-
-	glEnd();
-
+	// glColor3f(1.0f, 0.0f, 0.0f);   // red
+	// glColor3f(0.0f, 1.0f, 0.0f);   // green
+	// glColor3f(0.0f, 0.0f, 1.0f);   // blue
+	// glColor3f(0.0f, 1.0f, 1.0f);   // cyan
+	// glColor3f(1.0f, 0.0f, 1.0f);   //  magenta
+	// glColor3f(1.0f, 1.0f, 0.0f);   //  yellow
+	// glColor3f(1.0f, 1.0f, 1.0f);   //  white
+	// glColor3f(0.5f, 0.0f, 0.5f);   //  purple
+	// glColor3f(0.5f, 0.0f, 0.5f);   //  grey
+	// glColor3f(1.0f, 0.647f, 0.0f); // orange
 	// do double buffering
 	SwapBuffers(SR_ghdc);
+}
+
+void renderTriangles(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
+{
+	glColor3f(r, g, b);
+	glBegin(GL_LINE_LOOP);
+
+	glVertex3f((x), (y), 0.0f);
+	glVertex3f(-(x), (y), 0.0f);
+
+	glVertex3f(-(x), (y), 0.0f);
+	glVertex3f(-(x), -(y), 0.0f);
+
+	glVertex3f(-(x), -(y), 0.0f);
+	glVertex3f((x), -(y), 0.0f);
+
+	glVertex3f((x), -(y), 0.0f);
+	glVertex3f((x), (y), 0.0f);
+
+	glEnd();
 }
 
 void update(void)
 {
 	// code
-	anglePyramid = anglePyramid + 0.02f;
-
-	if (anglePyramid >= 360)
-	{
-		anglePyramid = 0.0f;
-	}
-
-	angleCube = angleCube + 0.05f;
-
-	if (angleCube >= 360)
-	{
-		angleCube = 0.0f;
-	}
 }
 
 void uninitialise(void)

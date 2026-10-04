@@ -425,6 +425,9 @@ void resize(int width, int height)
 
 void render(void)
 {
+	// function declarations
+	void renderTriangles(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
@@ -432,31 +435,47 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -2.0f);
+	glTranslatef(0.0f, 0.0f, -3.0f);
+	renderTriangles(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
+	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
+	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
+	renderTriangles(0.4f, 0.4f, 0.0f, 1.0f, 1.0f);
+	renderTriangles(0.5f, 0.5f, 1.0f, 0.0f, 1.0f);
+	renderTriangles(0.6f, 0.6f, 1.0f, 1.0f, 0.0f);
+	renderTriangles(0.7f, 0.7f, 1.0f, 1.0f, 1.0f);
+	renderTriangles(0.8f, 0.8f, 0.5f, 0.0f, 0.5f);
+	renderTriangles(0.9f, 0.9f, 0.5f, 0.0f, 0.5f);
+	renderTriangles(1.0f, 1.0f, 1.0f, 0.647f, 0.0f);
 
+	// glColor3f(1.0f, 0.0f, 0.0f);   // red
+	// glColor3f(0.0f, 1.0f, 0.0f);   // green
+	// glColor3f(0.0f, 0.0f, 1.0f);   // blue
+	// glColor3f(0.0f, 1.0f, 1.0f);   // cyan
+	// glColor3f(1.0f, 0.0f, 1.0f);   //  magenta
+	// glColor3f(1.0f, 1.0f, 0.0f);   //  yellow
+	// glColor3f(1.0f, 1.0f, 1.0f);   //  white
+	// glColor3f(0.5f, 0.0f, 0.5f);   //  purple
+	// glColor3f(0.5f, 0.0f, 0.5f);   //  grey
+	// glColor3f(1.0f, 0.647f, 0.0f); // orange
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
 
-void renderTriangle()
+void renderTriangles(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
 {
-	// HOLLOW TRIANGLE
-	glColor3f(1.0f, 1.0f, 0.0f);
+	glColor3f(r, g, b);
+	glBegin(GL_LINE_LOOP);
 
-	glLineWidth(2.0f);
-	glBegin(GL_LINES);
+	glVertex3f(0.0f, (y), 0.0f);
+	glVertex3f(-(x), -(y), 0.0f);
 
-	glVertex3f(0.0f, 0.3f, 0.0f);
-	glVertex3f(-0.3f, -0.3f, 0.0f);
+	glVertex3f(-(x), -(y), 0.0f);
+	glVertex3f((x), -(y), 0.0f);
 
-	glVertex3f(-0.3f, -0.3f, 0.0f);
-	glVertex3f(0.3f, -0.3f, 0.0f);
-
-	glVertex3f(0.3f, -0.3f, 0.0f);
-	glVertex3f(0.0f, 0.3f, 0.0f);
+	glVertex3f((x), -(y), 0.0f);
+	glVertex3f(0.0f, (y), 0.0f);
 
 	glEnd();
-	glLineWidth(1.0f);
 }
 
 void update(void)
