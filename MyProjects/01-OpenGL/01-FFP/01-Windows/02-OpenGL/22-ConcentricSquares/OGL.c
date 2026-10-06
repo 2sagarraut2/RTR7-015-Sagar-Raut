@@ -439,24 +439,22 @@ void render(void)
 	renderTriangles(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
 	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
 	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
-	renderTriangles(0.4f, 0.4f, 0.0f, 1.0f, 1.0f);
-	renderTriangles(0.5f, 0.5f, 1.0f, 0.0f, 1.0f);
-	renderTriangles(0.6f, 0.6f, 1.0f, 1.0f, 0.0f);
-	renderTriangles(0.7f, 0.7f, 1.0f, 1.0f, 1.0f);
-	renderTriangles(0.8f, 0.8f, 0.5f, 0.0f, 0.5f);
-	renderTriangles(0.9f, 0.9f, 0.5f, 0.0f, 0.5f);
-	renderTriangles(1.0f, 1.0f, 1.0f, 0.647f, 0.0f);
+	renderTriangles(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
+	renderTriangles(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
+	renderTriangles(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
+	renderTriangles(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
+	renderTriangles(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
+	renderTriangles(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
+	renderTriangles(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
 
-	// glColor3f(1.0f, 0.0f, 0.0f);   // red
-	// glColor3f(0.0f, 1.0f, 0.0f);   // green
-	// glColor3f(0.0f, 0.0f, 1.0f);   // blue
-	// glColor3f(0.0f, 1.0f, 1.0f);   // cyan
-	// glColor3f(1.0f, 0.0f, 1.0f);   //  magenta
-	// glColor3f(1.0f, 1.0f, 0.0f);   //  yellow
-	// glColor3f(1.0f, 1.0f, 1.0f);   //  white
-	// glColor3f(0.5f, 0.0f, 0.5f);   //  purple
-	// glColor3f(0.5f, 0.0f, 0.5f);   //  grey
-	// glColor3f(1.0f, 0.647f, 0.0f); // orange
+	glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
+	glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
+	glColor3f(0.4f, 0.4f, 0.0f);	// Dark Yellow (Dark Olive / Mustard)
+	glColor3f(0.3f, 0.3f, 0.3f);	// Dark White (Classic Dark Grey)
+	glColor3f(0.2f, 0.0f, 0.3f);	// Dark Purple (Deep Indigo)
+	glColor3f(0.15f, 0.15f, 0.15f); // Dark Grey (Charcoal / Near Black)
+	glColor3f(0.4f, 0.2f, 0.0f);	// Dark Orange (Dark Brown / Rust)
+
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
