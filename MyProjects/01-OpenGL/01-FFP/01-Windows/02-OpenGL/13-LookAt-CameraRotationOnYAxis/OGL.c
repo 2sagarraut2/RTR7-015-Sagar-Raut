@@ -17,6 +17,9 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
+GLfloat anglePyramid = 0.0f;
+GLfloat angleCube = 0.0f;
+
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -425,64 +428,129 @@ void resize(int width, int height)
 
 void render(void)
 {
-	// function declarations
-	void renderTriangles(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
-
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
+	// pyramid
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
-	renderTriangles(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
-	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
-	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
+	glTranslatef(0.0f, 0.0f, -10.0f);
 
-	renderTriangles(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
-	renderTriangles(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
-	renderTriangles(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
-	renderTriangles(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
-	renderTriangles(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
-	renderTriangles(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
-	renderTriangles(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
+	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
 
-	glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
-	glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
-	glColor3f(0.4f, 0.4f, 0.0f);	// Dark Yellow (Dark Olive / Mustard)
-	glColor3f(0.3f, 0.3f, 0.3f);	// Dark White (Classic Dark Grey)
-	glColor3f(0.2f, 0.0f, 0.3f);	// Dark Purple (Deep Indigo)
-	glColor3f(0.15f, 0.15f, 0.15f); // Dark Grey (Charcoal / Near Black)
-	glColor3f(0.4f, 0.2f, 0.0f);	// Dark Orange (Dark Brown / Rust)
+	glBegin(GL_TRIANGLES);
+
+	// front face
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // front-top
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f); // front-right
+
+	// right
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // right-top
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f); // right-left
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f); // right-right
+
+	// back
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // back-top
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, -1.0f); // back-left
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
+
+	// left
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f); // left-top
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f); // left-right
+
+	glEnd();
+
+	// cube
+	// glMatrixMode(GL_MODELVIEW);
+	// glLoadIdentity();
+
+	glTranslatef(0.5f, 0.0f, -5.0f);
+
+	glScalef(0.75f, 0.75f, 0.75f);
+
+	// glRotatef(angleCube, 0.0f, 1.0f, 0.0f);
+
+	glBegin(GL_QUADS);
+
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-right of front
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// top-left of front
+	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-right of front
+
+	// right
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of right
+	glVertex3f(1.0f, 1.0f, 1.0f);	// top-left of right
+	glVertex3f(1.0f, -1.0f, 1.0f);	// bottom-left of right
+	glVertex3f(1.0f, -1.0f, -1.0f); // bottom-right of right
+
+	// back
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	 // top-right of back
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of back
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of back
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of back
+
+	// left
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f);	 // top-right of left
+	glVertex3f(-1.0f, 1.0f, -1.0f);	 // top-left of left
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of left
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // bottom-right of left
+
+	// top
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, -1.0f);	// top-right of top
+	glVertex3f(-1.0f, 1.0f, -1.0f); // top-left of top
+	glVertex3f(-1.0f, 1.0f, 1.0f);	// bottom-left of top
+	glVertex3f(1.0f, 1.0f, 1.0f);	// bottom-right of top
+
+	// bottom
+	glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f);	 // top-right of bottom
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // top-left of bottom
+	glVertex3f(-1.0f, -1.0f, -1.0f); // bottom-left of bottom
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // bottom-right of bottom
+
+	glEnd();
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
 
-void renderTriangles(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
-{
-	glColor3f(r, g, b);
-
-	glLineWidth(3.0f);
-
-	glBegin(GL_LINE_LOOP);
-
-	glVertex3f(0.0f, (y), 0.0f);
-	glVertex3f(-(x), -(y), 0.0f);
-
-	glVertex3f(-(x), -(y), 0.0f);
-	glVertex3f((x), -(y), 0.0f);
-
-	glVertex3f((x), -(y), 0.0f);
-	glVertex3f(0.0f, (y), 0.0f);
-
-	glEnd();
-}
-
 void update(void)
 {
 	// code
+	anglePyramid = anglePyramid + 0.02f;
+
+	if (anglePyramid >= 360)
+	{
+		anglePyramid = 0.0f;
+	}
+
+	angleCube = angleCube + 0.05f;
+
+	if (angleCube >= 360)
+	{
+		angleCube = 0.0f;
+	}
 }
 
 void uninitialise(void)

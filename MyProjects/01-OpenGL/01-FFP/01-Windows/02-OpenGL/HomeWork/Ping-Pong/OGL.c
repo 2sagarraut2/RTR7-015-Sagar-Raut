@@ -32,6 +32,9 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
+GLfloat xPositionOnLeftSide = -0.4f;
+GLfloat xPositionOnRightSide = 0.4f;
+
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
@@ -248,6 +251,20 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 			}
 
 			break;
+		case 'a':
+			if (xPositionOnLeftSide >= -2.2f)
+			{
+				xPositionOnLeftSide = xPositionOnLeftSide - 0.2f;
+				xPositionOnRightSide = xPositionOnRightSide - 0.2f;
+			}
+			break;
+		case 'd':
+			if (xPositionOnLeftSide <= 2.2f)
+			{
+				xPositionOnLeftSide = xPositionOnLeftSide + 0.2f;
+				xPositionOnRightSide = xPositionOnRightSide + 0.2f;
+			}
+			break;
 		}
 		break;
 	case WM_CLOSE:
@@ -334,7 +351,6 @@ int initialise(void)
 	SR_pfd.cGreenBits = 8;
 	SR_pfd.cBlueBits = 8;
 	SR_pfd.cAlphaBits = 8;
-	SR_pfd.cDepthBits = 32;
 
 	// ask for specialist
 	SR_ghdc = GetDC(SR_ghwnd);
@@ -373,14 +389,6 @@ int initialise(void)
 
 	// printGLInfo
 	printGLInfo();
-
-	// enable depth
-	glShadeModel(GL_SMOOTH);			   // shading smooth
-	glClearDepth(1.0f);					   // reset all depth values to 1
-	glEnable(GL_DEPTH_TEST);			   // depth test
-	glDepthFunc(GL_LEQUAL);				   // less than equal
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
-		   GL_NICEST);					   // do it nicest
 
 	// choose screen clearing color as blue
 	// red green blue alpha
@@ -425,59 +433,28 @@ void resize(int width, int height)
 
 void render(void)
 {
-	// function declarations
-	void renderTriangles(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
-
 	// code
-	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
-			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
+	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -3.0f);
-	renderTriangles(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
-	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
-	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
+	glTranslatef(-0.5f, 0.0f, -3.5f);
 
-	renderTriangles(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
-	renderTriangles(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
-	renderTriangles(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
-	renderTriangles(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
-	renderTriangles(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
-	renderTriangles(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
-	renderTriangles(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
+	glBegin(GL_QUADS);
 
-	glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
-	glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
-	glColor3f(0.4f, 0.4f, 0.0f);	// Dark Yellow (Dark Olive / Mustard)
-	glColor3f(0.3f, 0.3f, 0.3f);	// Dark White (Classic Dark Grey)
-	glColor3f(0.2f, 0.0f, 0.3f);	// Dark Purple (Deep Indigo)
-	glColor3f(0.15f, 0.15f, 0.15f); // Dark Grey (Charcoal / Near Black)
-	glColor3f(0.4f, 0.2f, 0.0f);	// Dark Orange (Dark Brown / Rust)
+	glVertex3f(xPositionOnRightSide, -1.3f, 0.0f);
+
+	glVertex3f(xPositionOnLeftSide, -1.3f, 0.0f);
+
+	glVertex3f(xPositionOnLeftSide, -1.5f, 0.0f);
+
+	glVertex3f(xPositionOnRightSide, -1.5f, 0.0f);
+
+	glEnd();
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
-}
-
-void renderTriangles(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
-{
-	glColor3f(r, g, b);
-
-	glLineWidth(3.0f);
-
-	glBegin(GL_LINE_LOOP);
-
-	glVertex3f(0.0f, (y), 0.0f);
-	glVertex3f(-(x), -(y), 0.0f);
-
-	glVertex3f(-(x), -(y), 0.0f);
-	glVertex3f((x), -(y), 0.0f);
-
-	glVertex3f((x), -(y), 0.0f);
-	glVertex3f(0.0f, (y), 0.0f);
-
-	glEnd();
 }
 
 void update(void)

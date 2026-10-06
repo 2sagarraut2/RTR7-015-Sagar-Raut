@@ -426,7 +426,7 @@ void resize(int width, int height)
 void render(void)
 {
 	// function declarations
-	void renderTriangles(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+	void renderSquares(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
@@ -436,16 +436,16 @@ void render(void)
 	glLoadIdentity();
 
 	glTranslatef(0.0f, 0.0f, -3.0f);
-	renderTriangles(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
-	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
-	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
-	renderTriangles(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
-	renderTriangles(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
-	renderTriangles(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
-	renderTriangles(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
-	renderTriangles(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
-	renderTriangles(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
-	renderTriangles(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
+	renderSquares(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
+	renderSquares(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
+	renderSquares(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
+	renderSquares(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
+	renderSquares(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
+	renderSquares(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
+	renderSquares(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
+	renderSquares(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
+	renderSquares(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
+	renderSquares(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
 
 	glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
 	glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
@@ -459,9 +459,12 @@ void render(void)
 	SwapBuffers(SR_ghdc);
 }
 
-void renderTriangles(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
+void renderSquares(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
 {
 	glColor3f(r, g, b);
+
+	glLineWidth(3.0f);
+
 	glBegin(GL_LINE_LOOP);
 
 	glVertex3f((x), (y), 0.0f);
