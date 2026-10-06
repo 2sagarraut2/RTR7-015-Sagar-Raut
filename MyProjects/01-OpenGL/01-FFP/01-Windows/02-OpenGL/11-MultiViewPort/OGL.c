@@ -445,7 +445,7 @@ void resize(int width, int height)
 	}
 
 	// to match left top of viewport to window
-	// glViewport(0, 0, (GLsizei)width / 2, (GLsizei)height / 2);
+	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 
 	WIN_WIDTH = width;
 	WIN_HEIGHT = height;
@@ -477,6 +477,8 @@ void render(void)
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
 
+		glScalef(2.0f, 2.0f, 2.0f);
+
 		glBegin(GL_TRIANGLES);
 
 		glVertex3f(0.0f, 1.0f, 0.0f);
@@ -485,10 +487,14 @@ void render(void)
 
 		glEnd();
 
+		break;
+
 	case 1:
 		glViewport(0, 0, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
+
+		glScalef(2.0f, 2.0f, 2.0f);
 
 		glBegin(GL_TRIANGLES);
 
@@ -504,6 +510,8 @@ void render(void)
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
 
+		glScalef(2.0f, 2.0f, 2.0f);
+
 		glBegin(GL_TRIANGLES);
 
 		glVertex3f(0.0f, 1.0f, 0.0f);
@@ -517,6 +525,8 @@ void render(void)
 		glViewport((GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
+
+		glScalef(2.0f, 2.0f, 2.0f);
 
 		glBegin(GL_TRIANGLES);
 
@@ -532,6 +542,8 @@ void render(void)
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
 
+		glScalef(2.0f, 2.0f, 2.0f);
+
 		glBegin(GL_TRIANGLES);
 
 		glVertex3f(0.0f, 1.0f, 0.0f);
@@ -545,6 +557,8 @@ void render(void)
 		glViewport((GLsizei)WIN_WIDTH / 4, 0, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
+
+		glScalef(2.0f, 2.0f, 2.0f);
 
 		glBegin(GL_TRIANGLES);
 
@@ -560,6 +574,8 @@ void render(void)
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
 
+		glScalef(2.0f, 2.0f, 2.0f);
+
 		glBegin(GL_TRIANGLES);
 
 		glVertex3f(0.0f, 1.0f, 0.0f);
@@ -570,9 +586,11 @@ void render(void)
 		break;
 
 	case 7:
-		glViewport(0, (GLsizei)WIN_HEIGHT / 4, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
+		glViewport(0, 0, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT);
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
+
+		glScalef(2.0f, 2.0f, 2.0f);
 
 		glBegin(GL_TRIANGLES);
 
@@ -584,9 +602,11 @@ void render(void)
 		break;
 
 	case 8:
-		glViewport((GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 4, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT / 2);
+		glViewport((GLsizei)WIN_WIDTH / 2, 0, (GLsizei)WIN_WIDTH / 2, (GLsizei)WIN_HEIGHT);
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
+
+		glScalef(2.0f, 2.0f, 2.0f);
 
 		glBegin(GL_TRIANGLES);
 
@@ -602,19 +622,7 @@ void render(void)
 
 		glTranslatef(0.0f, 0.0f, -6.0f);
 
-		glBegin(GL_TRIANGLES);
-
-		glVertex3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(-1.0f, -1.0f, 0.0f);
-		glVertex3f(1.0f, -1.0f, 0.0f);
-
-		glEnd();
-		break;
-
-	default:
-		glViewport(0, 0, (GLsizei)WIN_WIDTH, (GLsizei)WIN_HEIGHT);
-
-		glTranslatef(0.0f, 0.0f, -6.0f);
+		glScalef(2.0f, 2.0f, 2.0f);
 
 		glBegin(GL_TRIANGLES);
 

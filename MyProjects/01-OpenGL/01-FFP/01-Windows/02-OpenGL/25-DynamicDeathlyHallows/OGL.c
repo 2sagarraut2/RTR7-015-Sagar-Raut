@@ -452,10 +452,6 @@ void render(void)
 	glLoadIdentity();
 	glTranslatef(0.0f, 0.0f, -2.0f);
 
-	// switch (caseNumber)
-	// {
-	// case 1:
-
 	glLoadIdentity();
 	glTranslatef(0.0f, 0.0f, -2.0f);
 
@@ -463,9 +459,6 @@ void render(void)
 
 	glRotatef(angleTriangle, 0.0f, 1.0f, 0.0f);
 	renderTriangle();
-
-	// 	break;
-	// case 2:
 
 	glLoadIdentity();
 	glTranslatef(0.0f, 0.0f, -2.0f);
@@ -475,18 +468,12 @@ void render(void)
 	glRotatef(angleCircle, 0.0f, 1.0f, 0.0f);
 	renderCircle();
 
-	// 	break;
-	// case 3:
-
 	glLoadIdentity();
 	glTranslatef(0.0f, 0.0f, -2.0f);
 
 	glTranslatef(0.0f, yPositionForLine, -2.0f);
 
 	renderLine();
-	// caseNumber++;
-	// 	break;
-	// }
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
@@ -521,17 +508,17 @@ void update(void)
 		angleCircle = 0.0f;
 	}
 
-	if (xPositionForCircle > 0.0f)
+	if (xPositionForRectangle >= 0.0f && xPositionForCircle > 0.0f)
 	{
 		xPositionForCircle = xPositionForCircle - 0.0002f;
 	}
 
-	if (yPositionForCircle < 0.0f)
+	if (xPositionForRectangle >= 0.0f && yPositionForCircle < 0.0f)
 	{
 		yPositionForCircle = yPositionForCircle + 0.0002f;
 	}
 
-	if (yPositionForLine > 0)
+	if ((xPositionForCircle <= 0.0f) && yPositionForLine > 0)
 	{
 		yPositionForLine = yPositionForLine - 0.0002f;
 	}
