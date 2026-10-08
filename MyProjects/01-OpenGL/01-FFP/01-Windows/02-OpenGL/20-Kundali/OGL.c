@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <stdio.h>	// For file I/O
 #include <stdlib.h> // For exit(0)
-#include <math.h>
 
 // OpenGL related header files
 #include <gl\GL.h>	// inside include path gl directory inside which GL.h file
@@ -32,19 +31,6 @@ FILE *SR_gpFile = NULL; // global pointer to file
 
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
-
-GLfloat angleTriangle = 0.0f;
-GLfloat angleCircle = 0.0f;
-
-GLfloat xPositionForRectangle = -3.0f;
-GLfloat yPositionForRectangle = -3.0f;
-
-GLfloat xPositionForCircle = 3.0f;
-GLfloat yPositionForCircle = -3.0f;
-
-GLfloat yPositionForLine = 3.0f;
-
-static int caseNumber = 1;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -440,9 +426,9 @@ void resize(int width, int height)
 void render(void)
 {
 	// function declarations
-	void renderCircle(void);
-	void renderTriangle(void);
-	void renderLine(void);
+	void renderSquares(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+	void renderDiamond(GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+	void renderLine(GLfloat, GLfloat, GLfloat, GLfloat);
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
@@ -450,150 +436,76 @@ void render(void)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -2.0f);
 
-	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -2.0f);
-
-	glTranslatef(xPositionForRectangle, yPositionForRectangle, -2.0f);
-
-	glRotatef(angleTriangle, 0.0f, 1.0f, 0.0f);
-	renderTriangle();
-
-	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -2.0f);
-
-	glTranslatef(xPositionForCircle, yPositionForCircle, -2.0f);
-
-	glRotatef(angleCircle, 0.0f, 1.0f, 0.0f);
-	renderCircle();
-
-	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -2.0f);
-
-	glTranslatef(0.0f, yPositionForLine, -2.0f);
-
-	renderLine();
+	glTranslatef(0.0f, 0.0f, -3.0f);
+	renderSquares(1.5f, 1.0f, 1.0f, 1.0f, 0.0f);
+	renderDiamond(1.5f, 1.0f, 1.0f, 1.0f, 0.0f);
+	renderLine(-1.5f, 1.0f, 1.5f, -1.0f);
+	renderLine(-1.5f, -1.0f, 1.5f, 1.0f);
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
 
-void update(void)
+void renderSquares(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
 {
-	// code
-	// For triangle
-	angleTriangle = angleTriangle + 0.05f;
+	glColor3f(r, g, b);
 
-	if (angleTriangle >= 360)
-	{
-		angleTriangle = 0.0f;
-	}
-
-	if (xPositionForRectangle < 0.0f)
-	{
-		xPositionForRectangle = xPositionForRectangle + 0.0002f;
-	}
-
-	if (yPositionForRectangle < 0.0f)
-	{
-		yPositionForRectangle = yPositionForRectangle + 0.0002f;
-	}
-
-	// For Circle
-	angleCircle = angleCircle + 0.05f;
-
-	if (angleCircle >= 360)
-	{
-		angleCircle = 0.0f;
-	}
-
-	if (xPositionForRectangle >= 0.0f && xPositionForCircle > 0.0f)
-	{
-		xPositionForCircle = xPositionForCircle - 0.0002f;
-	}
-
-	if (xPositionForRectangle >= 0.0f && yPositionForCircle < 0.0f)
-	{
-		yPositionForCircle = yPositionForCircle + 0.0002f;
-	}
-
-	if ((xPositionForCircle <= 0.0f) && yPositionForLine > 0)
-	{
-		yPositionForLine = yPositionForLine - 0.0002f;
-	}
-
-	if (yPositionForLine <= -0.00001f)
-	{
-		angleCircle = 0.0f;
-		angleTriangle = 0.0f;
-	}
-}
-
-void renderLine()
-{
-	// HOLLOW TRIANGLE
-	glColor3f(1.0f, 1.0f, 0.0f);
-
-	glLineWidth(2.0f);
-	glBegin(GL_LINES);
-
-	glVertex3f(0.0f, 0.6f, 0.0f);
-	glVertex3f(0.0f, -0.3f, 0.0f);
-
-	glEnd();
-	glLineWidth(1.0f);
-}
-
-void renderTriangle()
-{
-	// HOLLOW TRIANGLE
-	glColor3f(1.0f, 1.0f, 0.0f);
-
-	glLineWidth(2.0f);
-	glBegin(GL_LINES);
-
-	// glVertex3f(0.0f, 0.6f, 0.0f);
-	// glVertex3f(0.0f, -0.3f, 0.0f);
-
-	glVertex3f(0.0f, 0.6f, 0.0f);
-	glVertex3f(-0.6f, -0.3f, 0.0f);
-
-	glVertex3f(-0.6f, -0.3f, 0.0f);
-	glVertex3f(0.6f, -0.3f, 0.0f);
-
-	glVertex3f(0.6f, -0.3f, 0.0f);
-	glVertex3f(0.0f, 0.6f, 0.0f);
-
-	glEnd();
-	glLineWidth(1.0f);
-}
-
-void renderCircle()
-{
-	// HOLLOW CIRCLE
-	GLfloat centerX = 0.0f;
-	GLfloat centerY = 0.02f;
-	GLfloat radius = 0.32f;
-
-	glColor3f(1.0f, 1.0f, 0.0f);
 	glLineWidth(3.0f);
 
 	glBegin(GL_LINE_LOOP);
 
-	for (int i = 0; i < 360; i++)
-	{
-		GLfloat angle = i * 3.14159f / 180.0f;
+	glVertex3f((x), (y), 0.0f);
+	glVertex3f(-(x), (y), 0.0f);
 
-		GLfloat x = centerX + cos(angle) * radius;
-		GLfloat y = centerY + sin(angle) * radius;
+	glVertex3f(-(x), (y), 0.0f);
+	glVertex3f(-(x), -(y), 0.0f);
 
-		glVertex3f(x, y, 0.0f);
-	}
+	glVertex3f(-(x), -(y), 0.0f);
+	glVertex3f((x), -(y), 0.0f);
+
+	glVertex3f((x), -(y), 0.0f);
+	glVertex3f((x), (y), 0.0f);
 
 	glEnd();
+}
 
-	glLineWidth(1.0f);
+void renderDiamond(GLfloat x, GLfloat y, GLfloat r, GLfloat g, GLfloat b)
+{
+	glColor3f(r, g, b);
+
+	glLineWidth(3.0f);
+
+	glBegin(GL_LINE_LOOP);
+
+	glVertex3f((x), (0.0f), 0.0f);
+	glVertex3f((0.0f), (y), 0.0f);
+
+	glVertex3f((0.0f), (y), 0.0f);
+	glVertex3f(-(x), (0.0f), 0.0f);
+
+	glVertex3f(-(x), (0.0f), 0.0f);
+	glVertex3f((0.0f), -(y), 0.0f);
+
+	glVertex3f((0.0f), -(y), 0.0f);
+	glVertex3f((x), (0.0f), 0.0f);
+
+	glEnd();
+}
+
+void renderLine(GLfloat xStartPoint, GLfloat yStartPoint, GLfloat xEndPoint, GLfloat yEndPoint)
+{
+	glBegin(GL_LINES);
+
+	glVertex3f(xStartPoint, yStartPoint, 0.0f);
+	glVertex3f(xEndPoint, yEndPoint, 0.0f);
+
+	glEnd();
+}
+
+void update(void)
+{
+	// code
 }
 
 void uninitialise(void)

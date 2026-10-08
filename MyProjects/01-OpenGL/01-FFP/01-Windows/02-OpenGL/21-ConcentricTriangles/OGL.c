@@ -448,13 +448,13 @@ void render(void)
 	renderTriangles(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
 	renderTriangles(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
 
-	glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
-	glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
-	glColor3f(0.4f, 0.4f, 0.0f);	// Dark Yellow (Dark Olive / Mustard)
-	glColor3f(0.3f, 0.3f, 0.3f);	// Dark White (Classic Dark Grey)
-	glColor3f(0.2f, 0.0f, 0.3f);	// Dark Purple (Deep Indigo)
-	glColor3f(0.15f, 0.15f, 0.15f); // Dark Grey (Charcoal / Near Black)
-	glColor3f(0.4f, 0.2f, 0.0f);	// Dark Orange (Dark Brown / Rust)
+	// glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
+	// glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
+	// glColor3f(0.4f, 0.4f, 0.0f);	// Dark Yellow (Dark Olive / Mustard)
+	// glColor3f(0.3f, 0.3f, 0.3f);	// Dark White (Classic Dark Grey)
+	// glColor3f(0.2f, 0.0f, 0.3f);	// Dark Purple (Deep Indigo)
+	// glColor3f(0.15f, 0.15f, 0.15f); // Dark Grey (Charcoal / Near Black)
+	// glColor3f(0.4f, 0.2f, 0.0f);	// Dark Orange (Dark Brown / Rust)
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
