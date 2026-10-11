@@ -438,7 +438,7 @@ void render(void)
 
 	glTranslatef(0.0f, 0.0f, -10.0f);
 
-	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
+	glRotatef(130.0f, 0.0f, 1.0f, 0.0f);
 
 	glBegin(GL_TRIANGLES);
 
@@ -479,6 +479,8 @@ void render(void)
 	// cube
 	// glMatrixMode(GL_MODELVIEW);
 	// glLoadIdentity();
+
+	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
 
 	glTranslatef(0.5f, 0.0f, -5.0f);
 
