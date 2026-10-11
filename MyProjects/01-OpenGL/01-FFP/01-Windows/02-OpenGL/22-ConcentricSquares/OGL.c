@@ -439,13 +439,14 @@ void render(void)
 	renderSquares(0.1f, 0.1f, 1.0f, 0.0f, 0.0f);
 	renderSquares(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
 	renderSquares(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
-	renderSquares(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
-	renderSquares(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
-	renderSquares(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
-	renderSquares(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
-	renderSquares(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
-	renderSquares(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
-	renderSquares(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
+
+	renderSquares(0.4f, 0.4f, 0.0f, 0.8f, 0.8f);
+	renderSquares(0.5f, 0.5f, 0.8f, 0.0f, 0.8f);
+	renderSquares(0.6f, 0.6f, 0.8f, 0.6f, 0.0f);
+	renderSquares(0.7f, 0.7f, 0.8f, 0.8f, 0.9f);
+	renderSquares(0.8f, 0.8f, 0.7f, 0.0f, 0.9f);
+	renderSquares(0.9f, 0.9f, 0.95f, 0.65f, 0.85f);
+	renderSquares(1.0f, 1.0f, 0.8f, 0.9f, 0.0f);
 
 	// glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
 	// glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
