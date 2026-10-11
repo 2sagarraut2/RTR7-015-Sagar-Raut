@@ -426,14 +426,38 @@ void resize(int width, int height)
 	// width and height are of size_t type varibales so we typecasted to GLsizei
 
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	GLfloat perspectiveMatrix[16];
 
-	// perspective projection
-	gluPerspective(45.0f,							 // angle
-				   (GLfloat)width / (GLfloat)height, // ratio of width and height
-				   0.1f,							 // near
-				   100.0f);							 // far
-													 // this internally calls frustum
+	GLfloat aspect = (GLfloat)width / (GLfloat)height;
+	GLfloat nearPoint = 0.1f;
+	GLfloat farPoint = 100.0f;
+
+	// For 45° FOV: f = 1/tan(22.5°) ≈ 2.414213562
+	GLfloat f = 2.414213562f;
+
+	perspectiveMatrix[0] = f / aspect;
+	perspectiveMatrix[1] = 0.0f;
+	perspectiveMatrix[2] = 0.0f;
+	perspectiveMatrix[3] = 0.0f;
+
+	perspectiveMatrix[4] = 0.0f;
+	perspectiveMatrix[5] = f;
+	perspectiveMatrix[6] = 0.0f;
+	perspectiveMatrix[7] = 0.0f;
+
+	perspectiveMatrix[8] = 0.0f;
+	perspectiveMatrix[9] = 0.0f;
+	perspectiveMatrix[10] = (farPoint + nearPoint) / (nearPoint - farPoint); // -1.002002
+	perspectiveMatrix[11] = -1.0f;
+
+	perspectiveMatrix[12] = 0.0f;
+	perspectiveMatrix[13] = 0.0f;
+	perspectiveMatrix[14] = (2.0f * farPoint * nearPoint) / (nearPoint - farPoint); // -0.2002002
+	perspectiveMatrix[15] = 0.0f;
+
+	glLoadMatrixf(perspectiveMatrix);
+
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void render(void)
