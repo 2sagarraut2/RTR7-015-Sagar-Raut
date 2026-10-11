@@ -440,13 +440,13 @@ void render(void)
 	renderTriangles(0.2f, 0.2f, 0.0f, 1.0f, 0.0f);
 	renderTriangles(0.3f, 0.3f, 0.0f, 0.0f, 1.0f);
 
-	renderTriangles(0.4f, 0.4f, 0.0f, 0.4f, 0.4f);
-	renderTriangles(0.5f, 0.5f, 0.4f, 0.0f, 0.4f);
-	renderTriangles(0.6f, 0.6f, 0.4f, 0.4f, 0.0f);
-	renderTriangles(0.7f, 0.7f, 0.3f, 0.3f, 0.3f);
-	renderTriangles(0.8f, 0.8f, 0.2f, 0.0f, 0.3f);
-	renderTriangles(0.9f, 0.9f, 0.15f, 0.15f, 0.15f);
-	renderTriangles(1.0f, 1.0f, 0.4f, 0.2f, 0.0f);
+	renderTriangles(0.4f, 0.4f, 0.0f, 0.8f, 0.8f);
+	renderTriangles(0.5f, 0.5f, 0.8f, 0.0f, 0.8f);
+	renderTriangles(0.6f, 0.6f, 0.8f, 0.6f, 0.0f);
+	renderTriangles(0.7f, 0.7f, 0.8f, 0.8f, 0.9f);
+	renderTriangles(0.8f, 0.8f, 0.7f, 0.0f, 0.9f);
+	renderTriangles(0.9f, 0.9f, 0.95f, 0.65f, 0.85f);
+	renderTriangles(1.0f, 1.0f, 0.8f, 0.9f, 0.0f);
 
 	// glColor3f(0.0f, 0.4f, 0.4f);	// Dark Cyan (Dark Teal)
 	// glColor3f(0.4f, 0.0f, 0.4f);	// Dark Magenta (Dark Plum)
