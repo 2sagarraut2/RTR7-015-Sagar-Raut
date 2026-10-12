@@ -109,6 +109,7 @@ void display(void)
     // static float centerX = -0.6f;
     // static float centerY = 0.5f;
 
+    glRotatef(-10.0f, 1.0f, 0.0f, 0.0f);
     planeMove();
     renderMyPlane();
 

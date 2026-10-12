@@ -86,7 +86,7 @@ void renderFighterJet(float xPosition, float yPosition, float percent)
 
     glBegin(GL_QUADS);
 
-    // glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(1.0f, 1.0f, 0.0f);
     glVertex2f(VALUE_FROM_PERCENT((xPosition), percent), VALUE_FROM_PERCENT((yPosition + 0.07f), percent));
     glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.22f), percent), VALUE_FROM_PERCENT((yPosition + 0.07f), percent));
     glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.22f), percent), VALUE_FROM_PERCENT((yPosition - 0.07f), percent));
@@ -96,7 +96,7 @@ void renderFighterJet(float xPosition, float yPosition, float percent)
 
     glBegin(GL_QUADS);
 
-    // glColor3f(1.0f, 0.0f, 0.0f);
+    glColor3f(1.0f, 0.0f, 0.0f);
     glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.03f), percent), VALUE_FROM_PERCENT((yPosition + 0.3f), percent));
     // glColor3f(0.0f, 1.0f, 0.0f);
     glVertex2f(VALUE_FROM_PERCENT((xPosition + 0.07f), percent), VALUE_FROM_PERCENT((yPosition + 0.3f), percent));
