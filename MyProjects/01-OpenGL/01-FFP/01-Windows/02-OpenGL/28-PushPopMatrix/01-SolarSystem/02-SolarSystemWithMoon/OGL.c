@@ -17,8 +17,6 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-GLfloat anglePyramid = 0.0f;
-
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 

@@ -17,8 +17,6 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-GLfloat anglePyramid = 0.0f;
-
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -542,12 +540,6 @@ void render(void)
 void update(void)
 {
 	// code
-	anglePyramid = anglePyramid + 0.02f;
-
-	if (anglePyramid >= 360)
-	{
-		anglePyramid = 0.0f;
-	}
 }
 
 void uninitialise(void)
