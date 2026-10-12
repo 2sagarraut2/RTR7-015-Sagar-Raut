@@ -13,6 +13,7 @@
 // link with openGL import library
 #pragma comment(lib, "OPENGL32.lib")
 #pragma comment(lib, "GLU32.lib")
+#pragma comment(lib, "Winmm.lib")
 
 // macros
 #define WIN_WIDTH 800
@@ -403,6 +404,8 @@ int initialise(void)
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
+	PlaySound(TEXT("game_of_thrones.wav"), NULL, SND_ASYNC); // play music
+
 	return 0;
 }
 
@@ -483,7 +486,7 @@ void update(void)
 {
 	// code
 	// For triangle
-	angleTriangle = angleTriangle + 0.05f;
+	angleTriangle = angleTriangle + 0.02f;
 
 	if (angleTriangle >= 360)
 	{
@@ -492,16 +495,16 @@ void update(void)
 
 	if (xPositionForRectangle < 0.0f)
 	{
-		xPositionForRectangle = xPositionForRectangle + 0.0002f;
+		xPositionForRectangle = xPositionForRectangle + 0.0001f;
 	}
 
 	if (yPositionForRectangle < 0.0f)
 	{
-		yPositionForRectangle = yPositionForRectangle + 0.0002f;
+		yPositionForRectangle = yPositionForRectangle + 0.0001f;
 	}
 
 	// For Circle
-	angleCircle = angleCircle + 0.05f;
+	angleCircle = angleCircle + 0.02f;
 
 	if (angleCircle >= 360)
 	{
@@ -510,17 +513,17 @@ void update(void)
 
 	if (xPositionForRectangle >= 0.0f && xPositionForCircle > 0.0f)
 	{
-		xPositionForCircle = xPositionForCircle - 0.0002f;
+		xPositionForCircle = xPositionForCircle - 0.0001f;
 	}
 
 	if (xPositionForRectangle >= 0.0f && yPositionForCircle < 0.0f)
 	{
-		yPositionForCircle = yPositionForCircle + 0.0002f;
+		yPositionForCircle = yPositionForCircle + 0.0001f;
 	}
 
 	if ((xPositionForCircle <= 0.0f) && yPositionForLine > 0)
 	{
-		yPositionForLine = yPositionForLine - 0.0002f;
+		yPositionForLine = yPositionForLine - 0.0001f;
 	}
 
 	if (yPositionForLine <= -0.00001f)
