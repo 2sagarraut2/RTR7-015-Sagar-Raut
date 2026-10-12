@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <stdio.h>	// For file I/O
 #include <stdlib.h> // For exit(0)
+#include <math.h>
 
 // OpenGL related header files
 #include <gl\GL.h>	// inside include path gl directory inside which GL.h file
@@ -32,8 +33,8 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
-GLfloat xPositionOnLeftSide = -0.4f;
-GLfloat xPositionOnRightSide = 0.4f;
+GLfloat xPositionOnLeftSide = -0.2f;
+GLfloat xPositionOnRightSide = 0.2f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -230,6 +231,20 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 		case VK_ESCAPE:
 			SR_bEscapeKeyIsPressed = TRUE;
 			break;
+		case VK_LEFT:
+			if (xPositionOnLeftSide >= -(2.5f))
+			{
+				xPositionOnLeftSide = xPositionOnLeftSide - 0.2f;
+				xPositionOnRightSide = xPositionOnRightSide - 0.2f;
+			}
+			break;
+		case VK_RIGHT:
+			if (xPositionOnLeftSide <= 2.1f)
+			{
+				xPositionOnLeftSide = xPositionOnLeftSide + 0.2f;
+				xPositionOnRightSide = xPositionOnRightSide + 0.2f;
+			}
+			break;
 		default:
 			break;
 		}
@@ -252,14 +267,14 @@ LRESULT CALLBACK WndProc(HWND SR_hwnd, UINT SR_iMsg, WPARAM wParam, LPARAM lPara
 
 			break;
 		case 'a':
-			if (xPositionOnLeftSide >= -2.2f)
+			if (xPositionOnLeftSide >= -(2.5f))
 			{
 				xPositionOnLeftSide = xPositionOnLeftSide - 0.2f;
 				xPositionOnRightSide = xPositionOnRightSide - 0.2f;
 			}
 			break;
 		case 'd':
-			if (xPositionOnLeftSide <= 2.2f)
+			if (xPositionOnLeftSide <= 2.1f)
 			{
 				xPositionOnLeftSide = xPositionOnLeftSide + 0.2f;
 				xPositionOnRightSide = xPositionOnRightSide + 0.2f;
@@ -392,7 +407,7 @@ int initialise(void)
 
 	// choose screen clearing color as blue
 	// red green blue alpha
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
+	glClearColor(1.0f, 0.647f, 0.0f, 1.0f); // here we selected color to clear screen color
 
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
@@ -428,33 +443,158 @@ void resize(int width, int height)
 				   (GLfloat)width / (GLfloat)height, // ratio of width and height
 				   0.1f,							 // near
 				   100.0f);							 // far
-													 // this internally calls frustum
+	// this internally calls frustum
+
+	toggleFullscreen();
 }
 
 void render(void)
 {
+	// function declarations
+	void renderTile(void);
+	void renderFruit(GLfloat, GLfloat);
+	void renderBomb(GLfloat, GLfloat);
+
 	// code
 	glClear(GL_COLOR_BUFFER_BIT); // here we clear screen for which blue color was previously selected
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(-0.5f, 0.0f, -3.5f);
+	glTranslatef(-0.0f, 0.0f, -3.5f);
 
-	glBegin(GL_QUADS);
-
-	glVertex3f(xPositionOnRightSide, -1.3f, 0.0f);
-
-	glVertex3f(xPositionOnLeftSide, -1.3f, 0.0f);
-
-	glVertex3f(xPositionOnLeftSide, -1.5f, 0.0f);
-
-	glVertex3f(xPositionOnRightSide, -1.5f, 0.0f);
-
-	glEnd();
+	renderFruit(0.0f, 0.0f);
+	renderBomb(0.0f + 0.4f, 0.0f);
+	renderTile();
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
+}
+
+void renderTile()
+{
+	glBegin(GL_QUADS);
+
+	// handle-top
+	// right-top
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(xPositionOnRightSide - 0.05f, -0.96f, 0.0f);
+	glVertex3f(xPositionOnRightSide - 0.04f, -1.0f, 0.0f);
+
+	// glColor3f(1.0f, 1.0f, 0.0f);
+	glVertex3f(xPositionOnLeftSide + 0.04f, -1.0f, 0.0f);
+	glVertex3f(xPositionOnLeftSide + 0.05f, -0.96f, 0.0f);
+
+	// handle right side
+	// right-top
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(xPositionOnRightSide - 0.04f, -1.0f, 0.0f);
+	// left-top
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(xPositionOnRightSide - 0.08f, -1.0f, 0.0f);
+	// left-bottom
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(xPositionOnRightSide - 0.04f, -1.2f, 0.0f);
+	// right-bottom
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(xPositionOnRightSide, -1.2f, 0.0f);
+
+	// handle left side
+	// glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(xPositionOnLeftSide + 0.04f, -1.0f, 0.0f);
+
+	// glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(xPositionOnLeftSide + 0.08f, -1.0f, 0.0f);
+
+	// glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(xPositionOnLeftSide + 0.04f, -1.2f, 0.0f);
+
+	// glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(xPositionOnLeftSide, -1.2f, 0.0f);
+
+	// actual bucket
+	// right-top
+	glColor3f(0.75f, 0.0f, 0.75f);
+	glVertex3f(xPositionOnRightSide + 0.03f, -1.2f, 0.0f);
+
+	// left-top
+	glColor3f(0.75f, 0.0f, 0.75f);
+	glVertex3f(xPositionOnLeftSide - 0.03f, -1.2f, 0.0f);
+
+	// left-bottom
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(xPositionOnLeftSide, -1.5f, 0.0f);
+
+	// right-bottom
+	glVertex3f(xPositionOnRightSide, -1.5f, 0.0f);
+
+	glEnd();
+}
+
+void renderFruit(GLfloat centerX, GLfloat centerY)
+{
+	GLfloat radius = 0.08f;
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+}
+
+void renderBomb(GLfloat centerX, GLfloat centerY)
+{
+	GLfloat radius = 0.08f;
+
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glBegin(GL_TRIANGLE_FAN);
+	// 1. Establish the center anchor point
+	glVertex2f(centerX, centerY);
+
+	// 2. Wrap around 360 degrees to plot the outer edge
+	for (int i = 0; i <= 361; i++)
+	{
+		// Convert degrees to radians for cos() and sin()
+		float angle = i * 3.14159f / 180.0f;
+
+		float x = centerX + (cos(angle) * radius);
+		float y = centerY + (sin(angle) * radius);
+
+		glVertex2f(x, y);
+	}
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glColor3f(0.25f, 0.25f, 0.25f);
+	glVertex3f(centerX + 0.035f, centerY + (radius * 1.45f), 0.0f);
+	glVertex3f(centerX - 0.035f, centerY + (radius * 1.45f), 0.0f);
+	glVertex3f(centerX - 0.035f, centerY + (radius - 0.02f), 0.0f);
+	glVertex3f(centerX + 0.035f, centerY + (radius - 0.02f), 0.0f);
+
+	glEnd();
+
+	glColor3f(0.0f, 0.0f, 0.0f);
+	glBegin(GL_LINES);
+
+	glLineWidth(2.0f);
+
+	glVertex3f(centerX, centerY + (radius * 1.45f), 0.0f);
+	glVertex3f(centerX + 0.035f, centerY + (radius * 2.0f), 0.0f);
+
+	glLineWidth(1.0f);
+
+	glEnd();
 }
 
 void update(void)
