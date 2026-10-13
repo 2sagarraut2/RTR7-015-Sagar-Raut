@@ -421,9 +421,6 @@ void resize(int width, int height)
 
 void render(void)
 {
-	// function declarations
-	void renderCylinder(GLfloat, GLfloat, GLfloat, int);
-
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // here we clear screen for which blue color was previously selected
@@ -434,11 +431,11 @@ void render(void)
 	// gluLookAt(0.0, 0.0, 0.0, -20.0f, 0.0f, 20.0f, 0.0f, 1.0f, 0.0f);
 
 	// variable declarations
-	GLfloat x_left[4], y_left[4];	// Control points for the left downward curve
-	GLfloat x_right[4], y_right[4]; // Control points for the right upward curve
+	GLfloat x_left[4], y_left[4];	// Explicit array for the left downward curve
+	GLfloat x_right[4], y_right[4]; // Explicit array for the right upward curve
 	GLfloat t;
 	int i = 0;
-	GLfloat xt[300], yt[300]; // Expanded array to hold all composite points
+	GLfloat xt[300], yt[300]; // Storage array for tracking coordinates
 
 	// --- SEGMENT 1 CONTROL POINTS (Left Curve: X from -2.0 to -1.0) ---
 	x_left[0] = -2.0f; // Start top-left
@@ -447,9 +444,9 @@ void render(void)
 	x_left[3] = -1.0f; // End flat section
 
 	y_left[0] = 1.0f; // Top altitude
-	y_left[1] = 1.0f; // Stay high initially
+	y_left[1] = 1.0f; // Stay high initially to create an easy slope entry
 	y_left[2] = 0.0f; // Lower altitude floor
-	y_left[3] = 0.0f; // Flatten on the floor
+	y_left[3] = 0.0f; // Flatten smoothly on the floor
 
 	// --- SEGMENT 3 CONTROL POINTS (Right Curve: X from 1.0 to 2.0) ---
 	x_right[0] = 1.0f; // Start flat section
@@ -459,8 +456,8 @@ void render(void)
 
 	y_right[0] = 0.0f; // Lower altitude floor
 	y_right[1] = 0.0f; // Stay flat initially
-	y_right[2] = 1.0f; // Climb to top altitude
-	y_right[3] = 1.0f; // Stabilise at top-right
+	y_right[2] = 1.0f; // Climb up towards top altitude
+	y_right[3] = 1.0f; // Stabilise cleanly at top-right
 
 	// =================================================================
 	// PHASE 1: Generate Left Downward Bezier Curve Points (50 points)
@@ -497,7 +494,6 @@ void render(void)
 	// RENDER PIPELINE: Draw all calculated points
 	// =================================================================
 	glBegin(GL_POINTS);
-	// We use the running counter 'i' (which ends up around 202 total points generated)
 	for (int j = 0; j < i; j++)
 	{
 		glVertex3f(xt[j], yt[j], 0.0f);
