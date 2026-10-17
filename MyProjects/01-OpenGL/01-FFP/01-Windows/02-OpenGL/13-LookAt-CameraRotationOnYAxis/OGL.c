@@ -436,7 +436,8 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -10.0f);
+	// glTranslatef(0.0f, 0.0f, -10.0f);
+	gluLookAt(0.0f, 0.0f, 11.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	glRotatef(130.0f, 0.0f, 1.0f, 0.0f);
 
