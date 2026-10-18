@@ -478,37 +478,34 @@ void render(void)
 	SwapBuffers(SR_ghdc);
 }
 
-void drawSimple2DRope(float totalLength, float thickness, int totalSegments)
+void drawCrossedBraid2DRope(float totalLength, float thickness, int totalSegments)
 {
 	float segmentWidth = totalLength / (float)totalSegments;
 	float halfLength = totalLength / 2.0f;
 	float halfThickness = thickness / 2.0f;
 
+	float r1 = 0.70f, g1 = 0.52f, b1 = 0.35f;
+	float r2 = 0.88f, g2 = 0.78f, b2 = 0.65f;
+
 	glBegin(GL_QUADS);
 	for (int i = 0; i < totalSegments; i++)
 	{
-		// Calculate the horizontal boundary positions for this tiny segment strip
-		float x1 = -halfLength + (i * segmentWidth);
-		float x2 = x1 + segmentWidth;
+		float x_start = -halfLength + (i * segmentWidth);
+		float x_end = x_start + segmentWidth;
 
-		// --- SIMPLE EFFECTIVE TWIST COLOR PATTERN ---
-		// Every alternate segment changes color cleanly to mimic twisted rope strands.
-		// Even segments = Classic Jute Tan Brown
-		// Odd segments  = Lighter Straw Cream
-		if (i % 2 == 0)
-		{
-			glColor3f(0.70f, 0.52f, 0.35f); // Darker strand tone
-		}
-		else
-		{
-			glColor3f(0.88f, 0.78f, 0.65f); // Lighter strand tone
-		}
+		float skew = segmentWidth;
 
-		// Draw the flat 2D segment strip
-		glVertex3f(x1, halfThickness, 0.0f);  // Top-Left
-		glVertex3f(x1, -halfThickness, 0.0f); // Bottom-Left
-		glVertex3f(x2, -halfThickness, 0.0f); // Bottom-Right
-		glVertex3f(x2, halfThickness, 0.0f);  // Top-Right
+		glColor3f(r1, g1, b1);
+		glVertex3f(x_start, -halfThickness, 0.0f);		 // Bottom-Left
+		glVertex3f(x_end, -halfThickness, 0.0f);		 // Bottom-Right
+		glVertex3f(x_end + skew, halfThickness, 0.0f);	 // Top-Right (Skewed Forward)
+		glVertex3f(x_start + skew, halfThickness, 0.0f); // Top-Left (Skewed Forward)
+
+		glColor3f(r2, g2, b2);
+		glVertex3f(x_start + skew, halfThickness, 0.001f); // Top-Left
+		glVertex3f(x_end + skew, halfThickness, 0.001f);   // Top-Right
+		glVertex3f(x_end, -halfThickness, 0.001f);		   // Bottom-Right (Skewed Backward)
+		glVertex3f(x_start, -halfThickness, 0.001f);	   // Bottom-Left (Skewed Backward)
 	}
 	glEnd();
 }
