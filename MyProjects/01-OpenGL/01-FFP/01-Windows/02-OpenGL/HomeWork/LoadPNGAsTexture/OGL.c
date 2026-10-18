@@ -414,6 +414,9 @@ int initialise(void)
 	// enable texturing
 	glEnable(GL_TEXTURE_2D);
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
