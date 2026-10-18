@@ -432,6 +432,7 @@ void render(void)
 {
 	// function declarations
 	void renderMountain();
+	void drawSimple2DRope(float totalLength, float thickness, int totalSegments);
 
 	// code
 	// glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
@@ -468,8 +469,48 @@ void render(void)
 
 	glPopMatrix();
 
+	glPushMatrix();
+	// PARAMETERS: Total Length (5.0f), Thickness (0.25f), Resolution (40 blocks)
+	drawSimple2DRope(5.0f, 0.25f, 40);
+	glPopMatrix();
+
 	// do double buffering
 	SwapBuffers(SR_ghdc);
+}
+
+void drawSimple2DRope(float totalLength, float thickness, int totalSegments)
+{
+	float segmentWidth = totalLength / (float)totalSegments;
+	float halfLength = totalLength / 2.0f;
+	float halfThickness = thickness / 2.0f;
+
+	glBegin(GL_QUADS);
+	for (int i = 0; i < totalSegments; i++)
+	{
+		// Calculate the horizontal boundary positions for this tiny segment strip
+		float x1 = -halfLength + (i * segmentWidth);
+		float x2 = x1 + segmentWidth;
+
+		// --- SIMPLE EFFECTIVE TWIST COLOR PATTERN ---
+		// Every alternate segment changes color cleanly to mimic twisted rope strands.
+		// Even segments = Classic Jute Tan Brown
+		// Odd segments  = Lighter Straw Cream
+		if (i % 2 == 0)
+		{
+			glColor3f(0.70f, 0.52f, 0.35f); // Darker strand tone
+		}
+		else
+		{
+			glColor3f(0.88f, 0.78f, 0.65f); // Lighter strand tone
+		}
+
+		// Draw the flat 2D segment strip
+		glVertex3f(x1, halfThickness, 0.0f);  // Top-Left
+		glVertex3f(x1, -halfThickness, 0.0f); // Bottom-Left
+		glVertex3f(x2, -halfThickness, 0.0f); // Bottom-Right
+		glVertex3f(x2, halfThickness, 0.0f);  // Top-Right
+	}
+	glEnd();
 }
 
 void renderMountain()
