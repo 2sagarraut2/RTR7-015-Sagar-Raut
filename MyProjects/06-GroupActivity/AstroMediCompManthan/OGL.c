@@ -33,16 +33,12 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
-GLfloat anglePyramid = 0.0f;
-
 GLUquadric *quadric = NULL;
 
 // loading header file to load transparent texture
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 GLuint texture_rope = 0;
-
-GLuint texture_stone = 0;
 
 // variables for rope animation
 BOOL isOnLeft = FALSE, isOnRight = TRUE;
@@ -576,48 +572,29 @@ void render(void)
 
 void renderMountain()
 {
-	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
-
-	// bind the texture
-	glBindTexture(GL_TEXTURE_2D, texture_stone);
-
 	glBegin(GL_TRIANGLES);
 
 	// front face
-	glTexCoord2f(0.5f, 1.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f); // front-top
-	glTexCoord2f(0.0, 0.0);
+	glVertex3f(0.0f, 1.0f, 0.0f);	// front-top
 	glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(1.0f, -1.0f, 1.0f); // front-right
+	glVertex3f(1.0f, -1.0f, 1.0f);	// front-right
 
 	// right
-	glTexCoord2f(0.5, 1.0);
-	glVertex3f(0.0f, 1.0f, 0.0f); // right-top
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(1.0f, -1.0f, 1.0f); // right-left
-	glTexCoord2f(0.0, 0.0);
+	glVertex3f(0.0f, 1.0f, 0.0f);	// right-top
+	glVertex3f(1.0f, -1.0f, 1.0f);	// right-left
 	glVertex3f(1.0f, -1.0f, -1.0f); // right-right
 
 	// back
-	glTexCoord2f(0.5, 1.0);
-	glVertex3f(0.0f, 1.0f, 0.0f); // back-top
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(1.0f, -1.0f, -1.0f); // back-left
-	glTexCoord2f(1.0, 0.0);
+	glVertex3f(0.0f, 1.0f, 0.0f);	 // back-top
+	glVertex3f(1.0f, -1.0f, -1.0f);	 // back-left
 	glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
 
 	// left
-	glTexCoord2f(0.5, 1.0);
-	glVertex3f(0.0f, 1.0f, 0.0f); // left-top
-	glTexCoord2f(1.0, 0.0);
+	glVertex3f(0.0f, 1.0f, 0.0f);	 // left-top
 	glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(-1.0f, -1.0f, 1.0f); // left-right
+	glVertex3f(-1.0f, -1.0f, 1.0f);	 // left-right
 
 	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void update(void)
@@ -641,13 +618,6 @@ void update(void)
 		{
 			isOnRight = TRUE;
 		}
-	}
-
-	anglePyramid = anglePyramid + 0.02f;
-
-	if (anglePyramid >= 180)
-	{
-		anglePyramid = 0.0f;
 	}
 }
 
