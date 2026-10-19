@@ -39,11 +39,13 @@ GLUquadric *quadric = NULL;
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 GLuint texture_rope = 0;
+GLuint texture_stone = 0;
 
 // variables for rope animation
 BOOL isOnLeft = FALSE, isOnRight = TRUE;
 GLfloat lengthOnRight = 0.0f;
 GLfloat lengthOnLeft = 0.0f;
+GLfloat anglePyramid = 0.0f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -330,6 +332,7 @@ int initialise(void)
 	void resize(int, int);
 	void printGLInfo(void);
 
+	BOOL loadGLTexture(GLuint * tex, TCHAR imageResourceName[]);
 	BOOL loadGLTexturePNGFile(GLuint *, TCHAR[]);
 
 	// variable declarations
@@ -390,12 +393,12 @@ int initialise(void)
 	printGLInfo();
 
 	// enable depth
-	// glShadeModel(GL_SMOOTH);			   // shading smooth
-	// glClearDepth(1.0f);					   // reset all depth values to 1
-	// glEnable(GL_DEPTH_TEST);			   // depth test
-	// glDepthFunc(GL_LEQUAL);				   // less than equal
-	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
-	// 	   GL_NICEST);					   // do it nicest
+	glShadeModel(GL_SMOOTH);			   // shading smooth
+	glClearDepth(1.0f);					   // reset all depth values to 1
+	glEnable(GL_DEPTH_TEST);			   // depth test
+	glDepthFunc(GL_LEQUAL);				   // less than equal
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
+		   GL_NICEST);					   // do it nicest
 
 	// choose screen clearing color as blue
 	// red green blue alpha
@@ -408,6 +411,15 @@ int initialise(void)
 		return -6;
 	}
 
+	// Load mountain texture
+	BOOL bResult = FALSE;
+	bResult = loadGLTexture(&texture_stone, MAKEINTRESOURCE(IDBITMAP_STONE));
+	if (bResult == FALSE)
+	{
+		fprintf(SR_gpFile, "SSR - initialize() : loadGLTexture() failed for stone texture\n");
+		return -7;
+	}
+
 	// enable texturing
 	glEnable(GL_TEXTURE_2D);
 
@@ -418,6 +430,40 @@ int initialise(void)
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
 	return 0;
+}
+
+BOOL loadGLTexture(GLuint *tex, TCHAR imageResourceID[])
+{
+	// Variable declarations
+	HBITMAP hBitmap = NULL;
+	BITMAP bmp;
+
+	// code
+	hBitmap = LoadImage(GetModuleHandle(NULL),
+						imageResourceID,
+						IMAGE_BITMAP,
+						0,
+						0,
+						LR_CREATEDIBSECTION);
+	if (hBitmap == NULL)
+	{
+		fprintf(SR_gpFile, "SSR: loadGLTexture(): loading hBitmap failed\n");
+		return FALSE;
+	}
+
+	GetObject(hBitmap, sizeof(BITMAP), &bmp);
+
+	//
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+	//
+	glGenTextures(1, tex);
+	glBindTexture(GL_TEXTURE_2D, *tex);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, bmp.bmWidth, bmp.bmHeight, GL_BGR_EXT, GL_UNSIGNED_BYTE, bmp.bmBits);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	DeleteObject(hBitmap);
+	return TRUE;
 }
 
 BOOL loadGLTexturePNGFile(GLuint *tex, const char *imageFilePath)
@@ -504,12 +550,13 @@ void render(void)
 {
 	// function declarations
 	void renderMountain();
+	void renderRopes();
 
 	// code
-	// glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
-	// 		GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
+	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
+			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
-	glClear(GL_COLOR_BUFFER_BIT);
+	// glClear(GL_COLOR_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -518,11 +565,17 @@ void render(void)
 	gluLookAt(0.0f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// mountain code
-	glPushMatrix();
-	glColor3f(1.0f, 1.0f, 1.0f);
 	renderMountain();
-	glPopMatrix();
 
+	// rope code
+	renderRopes();
+
+	// do double buffering
+	SwapBuffers(SR_ghdc);
+}
+
+void renderRopes()
+{
 	glPushMatrix();
 
 	glScalef(2.0f, 2.0f, 2.0f);
@@ -565,36 +618,59 @@ void render(void)
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	glPopMatrix();
-
-	// do double buffering
-	SwapBuffers(SR_ghdc);
 }
 
 void renderMountain()
 {
+	glPushMatrix();
+
+	glBindTexture(GL_TEXTURE_2D, texture_stone);
+
+	// glBegin(GL_TRIANGLES);
+	// // front
+	// glTexCoord2f(0.5f, 1.0f);
+	// glVertex3f(0.0f, 1.0f, 0.0f); // front-top
+	// glTexCoord2f(0.0f, 0.0f);
+	// glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
+	// glTexCoord2f(1.0f, 0.0f);
+	// glVertex3f(1.0f, -1.0f, 1.0f); // front-right
+	// // right
+	// glTexCoord2f(0.5f, 1.0f);
+	// glVertex3f(0.0f, 1.0f, 0.0f); // right-top
+	// glTexCoord2f(1.0f, 0.0f);
+	// glVertex3f(1.0f, -1.0f, 1.0f); // right-left
+	// glTexCoord2f(0.0f, 0.0f);
+	// glVertex3f(1.0f, -1.0f, -1.0f); // right-right
+	// // back
+	// glTexCoord2f(0.5f, 1.0f);
+	// glVertex3f(0.0f, 1.0f, 0.0f); // back-top
+	// glTexCoord2f(1.0f, 0.0f);
+	// glVertex3f(1.0f, -1.0f, -1.0f); // back-left
+	// glTexCoord2f(0.0f, 0.0f);
+	// glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
+	// // left
+	// glTexCoord2f(0.5f, 1.0f);
+	// glVertex3f(0.0f, 1.0f, 0.0f); // left-top
+	// glTexCoord2f(1.0f, 0.0f);
+	// glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
+	// glTexCoord2f(0.0f, 0.0f);
+	// glVertex3f(-1.0f, -1.0f, 1.0f); // left-right
+	// glEnd();
+
+	glScalef(1.2f, 1.2f, 1.2f);
 	glBegin(GL_TRIANGLES);
-
-	// front face
-	glVertex3f(0.0f, 1.0f, 0.0f);	// front-top
-	glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
-	glVertex3f(1.0f, -1.0f, 1.0f);	// front-right
-
-	// right
-	glVertex3f(0.0f, 1.0f, 0.0f);	// right-top
-	glVertex3f(1.0f, -1.0f, 1.0f);	// right-left
-	glVertex3f(1.0f, -1.0f, -1.0f); // right-right
-
-	// back
-	glVertex3f(0.0f, 1.0f, 0.0f);	 // back-top
-	glVertex3f(1.0f, -1.0f, -1.0f);	 // back-left
-	glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
-
-	// left
-	glVertex3f(0.0f, 1.0f, 0.0f);	 // left-top
-	glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
-	glVertex3f(-1.0f, -1.0f, 1.0f);	 // left-right
+	glTexCoord2f(0.5f, 1.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
 
 	glEnd();
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glPopMatrix();
 }
 
 void update(void)
@@ -618,6 +694,12 @@ void update(void)
 		{
 			isOnRight = TRUE;
 		}
+	}
+
+	anglePyramid = anglePyramid + 0.1f;
+	if (anglePyramid >= 360)
+	{
+		anglePyramid = 0.0f;
 	}
 }
 
