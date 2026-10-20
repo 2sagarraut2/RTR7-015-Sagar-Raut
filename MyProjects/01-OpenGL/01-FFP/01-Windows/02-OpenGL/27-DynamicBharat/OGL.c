@@ -51,6 +51,9 @@ GLfloat yPositionForSecondA = -5.95f;
 
 GLfloat xPositionForT = 8.0f;
 
+BOOL isReachedAtEnd = FALSE;
+GLfloat blendFactor = 0.5f;
+
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
@@ -401,6 +404,9 @@ int initialise(void)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
 		   GL_NICEST);					   // do it nicest
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// choose screen clearing color as blue
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
@@ -727,7 +733,14 @@ void letterB()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.000, 0.600, 0.200);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(-0.2f, 0.9f, 0.0f);
 	glVertex3f(1.2f, 0.9f, 0.0f);
@@ -738,11 +751,17 @@ void letterB()
 
 	// top left vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, 0.15f, 0.0f);
 	glVertex3f(0.0f, 0.15f, 0.0f);
@@ -751,12 +770,27 @@ void letterB()
 
 	// top right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, 0.15f, 0.0f);
 	glVertex3f(0.86f, 0.15f, 0.0f);
@@ -766,7 +800,14 @@ void letterB()
 	// central line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.15f, 0.0f);
 	glVertex3f(1.2f, 0.15f, 0.0f);
@@ -781,7 +822,14 @@ void letterB()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, -0.6f, 0.0f);
 	glVertex3f(0.0f, -0.6f, 0.0f);
@@ -790,12 +838,27 @@ void letterB()
 
 	// bottom right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, -0.6f, 0.0f);
 	glVertex3f(1.2f, -0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, -0.15f, 0.0f);
 	glVertex3f(0.86f, -0.15f, 0.0f);
@@ -805,7 +868,14 @@ void letterB()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(-0.2f, -0.9f, 0.0f);
 	glVertex3f(1.2f, -0.9f, 0.0f);
@@ -820,7 +890,14 @@ void letterH()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.000, 0.600, 0.200);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.9f, 0.0f);
 	glVertex3f(0.3f, 0.9f, 0.0f);
@@ -836,11 +913,27 @@ void letterH()
 
 	// top left vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
+
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, 0.15f, 0.0f);
 	glVertex3f(0.0f, 0.15f, 0.0f);
@@ -849,12 +942,27 @@ void letterH()
 
 	// top right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, 0.15f, 0.0f);
 	glVertex3f(0.86f, 0.15f, 0.0f);
@@ -864,7 +972,14 @@ void letterH()
 	// central line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.15f, 0.0f);
 	glVertex3f(1.2f, 0.15f, 0.0f);
@@ -879,7 +994,14 @@ void letterH()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, -0.6f, 0.0f);
 	glVertex3f(0.0f, -0.6f, 0.0f);
@@ -888,12 +1010,27 @@ void letterH()
 
 	// bottom right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, -0.6f, 0.0f);
 	glVertex3f(1.2f, -0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, -0.15f, 0.0f);
 	glVertex3f(0.86f, -0.15f, 0.0f);
@@ -903,7 +1040,14 @@ void letterH()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, -0.9f, 0.0f);
 	glVertex3f(0.3f, -0.9f, 0.0f);
@@ -923,7 +1067,14 @@ void letterA()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.000, 0.600, 0.200);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.9f, 0.0f);
 	glVertex3f(1.2f, 0.9f, 0.0f);
@@ -934,11 +1085,27 @@ void letterA()
 
 	// top left vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
+
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, 0.15f, 0.0f);
 	glVertex3f(0.0f, 0.15f, 0.0f);
@@ -947,12 +1114,27 @@ void letterA()
 
 	// top right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, 0.15f, 0.0f);
 	glVertex3f(0.86f, 0.15f, 0.0f);
@@ -962,7 +1144,14 @@ void letterA()
 	// central line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.15f, 0.0f);
 	glVertex3f(1.2f, 0.15f, 0.0f);
@@ -977,7 +1166,14 @@ void letterA()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, -0.6f, 0.0f);
 	glVertex3f(0.0f, -0.6f, 0.0f);
@@ -986,12 +1182,27 @@ void letterA()
 
 	// bottom right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, -0.6f, 0.0f);
 	glVertex3f(1.2f, -0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, -0.15f, 0.0f);
 	glVertex3f(0.86f, -0.15f, 0.0f);
@@ -1001,7 +1212,14 @@ void letterA()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, -0.9f, 0.0f);
 	glVertex3f(0.3f, -0.9f, 0.0f);
@@ -1021,7 +1239,14 @@ void letterR()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.000, 0.600, 0.200);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.9f, 0.0f);
 	glVertex3f(1.2f, 0.9f, 0.0f);
@@ -1032,11 +1257,27 @@ void letterR()
 
 	// top left vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
+
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, 0.15f, 0.0f);
 	glVertex3f(0.0f, 0.15f, 0.0f);
@@ -1045,12 +1286,27 @@ void letterR()
 
 	// top right vertical line
 	glBegin(GL_QUADS);
-	glColor3f(1.000, 0.600, 0.200);
+
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(1.2f, 0.15f, 0.0f);
 	glVertex3f(0.86f, 0.15f, 0.0f);
@@ -1060,7 +1316,14 @@ void letterR()
 	// central line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.15f, 0.0f);
 	glVertex3f(1.2f, 0.15f, 0.0f);
@@ -1075,7 +1338,14 @@ void letterR()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.3f, -0.6f, 0.0f);
 	glVertex3f(0.0f, -0.6f, 0.0f);
@@ -1084,18 +1354,27 @@ void letterR()
 
 	// bottom right vertical line
 	glBegin(GL_QUADS);
-	// glColor3f(1.000, 0.600, 0.200);
-
-	// glColor3f(1.000, 0.600, 0.200);
-
-	// glColor3f(0.0f, 0.0f, 1.0f);
 	glVertex3f(0.65f, -0.6f, 0.0f);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.96f, -0.6f, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.6f, -0.15f, 0.0f);
 
@@ -1106,7 +1385,14 @@ void letterR()
 	// bottom left vertical line
 	glBegin(GL_QUADS);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, -0.9f, 0.0f);
 	glVertex3f(0.3f, -0.9f, 0.0f);
@@ -1118,19 +1404,18 @@ void letterR()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	// glVertex3f(0.0f, -0.9f, 0.0f);
-	// glVertex3f(0.3f, -0.9f, 0.0f);
-	// glVertex3f(0.3f, -0.6f, 0.0f);
-	// glVertex3f(0.0f, -0.6f, 0.0f);
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
+
 	glVertex3f(0.91f, -0.9f, 0.0f);
-
-	// glColor3f(1.0f, 1.0f, 0.0f);
 	glVertex3f(1.2f, -0.9f, 0.0f);
-
 	glVertex3f(0.96f, -0.6f, 0.0f);
-
-	// glColor3f(0.0f, 0.0f, 1.0f);
 	glVertex3f(0.65f, -0.6f, 0.0f);
 
 	glEnd();
@@ -1141,7 +1426,14 @@ void letterT()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.000, 0.600, 0.200);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.0f, 0.9f, 0.0f);
 	glVertex3f(1.2f, 0.9f, 0.0f);
@@ -1153,12 +1445,26 @@ void letterT()
 	// top vertical line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.000, 0.600, 0.200);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.45, 0.6, 0.0f);
 	glVertex3f(0.75, 0.6, 0.0f);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.75, 0.15, 0.0f);
 	glVertex3f(0.45, 0.15, 0.0f);
@@ -1168,7 +1474,14 @@ void letterT()
 	// central line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.45f, 0.15f, 0.0f);
 	glVertex3f(0.75f, 0.15f, 0.0f);
@@ -1180,12 +1493,26 @@ void letterT()
 	// bottom vertical line
 	glBegin(GL_QUADS);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.45f, -0.15f, 0.0f);
 	glVertex3f(0.75f, -0.15f, 0.0f);
 
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
+	if (isReachedAtEnd)
+	{
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+	}
+	else
+	{
+		glColor3f(0.5f, 0.5f, 0.5f);
+	}
 
 	glVertex3f(0.75f, -0.9f, 0.0f);
 	glVertex3f(0.45f, -0.9f, 0.0f);
@@ -1272,6 +1599,16 @@ void update(void)
 		if (xPositionForT > 2.30f)
 		{
 			xPositionForT = xPositionForT - INCREMENT_FACTOR;
+		}
+	}
+
+	// color blending
+	if (xPositionForT < 2.30f)
+	{
+		isReachedAtEnd = TRUE;
+		for (GLfloat i = 0.0f; i <= 1.0f; i = i + 0.00000006)
+		{
+			blendFactor = blendFactor + i;
 		}
 	}
 }
