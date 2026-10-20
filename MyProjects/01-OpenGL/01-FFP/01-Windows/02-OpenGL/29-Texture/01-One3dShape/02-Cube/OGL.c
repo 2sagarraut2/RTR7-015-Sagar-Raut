@@ -624,13 +624,13 @@ void uninitialise(void)
 
 	if (texture_kundali)
 	{
-		glDeleteTextures(1, texture_kundali);
+		glDeleteTextures(1, &texture_kundali);
 		texture_kundali = 0;
 	}
 
 	if (texture_stone)
 	{
-		glDeleteTextures(1, texture_stone);
+		glDeleteTextures(1, &texture_stone);
 		texture_stone = 0;
 	}
 
