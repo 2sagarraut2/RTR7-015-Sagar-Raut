@@ -33,7 +33,7 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
-#define INCREMENT_FACTOR 0.0009f
+#define INCREMENT_FACTOR 0.0007f
 
 GLfloat xPositionForB = -8.0f;
 
@@ -43,16 +43,29 @@ GLfloat yPositionForH = 4.3f;
 GLfloat xPositionForA = -7.0f;
 GLfloat yPositionForA = -5.55f;
 
-GLfloat xPositionForR = 7.8f;
-GLfloat yPositionForR = 8.0f;
+GLfloat xPositionForR = 5.3f;
+GLfloat yPositionForR = 5.5f;
 
 GLfloat xPositionForSecondA = 7.0f;
 GLfloat yPositionForSecondA = -5.95f;
 
 GLfloat xPositionForT = 8.0f;
 
-BOOL isReachedAtEnd = FALSE;
-GLfloat blendFactor = 0.5f;
+BOOL isReachedAtEndForB = FALSE;
+BOOL isReachedAtEndForH = FALSE;
+BOOL isReachedAtEndForA = FALSE;
+BOOL isReachedAtEndForR = FALSE;
+BOOL isReachedAtEndForSecondA = FALSE;
+BOOL isReachedAtEndForT = FALSE;
+
+// GLfloat blendFactor = 0.0f;
+
+GLfloat blendFactorB = 0.0f;
+GLfloat blendFactorH = 0.0f;
+GLfloat blendFactorA = 0.0f;
+GLfloat blendFactorR = 0.0f;
+GLfloat blendFactorForSecondA = 0.0f;
+GLfloat blendFactorT = 0.0f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -692,7 +705,7 @@ void staticBharat()
 {
 	void letterB();
 	void letterH();
-	void letterA();
+	void letterA(GLfloat, BOOL);
 	void letterR();
 	void letterT();
 
@@ -709,7 +722,7 @@ void staticBharat()
 
 	glPushMatrix();
 	glTranslatef(xPositionForA, yPositionForA, 0.0f);
-	letterA();
+	letterA(blendFactorA, isReachedAtEndForA);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -719,7 +732,7 @@ void staticBharat()
 
 	glPushMatrix();
 	glTranslatef(xPositionForSecondA, yPositionForSecondA, 0.0f);
-	letterA();
+	letterA(blendFactorForSecondA, isReachedAtEndForSecondA);
 	glPopMatrix();
 
 	glPushMatrix();
@@ -733,9 +746,9 @@ void letterB()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorB);
 	}
 	else
 	{
@@ -754,9 +767,9 @@ void letterB()
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorB);
 	}
 	else
 	{
@@ -771,9 +784,9 @@ void letterB()
 	// top right vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorB);
 	}
 	else
 	{
@@ -783,9 +796,9 @@ void letterB()
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorB);
 	}
 	else
 	{
@@ -800,9 +813,9 @@ void letterB()
 	// central line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorB);
 	}
 	else
 	{
@@ -822,9 +835,9 @@ void letterB()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorB);
 	}
 	else
 	{
@@ -839,9 +852,9 @@ void letterB()
 	// bottom right vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorB);
 	}
 	else
 	{
@@ -851,9 +864,9 @@ void letterB()
 	glVertex3f(0.86f, -0.6f, 0.0f);
 	glVertex3f(1.2f, -0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorB);
 	}
 	else
 	{
@@ -868,9 +881,9 @@ void letterB()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForB)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorB);
 	}
 	else
 	{
@@ -890,9 +903,9 @@ void letterH()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorH);
 	}
 	else
 	{
@@ -914,9 +927,9 @@ void letterH()
 	// top left vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorH);
 	}
 	else
 	{
@@ -926,9 +939,9 @@ void letterH()
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorH);
 	}
 	else
 	{
@@ -943,9 +956,9 @@ void letterH()
 	// top right vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorH);
 	}
 	else
 	{
@@ -955,9 +968,9 @@ void letterH()
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorH);
 	}
 	else
 	{
@@ -972,9 +985,9 @@ void letterH()
 	// central line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorH);
 	}
 	else
 	{
@@ -994,9 +1007,9 @@ void letterH()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorH);
 	}
 	else
 	{
@@ -1011,9 +1024,9 @@ void letterH()
 	// bottom right vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorH);
 	}
 	else
 	{
@@ -1023,9 +1036,9 @@ void letterH()
 	glVertex3f(0.86f, -0.6f, 0.0f);
 	glVertex3f(1.2f, -0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorH);
 	}
 	else
 	{
@@ -1040,9 +1053,9 @@ void letterH()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForH)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorH);
 	}
 	else
 	{
@@ -1062,14 +1075,14 @@ void letterH()
 	glEnd();
 }
 
-void letterA()
+void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 {
 	// top horizontal line
 	glBegin(GL_QUADS);
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorA);
 	}
 	else
 	{
@@ -1088,7 +1101,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorA);
 	}
 	else
 	{
@@ -1100,7 +1113,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
 	}
 	else
 	{
@@ -1117,7 +1130,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorA);
 	}
 	else
 	{
@@ -1129,7 +1142,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
 	}
 	else
 	{
@@ -1146,7 +1159,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
 	}
 	else
 	{
@@ -1168,7 +1181,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorA);
 	}
 	else
 	{
@@ -1185,7 +1198,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorA);
 	}
 	else
 	{
@@ -1197,7 +1210,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
 	}
 	else
 	{
@@ -1214,7 +1227,7 @@ void letterA()
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorA);
 	}
 	else
 	{
@@ -1239,9 +1252,9 @@ void letterR()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorR);
 	}
 	else
 	{
@@ -1258,9 +1271,9 @@ void letterR()
 	// top left vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorR);
 	}
 	else
 	{
@@ -1270,9 +1283,9 @@ void letterR()
 	glVertex3f(0.0f, 0.6f, 0.0f);
 	glVertex3f(0.3f, 0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorR);
 	}
 	else
 	{
@@ -1287,9 +1300,9 @@ void letterR()
 	// top right vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorR);
 	}
 	else
 	{
@@ -1299,9 +1312,9 @@ void letterR()
 	glVertex3f(0.86f, 0.6f, 0.0f);
 	glVertex3f(1.2f, 0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorR);
 	}
 	else
 	{
@@ -1316,9 +1329,9 @@ void letterR()
 	// central line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorR);
 	}
 	else
 	{
@@ -1338,9 +1351,9 @@ void letterR()
 	glVertex3f(0.0f, -0.15f, 0.0f);
 	glVertex3f(0.3f, -0.15f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorR);
 	}
 	else
 	{
@@ -1356,9 +1369,9 @@ void letterR()
 	glBegin(GL_QUADS);
 	glVertex3f(0.65f, -0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorR);
 	}
 	else
 	{
@@ -1367,9 +1380,9 @@ void letterR()
 
 	glVertex3f(0.96f, -0.6f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorR);
 	}
 	else
 	{
@@ -1385,9 +1398,9 @@ void letterR()
 	// bottom left vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorR);
 	}
 	else
 	{
@@ -1404,9 +1417,9 @@ void letterR()
 	// bottom horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForR)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorR);
 	}
 	else
 	{
@@ -1426,9 +1439,9 @@ void letterT()
 	// top horizontal line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForT)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorT);
 	}
 	else
 	{
@@ -1445,9 +1458,9 @@ void letterT()
 	// top vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForT)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactor);
+		glColor4f(1.000, 0.600, 0.200, blendFactorT);
 	}
 	else
 	{
@@ -1457,9 +1470,9 @@ void letterT()
 	glVertex3f(0.45, 0.6, 0.0f);
 	glVertex3f(0.75, 0.6, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForT)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorT);
 	}
 	else
 	{
@@ -1474,9 +1487,9 @@ void letterT()
 	// central line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForT)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorT);
 	}
 	else
 	{
@@ -1493,9 +1506,9 @@ void letterT()
 	// bottom vertical line
 	glBegin(GL_QUADS);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForT)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactorT);
 	}
 	else
 	{
@@ -1505,9 +1518,9 @@ void letterT()
 	glVertex3f(0.45f, -0.15f, 0.0f);
 	glVertex3f(0.75f, -0.15f, 0.0f);
 
-	if (isReachedAtEnd)
+	if (isReachedAtEndForT)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorT);
 	}
 	else
 	{
@@ -1532,6 +1545,8 @@ void update(void)
 	// H Movements
 	if (xPositionForB > -3.95f)
 	{
+		blendFactorB = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForB = TRUE;
 		// H movement on X-axis
 		if (xPositionForH < -2.70f)
 		{
@@ -1548,6 +1563,8 @@ void update(void)
 	// A movements
 	if (xPositionForH > -2.70f)
 	{
+		blendFactorH = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForH = TRUE;
 		// A movement on X-axis
 		if (xPositionForA < -1.45f)
 		{
@@ -1564,6 +1581,8 @@ void update(void)
 	// R movements
 	if (xPositionForA > -1.45f)
 	{
+		blendFactorA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForA = TRUE;
 		// R movement on X-axis
 		if (xPositionForR > -0.20f)
 		{
@@ -1580,6 +1599,8 @@ void update(void)
 	// Second A Movements
 	if (xPositionForR < -0.20f)
 	{
+		blendFactorR = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForR = TRUE;
 		// A movement on X-axis
 		if (xPositionForSecondA > 1.05f)
 		{
@@ -1596,20 +1617,18 @@ void update(void)
 	// T Movements
 	if (xPositionForSecondA < 1.05f)
 	{
+		blendFactorForSecondA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForSecondA = TRUE;
 		if (xPositionForT > 2.30f)
 		{
 			xPositionForT = xPositionForT - INCREMENT_FACTOR;
 		}
 	}
 
-	// color blending
 	if (xPositionForT < 2.30f)
 	{
-		isReachedAtEnd = TRUE;
-		for (GLfloat i = 0.0f; i <= 1.0f; i = i + 0.00000006)
-		{
-			blendFactor = blendFactor + i;
-		}
+		blendFactorT = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForT = TRUE;
 	}
 }
 
