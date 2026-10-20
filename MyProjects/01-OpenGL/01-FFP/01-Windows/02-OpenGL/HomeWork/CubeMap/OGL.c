@@ -619,7 +619,7 @@ void render(void)
 	glLoadIdentity();
 
 	// glTranslatef(0.0f, 0.0f, -6.0f);
-	gluLookAt(translateX, translateY, translateZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	gluLookAt(translateX, 0.0f, translateZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	// glScalef(0.75f, 0.75f, 0.75f);
 
