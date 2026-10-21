@@ -46,6 +46,8 @@ BOOL isOnLeft = FALSE, isOnRight = TRUE;
 GLfloat lengthOnRight = 0.0f;
 GLfloat lengthOnLeft = 0.0f;
 GLfloat anglePyramid = 0.0f;
+GLfloat lengthOnLeftTriangle = 0.0f;
+GLfloat lengthOnRightTriangle = 0.0f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -658,14 +660,15 @@ void renderMountain()
 	// glEnd();
 
 	glScalef(1.2f, 1.2f, 1.2f);
+	// glRotatef(20.0f, 0.0f, 1.0f, 0.0f);
+
 	glBegin(GL_TRIANGLES);
 	glTexCoord2f(0.5f, 1.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glVertex3f(-1.0f - lengthOnLeft, -1.0f, 0.0f);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
-
+	glVertex3f(1.0f + lengthOnRight, -1.0f, 0.0f);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -696,7 +699,27 @@ void update(void)
 		}
 	}
 
-	anglePyramid = anglePyramid + 0.1f;
+	if (isOnRight)
+	{
+		lengthOnRightTriangle = lengthOnRightTriangle + 0.0000002f;
+		lengthOnLeftTriangle = lengthOnLeftTriangle - 0.0000002f;
+
+		if (lengthOnRightTriangle >= 0.1f)
+		{
+			isOnRight = FALSE;
+		}
+	}
+	else
+	{
+		lengthOnRightTriangle = lengthOnRightTriangle - 0.0000002f;
+		lengthOnLeftTriangle = lengthOnLeftTriangle + 0.0000002f;
+		if (lengthOnLeftTriangle >= 0.1f)
+		{
+			isOnRight = TRUE;
+		}
+	}
+
+	anglePyramid = anglePyramid + 0.01f;
 	if (anglePyramid >= 360)
 	{
 		anglePyramid = 0.0f;
