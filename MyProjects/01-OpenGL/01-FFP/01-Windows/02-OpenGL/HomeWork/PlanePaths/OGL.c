@@ -58,7 +58,8 @@ MovingObject objects[3];
 int frameCounter = 0;
 
 // variables for letters
-#define INCREMENT_FACTOR 0.0007f
+// #define INCREMENT_FACTOR 0.01f
+#define INCREMENT_FACTOR 0.001f
 
 GLfloat xPositionForB = -8.0f;
 
@@ -500,99 +501,102 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -7.0f);
+	glTranslatef(0.0f, 0.0f, -6.0f);
 
-	GLfloat centerX = -2.6f;
-	GLfloat centerY = 2.475f;
-	GLfloat radius = 1.8f;
+	// GLfloat centerX = -2.6f;
+	// GLfloat centerY = 2.475f;
+	// GLfloat radius = 1.8f;
 
-	// PATH 0: Top path
+	// // PATH 0: Top path
 
-	glPointSize(2.0f);
-	glBegin(GL_POINTS);
+	// glPointSize(2.0f);
+	// glBegin(GL_POINTS);
 
-	// Top-left arc
-	for (float i = 160; i <= 270; i = i + 0.05f)
-	{
+	// // Top-left arc
+	// for (float i = 160; i <= 270; i = i + 0.05f)
+	// {
 
-		float angle = i * 3.14159f / 180.0f;
-		float x = centerX + (cos(angle) * radius);
-		float y = centerY + (sin(angle) * radius);
-		glVertex2f(x, y);
-	}
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
 
-	// Top horizontal line
-	for (float i = -2.6f; i <= 2.6f; i = i + 0.001f)
-	{
+	// // Top horizontal line
+	// for (float i = -2.6f; i <= 2.6f; i = i + 0.001f)
+	// {
 
-		float x = i;
-		float y = 0.675f;
-		glVertex2f(x, y);
-	}
+	// 	float x = i;
+	// 	float y = 0.675f;
+	// 	glVertex2f(x, y);
+	// }
 
-	// Top-right arc
-	centerX = 2.6f;
-	for (float i = 270; i <= 380; i = i + 0.05f)
-	{
+	// // Top-right arc
+	// centerX = 2.6f;
+	// for (float i = 270; i <= 380; i = i + 0.05f)
+	// {
 
-		float angle = i * 3.14159f / 180.0f;
-		float x = centerX + (cos(angle) * radius);
-		float y = centerY + (sin(angle) * radius);
-		glVertex2f(x, y);
-	}
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
 
-	// PATH 1: Center line
-	paths[1].numPoints = 0;
-	for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
-	{
+	// // PATH 1: Center line
+	// for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
+	// {
 
-		float x = i;
-		float y = 0.0f;
-		glVertex2f(x, y);
-	}
+	// 	float x = i;
+	// 	float y = 0.0f;
+	// 	glVertex2f(x, y);
+	// }
 
-	// PATH 2: Bottom path
+	// // PATH 2: Bottom path
 
-	// Bottom-left arc
-	centerX = -2.6f;
-	centerY = -2.475f;
-	for (float i = 200; i >= 90; i = i - 0.05f)
-	{
+	// // Bottom-left arc
+	// centerX = -2.6f;
+	// centerY = -2.475f;
+	// for (float i = 200; i >= 90; i = i - 0.05f)
+	// {
 
-		float angle = i * 3.14159f / 180.0f;
-		float x = centerX + (cos(angle) * radius);
-		float y = centerY + (sin(angle) * radius);
-		glVertex2f(x, y);
-	}
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
 
-	// Bottom horizontal line
-	for (float i = -2.6f; i <= 2.6f; i = i + 0.001f)
-	{
+	// // Bottom horizontal line
+	// for (float i = -2.6f; i <= 2.6f; i = i + 0.001f)
+	// {
 
-		float x = i;
-		float y = -0.675f;
-		glVertex2f(x, y);
-	}
+	// 	float x = i;
+	// 	float y = -0.675f;
+	// 	glVertex2f(x, y);
+	// }
 
-	// Bottom-right arc
-	centerX = 2.6f;
-	centerY = -2.475f;
-	for (float i = 90; i >= -20; i = i - 0.05f)
-	{
+	// // Bottom-right arc
+	// centerX = 2.6f;
+	// centerY = -2.475f;
+	// for (float i = 90; i >= -20; i = i - 0.05f)
+	// {
 
-		float angle = i * 3.14159f / 180.0f;
-		float x = centerX + (cos(angle) * radius);
-		float y = centerY + (sin(angle) * radius);
-		glVertex2f(x, y);
-	}
-	glEnd();
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
+	// glEnd();
 
+	glPushMatrix();
+	glScalef(0.75f, 0.75f, 0.75f);
 	staticBharat();
+	glPopMatrix();
 
 	// Draw moving objects
 	for (int i = 0; i < 3; i++)
 	{
 		renderFighterJet(objects[i].posX, objects[i].posY);
+		fprintf(SR_gpFile, "x = %f\n", objects[1].posX);
 	}
 
 	// do double buffering
@@ -1478,12 +1482,12 @@ void initializePaths(void)
 
 	// PATH 1: Center line
 	paths[1].numPoints = 0;
-	for (float x = -4.8f; x <= 4.6f; x = x + 0.001f)
+	for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
 	{
 		if (paths[1].numPoints >= MAX_POINTS - 1)
 			break;
 
-		paths[1].x[paths[1].numPoints] = x;
+		paths[1].x[paths[1].numPoints] = i;
 		paths[1].y[paths[1].numPoints] = 0.0f;
 		paths[1].numPoints++;
 	}
@@ -1537,19 +1541,22 @@ void initializeObjects(void)
 	objects[0].currentPoint = 0;
 	objects[0].posX = paths[0].x[0];
 	objects[0].posY = paths[0].y[0];
-	objects[0].speed = 10;
+	objects[0].speed = 5;
+	// objects[0].speed = 1;
 
 	objects[1].pathIndex = 1;
 	objects[1].currentPoint = 0;
 	objects[1].posX = paths[1].x[0];
 	objects[1].posY = paths[1].y[0];
-	objects[1].speed = 10;
+	objects[1].speed = 5;
+	// objects[1].speed = 1;
 
 	objects[2].pathIndex = 2;
 	objects[2].currentPoint = 0;
 	objects[2].posX = paths[2].x[0];
 	objects[2].posY = paths[2].y[0];
-	objects[2].speed = 10;
+	objects[2].speed = 5;
+	// objects[2].speed = 1;
 }
 
 void update(void)
@@ -1593,11 +1600,15 @@ void update(void)
 		xPositionForB = xPositionForB + INCREMENT_FACTOR;
 	}
 
-	// H Movements
-	if (xPositionForB > -3.95f)
+	if (objects[0].posX >= -1.8f)
 	{
 		blendFactorB = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 		isReachedAtEndForB = TRUE;
+	}
+
+	// H Movements
+	if (xPositionForB > -3.95f)
+	{
 		// H movement on X-axis
 		if (xPositionForH < -2.70f)
 		{
@@ -1611,11 +1622,16 @@ void update(void)
 		}
 	}
 
-	// A movements
-	if (xPositionForH > -2.70f)
+	if (objects[0].posX >= -0.8f)
 	{
 		blendFactorH = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 		isReachedAtEndForH = TRUE;
+	}
+
+	// A movements
+	if (xPositionForH > -2.70f)
+	{
+
 		// A movement on X-axis
 		if (xPositionForA < -1.45f)
 		{
@@ -1629,11 +1645,16 @@ void update(void)
 		}
 	}
 
-	// R movements
-	if (xPositionForA > -1.45f)
+	if (objects[0].posX >= 0.1f)
 	{
 		blendFactorA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 		isReachedAtEndForA = TRUE;
+	}
+
+	// R movements
+	if (xPositionForA > -1.45f)
+	{
+
 		// R movement on X-axis
 		if (xPositionForR > -0.20f)
 		{
@@ -1647,11 +1668,16 @@ void update(void)
 		}
 	}
 
-	// Second A Movements
-	if (xPositionForR < -0.20f)
+	if (objects[0].posX >= 1.1f)
 	{
 		blendFactorR = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 		isReachedAtEndForR = TRUE;
+	}
+
+	// Second A Movements
+	if (xPositionForR < -0.20f)
+	{
+
 		// A movement on X-axis
 		if (xPositionForSecondA > 1.05f)
 		{
@@ -1665,11 +1691,16 @@ void update(void)
 		}
 	}
 
-	// T Movements
-	if (xPositionForSecondA < 1.05f)
+	if (objects[0].posX >= 2.1f)
 	{
 		blendFactorForSecondA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 		isReachedAtEndForSecondA = TRUE;
+	}
+
+	// T Movements
+	if (xPositionForSecondA < 1.05f)
+	{
+
 		if (xPositionForT > 2.30f)
 		{
 			xPositionForT = xPositionForT - INCREMENT_FACTOR;
@@ -1678,11 +1709,17 @@ void update(void)
 
 	if (xPositionForT < 2.30f)
 	{
-		blendFactorT = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForT = TRUE;
+		// isReachedAtEndForT = TRUE;
+		// blendFactorT = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 	}
 
-	if (isReachedAtEndForT && !planeAnimationStarted)
+	if (objects[0].posX >= 3.0f)
+	{
+		isReachedAtEndForT = TRUE;
+		blendFactorT = 1.0f;
+	}
+
+	if ((xPositionForT < 2.30f) && !planeAnimationStarted)
 	{
 		planeAnimationStarted = 1; // Mark that planes should now animate
 		frameCounter = 0;		   // Reset frame counter for clean start
