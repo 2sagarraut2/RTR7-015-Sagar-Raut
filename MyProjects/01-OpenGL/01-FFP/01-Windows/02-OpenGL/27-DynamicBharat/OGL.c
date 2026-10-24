@@ -67,6 +67,31 @@ GLfloat blendFactorR = 0.0f;
 GLfloat blendFactorForSecondA = 0.0f;
 GLfloat blendFactorT = 0.0f;
 
+// Path variables
+static GLint animationComplete = 0;
+int planeAnimationStarted = 0;
+#define MAX_POINTS 9500
+
+typedef struct
+{
+	float x[MAX_POINTS];
+	float y[MAX_POINTS];
+	int numPoints;
+} Path;
+
+typedef struct
+{
+	int pathIndex;
+	int currentPoint;
+	float posX;
+	float posY;
+	int speed;
+} MovingObject;
+
+Path paths[3];
+MovingObject objects[3];
+int frameCounter = 0;
+
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
@@ -351,6 +376,8 @@ int initialise(void)
 	// function declarations
 	void resize(int, int);
 	void printGLInfo(void);
+	void initializePaths();
+	void initializeObjects();
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -424,6 +451,10 @@ int initialise(void)
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
 
+	// Draw plane paths
+	initializePaths();
+	initializeObjects();
+
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
@@ -465,9 +496,7 @@ void render(void)
 {
 	// function declarations
 	void staticBharat();
-	void renderFighterJet();
-	void renderCircles();
-	void renderBezeirCurve();
+	void renderFighterJet(float, float);
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
@@ -478,224 +507,122 @@ void render(void)
 
 	glTranslatef(0.0f, 0.0f, -8.0f);
 
-	// Line for adjustment
-	// glBegin(GL_LINES);
-
-	// glVertex3f(-4.4f, 0.0f, 0.0f);
-	// glVertex3f(4.4f, 0.0f, 0.0f);
-
-	// glVertex3f(0.0f, 2.5f, 0.0f);
-	// glVertex3f(0.0f, -2.5f, 0.0f);
-
-	// glEnd();
-
-	// BHARAT
-	// LETTER HEIGHT 1.0f
-	// LETTER WIDTH 0.6f
-	// 	SPACING BETWEEN LETTERS 0.1f
-
-	GLfloat startingPointX = -4.0f;
-	GLfloat startingPointY = 0.8f;
-
-	GLfloat spacing = 0.1f;
-	GLfloat widthOfLetter = 1.2f;
-	GLfloat heightOfLetter = 1.6;
-	GLfloat strokeSize = 0.3f;
-
 	staticBharat();
 
-	// glTranslatef(1.0f, 0.0f, 0.0f);
-	// glScalef(4.0f, 4.0f, 4.0f);
-	// renderFighterJet(0.0f, 0.0f);
-	// glScalef(0.15f, 0.15f, 0.15f);
-	// renderCircles();
-	// renderBezeirCurve();
+	// draw planes
+	for (int i = 0; i < 3; i++)
+	{
+		renderFighterJet(objects[i].posX, objects[i].posY);
+	}
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
 }
 
-void renderBezeirCurve()
-{
-	// variable declarations
-	GLfloat x[6], y[5], t;
-	int i;
-	GLfloat xt[200], yt[200];
-
-	x[0] = -9.0;
-	x[1] = -0.9;
-	x[2] = 0.9;
-	x[3] = 9.0;
-
-	y[0] = 4.5f;
-	y[1] = 0.05f;
-	y[2] = 0.05;
-	y[3] = 4.5f;
-
-	for (i = 0, t = 0.0001; t <= 1; i++, t = t + 0.02f)
-	{
-		xt[i] = pow(1 - t, 3) * x[0] + 3 * t * pow(1 - t, 2) * x[1] + 3 * pow(t, 2) * (1 - t) * x[2] + pow(t, 3) * x[3];
-		yt[i] = pow(1 - t, 3) * y[0] + 3 * t * pow(1 - t, 2) * y[1] + 3 * pow(t, 2) * (1 - t) * y[2] + pow(t, 3) * y[3];
-	}
-
-	glPointSize(5.0f);
-	glBegin(GL_POINTS);
-
-	for (int i = 0; i < 200; i++)
-	{
-		glVertex3f(xt[i], yt[i], 0.0f);
-	}
-
-	glEnd();
-}
-
-void renderCircles()
-{
-	// HOLLOW CIRCLE
-	GLfloat centerX = 0.2f;
-	GLfloat centerY = 0.0f;
-	GLfloat radius = 0.32f;
-
-	glColor3f(1.000, 0.600, 0.200);
-
-	glBegin(GL_TRIANGLE_FAN);
-
-	for (int i = 0; i < 360; i++)
-	{
-		GLfloat angle = i * 3.14159f / 180.0f;
-
-		GLfloat x = centerX + cos(angle) * radius;
-		GLfloat y = centerY + sin(angle) * radius;
-
-		glVertex3f(x, y, 0.0f);
-	}
-
-	glEnd();
-
-	radius = 0.22f;
-
-	glColor3f(1.0, 1.0, 1.0);
-
-	glBegin(GL_TRIANGLE_FAN);
-
-	for (int i = 0; i < 360; i++)
-	{
-		GLfloat angle = i * 3.14159f / 180.0f;
-
-		GLfloat x = centerX + cos(angle) * radius;
-		GLfloat y = centerY + sin(angle) * radius;
-
-		glVertex3f(x, y, 0.0f);
-	}
-
-	glEnd();
-
-	radius = 0.12f;
-
-	glColor3f(0.0745f, 0.5333f, 0.0314f);
-
-	glBegin(GL_TRIANGLE_FAN);
-
-	for (int i = 0; i < 360; i++)
-	{
-		GLfloat angle = i * 3.14159f / 180.0f;
-
-		GLfloat x = centerX + cos(angle) * radius;
-		GLfloat y = centerY + sin(angle) * radius;
-
-		glVertex3f(x, y, 0.0f);
-	}
-
-	glEnd();
-}
-
 void renderFighterJet(float xPosition, float yPosition)
 {
-	glColor3f(0.35f, 0.38f, 0.42f);
-
 	glBegin(GL_QUADS);
 
+	glColor3f(0.35f, 0.38f, 0.42f);
 	glVertex2f(xPosition - 0.075f, yPosition + 0.12f);
-
 	glVertex2f(xPosition, yPosition + 0.12f);
 
+	glColor3f(0.28f, 0.30f, 0.34f);
 	glVertex2f(xPosition, yPosition + 0.07f);
-
 	glVertex2f(xPosition - 0.075f, yPosition + 0.07f);
 
+	glColor3f(0.35f, 0.38f, 0.42f);
 	glVertex2f(xPosition - 0.075f, yPosition - 0.06f);
-
 	glVertex2f(xPosition, yPosition - 0.06f);
 
+	glColor3f(0.28f, 0.30f, 0.34f);
 	glVertex2f(xPosition, yPosition - 0.11f);
-
 	glVertex2f(xPosition - 0.075f, yPosition - 0.11f);
 
 	glEnd();
 
 	glBegin(GL_QUADS);
 
+	glColor3f(0.45f, 0.50f, 0.58f);
 	glVertex2f(xPosition - 0.03f, yPosition + 0.2f);
-
 	glVertex2f(xPosition, yPosition + 0.2f);
 
+	glColor3f(0.32f, 0.38f, 0.45f);
 	glVertex2f(xPosition, yPosition - 0.2f);
-
 	glVertex2f(xPosition - 0.03f, yPosition - 0.2f);
 
 	glEnd();
 
 	glBegin(GL_TRIANGLES);
 
+	glColor3f(0.38f, 0.42f, 0.48f);
 	glVertex2f(xPosition, yPosition + 0.2f);
 
-	glVertex2f((xPosition + 0.05f), yPosition);
+	glColor3f(0.25f, 0.28f, 0.32f);
+	glVertex2f(xPosition + 0.05f, yPosition);
 
+	glColor3f(0.38f, 0.42f, 0.48f);
 	glVertex2f(xPosition, yPosition - 0.2f);
 
 	glEnd();
 
-	glBegin(GL_QUADS);
+	glBegin(GL_POLYGON);
 
+	glColor3f(0.48f, 0.52f, 0.60f);
 	glVertex2f(xPosition, yPosition + 0.07f);
-	glVertex2f(xPosition + 0.22f, yPosition + 0.07f);
-	glVertex2f(xPosition + 0.22f, yPosition - 0.07f);
+	glVertex2f(xPosition + 0.20f, yPosition + 0.07f);
+
+	glColor3f(0.42f, 0.46f, 0.52f);
+	glVertex2f(xPosition + 0.25f, yPosition);
+	glVertex2f(xPosition + 0.25f, yPosition);
+
+	glColor3f(0.48f, 0.52f, 0.60f);
+	glVertex2f(xPosition + 0.20f, yPosition - 0.07f);
 	glVertex2f(xPosition, yPosition - 0.07f);
 
 	glEnd();
 
 	glBegin(GL_QUADS);
 
+	glColor3f(0.40f, 0.44f, 0.50f);
 	glVertex2f(xPosition + 0.03f, yPosition + 0.3f);
-
 	glVertex2f(xPosition + 0.07f, yPosition + 0.3f);
 
-	glVertex2f((xPosition + 0.20f), yPosition);
-	glVertex2f((xPosition + 0.07f), yPosition);
+	glColor3f(0.32f, 0.36f, 0.42f);
+	glVertex2f(xPosition + 0.20f, yPosition + 0.07f);
+	glVertex2f(xPosition + 0.07f, yPosition + 0.07f);
 
+	glColor3f(0.40f, 0.44f, 0.50f);
 	glVertex2f(xPosition + 0.03f, yPosition - 0.3f);
-
 	glVertex2f(xPosition + 0.07f, yPosition - 0.3f);
 
-	glVertex2f((xPosition + 0.20f), yPosition);
-
-	glVertex2f((xPosition + 0.07f), yPosition);
+	glColor3f(0.32f, 0.36f, 0.42f);
+	glVertex2f(xPosition + 0.20f, yPosition - 0.07f);
+	glVertex2f(xPosition + 0.07f, yPosition - 0.07f);
 
 	glEnd();
 
 	glBegin(GL_QUADS);
 
-	glVertex2f(xPosition + 0.22f, yPosition + 0.03f);
+	glColor3f(0.30f, 0.32f, 0.36f);
+	glVertex2f(xPosition + 0.225f, yPosition + 0.03f);
 	glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
+
+	glColor3f(0.22f, 0.24f, 0.28f);
 	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
-	glVertex2f(xPosition + 0.22f, yPosition - 0.03f);
+	glVertex2f(xPosition + 0.225f, yPosition - 0.03f);
 
 	glEnd();
 
 	glBegin(GL_TRIANGLES);
 
+	glColor3f(0.28f, 0.30f, 0.34f);
 	glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
-	glVertex2f((xPosition + 0.4f), yPosition);
+
+	glColor3f(0.18f, 0.20f, 0.24f);
+	glVertex2f(xPosition + 0.4f, yPosition);
+
+	glColor3f(0.28f, 0.30f, 0.34f);
 	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
 
 	glEnd();
@@ -1533,6 +1460,134 @@ void letterT()
 	glEnd();
 }
 
+void initializePaths(void)
+{
+	GLfloat centerX = -2.6f;
+	GLfloat centerY = 2.475f;
+	GLfloat radius = 1.8f;
+
+	// PATH 0: Top path
+	paths[0].numPoints = 0;
+
+	// Top-left arc
+	for (float i = 160; i <= 270; i = i + 0.05f)
+	{
+		if (paths[0].numPoints >= MAX_POINTS - 1)
+			break;
+
+		float angle = i * 3.14159f / 180.0f;
+		paths[0].x[paths[0].numPoints] = centerX + (cos(angle) * radius);
+		paths[0].y[paths[0].numPoints] = centerY + (sin(angle) * radius);
+		paths[0].numPoints++;
+	}
+
+	// Top horizontal line
+	for (float x = -2.6f; x <= 2.6f; x = x + 0.001f)
+	{
+		if (paths[0].numPoints >= MAX_POINTS - 1)
+			break;
+
+		paths[0].x[paths[0].numPoints] = x;
+		paths[0].y[paths[0].numPoints] = 0.675f;
+		paths[0].numPoints++;
+	}
+
+	// Top-right arc
+	centerX = 2.6f;
+	for (float i = 270; i <= 380; i = i + 0.05f)
+	{
+		if (paths[0].numPoints >= MAX_POINTS - 1)
+			break;
+
+		float angle = i * 3.14159f / 180.0f;
+		paths[0].x[paths[0].numPoints] = centerX + (cos(angle) * radius);
+		paths[0].y[paths[0].numPoints] = centerY + (sin(angle) * radius);
+		paths[0].numPoints++;
+	}
+
+	// PATH 1: Center line
+	paths[1].numPoints = 0;
+	for (float x = -4.8f; x <= 4.6f; x = x + 0.001f)
+	{
+		if (paths[1].numPoints >= MAX_POINTS - 1)
+			break;
+
+		paths[1].x[paths[1].numPoints] = x;
+		paths[1].y[paths[1].numPoints] = 0.0f;
+		paths[1].numPoints++;
+	}
+
+	// PATH 2: Bottom path
+	paths[2].numPoints = 0;
+
+	// Bottom-left arc
+	centerX = -2.6f;
+	centerY = -2.475f;
+	for (float i = 200; i >= 90; i = i - 0.05f)
+	{
+		if (paths[2].numPoints >= MAX_POINTS - 1)
+			break;
+
+		float angle = i * 3.14159f / 180.0f;
+		paths[2].x[paths[2].numPoints] = centerX + (cos(angle) * radius);
+		paths[2].y[paths[2].numPoints] = centerY + (sin(angle) * radius);
+		paths[2].numPoints++;
+	}
+
+	// Bottom horizontal line
+	for (float x = -2.6f; x <= 2.6f; x = x + 0.001f)
+	{
+		if (paths[2].numPoints >= MAX_POINTS - 1)
+			break;
+
+		paths[2].x[paths[2].numPoints] = x;
+		paths[2].y[paths[2].numPoints] = -0.675f;
+		paths[2].numPoints++;
+	}
+
+	// Bottom-right arc
+	centerX = 2.6f;
+	centerY = -2.475f;
+	for (float i = 90; i >= -20; i = i - 0.05f)
+	{
+		if (paths[2].numPoints >= MAX_POINTS - 1)
+			break;
+
+		float angle = i * 3.14159f / 180.0f;
+		paths[2].x[paths[2].numPoints] = centerX + (cos(angle) * radius);
+		paths[2].y[paths[2].numPoints] = centerY + (sin(angle) * radius);
+		paths[2].numPoints++;
+	}
+
+	fprintf(SR_gpFile, "=== Path 0 Debug ===");
+	fprintf(SR_gpFile, "Total points: %d", paths[0].numPoints);
+	fprintf(SR_gpFile, "First point: (%.2f, %.2f)", paths[0].x[0], paths[0].y[0]);
+	fprintf(SR_gpFile, "Last point: (%.2f, %.2f)",
+			paths[0].x[paths[0].numPoints - 1],
+			paths[0].y[paths[0].numPoints - 1]);
+}
+
+void initializeObjects(void)
+{
+	objects[0].pathIndex = 0;
+	objects[0].currentPoint = 0;
+	objects[0].posX = paths[0].x[0];
+	objects[0].posY = paths[0].y[0];
+	objects[0].speed = 10;
+
+	objects[1].pathIndex = 1;
+	objects[1].currentPoint = 0;
+	objects[1].posX = paths[1].x[0];
+	objects[1].posY = paths[1].y[0];
+	objects[1].speed = 10;
+
+	objects[2].pathIndex = 2;
+	objects[2].currentPoint = 0;
+	objects[2].posX = paths[2].x[0];
+	objects[2].posY = paths[2].y[0];
+	objects[2].speed = 10;
+}
+
 void update(void)
 {
 	// code
@@ -1629,6 +1684,38 @@ void update(void)
 	{
 		blendFactorT = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
 		isReachedAtEndForT = TRUE;
+	}
+
+	// Plane animation code
+	// Only update plane animation if not yet complete
+	if (planeAnimationStarted && animationComplete == 0)
+	{
+		frameCounter++;
+
+		int allObjectsFinished = 1;
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (objects[i].currentPoint < paths[objects[i].pathIndex].numPoints - 1)
+			{
+				allObjectsFinished = 0;
+
+				if (frameCounter % objects[i].speed == 0)
+				{
+					objects[i].currentPoint++;
+
+					int pathIdx = objects[i].pathIndex;
+					int pointIdx = objects[i].currentPoint;
+					objects[i].posX = paths[pathIdx].x[pointIdx];
+					objects[i].posY = paths[pathIdx].y[pointIdx];
+				}
+			}
+		}
+
+		if (allObjectsFinished == 1)
+		{
+			animationComplete = 1;
+		}
 	}
 }
 
