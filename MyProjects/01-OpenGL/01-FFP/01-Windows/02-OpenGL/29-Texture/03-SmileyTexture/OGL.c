@@ -17,11 +17,10 @@
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
-GLfloat anglePyramid = 0.0f;
 GLfloat angleCube = 0.0f;
 
-GLuint texture_stone = 0;
-GLuint texture_kundali = 0;
+GLuint texture_smiley = 0;
+GLint iDigitPressed = -1;
 
 // global function declarations
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -323,7 +322,7 @@ int initialise(void)
 	void resize(int, int);
 	void printGLInfo(void);
 
-	BOOL loadGLTexture(GLuint *, TCHAR[]);
+	// BOOL loadGLTexture(GLuint *, TCHAR[]);
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -396,20 +395,12 @@ int initialise(void)
 
 	// load textures
 	BOOL bResult = FALSE;
-	bResult = loadGLTexture(&texture_stone, MAKEINTRESOURCE(IDBITMAP_STONE));
+	bResult = loadGLTexture(&texture_smiley, MAKEINTRESOURCE(IDBITMAP_SMILEY));
 
 	if (bResult == FALSE)
 	{
-		fprintf(SR_gpFile, "SSR: loadGLTexture(): failed to stone texture\n");
+		fprintf(SR_gpFile, "SSR: loadGLTexture(): failed to smiley texture\n");
 		return -6;
-	}
-
-	bResult = loadGLTexture(&texture_kundali, MAKEINTRESOURCE(IDBITMAP_KUNDALI));
-
-	if (bResult == FALSE)
-	{
-		fprintf(SR_gpFile, "SSR: loadGLTexture(): failed for kundali texture\n");
-		return -7;
 	}
 
 	// enable texturing
@@ -517,44 +508,18 @@ void render(void)
 
 	glTranslatef(0.0f, 0.0f, -6.0f);
 
-	glRotatef(anglePyramid, 0.0f, 1.0f, 0.0f);
+	glBindTexture(GL_TEXTURE_2D, texture_smiley);
 
-	// bind the texture
-	glBindTexture(GL_TEXTURE_2D, texture_stone);
+	glBegin(GL_QUADS);
 
-	glBegin(GL_TRIANGLES);
-
-	// front face
-	glTexCoord2f(0.5f, 1.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f); // front-top
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(-1.0f, -1.0f, 1.0f); // front-left
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(1.0f, -1.0f, 1.0f); // front-right
-
-	// right
-	glTexCoord2f(0.5, 1.0);
-	glVertex3f(0.0f, 1.0f, 0.0f); // right-top
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(1.0f, -1.0f, 1.0f); // right-left
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(1.0f, -1.0f, -1.0f); // right-right
-
-	// back
-	glTexCoord2f(0.5, 1.0);
-	glVertex3f(0.0f, 1.0f, 0.0f); // back-top
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(1.0f, -1.0f, -1.0f); // back-left
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(-1.0f, -1.0f, -1.0f); // back-right
-
-	// left
-	glTexCoord2f(0.5, 1.0);
-	glVertex3f(0.0f, 1.0f, 0.0f); // left-top
-	glTexCoord2f(1.0, 0.0);
-	glVertex3f(-1.0f, -1.0f, -1.0f); // left-left
-	glTexCoord2f(0.0, 0.0);
-	glVertex3f(-1.0f, -1.0f, 1.0f); // left-right
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 1.0f); // top-right of front
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 1.0f); // top-left of front
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 1.0f); // bottom-left of front
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(1.0f, -1.0f, 1.0f); // bottom-right of front
 
 	glEnd();
 
@@ -567,13 +532,6 @@ void render(void)
 void update(void)
 {
 	// code
-	anglePyramid = anglePyramid + 0.02f;
-
-	if (anglePyramid >= 360)
-	{
-		anglePyramid = 0.0f;
-	}
-
 	angleCube = angleCube + 0.01f;
 
 	if (angleCube >= 360)
@@ -592,16 +550,10 @@ void uninitialise(void)
 		SR_bFullscreen = FALSE;
 	}
 
-	if (texture_kundali)
+	if (texture_smiley)
 	{
-		glDeleteTextures(1, &texture_kundali);
-		texture_kundali = 0;
-	}
-
-	if (texture_stone)
-	{
-		glDeleteTextures(1, &texture_stone);
-		texture_stone = 0;
+		glDeleteTextures(1, &texture_smiley);
+		texture_smiley = 0;
 	}
 
 	// first check the current context and if it is then unmake it
