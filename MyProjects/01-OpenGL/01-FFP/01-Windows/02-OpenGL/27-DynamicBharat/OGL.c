@@ -51,16 +51,15 @@ typedef struct
 	float posX;
 	float posY;
 	int speed;
+	float rotationAngle;
 } MovingObject;
 
 Path paths[3];
 MovingObject objects[3];
 int frameCounter = 0;
 
-// variables for letters
-// #define INCREMENT_FACTOR 0.01f
-// #define INCREMENT_FACTOR 0.0001f
-#define INCREMENT_FACTOR 0.001f
+// variables for letters - letter speed
+#define INCREMENT_FACTOR 0.0005f
 
 GLfloat xPositionForB = -8.0f;
 
@@ -84,8 +83,6 @@ BOOL isReachedAtEndForA = FALSE;
 BOOL isReachedAtEndForR = FALSE;
 BOOL isReachedAtEndForSecondA = FALSE;
 BOOL isReachedAtEndForT = FALSE;
-
-// GLfloat blendFactor = 0.0f;
 
 GLfloat blendFactorB = 0.0f;
 GLfloat blendFactorH = 0.0f;
@@ -544,7 +541,7 @@ void render(void)
 	// }
 
 	// // PATH 1: Center line
-	// for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
+	// for (float i = -4.6f; i <= 4.6f; i = i + 0.001f)
 	// {
 
 	// 	float x = i;
@@ -593,11 +590,21 @@ void render(void)
 	staticBharat();
 	glPopMatrix();
 
-	// Draw moving objects
-	for (int i = 0; i < 3; i++)
+	// Draw moving planes
+	if (planeAnimationStarted)
 	{
-		renderFighterJet(objects[i].posX, objects[i].posY);
-		// fprintf(SR_gpFile, "x = %f\n", objects[1].posX);
+		for (int i = 0; i < 3; i++)
+		{
+			glPushMatrix();
+
+			glTranslatef(objects[i].posX, objects[i].posY, 0.0f);
+
+			glRotatef(objects[i].rotationAngle, 0.0f, 0.0f, 1.0f);
+
+			renderFighterJet(0.0f, 0.0f);
+
+			glPopMatrix();
+		}
 	}
 
 	// do double buffering
@@ -1483,7 +1490,7 @@ void initializePaths(void)
 
 	// PATH 1: Center line
 	paths[1].numPoints = 0;
-	for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
+	for (float i = -4.6f; i <= 4.6f; i = i + 0.001f)
 	{
 		if (paths[1].numPoints >= MAX_POINTS - 1)
 			break;
@@ -1538,26 +1545,25 @@ void initializePaths(void)
 
 void initializeObjects(void)
 {
-	objects[0].pathIndex = 0;
-	objects[0].currentPoint = 0;
-	objects[0].posX = paths[0].x[0];
-	objects[0].posY = paths[0].y[0];
-	objects[0].speed = 10;
-	// objects[0].speed = 1;
+	for (int i = 0; i < 3; i++)
+	{
+		objects[i].pathIndex = i;
+		objects[i].currentPoint = 0;
+		objects[i].posX = paths[i].x[0];
+		objects[i].posY = paths[i].y[0];
+		objects[i].speed = 10;
 
-	objects[1].pathIndex = 1;
-	objects[1].currentPoint = 0;
-	objects[1].posX = paths[1].x[0];
-	objects[1].posY = paths[1].y[0];
-	objects[1].speed = 10;
-	// objects[1].speed = 1;
-
-	objects[2].pathIndex = 2;
-	objects[2].currentPoint = 0;
-	objects[2].posX = paths[2].x[0];
-	objects[2].posY = paths[2].y[0];
-	objects[2].speed = 10;
-	// objects[2].speed = 1;
+		if (paths[i].numPoints > 1)
+		{
+			float dx = paths[i].x[1] - paths[i].x[0];
+			float dy = paths[i].y[1] - paths[i].y[0];
+			objects[i].rotationAngle = atan2(dy, dx) * 180.0f / 3.14159f;
+		}
+		else
+		{
+			objects[i].rotationAngle = 0.0f;
+		}
+	}
 }
 
 void update(void)
@@ -1578,12 +1584,18 @@ void update(void)
 
 				if (frameCounter % objects[i].speed == 0)
 				{
-					objects[i].currentPoint++;
-
 					int pathIdx = objects[i].pathIndex;
-					int pointIdx = objects[i].currentPoint;
-					objects[i].posX = paths[pathIdx].x[pointIdx];
-					objects[i].posY = paths[pathIdx].y[pointIdx];
+					int currentIdx = objects[i].currentPoint;
+					int nextIdx = currentIdx + 1;
+
+					float dx = paths[pathIdx].x[nextIdx] - paths[pathIdx].x[currentIdx];
+					float dy = paths[pathIdx].y[nextIdx] - paths[pathIdx].y[currentIdx];
+
+					objects[i].rotationAngle = atan2(dy, dx) * 180.0f / 3.14159f;
+
+					objects[i].currentPoint++;
+					objects[i].posX = paths[pathIdx].x[nextIdx];
+					objects[i].posY = paths[pathIdx].y[nextIdx];
 				}
 			}
 		}
