@@ -33,41 +33,6 @@ FILE *SR_gpFile = NULL; // global pointer to file
 BOOL SR_bActiveWindow = FALSE;		 // to check whether window is active or in focus
 BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
-#define INCREMENT_FACTOR 0.0007f
-
-GLfloat xPositionForB = -8.0f;
-
-GLfloat xPositionForH = -7.0f;
-GLfloat yPositionForH = 4.3f;
-
-GLfloat xPositionForA = -7.0f;
-GLfloat yPositionForA = -5.55f;
-
-GLfloat xPositionForR = 5.3f;
-GLfloat yPositionForR = 5.5f;
-
-GLfloat xPositionForSecondA = 7.0f;
-GLfloat yPositionForSecondA = -5.95f;
-
-GLfloat xPositionForT = 8.0f;
-
-BOOL isReachedAtEndForB = FALSE;
-BOOL isReachedAtEndForH = FALSE;
-BOOL isReachedAtEndForA = FALSE;
-BOOL isReachedAtEndForR = FALSE;
-BOOL isReachedAtEndForSecondA = FALSE;
-BOOL isReachedAtEndForT = FALSE;
-
-// GLfloat blendFactor = 0.0f;
-
-GLfloat blendFactorB = 0.0f;
-GLfloat blendFactorH = 0.0f;
-GLfloat blendFactorA = 0.0f;
-GLfloat blendFactorR = 0.0f;
-GLfloat blendFactorForSecondA = 0.0f;
-GLfloat blendFactorT = 0.0f;
-
-// Path variables
 static GLint animationComplete = 0;
 int planeAnimationStarted = 0;
 #define MAX_POINTS 9500
@@ -91,6 +56,43 @@ typedef struct
 Path paths[3];
 MovingObject objects[3];
 int frameCounter = 0;
+
+// variables for letters
+// #define INCREMENT_FACTOR 0.01f
+// #define INCREMENT_FACTOR 0.0001f
+#define INCREMENT_FACTOR 0.001f
+
+GLfloat xPositionForB = -8.0f;
+
+GLfloat xPositionForH = -7.0f;
+GLfloat yPositionForH = 4.3f;
+
+GLfloat xPositionForA = -7.0f;
+GLfloat yPositionForA = -5.55f;
+
+GLfloat xPositionForR = 5.3f;
+GLfloat yPositionForR = 5.5f;
+
+GLfloat xPositionForSecondA = 7.0f;
+GLfloat yPositionForSecondA = -5.95f;
+
+GLfloat xPositionForT = 6.0f;
+
+BOOL isReachedAtEndForB = FALSE;
+BOOL isReachedAtEndForH = FALSE;
+BOOL isReachedAtEndForA = FALSE;
+BOOL isReachedAtEndForR = FALSE;
+BOOL isReachedAtEndForSecondA = FALSE;
+BOOL isReachedAtEndForT = FALSE;
+
+// GLfloat blendFactor = 0.0f;
+
+GLfloat blendFactorB = 0.0f;
+GLfloat blendFactorH = 0.0f;
+GLfloat blendFactorA = 0.0f;
+GLfloat blendFactorR = 0.0f;
+GLfloat blendFactorForSecondA = 0.0f;
+GLfloat blendFactorT = 0.0f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -444,14 +446,10 @@ int initialise(void)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
 		   GL_NICEST);					   // do it nicest
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	// choose screen clearing color as blue
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
 
-	// Draw plane paths
 	initializePaths();
 	initializeObjects();
 
@@ -494,7 +492,6 @@ void resize(int width, int height)
 
 void render(void)
 {
-	// function declarations
 	void staticBharat();
 	void renderFighterJet(float, float);
 
@@ -505,127 +502,106 @@ void render(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glTranslatef(0.0f, 0.0f, -8.0f);
+	glTranslatef(0.0f, 0.0f, -6.0f);
 
+	// GLfloat centerX = -2.6f;
+	// GLfloat centerY = 2.475f;
+	// GLfloat radius = 1.8f;
+
+	// // PATH 0: Top path
+
+	// glPointSize(2.0f);
+	// glBegin(GL_POINTS);
+
+	// // Top-left arc
+	// for (float i = 160; i <= 270; i = i + 0.05f)
+	// {
+
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
+
+	// // Top horizontal line
+	// for (float i = -2.6f; i <= 2.6f; i = i + 0.001f)
+	// {
+
+	// 	float x = i;
+	// 	float y = 0.675f;
+	// 	glVertex2f(x, y);
+	// }
+
+	// // Top-right arc
+	// centerX = 2.6f;
+	// for (float i = 270; i <= 380; i = i + 0.05f)
+	// {
+
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
+
+	// // PATH 1: Center line
+	// for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
+	// {
+
+	// 	float x = i;
+	// 	float y = 0.0f;
+	// 	glVertex2f(x, y);
+	// }
+
+	// // PATH 2: Bottom path
+
+	// // Bottom-left arc
+	// centerX = -2.6f;
+	// centerY = -2.475f;
+	// for (float i = 200; i >= 90; i = i - 0.05f)
+	// {
+
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
+
+	// // Bottom horizontal line
+	// for (float i = -2.6f; i <= 2.6f; i = i + 0.001f)
+	// {
+
+	// 	float x = i;
+	// 	float y = -0.675f;
+	// 	glVertex2f(x, y);
+	// }
+
+	// // Bottom-right arc
+	// centerX = 2.6f;
+	// centerY = -2.475f;
+	// for (float i = 90; i >= -20; i = i - 0.05f)
+	// {
+
+	// 	float angle = i * 3.14159f / 180.0f;
+	// 	float x = centerX + (cos(angle) * radius);
+	// 	float y = centerY + (sin(angle) * radius);
+	// 	glVertex2f(x, y);
+	// }
+	// glEnd();
+
+	glPushMatrix();
+	glScalef(0.75f, 0.75f, 0.75f);
 	staticBharat();
+	glPopMatrix();
 
-	// draw planes
+	// Draw moving objects
 	for (int i = 0; i < 3; i++)
 	{
 		renderFighterJet(objects[i].posX, objects[i].posY);
+		// fprintf(SR_gpFile, "x = %f\n", objects[1].posX);
 	}
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);
-}
-
-void renderFighterJet(float xPosition, float yPosition)
-{
-	glBegin(GL_QUADS);
-
-	glColor3f(0.35f, 0.38f, 0.42f);
-	glVertex2f(xPosition - 0.075f, yPosition + 0.12f);
-	glVertex2f(xPosition, yPosition + 0.12f);
-
-	glColor3f(0.28f, 0.30f, 0.34f);
-	glVertex2f(xPosition, yPosition + 0.07f);
-	glVertex2f(xPosition - 0.075f, yPosition + 0.07f);
-
-	glColor3f(0.35f, 0.38f, 0.42f);
-	glVertex2f(xPosition - 0.075f, yPosition - 0.06f);
-	glVertex2f(xPosition, yPosition - 0.06f);
-
-	glColor3f(0.28f, 0.30f, 0.34f);
-	glVertex2f(xPosition, yPosition - 0.11f);
-	glVertex2f(xPosition - 0.075f, yPosition - 0.11f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-
-	glColor3f(0.45f, 0.50f, 0.58f);
-	glVertex2f(xPosition - 0.03f, yPosition + 0.2f);
-	glVertex2f(xPosition, yPosition + 0.2f);
-
-	glColor3f(0.32f, 0.38f, 0.45f);
-	glVertex2f(xPosition, yPosition - 0.2f);
-	glVertex2f(xPosition - 0.03f, yPosition - 0.2f);
-
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-
-	glColor3f(0.38f, 0.42f, 0.48f);
-	glVertex2f(xPosition, yPosition + 0.2f);
-
-	glColor3f(0.25f, 0.28f, 0.32f);
-	glVertex2f(xPosition + 0.05f, yPosition);
-
-	glColor3f(0.38f, 0.42f, 0.48f);
-	glVertex2f(xPosition, yPosition - 0.2f);
-
-	glEnd();
-
-	glBegin(GL_POLYGON);
-
-	glColor3f(0.48f, 0.52f, 0.60f);
-	glVertex2f(xPosition, yPosition + 0.07f);
-	glVertex2f(xPosition + 0.20f, yPosition + 0.07f);
-
-	glColor3f(0.42f, 0.46f, 0.52f);
-	glVertex2f(xPosition + 0.25f, yPosition);
-	glVertex2f(xPosition + 0.25f, yPosition);
-
-	glColor3f(0.48f, 0.52f, 0.60f);
-	glVertex2f(xPosition + 0.20f, yPosition - 0.07f);
-	glVertex2f(xPosition, yPosition - 0.07f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-
-	glColor3f(0.40f, 0.44f, 0.50f);
-	glVertex2f(xPosition + 0.03f, yPosition + 0.3f);
-	glVertex2f(xPosition + 0.07f, yPosition + 0.3f);
-
-	glColor3f(0.32f, 0.36f, 0.42f);
-	glVertex2f(xPosition + 0.20f, yPosition + 0.07f);
-	glVertex2f(xPosition + 0.07f, yPosition + 0.07f);
-
-	glColor3f(0.40f, 0.44f, 0.50f);
-	glVertex2f(xPosition + 0.03f, yPosition - 0.3f);
-	glVertex2f(xPosition + 0.07f, yPosition - 0.3f);
-
-	glColor3f(0.32f, 0.36f, 0.42f);
-	glVertex2f(xPosition + 0.20f, yPosition - 0.07f);
-	glVertex2f(xPosition + 0.07f, yPosition - 0.07f);
-
-	glEnd();
-
-	glBegin(GL_QUADS);
-
-	glColor3f(0.30f, 0.32f, 0.36f);
-	glVertex2f(xPosition + 0.225f, yPosition + 0.03f);
-	glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
-
-	glColor3f(0.22f, 0.24f, 0.28f);
-	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
-	glVertex2f(xPosition + 0.225f, yPosition - 0.03f);
-
-	glEnd();
-
-	glBegin(GL_TRIANGLES);
-
-	glColor3f(0.28f, 0.30f, 0.34f);
-	glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
-
-	glColor3f(0.18f, 0.20f, 0.24f);
-	glVertex2f(xPosition + 0.4f, yPosition);
-
-	glColor3f(0.28f, 0.30f, 0.34f);
-	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
-
-	glEnd();
 }
 
 void staticBharat()
@@ -1507,12 +1483,12 @@ void initializePaths(void)
 
 	// PATH 1: Center line
 	paths[1].numPoints = 0;
-	for (float x = -4.8f; x <= 4.6f; x = x + 0.001f)
+	for (float i = -4.8f; i <= 4.6f; i = i + 0.001f)
 	{
 		if (paths[1].numPoints >= MAX_POINTS - 1)
 			break;
 
-		paths[1].x[paths[1].numPoints] = x;
+		paths[1].x[paths[1].numPoints] = i;
 		paths[1].y[paths[1].numPoints] = 0.0f;
 		paths[1].numPoints++;
 	}
@@ -1558,13 +1534,6 @@ void initializePaths(void)
 		paths[2].y[paths[2].numPoints] = centerY + (sin(angle) * radius);
 		paths[2].numPoints++;
 	}
-
-	fprintf(SR_gpFile, "=== Path 0 Debug ===");
-	fprintf(SR_gpFile, "Total points: %d", paths[0].numPoints);
-	fprintf(SR_gpFile, "First point: (%.2f, %.2f)", paths[0].x[0], paths[0].y[0]);
-	fprintf(SR_gpFile, "Last point: (%.2f, %.2f)",
-			paths[0].x[paths[0].numPoints - 1],
-			paths[0].y[paths[0].numPoints - 1]);
 }
 
 void initializeObjects(void)
@@ -1574,118 +1543,25 @@ void initializeObjects(void)
 	objects[0].posX = paths[0].x[0];
 	objects[0].posY = paths[0].y[0];
 	objects[0].speed = 10;
+	// objects[0].speed = 1;
 
 	objects[1].pathIndex = 1;
 	objects[1].currentPoint = 0;
 	objects[1].posX = paths[1].x[0];
 	objects[1].posY = paths[1].y[0];
 	objects[1].speed = 10;
+	// objects[1].speed = 1;
 
 	objects[2].pathIndex = 2;
 	objects[2].currentPoint = 0;
 	objects[2].posX = paths[2].x[0];
 	objects[2].posY = paths[2].y[0];
 	objects[2].speed = 10;
+	// objects[2].speed = 1;
 }
 
 void update(void)
 {
-	// code
-	// B movement
-	if (xPositionForB < -3.95f)
-	{
-		xPositionForB = xPositionForB + INCREMENT_FACTOR;
-	}
-
-	// H Movements
-	if (xPositionForB > -3.95f)
-	{
-		blendFactorB = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForB = TRUE;
-		// H movement on X-axis
-		if (xPositionForH < -2.70f)
-		{
-			xPositionForH = xPositionForH + INCREMENT_FACTOR;
-		}
-
-		// H movement on Y-axis
-		if (yPositionForH > 0.0f)
-		{
-			yPositionForH = yPositionForH - INCREMENT_FACTOR;
-		}
-	}
-
-	// A movements
-	if (xPositionForH > -2.70f)
-	{
-		blendFactorH = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForH = TRUE;
-		// A movement on X-axis
-		if (xPositionForA < -1.45f)
-		{
-			xPositionForA = xPositionForA + INCREMENT_FACTOR;
-		}
-
-		// A movement on Y-axis
-		if (yPositionForA < 0.0f)
-		{
-			yPositionForA = yPositionForA + INCREMENT_FACTOR;
-		}
-	}
-
-	// R movements
-	if (xPositionForA > -1.45f)
-	{
-		blendFactorA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForA = TRUE;
-		// R movement on X-axis
-		if (xPositionForR > -0.20f)
-		{
-			xPositionForR = xPositionForR - INCREMENT_FACTOR;
-		}
-
-		// R movement on Y-axis
-		if (yPositionForR > 0.0f)
-		{
-			yPositionForR = yPositionForR - INCREMENT_FACTOR;
-		}
-	}
-
-	// Second A Movements
-	if (xPositionForR < -0.20f)
-	{
-		blendFactorR = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForR = TRUE;
-		// A movement on X-axis
-		if (xPositionForSecondA > 1.05f)
-		{
-			xPositionForSecondA = xPositionForSecondA - INCREMENT_FACTOR;
-		}
-
-		// A movement on Y-axis
-		if (yPositionForSecondA < 0.0f)
-		{
-			yPositionForSecondA = yPositionForSecondA + INCREMENT_FACTOR;
-		}
-	}
-
-	// T Movements
-	if (xPositionForSecondA < 1.05f)
-	{
-		blendFactorForSecondA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForSecondA = TRUE;
-		if (xPositionForT > 2.30f)
-		{
-			xPositionForT = xPositionForT - INCREMENT_FACTOR;
-		}
-	}
-
-	if (xPositionForT < 2.30f)
-	{
-		blendFactorT = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
-		isReachedAtEndForT = TRUE;
-	}
-
 	// Plane animation code
 	// Only update plane animation if not yet complete
 	if (planeAnimationStarted && animationComplete == 0)
@@ -1717,6 +1593,241 @@ void update(void)
 			animationComplete = 1;
 		}
 	}
+
+	// LETTERS ANIMATION
+	// B movement
+	if (xPositionForB < -3.95f)
+	{
+		xPositionForB = xPositionForB + INCREMENT_FACTOR;
+	}
+
+	if (objects[0].posX >= -1.8f)
+	{
+		blendFactorB = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForB = TRUE;
+	}
+
+	// H Movements
+	if (xPositionForB > -3.95f)
+	{
+		// H movement on X-axis
+		if (xPositionForH < -2.70f)
+		{
+			xPositionForH = xPositionForH + INCREMENT_FACTOR;
+		}
+
+		// H movement on Y-axis
+		if (yPositionForH > 0.0f)
+		{
+			yPositionForH = yPositionForH - INCREMENT_FACTOR;
+		}
+	}
+
+	if (objects[0].posX >= -0.8f)
+	{
+		blendFactorH = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForH = TRUE;
+	}
+
+	// A movements
+	if (xPositionForH > -2.70f)
+	{
+
+		// A movement on X-axis
+		if (xPositionForA < -1.45f)
+		{
+			xPositionForA = xPositionForA + INCREMENT_FACTOR;
+		}
+
+		// A movement on Y-axis
+		if (yPositionForA < 0.0f)
+		{
+			yPositionForA = yPositionForA + INCREMENT_FACTOR;
+		}
+	}
+
+	if (objects[0].posX >= 0.1f)
+	{
+		blendFactorA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForA = TRUE;
+	}
+
+	// R movements
+	if (xPositionForA > -1.45f)
+	{
+
+		// R movement on X-axis
+		if (xPositionForR > -0.20f)
+		{
+			xPositionForR = xPositionForR - INCREMENT_FACTOR;
+		}
+
+		// R movement on Y-axis
+		if (yPositionForR > 0.0f)
+		{
+			yPositionForR = yPositionForR - INCREMENT_FACTOR;
+		}
+	}
+
+	if (objects[0].posX >= 1.1f)
+	{
+		blendFactorR = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForR = TRUE;
+	}
+
+	// Second A Movements
+	if (xPositionForR < -0.20f)
+	{
+
+		// A movement on X-axis
+		if (xPositionForSecondA > 1.05f)
+		{
+			xPositionForSecondA = xPositionForSecondA - INCREMENT_FACTOR;
+		}
+
+		// A movement on Y-axis
+		if (yPositionForSecondA < 0.0f)
+		{
+			yPositionForSecondA = yPositionForSecondA + INCREMENT_FACTOR;
+		}
+	}
+
+	if (objects[0].posX >= 2.1f)
+	{
+		blendFactorForSecondA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		isReachedAtEndForSecondA = TRUE;
+	}
+
+	// T Movements
+	if (xPositionForSecondA < 1.05f)
+	{
+
+		if (xPositionForT > 2.30f)
+		{
+			xPositionForT = xPositionForT - INCREMENT_FACTOR;
+		}
+	}
+
+	if (objects[0].posX >= 3.0f)
+	{
+		isReachedAtEndForT = TRUE;
+		blendFactorT = 1.0f;
+	}
+
+	if ((xPositionForT < 2.30f) && !planeAnimationStarted)
+	{
+		planeAnimationStarted = 1; // Mark that planes should now animate
+		frameCounter = 0;		   // Reset frame counter for clean start
+	}
+}
+
+void renderFighterJet(float xPosition, float yPosition)
+{
+	glBegin(GL_QUADS);
+
+	glColor3f(0.35f, 0.38f, 0.42f);
+	glVertex2f(xPosition - 0.075f, yPosition + 0.12f);
+	glVertex2f(xPosition, yPosition + 0.12f);
+
+	glColor3f(0.28f, 0.30f, 0.34f);
+	glVertex2f(xPosition, yPosition + 0.07f);
+	glVertex2f(xPosition - 0.075f, yPosition + 0.07f);
+
+	glColor3f(0.35f, 0.38f, 0.42f);
+	glVertex2f(xPosition - 0.075f, yPosition - 0.06f);
+	glVertex2f(xPosition, yPosition - 0.06f);
+
+	glColor3f(0.28f, 0.30f, 0.34f);
+	glVertex2f(xPosition, yPosition - 0.11f);
+	glVertex2f(xPosition - 0.075f, yPosition - 0.11f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glColor3f(0.45f, 0.50f, 0.58f);
+	glVertex2f(xPosition - 0.03f, yPosition + 0.2f);
+	glVertex2f(xPosition, yPosition + 0.2f);
+
+	glColor3f(0.32f, 0.38f, 0.45f);
+	glVertex2f(xPosition, yPosition - 0.2f);
+	glVertex2f(xPosition - 0.03f, yPosition - 0.2f);
+
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+
+	glColor3f(0.38f, 0.42f, 0.48f);
+	glVertex2f(xPosition, yPosition + 0.2f);
+
+	glColor3f(0.25f, 0.28f, 0.32f);
+	glVertex2f(xPosition + 0.05f, yPosition);
+
+	glColor3f(0.38f, 0.42f, 0.48f);
+	glVertex2f(xPosition, yPosition - 0.2f);
+
+	glEnd();
+
+	glBegin(GL_POLYGON);
+
+	glColor3f(0.38f, 0.42f, 0.48f);
+	glVertex2f(xPosition, yPosition + 0.07f);
+	glVertex2f(xPosition + 0.20f, yPosition + 0.07f);
+
+	glColor3f(0.38f, 0.42f, 0.48f);
+	glVertex2f(xPosition + 0.25f, yPosition);
+	glVertex2f(xPosition + 0.25f, yPosition);
+
+	glColor3f(0.38f, 0.42f, 0.48f);
+	glVertex2f(xPosition + 0.20f, yPosition - 0.07f);
+	glVertex2f(xPosition, yPosition - 0.07f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glColor3f(0.40f, 0.44f, 0.50f);
+	glVertex2f(xPosition + 0.03f, yPosition + 0.3f);
+	glVertex2f(xPosition + 0.07f, yPosition + 0.3f);
+
+	glColor3f(0.32f, 0.36f, 0.42f);
+	glVertex2f(xPosition + 0.20f, yPosition + 0.07f);
+	glVertex2f(xPosition + 0.07f, yPosition + 0.07f);
+
+	glColor3f(0.40f, 0.44f, 0.50f);
+	glVertex2f(xPosition + 0.03f, yPosition - 0.3f);
+	glVertex2f(xPosition + 0.07f, yPosition - 0.3f);
+
+	glColor3f(0.32f, 0.36f, 0.42f);
+	glVertex2f(xPosition + 0.20f, yPosition - 0.07f);
+	glVertex2f(xPosition + 0.07f, yPosition - 0.07f);
+
+	glEnd();
+
+	glBegin(GL_QUADS);
+
+	glColor3f(0.30f, 0.32f, 0.36f);
+	glVertex2f(xPosition + 0.225f, yPosition + 0.03f);
+	glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
+
+	glColor3f(0.22f, 0.24f, 0.28f);
+	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
+	glVertex2f(xPosition + 0.225f, yPosition - 0.03f);
+
+	glEnd();
+
+	glBegin(GL_TRIANGLES);
+
+	glColor3f(0.28f, 0.30f, 0.34f);
+	glVertex2f(xPosition + 0.28f, yPosition + 0.03f);
+
+	glColor3f(0.18f, 0.20f, 0.24f);
+	glVertex2f(xPosition + 0.4f, yPosition);
+
+	glColor3f(0.28f, 0.30f, 0.34f);
+	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
+
+	glEnd();
 }
 
 void uninitialise(void)
