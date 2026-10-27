@@ -13,6 +13,7 @@
 // link with openGL import library
 #pragma comment(lib, "OPENGL32.lib")
 #pragma comment(lib, "GLU32.lib")
+#pragma comment(lib, "Winmm.lib")
 
 // macros
 #define WIN_WIDTH 800
@@ -59,7 +60,7 @@ MovingObject objects[3];
 int frameCounter = 0;
 
 // variables for letters - letter speed
-#define INCREMENT_FACTOR 0.0005f
+#define INCREMENT_FACTOR 0.0003f
 
 GLfloat xPositionForB = -8.0f;
 
@@ -75,7 +76,7 @@ GLfloat yPositionForR = 5.5f;
 GLfloat xPositionForSecondA = 7.0f;
 GLfloat yPositionForSecondA = -5.95f;
 
-GLfloat xPositionForT = 6.0f;
+GLfloat xPositionForT = 6.3f;
 
 BOOL isReachedAtEndForB = FALSE;
 BOOL isReachedAtEndForH = FALSE;
@@ -447,6 +448,8 @@ int initialise(void)
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
 
+	PlaySound(TEXT("Sainik-ho-tumchyasathi.wav"), NULL, SND_ASYNC); // play music
+
 	initializePaths();
 	initializeObjects();
 
@@ -490,7 +493,7 @@ void resize(int width, int height)
 void render(void)
 {
 	void staticBharat();
-	void renderFighterJet(float, float);
+	void renderFighterJet(float, float, int);
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
@@ -601,7 +604,7 @@ void render(void)
 
 			glRotatef(objects[i].rotationAngle, 0.0f, 0.0f, 1.0f);
 
-			renderFighterJet(0.0f, 0.0f);
+			renderFighterJet(0.0f, 0.0f, i);
 
 			glPopMatrix();
 		}
@@ -1453,7 +1456,7 @@ void initializePaths(void)
 	paths[0].numPoints = 0;
 
 	// Top-left arc
-	for (float i = 160; i <= 270; i = i + 0.05f)
+	for (float i = 150; i <= 270; i = i + 0.05f)
 	{
 		if (paths[0].numPoints >= MAX_POINTS - 1)
 			break;
@@ -1490,7 +1493,7 @@ void initializePaths(void)
 
 	// PATH 1: Center line
 	paths[1].numPoints = 0;
-	for (float i = -4.6f; i <= 4.6f; i = i + 0.001f)
+	for (float i = -4.8f; i <= 5.8f; i = i + 0.001f)
 	{
 		if (paths[1].numPoints >= MAX_POINTS - 1)
 			break;
@@ -1506,7 +1509,7 @@ void initializePaths(void)
 	// Bottom-left arc
 	centerX = -2.6f;
 	centerY = -2.475f;
-	for (float i = 200; i >= 90; i = i - 0.05f)
+	for (float i = 210; i >= 90; i = i - 0.05f)
 	{
 		if (paths[2].numPoints >= MAX_POINTS - 1)
 			break;
@@ -1733,8 +1736,40 @@ void update(void)
 	}
 }
 
-void renderFighterJet(float xPosition, float yPosition)
+void renderFighterJet(float xPosition, float yPosition, int planeNumber)
 {
+
+	if (planeNumber == 0)
+	{
+		glColor3f(1.000, 0.600, 0.200);
+	}
+	else if (planeNumber == 1)
+	{
+		glColor3f(1.0f, 1.0f, 1.0f);
+	}
+	else
+	{
+		glColor3f(0.0745f, 0.5333f, 0.0314f);
+	}
+
+	glBegin(GL_POLYGON);
+
+	glVertex2f(xPosition - 0.075f, yPosition + 0.12f);
+	glVertex2f(xPosition - 0.1f, yPosition + 0.15f);
+	glVertex2f(xPosition - 0.1f, yPosition + 0.04f);
+	glVertex2f(xPosition - 0.075f, yPosition + 0.07f);
+
+	glEnd();
+
+	glBegin(GL_POLYGON);
+
+	glVertex2f(xPosition - 0.075f, yPosition - 0.06f);
+	glVertex2f(xPosition - 0.1f, yPosition - 0.03f);
+	glVertex2f(xPosition - 0.1f, yPosition - 0.14f);
+	glVertex2f(xPosition - 0.075f, yPosition - 0.11f);
+
+	glEnd();
+
 	glBegin(GL_QUADS);
 
 	glColor3f(0.35f, 0.38f, 0.42f);
@@ -1838,6 +1873,120 @@ void renderFighterJet(float xPosition, float yPosition)
 
 	glColor3f(0.28f, 0.30f, 0.34f);
 	glVertex2f(xPosition + 0.28f, yPosition - 0.03f);
+
+	glEnd();
+
+	// outer circles top
+	GLfloat centerX = 0.11f;
+	GLfloat centerY = 0.13f;
+	GLfloat radius = 0.035f;
+
+	glColor3f(1.000f, 0.600f, 0.200f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glVertex3f(x, y, 0.0f);
+	}
+
+	glEnd();
+
+	radius = 0.025f;
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glVertex3f(x, y, 0.0f);
+	}
+
+	glEnd();
+
+	radius = 0.015f;
+
+	glColor3f(0.0745f, 0.5333f, 0.0314f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glVertex3f(x, y, 0.0f);
+	}
+
+	glEnd();
+
+	// outer circles bottom
+	centerX = 0.11f;
+	centerY = -0.13f;
+	radius = 0.035f;
+
+	glColor3f(1.000f, 0.600f, 0.200f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glVertex3f(x, y, 0.0f);
+	}
+
+	glEnd();
+
+	radius = 0.025f;
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glVertex3f(x, y, 0.0f);
+	}
+
+	glEnd();
+
+	radius = 0.015f;
+
+	glColor3f(0.0745f, 0.5333f, 0.0314f);
+
+	glBegin(GL_TRIANGLE_FAN);
+
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glVertex3f(x, y, 0.0f);
+	}
 
 	glEnd();
 }
