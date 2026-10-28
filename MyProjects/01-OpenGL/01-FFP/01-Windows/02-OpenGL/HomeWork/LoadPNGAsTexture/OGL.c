@@ -327,7 +327,7 @@ int initialise(void)
 	void resize(int, int);
 	void printGLInfo(void);
 
-	BOOL loadGLTexture(GLuint *, TCHAR[]);
+	BOOL loadGLTexturePNGFile(GLuint *, TCHAR[]);
 
 	// variable declarations
 	PIXELFORMATDESCRIPTOR SR_pfd;
@@ -562,7 +562,6 @@ void render(void)
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
-	// pyramid
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 

@@ -596,7 +596,7 @@ void render(void)
 	for (int i = 0; i < 3; i++)
 	{
 		renderFighterJet(objects[i].posX, objects[i].posY);
-		fprintf(SR_gpFile, "x = %f\n", objects[1].posX);
+		// fprintf(SR_gpFile, "x = %f\n", objects[1].posX);
 	}
 
 	// do double buffering

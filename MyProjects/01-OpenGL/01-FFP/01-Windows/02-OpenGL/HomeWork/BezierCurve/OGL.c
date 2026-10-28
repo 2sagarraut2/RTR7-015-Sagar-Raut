@@ -431,73 +431,33 @@ void render(void)
 	// gluLookAt(0.0, 0.0, 0.0, -20.0f, 0.0f, 20.0f, 0.0f, 1.0f, 0.0f);
 
 	// variable declarations
-	GLfloat x_left[4], y_left[4];	// Explicit array for the left downward curve
-	GLfloat x_right[4], y_right[4]; // Explicit array for the right upward curve
-	GLfloat t;
-	int i = 0;
-	GLfloat xt[300], yt[300]; // Storage array for tracking coordinates
+	GLfloat x[6], y[5], t;
+	int i;
+	GLfloat xt[200], yt[200];
 
-	// --- SEGMENT 1 CONTROL POINTS (Left Curve: X from -2.0 to -1.0) ---
-	x_left[0] = -2.0f; // Start top-left
-	x_left[1] = -1.5f; // Control point pulling right
-	x_left[2] = -1.5f; // Control point flattening out
-	x_left[3] = -1.0f; // End flat section
+	x[0] = -1.0;
+	x[1] = -0.9;
+	x[2] = 0.9;
+	x[3] = 1.0;
 
-	y_left[0] = 1.0f; // Top altitude
-	y_left[1] = 1.0f; // Stay high initially to create an easy slope entry
-	y_left[2] = 0.0f; // Lower altitude floor
-	y_left[3] = 0.0f; // Flatten smoothly on the floor
+	y[0] = 1.0f;
+	y[1] = 0.05f;
+	y[2] = 0.05;
+	y[3] = 1.0f;
 
-	// --- SEGMENT 3 CONTROL POINTS (Right Curve: X from 1.0 to 2.0) ---
-	x_right[0] = 1.0f; // Start flat section
-	x_right[1] = 1.5f; // Control point staying flat initially
-	x_right[2] = 1.5f; // Control point pulling up
-	x_right[3] = 2.0f; // End top-right
-
-	y_right[0] = 0.0f; // Lower altitude floor
-	y_right[1] = 0.0f; // Stay flat initially
-	y_right[2] = 1.0f; // Climb up towards top altitude
-	y_right[3] = 1.0f; // Stabilise cleanly at top-right
-
-	// =================================================================
-	// PHASE 1: Generate Left Downward Bezier Curve Points (50 points)
-	// =================================================================
-	for (t = 0.0f; t <= 1.0f; t += 0.02f)
+	for (i = 0, t = 0.0001; t <= 1; i++, t = t + 0.02f)
 	{
-		xt[i] = pow(1 - t, 3) * x_left[0] + 3 * t * pow(1 - t, 2) * x_left[1] + 3 * pow(t, 2) * (1 - t) * x_left[2] + pow(t, 3) * x_left[3];
-		yt[i] = pow(1 - t, 3) * y_left[0] + 3 * t * pow(1 - t, 2) * y_left[1] + 3 * pow(t, 2) * (1 - t) * y_left[2] + pow(t, 3) * y_left[3];
-		i++;
+		xt[i] = pow(1 - t, 3) * x[0] + 3 * t * pow(1 - t, 2) * x[1] + 3 * pow(t, 2) * (1 - t) * x[2] + pow(t, 3) * x[3];
+		yt[i] = pow(1 - t, 3) * y[0] + 3 * t * pow(1 - t, 2) * y[1] + 3 * pow(t, 2) * (1 - t) * y[2] + pow(t, 3) * y[3];
 	}
 
-	// =================================================================
-	// PHASE 2: Generate Middle Straight Flat Line Points (100 points)
-	// =================================================================
-	// Travels from X = -1.0 to X = 1.0 continuously while staying flat at Y = 0.0
-	for (t = 0.0f; t <= 1.0f; t += 0.01f)
-	{
-		xt[i] = -1.0f + (t * 2.0f); // Linearly interpolate X from -1.0 to 1.0
-		yt[i] = 0.0f;				// Keep Y perfectly flat at 0.0
-		i++;
-	}
-
-	// =================================================================
-	// PHASE 3: Generate Right Upward Bezier Curve Points (50 points)
-	// =================================================================
-	for (t = 0.0f; t <= 1.0f; t += 0.02f)
-	{
-		xt[i] = pow(1 - t, 3) * x_right[0] + 3 * t * pow(1 - t, 2) * x_right[1] + 3 * pow(t, 2) * (1 - t) * x_right[2] + pow(t, 3) * x_right[3];
-		yt[i] = pow(1 - t, 3) * y_right[0] + 3 * t * pow(1 - t, 2) * y_right[1] + 3 * pow(t, 2) * (1 - t) * y_right[2] + pow(t, 3) * y_right[3];
-		i++;
-	}
-
-	// =================================================================
-	// RENDER PIPELINE: Draw all calculated points
-	// =================================================================
 	glBegin(GL_POINTS);
-	for (int j = 0; j < i; j++)
+
+	for (int i = 0; i < 200; i++)
 	{
-		glVertex3f(xt[j], yt[j], 0.0f);
+		glVertex3f(xt[i], yt[i], 0.0f);
 	}
+
 	glEnd();
 
 	// do double buffering
