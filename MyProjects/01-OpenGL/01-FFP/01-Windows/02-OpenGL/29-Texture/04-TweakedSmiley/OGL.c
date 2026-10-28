@@ -425,7 +425,7 @@ int initialise(void)
 	}
 
 	// enable texturing
-	glEnable(GL_TEXTURE_2D);
+	// glEnable(GL_TEXTURE_2D);
 
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
