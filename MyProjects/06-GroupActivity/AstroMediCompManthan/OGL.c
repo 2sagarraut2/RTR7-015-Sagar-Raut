@@ -49,6 +49,8 @@ GLfloat anglePyramid = 0.0f;
 GLfloat lengthOnLeftTriangle = 0.0f;
 GLfloat lengthOnRightTriangle = 0.0f;
 
+#include "fontfile.h"
+
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
 {
@@ -428,6 +430,8 @@ int initialise(void)
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	BuildFont(SR_ghdc, -80);
+
 	// warmup resize
 	resize(WIN_WIDTH, WIN_HEIGHT);
 
@@ -569,8 +573,10 @@ void render(void)
 	// mountain code
 	renderMountain();
 
-	// rope code
+	// // rope code
 	renderRopes();
+
+	// RenderText("ASTROMEDICOMP", 0.2f, 0.0f);
 
 	// do double buffering
 	SwapBuffers(SR_ghdc);

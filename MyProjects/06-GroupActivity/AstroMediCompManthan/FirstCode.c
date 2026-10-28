@@ -39,10 +39,6 @@ float hb_h = 0.1f;
 float hb_w = 0.1f;
 float hb_percent = 100.0f;
 
-#define hb_percent_value(complete_value, hb_percent) ((complete_value) * (hb_percent) / 100.0f)
-
-#include "mountain.cpp"
-
 // GLfloat centerX = 0.0f;
 // GLfloat centerY = 0.0f;
 // GLfloat radius = 0.2f;
