@@ -36,6 +36,7 @@ BOOL SR_bEscapeKeyIsPressed = FALSE; // check if escape key is pressed
 
 static GLint animationComplete = 0;
 int planeAnimationStarted = 0;
+BOOL renderFinalQuad = FALSE;
 #define MAX_POINTS 9500
 
 typedef struct
@@ -91,6 +92,7 @@ GLfloat blendFactorA = 0.0f;
 GLfloat blendFactorR = 0.0f;
 GLfloat blendFactorForSecondA = 0.0f;
 GLfloat blendFactorT = 0.0f;
+GLfloat blendFactorForFlag = 0.0f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -621,37 +623,46 @@ void staticBharat()
 	void letterA(GLfloat, BOOL);
 	void letterR();
 	void letterT();
+	void renderFlagAtLast();
 
-	glTranslatef(0.30f, 0.0f, 0.0f);
-	glPushMatrix();
-	glTranslatef(xPositionForB, 0.0f, 0.0f);
-	letterB();
-	glPopMatrix();
+	if (renderFinalQuad)
+	{
+		renderFlagAtLast();
+	}
+	else
+	{
 
-	glPushMatrix();
-	glTranslatef(xPositionForH, yPositionForH, 0.0f);
-	letterH();
-	glPopMatrix();
+		glTranslatef(0.30f, 0.0f, 0.0f);
+		glPushMatrix();
+		glTranslatef(xPositionForB, 0.0f, 0.0f);
+		letterB();
+		glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(xPositionForA, yPositionForA, 0.0f);
-	letterA(blendFactorA, isReachedAtEndForA);
-	glPopMatrix();
+		glPushMatrix();
+		glTranslatef(xPositionForH, yPositionForH, 0.0f);
+		letterH();
+		glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(xPositionForR, yPositionForR, 0.0f);
-	letterR();
-	glPopMatrix();
+		glPushMatrix();
+		glTranslatef(xPositionForA, yPositionForA, 0.0f);
+		letterA(blendFactorA, isReachedAtEndForA);
+		glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(xPositionForSecondA, yPositionForSecondA, 0.0f);
-	letterA(blendFactorForSecondA, isReachedAtEndForSecondA);
-	glPopMatrix();
+		glPushMatrix();
+		glTranslatef(xPositionForR, yPositionForR, 0.0f);
+		letterR();
+		glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(xPositionForT, 0.0f, 0.0f);
-	letterT();
-	glPopMatrix();
+		glPushMatrix();
+		glTranslatef(xPositionForSecondA, yPositionForSecondA, 0.0f);
+		letterA(blendFactorForSecondA, isReachedAtEndForSecondA);
+		glPopMatrix();
+
+		glPushMatrix();
+		glTranslatef(xPositionForT, 0.0f, 0.0f);
+		letterT();
+		glPopMatrix();
+	}
 }
 
 void letterB()
@@ -1446,6 +1457,73 @@ void letterT()
 	glEnd();
 }
 
+void renderFlagAtLast()
+{
+	void drawAshokChakra(GLfloat centerX, GLfloat centerY, GLfloat radius);
+
+	// top horizontal line
+	glBegin(GL_QUADS);
+
+	glColor4f(1.000, 0.600, 0.200, blendFactorForFlag);
+
+	glVertex3f(4.0f, 1.5f, 0.1f);
+	glVertex3f(-4.0f, 1.5f, 0.1f);
+	glVertex3f(-4.0f, 0.5f, 0.1f);
+	glVertex3f(4.0f, 0.5f, 0.1f);
+
+	glColor4f(1.0f, 1.0f, 1.0f, blendFactorForFlag);
+
+	glVertex3f(4.0f, 0.5f, 0.1f);
+	glVertex3f(-4.0f, 0.5f, 0.1f);
+	glVertex3f(-4.0f, -0.5f, 0.1f);
+	glVertex3f(4.0f, -0.5f, 0.1f);
+
+	glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorForFlag);
+
+	glVertex3f(-4.0f, -0.5f, 0.1f);
+	glVertex3f(4.0f, -0.5f, 0.1f);
+	glVertex3f(4.0f, -1.5f, 0.1f);
+	glVertex3f(-4.0f, -1.5f, 0.1f);
+
+	glEnd();
+
+	GLfloat centerX = 0.0f;
+	GLfloat centerY = 0.0f;
+	GLfloat radius = 0.4f;
+
+	drawAshokChakra(0.0f, 0.0f, 0.4f);
+}
+
+void drawAshokChakra(GLfloat centerX, GLfloat centerY, GLfloat radius)
+{
+
+	glColor4f(0.0f, 0.0f, 0.5f, blendFactorForFlag);
+
+	glLineWidth(2.0f);
+	glBegin(GL_LINE_LOOP);
+	for (int i = 0; i < 360; i++)
+	{
+		GLfloat angle = i * 3.14159f / 180.0f;
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+		glVertex3f(x, y, 0.1f);
+	}
+	glEnd();
+
+	for (int i = 0; i < 24; i++)
+	{
+		GLfloat angle = (i * 15.0f) * 3.14159f / 180.0f;
+
+		GLfloat x = centerX + cos(angle) * radius;
+		GLfloat y = centerY + sin(angle) * radius;
+
+		glBegin(GL_LINES);
+		glVertex3f(centerX, centerY, 0.1f);
+		glVertex3f(x, y, 0.1f);
+		glEnd();
+	}
+}
+
 void initializePaths(void)
 {
 	GLfloat centerX = -2.6f;
@@ -1733,6 +1811,17 @@ void update(void)
 	{
 		planeAnimationStarted = 1; // Mark that planes should now animate
 		frameCounter = 0;		   // Reset frame counter for clean start
+	}
+
+	if (objects[0].posX >= 4.399f)
+	{
+		blendFactorA = 0.0f;
+		blendFactorB = 0.0f;
+		blendFactorForSecondA = 0.0f;
+		blendFactorH = 0.0f;
+		blendFactorR = 0.0f;
+		blendFactorT = 0.0f;
+		renderFinalQuad = TRUE;
 	}
 }
 
