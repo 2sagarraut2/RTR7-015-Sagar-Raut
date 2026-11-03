@@ -93,6 +93,7 @@ GLfloat blendFactorR = 0.0f;
 GLfloat blendFactorForSecondA = 0.0f;
 GLfloat blendFactorT = 0.0f;
 GLfloat blendFactorForFlag = 0.0f;
+GLfloat chakraRotatingAngle = 0.0f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -1496,7 +1497,7 @@ void renderFlagAtLast()
 
 void drawAshokChakra(GLfloat centerX, GLfloat centerY, GLfloat radius)
 {
-
+	glRotatef(chakraRotatingAngle, 0.0f, 0.0f, 1.0f);
 	glColor4f(0.0f, 0.0f, 0.5f, blendFactorForFlag);
 
 	glLineWidth(2.0f);
@@ -1822,6 +1823,12 @@ void update(void)
 		blendFactorR = 0.0f;
 		blendFactorT = 0.0f;
 		renderFinalQuad = TRUE;
+	}
+
+	chakraRotatingAngle = chakraRotatingAngle + 0.05f;
+	if (chakraRotatingAngle >= 360.0f)
+	{
+		chakraRotatingAngle = 0.0f;
 	}
 }
 
