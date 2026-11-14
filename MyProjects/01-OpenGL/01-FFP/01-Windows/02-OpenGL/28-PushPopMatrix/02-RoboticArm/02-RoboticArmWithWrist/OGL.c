@@ -456,7 +456,6 @@ void render(void)
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
 			GL_DEPTH_BUFFER_BIT); // clear depth buffer using previous value specified for depth buffer
 
-	// pyramid
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
@@ -499,15 +498,15 @@ void render(void)
 	glPopMatrix();
 
 	// WRIST
-	glTranslatef(0.6f, 0.0f, 0.0f);
+	glTranslatef(0.9f, 0.0f, 0.0f);
 
 	glRotatef((GLfloat)wrist, 0.0f, 0.0f, 1.0f);
 
-	glTranslatef(0.5f, 0.0f, 0.0f);
+	glTranslatef(0.4f, 0.0f, 0.0f);
 
 	glPushMatrix();
 
-	glScalef(0.6f, 0.5f, 1.0f);
+	glScalef(0.8f, 0.5f, 1.0f);
 
 	glColor3f(0.5f, 0.35f, 0.05f);
 
