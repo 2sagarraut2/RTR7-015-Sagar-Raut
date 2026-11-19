@@ -86,14 +86,16 @@ BOOL isReachedAtEndForR = FALSE;
 BOOL isReachedAtEndForSecondA = FALSE;
 BOOL isReachedAtEndForT = FALSE;
 
-GLfloat blendFactorB = 0.0f;
-GLfloat blendFactorH = 0.0f;
-GLfloat blendFactorA = 0.0f;
-GLfloat blendFactorR = 0.0f;
-GLfloat blendFactorForSecondA = 0.0f;
-GLfloat blendFactorT = 0.0f;
+GLfloat blendFactorB = 0.2f;
+GLfloat blendFactorH = 0.2f;
+GLfloat blendFactorA = 0.2f;
+GLfloat blendFactorR = 0.2f;
+GLfloat blendFactorForSecondA = 0.2f;
+GLfloat blendFactorT = 0.2f;
 GLfloat blendFactorForFlag = 0.0f;
 GLfloat chakraRotatingAngle = 0.0f;
+
+GLint flagZValue = 0.6f;
 
 // Entery point function
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int iCmdShow)
@@ -447,6 +449,9 @@ int initialise(void)
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, // remove all the artifacts like distortion
 		   GL_NICEST);					   // do it nicest
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	// choose screen clearing color as blue
 	// red green blue alpha
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // here we selected color to clear screen color
@@ -497,6 +502,7 @@ void render(void)
 {
 	void staticBharat();
 	void renderFighterJet(float, float, int);
+	void renderFlagAtLast();
 
 	// code
 	glClear(GL_COLOR_BUFFER_BIT | // here we clear screen for which blue color was previously selected
@@ -1007,7 +1013,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactorA);
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
 	}
 	else
 	{
@@ -1026,7 +1032,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactorA);
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
 	}
 	else
 	{
@@ -1038,7 +1044,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
 	}
 	else
 	{
@@ -1055,7 +1061,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.000, 0.600, 0.200, blendFactorA);
+		glColor4f(1.000, 0.600, 0.200, blendFactor);
 	}
 	else
 	{
@@ -1067,7 +1073,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
 	}
 	else
 	{
@@ -1084,7 +1090,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
 	}
 	else
 	{
@@ -1106,7 +1112,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorA);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
 	}
 	else
 	{
@@ -1123,7 +1129,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorA);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
 	}
 	else
 	{
@@ -1135,7 +1141,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(1.0f, 1.0f, 1.0f, blendFactorA);
+		glColor4f(1.0f, 1.0f, 1.0f, blendFactor);
 	}
 	else
 	{
@@ -1152,7 +1158,7 @@ void letterA(GLfloat blendFactor, BOOL isReachedAtEnd)
 
 	if (isReachedAtEnd)
 	{
-		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorA);
+		glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactor);
 	}
 	else
 	{
@@ -1467,24 +1473,24 @@ void renderFlagAtLast()
 
 	glColor4f(1.000, 0.600, 0.200, blendFactorForFlag);
 
-	glVertex3f(4.0f, 1.5f, 0.1f);
-	glVertex3f(-4.0f, 1.5f, 0.1f);
-	glVertex3f(-4.0f, 0.5f, 0.1f);
-	glVertex3f(4.0f, 0.5f, 0.1f);
+	glVertex3f(6.5f, 3.5f, flagZValue);
+	glVertex3f(-6.5f, 3.5f, flagZValue);
+	glVertex3f(-6.5f, 1.1f, flagZValue);
+	glVertex3f(6.5f, 1.1f, flagZValue);
 
 	glColor4f(1.0f, 1.0f, 1.0f, blendFactorForFlag);
 
-	glVertex3f(4.0f, 0.5f, 0.1f);
-	glVertex3f(-4.0f, 0.5f, 0.1f);
-	glVertex3f(-4.0f, -0.5f, 0.1f);
-	glVertex3f(4.0f, -0.5f, 0.1f);
+	glVertex3f(6.5f, 1.1f, flagZValue);
+	glVertex3f(-6.5f, 1.1f, flagZValue);
+	glVertex3f(-6.5f, -1.1f, flagZValue);
+	glVertex3f(6.5f, -1.1f, flagZValue);
 
 	glColor4f(0.0745f, 0.5333f, 0.0314f, blendFactorForFlag);
 
-	glVertex3f(-4.0f, -0.5f, 0.1f);
-	glVertex3f(4.0f, -0.5f, 0.1f);
-	glVertex3f(4.0f, -1.5f, 0.1f);
-	glVertex3f(-4.0f, -1.5f, 0.1f);
+	glVertex3f(-6.5f, -1.1f, flagZValue);
+	glVertex3f(6.5f, -1.1f, flagZValue);
+	glVertex3f(6.5f, -3.5f, flagZValue);
+	glVertex3f(-6.5f, -3.5f, flagZValue);
 
 	glEnd();
 
@@ -1492,7 +1498,7 @@ void renderFlagAtLast()
 	GLfloat centerY = 0.0f;
 	GLfloat radius = 0.4f;
 
-	drawAshokChakra(0.0f, 0.0f, 0.4f);
+	drawAshokChakra(0.0f, 0.0f, 0.8f);
 }
 
 void drawAshokChakra(GLfloat centerX, GLfloat centerY, GLfloat radius)
@@ -1507,7 +1513,7 @@ void drawAshokChakra(GLfloat centerX, GLfloat centerY, GLfloat radius)
 		GLfloat angle = i * 3.14159f / 180.0f;
 		GLfloat x = centerX + cos(angle) * radius;
 		GLfloat y = centerY + sin(angle) * radius;
-		glVertex3f(x, y, 0.1f);
+		glVertex3f(x, y, flagZValue);
 	}
 	glEnd();
 
@@ -1519,8 +1525,8 @@ void drawAshokChakra(GLfloat centerX, GLfloat centerY, GLfloat radius)
 		GLfloat y = centerY + sin(angle) * radius;
 
 		glBegin(GL_LINES);
-		glVertex3f(centerX, centerY, 0.1f);
-		glVertex3f(x, y, 0.1f);
+		glVertex3f(centerX, centerY, flagZValue);
+		glVertex3f(x, y, flagZValue);
 		glEnd();
 	}
 }
@@ -1697,7 +1703,11 @@ void update(void)
 
 	if (objects[0].posX >= -1.8f)
 	{
-		blendFactorB = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		// blendFactorB = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		if (blendFactorB < 1.0f)
+		{
+			blendFactorB = blendFactorB + 0.0002f;
+		}
 		isReachedAtEndForB = TRUE;
 	}
 
@@ -1719,7 +1729,11 @@ void update(void)
 
 	if (objects[0].posX >= -0.8f)
 	{
-		blendFactorH = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		// blendFactorH = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		if (blendFactorH < 1.0f)
+		{
+			blendFactorH = blendFactorH + 0.0002f;
+		}
 		isReachedAtEndForH = TRUE;
 	}
 
@@ -1742,7 +1756,11 @@ void update(void)
 
 	if (objects[0].posX >= 0.1f)
 	{
-		blendFactorA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		// blendFactorA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		if (blendFactorA < 1.0f)
+		{
+			blendFactorA = blendFactorA + 0.0002f;
+		}
 		isReachedAtEndForA = TRUE;
 	}
 
@@ -1765,7 +1783,11 @@ void update(void)
 
 	if (objects[0].posX >= 1.1f)
 	{
-		blendFactorR = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		// blendFactorR = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		if (blendFactorR < 1.0f)
+		{
+			blendFactorR = blendFactorR + 0.0002f;
+		}
 		isReachedAtEndForR = TRUE;
 	}
 
@@ -1788,7 +1810,11 @@ void update(void)
 
 	if (objects[0].posX >= 2.1f)
 	{
-		blendFactorForSecondA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		// blendFactorForSecondA = 1.0f; // this should blend slowly and only when plane is reached at end of the letter
+		if (blendFactorForSecondA < 1.0f)
+		{
+			blendFactorForSecondA = blendFactorForSecondA + 0.0002f;
+		}
 		isReachedAtEndForSecondA = TRUE;
 	}
 
@@ -1805,7 +1831,11 @@ void update(void)
 	if (objects[0].posX >= 3.0f)
 	{
 		isReachedAtEndForT = TRUE;
-		blendFactorT = 1.0f;
+		// blendFactorT = 1.0f;
+		if (blendFactorT < 1.0f)
+		{
+			blendFactorT = blendFactorT + 0.0002f;
+		}
 	}
 
 	if ((xPositionForT < 2.30f) && !planeAnimationStarted)
@@ -1823,6 +1853,14 @@ void update(void)
 		blendFactorR = 0.0f;
 		blendFactorT = 0.0f;
 		renderFinalQuad = TRUE;
+	}
+
+	if (renderFinalQuad == TRUE)
+	{
+		if (blendFactorForFlag < 1.0f)
+		{
+			blendFactorForFlag = blendFactorForFlag + 0.0002f;
+		}
 	}
 
 	chakraRotatingAngle = chakraRotatingAngle + 0.05f;
