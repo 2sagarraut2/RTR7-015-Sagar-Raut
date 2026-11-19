@@ -3,6 +3,7 @@ rtr_scene
 *.obj
 my_app
 desktop.ini
+a.out
 
 *.obj
 *.exe
